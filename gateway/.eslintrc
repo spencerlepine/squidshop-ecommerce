@@ -3,6 +3,6 @@
     "no-undef": "off"
   },
   "extends": [
-    "@spencerlepine/eslint-config-react"
+    "@spencerlepine/eslint-config-node"
   ]
 }

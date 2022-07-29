@@ -7,7 +7,7 @@
     "start": "node index.js",
     "dev": "nodemon index.js",
     "test": "NODE_ENV=test && jest --forceExit --detectOpenHandles",
-    "lint": "eslint --fix --ext .js,.jsx ."
+    "lint": "eslint --fix --ext .js ."
   },
   "dependencies": {
     "body-parser": "^1.20.0",
@@ -20,8 +20,8 @@
     "supertest": "^6.2.4"
   },
   "devDependencies": {
-    "@spencerlepine/eslint-config-react": "^1.0.0",
-    "@spencerlepine/prettier-config": "^1.0.0",
+    "@spencerlepine/eslint-config-node": "^2.0.0",
+    "@spencerlepine/prettier-config": "^2.0.0",
     "eslint": "^8.20.0",
     "prettier": "^2.7.1"
   }
