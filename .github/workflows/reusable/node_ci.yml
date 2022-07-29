@@ -1,0 +1,72 @@
+name: Node CI
+
+on:
+  workflow_call:
+    inputs:
+      working_directory:
+        required: true
+        type: string
+  workflow_dispatch:
+
+jobs:
+
+  test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        node: ['16'] # '12', '14'
+        os: [ubuntu-latest]
+    defaults:
+      run:
+        working-directory: ${{ github.event.inputs.working_directory }}
+
+    name: "🧪 Test"
+    steps:
+      - name: "☁️ Check out Git Repository"
+        uses: actions/checkout@v2
+
+      - name: "🔧 Set up Node"
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node }}
+
+      - name: "⚙️ Get Yarn Cache Directory Path"
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+
+      - name: "⚡️ Cache Dependencies"
+        uses: actions/cache@v1
+        id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+
+      - name: "📦 Install Dependencies"
+        # if: steps.yarn-cache.outputs.cache-hit != 'true' # Over here!
+        run: yarn
+
+      - name: "✅ Test"
+        run: yarn run test
+
+  docker_build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        node: ['16'] # '16' '12', '14'
+        os: ['ubuntu-latest']
+    defaults:
+      run:
+        working-directory: ${{ github.event.inputs.working_directory }}
+
+    name: "🐳 Docker Build"
+    steps:
+      - name: "☁️ Check out Git Repository"
+        uses: actions/checkout@v2
+
+      - name: "🏗️ Build"
+        run: |
+          docker-compose build
