@@ -1,17 +1,16 @@
 const express = require('express')
-const bodyParser = require('body-parser')
+const cors = require('cors')
+const proxy = require('express-http-proxy')
 const config = require('./config')
 
 const app = express()
 
-const jsonParser = bodyParser.json()
-app.use(jsonParser)
+app.use(cors())
+app.use(express.json())
 
-app.get('/hello', (req, res) => {
-  res.status(200).json({
-    message: "Hello World!"
-  })
-})
+app.use('/customer', proxy(config.CUSTOMER_API_URL))
+app.use('/shopping', proxy(config.SHOPPING_API_URL))
+app.use('/products', proxy(config.PRODUCTS_API_URL))
 
 const PORT = config.PORT
 
