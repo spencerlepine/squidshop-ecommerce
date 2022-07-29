@@ -1,0 +1,8 @@
+{
+  "rules": {
+    "no-undef": "off"
+  },
+  "extends": [
+    "@spencerlepine/eslint-config-react"
+  ]
+}
