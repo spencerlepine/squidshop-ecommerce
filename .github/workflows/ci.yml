@@ -1,12 +1,9 @@
 name: CI
 
 on:
-  pull_request:
-    branches:
-      - 'main'
   push:
     branches:
-      - '*'  # - '!main'
+      - '*'
 
 jobs:
 
@@ -14,4 +11,4 @@ jobs:
     name: 🧪 Gateway Service CI
     uses: ./.github/workflows/node_ci.yml
     with:
-      working_directory: ./gateway
+      working_directory: './gateway'
