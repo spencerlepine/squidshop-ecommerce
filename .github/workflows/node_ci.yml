@@ -19,7 +19,7 @@ jobs:
         os: [ubuntu-latest]
     defaults:
       run:
-        working-directory: ${{ github.event.input.working_directory }}
+        working-directory: ${{ inputs.working_directory }}
 
     name: "🧪 Test"
     steps:
@@ -60,7 +60,7 @@ jobs:
         os: ['ubuntu-latest']
     defaults:
       run:
-        working-directory: ${{ github.event.input.working_directory }}
+        working-directory: ${{ inputs.working_directory }}
 
     name: "🐳 Docker Build"
     steps:
