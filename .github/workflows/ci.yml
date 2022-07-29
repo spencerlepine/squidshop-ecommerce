@@ -12,6 +12,6 @@ jobs:
 
   gateway_ci:
     name: 🧪 Gateway Service CI
-    uses: ./.github/workflows/reusable/node_ci.yml
+    uses: ./.github/workflows/node_ci.yml
     with:
       working_directory: ./gateway
