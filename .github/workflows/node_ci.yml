@@ -74,6 +74,11 @@ jobs:
           recreate: true
           path: code-coverage-results.md
 
+      - name: Job Summary Output
+        run: |
+          echo '### Test Coverage :tada:' >> $GITHUB_STEP_SUMMARY
+          code-coverage-results.md >> $GITHUB_STEP_SUMMARY
+
   lint:
     runs-on: ${{ matrix.os }}
     strategy:
