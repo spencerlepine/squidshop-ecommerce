@@ -39,7 +39,7 @@ const ProductModel = models.loadSchema('Product', {
 });
 
 // MyModel or models.instance.Person can now be used as the model instance
-// console.log(models.instance.Product === ProductModel);
+// nsole.log(models.instance.Product === ProductModel);
 
 // sync the schema definition with the cassandra database table
 // if the schema has not changed, the callback will fire immediately
