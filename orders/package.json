@@ -1,0 +1,36 @@
+{
+  "name": "test",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "test": "npm run db:migrate && NODE_ENV=test jest --forceExit --detectOpenHandles",
+    "lint": "eslint --fix --ext .js .",
+    "db:migrate": "sequelize db:migrate",
+    "db:seed:all": "sequelize db:seed:all",
+    "db:sync": "npm run db:migrate && npm run db:seed:all",
+    "dontusepostinstall": "npm run db:migrate"
+  },
+  "dependencies": {
+    "body-parser": "^1.20.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "express-http-proxy": "^1.6.3",
+    "jest": "^28.1.2",
+    "nodemon": "^2.0.19",
+    "pg": "^8.7.3",
+    "sequelize": "^6.21.3",
+    "sequelize-cli": "^6.4.1",
+    "sqlite3": "^5.0.10",
+    "supertest": "^6.2.4"
+  },
+  "devDependencies": {
+    "@spencerlepine/eslint-config-node": "^2.0.0",
+    "@spencerlepine/prettier-config": "^2.0.0",
+    "eslint": "^8.20.0",
+    "prettier": "^2.7.1"
+  }
+}

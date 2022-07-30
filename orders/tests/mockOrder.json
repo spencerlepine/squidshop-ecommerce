@@ -1,0 +1,11 @@
+{
+  "productName": "Scooby Snacks",
+  "purchasePrice": 99.99,
+  "productId": "7e69e7f3-d6c7-44d0-9ba0-4b5eec36699e",
+  "productImage": "https://media.istockphoto.com/vectors/thumbnail-image-vector-graphic-vector-id1147544807?k=20&m=1147544807&s=612x612&w=0&h=pBhz1dkwsCMq37Udtp9sfxbjaMl27JUapoyYpQm0anc=",
+  "description": "Lorem Ipsum",
+  "shipAddress": "432 Park Avenue Condominiums, New York City, NY, 10001",
+  "purchaseDate": "1659195713719",
+  "price": 429.50,
+  "userId": 125308123450
+}
