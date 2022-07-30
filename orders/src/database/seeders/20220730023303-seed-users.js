@@ -22,6 +22,7 @@ module.exports = {
       userId: 125308123450,
       createdAt: new Date().toDateString(),
       updatedAt: new Date().toDateString(),
+      status: 'ordered',
     }, {
       productName: 'Octopus Goggles',
       purchasePrice: 12.20,
@@ -32,6 +33,7 @@ module.exports = {
       userId: 125308123450,
       createdAt: new Date().toDateString(),
       updatedAt: new Date().toDateString(),
+      status: 'ordered',
     }], {}),
 
   down: (queryInterface, Sequelize) =>

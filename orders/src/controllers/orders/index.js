@@ -12,15 +12,16 @@ router.post('/:userId/create', (req, res) => {
   const orderDetails = req.body;
   const record = {
     ...orderDetails,
+    status: 'ordered',
     userId,
   };
 
   return Order.create(record)
-    .then(() => {
+    .then((newRecord) => {
       res.status(201);
       return res.json({
         message: 'Successfully created order',
-        order: record,
+        order: newRecord.dataValues,
       });
     })
     .catch((err) => (

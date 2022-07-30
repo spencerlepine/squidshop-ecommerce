@@ -18,6 +18,9 @@ module.exports = {
       purchasePrice: {
         type: Sequelize.FLOAT,
       },
+      status: {
+        type: DataTypes.STRING,
+      },
       productId: {
         type: Sequelize.STRING,
       },
