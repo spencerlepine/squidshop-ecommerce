@@ -41,7 +41,9 @@ router.get('/:userId/all', (req, res) => {
     .then((data) => {
       if (data) {
         res.status(200);
-        return res.json(data);
+        return res.json({
+          orders: data.map((record) => record.dataValues),
+        });
       }
 
       return res.status(400).json({
@@ -63,12 +65,12 @@ router.get('/:userId/:orderId', (req, res) => {
 
   return Order.findAll(query)
     .then((data) => {
-      if (data) {
+      if (data && data[0]) {
         res.status(200);
-        return res.json(data);
+        return res.json(data[0].dataValues);
       }
 
-      return res.status(400).json({
+      return res.status(500).json({
         message: 'Unable to find order record',
       });
     })
@@ -95,7 +97,7 @@ router.put('/:userId/:orderId/update', (req, res) => {
         res.status(201);
         return res.json(orderDetails);
       }
-
+      console.log(num);
       res.status(409);
       return res.json({
         message: 'Unable to update order record',
@@ -110,9 +112,10 @@ router.put('/:userId/:orderId/update', (req, res) => {
 });
 
 // Delete user order
-router.delete('/:userId/:orderId/update', (req, res) => {
+router.delete('/:userId/:orderId/delete', (req, res) => {
   const { userId, orderId } = req.params;
   const query = { where: { userId, id: orderId } };
+  console.log(query);
 
   return Order.destroy(query)
     .then((deleteSuccess) => {

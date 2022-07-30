@@ -11,7 +11,6 @@ const mockOrder = require('./mockOrder.json');
   - put: '/orders/:userId/:orderId/update'
   # Delete user order
   - delete: '/orders/:userId/:orderId/delete'
-
   */
 
 const mockUserId = 12;
@@ -40,18 +39,17 @@ describe('/orders endpoint CRUD operations', () => {
     });
   });
 
-  /*
   describe('Reading Orders', () => {
     test('should fetch valid order record', (done) => {
       request(app)
         .post(UPLOAD_ENDPOINT)
         .send(mockOrder)
-        .then((res) => (res.body.orderId))
+        .then((res) => res.body.order.id)
         .then((mockOrderId) => request(app)
           .get(`/orders/${mockUserId}/${mockOrderId}`)
           .expect(200)
           .then((response) => {
-            const { data } = response;
+            const { body: data } = response;
             expect(data).toHaveProperty('purchaseDate');
             expect(data).toHaveProperty('shipAddress');
             expect(data).toHaveProperty('productName');
@@ -76,14 +74,14 @@ describe('/orders endpoint CRUD operations', () => {
       request(app)
         .post(UPLOAD_ENDPOINT)
         .send(mockOrder)
-        .then((res) => (res.body.orderId))
-        .then((mockOrderId) => request(app)
-          .get(`/orders/${mockUserId}/${mockOrderId}`)
+        .then((res) => (res.body.order.id))
+        .then(() => request(app)
+          .get(`/orders/${mockUserId}/all`)
           .expect(200)
           .then((response) => {
-            const { data } = response;
-            expect(data.orders).toBeDefined();
-            const { orders } = data;
+            const { body } = response;
+            expect(body.orders).toBeDefined();
+            const { orders } = body;
             expect(Array.isArray(orders)).toBeTruthy();
             orders.forEach((orderData) => {
               expect(orderData).toHaveProperty('purchaseDate');
@@ -107,7 +105,7 @@ describe('/orders endpoint CRUD operations', () => {
       request(app)
         .post(UPLOAD_ENDPOINT)
         .send(freshRecord)
-        .then((res) => (res.body.orderId))
+        .then((res) => res.body.order.id)
         .then((mockOrderId) => request(app)
           .put(`/orders/${mockUserId}/${mockOrderId}/update`)
           .send(updatedOrder)
@@ -125,11 +123,11 @@ describe('/orders endpoint CRUD operations', () => {
   describe('Deleting Orders', () => {
     test('should delete order record', (done) => {
       request(app)
-        .post('/orders/upload')
+        .post(UPLOAD_ENDPOINT)
         .send(mockOrder)
-        .then((res) => (res.body.orderId))
+        .then((res) => res.body.order.id)
         .then((mockOrderId) => request(app)
-          .delete(`/orders//${mockUserId}/${mockOrderId}/delete`)
+          .delete(`/orders/${mockUserId}/${mockOrderId}/delete`)
           .expect(201)
           .then((response) => {
             expect(response.body).toBeDefined();
@@ -138,5 +136,4 @@ describe('/orders endpoint CRUD operations', () => {
         .catch((err) => done(err));
     });
   });
-  */
 });
