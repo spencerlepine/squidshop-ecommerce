@@ -6,6 +6,9 @@ on:
       working_directory:
         required: true
         type: string
+      module_name: # subfolder name without "./"
+        required: true
+        type: string
   workflow_dispatch:
 
 jobs:
@@ -69,17 +72,17 @@ jobs:
           output: both
           thresholds: '60 80'
 
-      # Below is BROKEN, github.event_name ALWAYS == 'workflow_dispatch'
-      # - name: Add Coverage PR Comment
-      #   uses: marocchino/sticky-pull-request-comment@v2
-      #   if: github.event_name == 'pull_request'
-      #   with:
-      #     recreate: true
-      #     path: code-coverage-results.md
+      - name: Rename coverage output file
+        run: cp ../code-coverage-results.md ${{ inputs.module_name }}-code-coverage-results.md
+
+      - name: Archive code coverage results
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ inputs.module_name }}-code-coverage-report
+          path: ${{ inputs.module_name }}-code-coverage-results.md
 
       - name: Job Summary Output
         run: |
-          ls -a
           echo '### Test Coverage :tada: `${{ inputs.working_directory }}`' >> $GITHUB_STEP_SUMMARY
           echo "$(<../code-coverage-results.md )" >> $GITHUB_STEP_SUMMARY
 

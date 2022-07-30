@@ -3,7 +3,8 @@ name: CI
 on:
   push:
     branches:
-      - '*'
+      - 'main'
+  pull_request:
 
 jobs:
 
@@ -12,6 +13,25 @@ jobs:
     uses: ./.github/workflows/node_ci.yml
     with:
       working_directory: './gateway'
+      module_name: 'gateway'
+
+  gateway_coverage_upload:
+    needs: [gateway_ci]
+    name: Test Coverage Comment
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download Test Covereage Output
+        uses: actions/download-artifact@v3
+        with:
+          name: gateway-code-coverage-report
+
+      - name: Add Coverage PR Comment
+        uses: marocchino/sticky-pull-request-comment@v2
+        if: github.event_name == 'pull_request'
+        with:
+          header: gateway
+          recreate: true
+          path: -code-coverage-results.md
 
   users_ci:
     name: 🧪 Users Service CI
