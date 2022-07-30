@@ -3,3 +3,6 @@ npm-debug.log
 *.md
 .github
 .tests
+::memory
+*.sqlite3
+.git

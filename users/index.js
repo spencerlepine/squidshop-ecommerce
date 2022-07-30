@@ -1,6 +1,8 @@
 const express = require('express');
 const cors = require('cors');
 const routes = require('./src/routes');
+// eslint-disable-next-line no-unused-vars
+const db = require('./src/database');
 const config = require('./config');
 
 const app = express();

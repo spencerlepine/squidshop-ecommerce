@@ -7,3 +7,9 @@ services:
       - 8000:8001
     environment:
       PORT: 8001
+      DATABASE_HOST: localhost
+      DATABASE_USER: root
+      DATABASE_PASSWORD: 12345
+      DATABASE_NAME: testdb
+      DATABASE_DIALECT: mysql
+      NODE_ENV: production
