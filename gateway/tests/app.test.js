@@ -7,8 +7,7 @@ describe('Gateway Service', () => {
       request(app)
         .get('/products')
         // .expect(200)
-        .then((response) => {
-          console.log(response.error);
+        .then(() => {
           done();
         })
         .catch((err) => done(err));
@@ -20,8 +19,7 @@ describe('Gateway Service', () => {
       request(app)
         .get('/users')
         // .expect(200)
-        .then((response) => {
-          console.log(response.error);
+        .then(() => {
           done();
         })
         .catch((err) => done(err));
@@ -33,8 +31,7 @@ describe('Gateway Service', () => {
       request(app)
         .get('/orders')
         // .expect(200)
-        .then((response) => {
-          console.log(response.error);
+        .then(() => {
           done();
         })
         .catch((err) => done(err));

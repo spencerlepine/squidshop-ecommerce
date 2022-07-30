@@ -78,7 +78,6 @@ describe('/product endpoint CRUD operations', () => {
           .send(updatedProduct)
           .expect(201)
           .then((response) => {
-            // console.log(response.body, response.error)
             expect(response.body).toHaveProperty('title', updatedProduct.title);
             expect(response.body).toHaveProperty('description');
             expect(response.body).toHaveProperty('price');

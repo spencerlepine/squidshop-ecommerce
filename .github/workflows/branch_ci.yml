@@ -19,7 +19,7 @@ on:
 jobs:
   # -- Gateway Microservice --------------------
   gateway_ci:
-    name: "🧪 Node CI"
+    name: "🧪 Gateway CI"
     uses: ./.github/workflows/node_ci.yml
     with:
       folder_name: gateway
@@ -47,7 +47,7 @@ jobs:
 
   # -- Users Microservice --------------------
   users_ci:
-    name: "🧪 Node CI"
+    name: "🧪 Users CI"
     uses: ./.github/workflows/node_ci.yml
     with:
       folder_name: users
@@ -75,7 +75,7 @@ jobs:
 
   # -- Products Microservice --------------------
   products_ci:
-    name: "🧪 Node CI"
+    name: "🧪 Products CI"
     uses: ./.github/workflows/node_ci.yml
     with:
       folder_name: products
@@ -103,7 +103,7 @@ jobs:
 
   # -- Orders Microservice --------------------
   orders_ci:
-    name: "🧪 Node CI"
+    name: "🧪 Orders CI"
     uses: ./.github/workflows/node_ci.yml
     with:
       folder_name: orders

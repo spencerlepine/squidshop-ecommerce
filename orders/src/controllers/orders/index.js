@@ -97,7 +97,6 @@ router.put('/:userId/:orderId/update', (req, res) => {
         res.status(201);
         return res.json(orderDetails);
       }
-      console.log(num);
       res.status(409);
       return res.json({
         message: 'Unable to update order record',
@@ -115,7 +114,6 @@ router.put('/:userId/:orderId/update', (req, res) => {
 router.delete('/:userId/:orderId/delete', (req, res) => {
   const { userId, orderId } = req.params;
   const query = { where: { userId, id: orderId } };
-  console.log(query);
 
   return Order.destroy(query)
     .then((deleteSuccess) => {
