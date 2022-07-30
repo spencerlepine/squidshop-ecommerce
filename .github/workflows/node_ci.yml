@@ -20,12 +20,11 @@ on:
         type: string
   workflow_dispatch:
 
-env:
-  working_directory: ./{{inputs.folder_name }}
-
 jobs:
   lint_and_test:
     runs-on: ${{ matrix.os }}
+    env:
+      working_directory: ./{{inputs.folder_name }}
     strategy:
       fail-fast: false
       matrix:
@@ -100,6 +99,8 @@ jobs:
 
   docker_build:
     needs: [lint_and_test]
+    env:
+      working_directory: ./{{inputs.folder_name }}
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
