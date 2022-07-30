@@ -12,3 +12,9 @@ jobs:
     uses: ./.github/workflows/node_ci.yml
     with:
       working_directory: './gateway'
+
+  users_ci:
+    name: 🧪 Users Service CI
+    uses: ./.github/workflows/node_ci.yml
+    with:
+      working_directory: './users'
