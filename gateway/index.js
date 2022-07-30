@@ -1,6 +1,6 @@
 const express = require('express');
 const cors = require('cors');
-const proxy = require('express-http-proxy');
+const routes = require('./src/routes');
 const config = require('./config');
 
 const app = express();
@@ -8,9 +8,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.use('/customer', proxy(config.CUSTOMER_API_URL));
-app.use('/shopping', proxy(config.SHOPPING_API_URL));
-app.use('/products', proxy(config.PRODUCTS_API_URL));
+app.use(routes);
 
 const { PORT } = config;
 
