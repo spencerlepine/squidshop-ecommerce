@@ -79,7 +79,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: ${{ inputs.module_name }}-code-coverage-report
-          path: ./${{ inputs.module_name }}-code-coverage-results.md
+          path: ${{ inputs.module_name }}-code-coverage-results.md
 
       - name: Job Summary Output
         run: |
