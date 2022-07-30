@@ -8,13 +8,11 @@ on:
 
 jobs:
   gateway_ci:
-    env:
-      service: 'gateway'
     name: "🧪 Node CI"
     uses: ./.github/workflows/node_ci.yml
     with:
-      working_directory: ./${{ env.service }}
-      module_name: ${{ env.service }}
+      working_directory: ./gateway
+      module_name: gateway
 
   gateway_coverage:
     needs: [gateway_ci]
