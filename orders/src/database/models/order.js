@@ -7,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
   class Order extends Model {
     /**
      * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
+     * This method is not a part of DataTypes lifecycle.
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
@@ -19,36 +19,36 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       autoIncrement: true,
       primaryKey: true,
-      type: Sequelize.INTEGER,
+      type: DataTypes.INTEGER,
     },
     productName: {
-      type: Sequelize.STRING,
+      type: DataTypes.STRING,
     },
     userId: {
-      type: Sequelize.INTEGER,
+      type: DataTypes.INTEGER,
     },
-    purhcasePrice: {
-      type: Sequelize.FLOAT,
+    purchasePrice: {
+      type: DataTypes.FLOAT,
     },
     productId: {
-      type: Sequelize.STRING,
+      type: DataTypes.STRING,
     },
     productImage: {
-      type: Sequelize.STRING,
+      type: DataTypes.STRING,
     },
     shipAddress: {
-      type: Sequelize.STRING,
+      type: DataTypes.STRING,
     },
     purchaseDate: {
-      type: Sequelize.DATE,
+      type: DataTypes.DATE,
     },
     createdAt: {
       allowNull: false,
-      type: Sequelize.DATE,
+      type: DataTypes.DATE,
     },
     updatedAt: {
       allowNull: false,
-      type: Sequelize.DATE,
+      type: DataTypes.DATE,
     },
   }, {
     sequelize,

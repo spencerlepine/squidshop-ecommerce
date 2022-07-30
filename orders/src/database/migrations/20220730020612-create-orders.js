@@ -15,7 +15,7 @@ module.exports = {
       productName: {
         type: Sequelize.STRING,
       },
-      purhcasePrice: {
+      purchasePrice: {
         type: Sequelize.FLOAT,
       },
       productId: {

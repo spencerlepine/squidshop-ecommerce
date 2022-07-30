@@ -96,5 +96,5 @@ module.exports = {
   # Update user order
  - put: '/orders/:userId/:orderId/update'
   # Delete user order
- - delete: '/orders/:userId/:orderId/update'
+ - delete: '/orders/:userId/:orderId/delete'
 ```

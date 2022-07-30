@@ -14,7 +14,7 @@ module.exports = {
     */
     queryInterface.bulkInsert('Users', [{
       productName: 'Scooby Snacks',
-      purhcasePrice: 99.99,
+      purchasePrice: 99.99,
       productId: '7e69e7f3-d6c7-44d0-9ba0-4b5eec36699e',
       productImage: 'https://media.istockphoto.com/vectors/thumbnail-image-vector-graphic-vector-id1147544807?k=20&m=1147544807&s=612x612&w=0&h=pBhz1dkwsCMq37Udtp9sfxbjaMl27JUapoyYpQm0anc=',
       shipAddress: '432 Park Avenue Condominiums, New York City, NY, 10001',
@@ -24,7 +24,7 @@ module.exports = {
       updatedAt: new Date().toDateString(),
     }, {
       productName: 'Octopus Goggles',
-      purhcasePrice: 12.20,
+      purchasePrice: 12.20,
       productId: '7e98e7f3-d6c7-44d0-9ba0-4b5eec36699e',
       productImage: 'https://media.istockphoto.com/vectors/thumbnail-image-vector-graphic-vector-id1147544807?k=20&m=1147544807&s=612x612&w=0&h=pBhz1dkwsCMq37Udtp9sfxbjaMl27JUapoyYpQm0anc=',
       shipAddress: '431 Park Avenue Condominiums, New York City, NY, 10001',
