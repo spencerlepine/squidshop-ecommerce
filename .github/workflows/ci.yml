@@ -1,20 +1,34 @@
 name: CI
 
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#  Continuous Integration Workflow
+#  Author: @spencerlepine
+#
+#  Features
+#    - lint, test, and build (w/ Docker)
+#    - run CI for each microservice
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 on:
   push:
     branches:
-      - '*'
+      - 'main'
 
 jobs:
-
   gateway_ci:
-    name: 🧪 Gateway Service CI
+    name: "🧪 Gateway CI"
     uses: ./.github/workflows/node_ci.yml
     with:
-      working_directory: './gateway'
+      folder_name: gateway
 
   users_ci:
-    name: 🧪 Users Service CI
+    name: "🧪 Users CI"
     uses: ./.github/workflows/node_ci.yml
     with:
-      working_directory: './users'
+      folder_name: users
+
+  products_ci:
+    name: "🧪 Products CI"
+    uses: ./.github/workflows/node_ci.yml
+    with:
+      folder_name: products
