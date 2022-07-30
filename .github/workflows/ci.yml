@@ -7,44 +7,32 @@ on:
   pull_request:
 
 jobs:
-  node_ci:
+  gateway_ci:
     name: "🧪 Node CI"
+    uses: ./.github/workflows/node_ci.yml
+    env:
+      service: 'gateway'
+    with:
+      working_directory: ./${{ env.service }}
+      module_name: ${{ env.service }}
+
+  gateway_coverage:
+    needs: [gateway_ci]
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        service: ['gateway', 'products', 'users']
+    env:
+      service: 'gateway'
 
+    name: Gateway Coverage Comment
     steps:
-      - name: "☁️ Check out Git Repository"
-        uses: actions/checkout@v2
-
-      - name: 🧪 CI (${{ matrix.service }})
-        uses: ./.github/workflows/node_ci.yml
+      - name: Download Test Covereage Output
+        uses: actions/download-artifact@v3
         with:
-          working_directory: ./${{ matrix.service }}
-          module_name: ${{ matrix.service }}
+          name: ${{ env.service }}-code-coverage-report
 
-    # name: 🧪 CI (${{ matrix.service }})
-    # steps:
-    #   - name: "☁️ Check out Git Repository"
-    #     uses: actions/checkout@v2
-
-    #   - name: "🧪 Node CI"
-    #     uses: ./.github/workflows/node_ci.yml
-    #     with:
-    #       working_directory: ./${{ matrix.service }}
-    #       module_name: ${{ matrix.service }}
-
-      # - name: Download Test Covereage Output
-      #   uses: actions/download-artifact@v3
-      #   with:
-      #     name: gateway-code-coverage-report
-
-      # - name: Add Coverage PR Comment
-      #   uses: marocchino/sticky-pull-request-comment@v2
-      #   if: github.event_name == 'pull_request'
-      #   with:
-      #     header: gateway
-      #     recreate: true
-      #     path: -code-coverage-results.md
+      - name: Add Coverage PR Comment
+        uses: marocchino/sticky-pull-request-comment@v2
+        if: github.event_name == 'pull_request'
+        with:
+          header: gateway
+          recreate: true
+          path: ${{ env.service }}-code-coverage-results.md
