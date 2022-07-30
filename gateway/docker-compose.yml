@@ -8,5 +8,5 @@ services:
     environment:
       PORT: 5000
       USERS_API_URL: http://localhost:8001
-      ORDERS_API_URL: http://localhost:8002
-      PRODUCTS_API_URL: http://localhost:8003
+      PRODUCTS_API_URL: http://localhost:8002
+      ORDERS_API_URL: http://localhost:8003

@@ -1,0 +1,126 @@
+version: '3.9'
+
+services:
+  mysql_db:
+    platform: linux/x86_64 # M1 Chip work
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'testdb'
+      # So you don't have to use root, but you can if you like
+      # MYSQL_USER: 'root' BROKEN
+      # You can use whatever password you like
+      MYSQL_PASSWORD: '12345'
+      # Password for root access
+      MYSQL_ROOT_PASSWORD: '12345'
+    ports:
+      # <Port exposed> : < MySQL Port running inside container>
+      - '3306:3306'
+    expose:
+      # Opens port 3306 on the container
+      - '3306'
+      # Where our data will be persisted
+    volumes:
+      - user-db:/var/lib/mysql
+
+  users:
+    depends_on:
+      - mysql_db
+    build:
+      context: users
+      dockerfile: Dockerfile
+    ports:
+      - 8001:8001
+    environment:
+      PORT: 8001
+      DATABASE_HOST: localhost
+      DATABASE_USER: root
+      DATABASE_PASSWORD: 12345
+      DATABASE_NAME: testdb
+      DATABASE_DIALECT: mysql
+      NODE_ENV: production
+
+  cassandra_db:
+    image: cassandra
+    restart: always
+    ports:
+      - "9042:9042"
+    volumes:
+      - products-db:/var/lib/cassandra
+
+  products:
+    depends_on:
+      - cassandra_db
+    build:
+      context: products
+      dockerfile: Dockerfile
+    ports:
+      - 8002:8002
+    environment:
+      PORT: 8002
+      CASSANDRA_HOST: 127.0.0.1
+      CASSANDRA_DATACENTER: datacenter1
+      CASSANDRA_KEYSPACE: mykeyspace
+      CASSANDRA_USER: my_user
+      CASSANDRA_PASSWORD: my_password
+      CASSANDRA_PORT: 9042
+
+  postgres_db:
+    image: postgres:14.1-alpine
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=12345
+    ports:
+      - '5432:5432'
+    volumes:
+      - orders-db:/var/lib/postgresql
+
+  orders:
+    depends_on:
+      - postgres_db
+    build:
+      context: users
+      dockerfile: Dockerfile
+    ports:
+      - 8003:8003
+    environment:
+      PORT: 8003
+      DATABASE_HOST: localhost
+      DATABASE_USER: root
+      DATABASE_PASSWORD: 12345
+      DATABASE_NAME: testdb
+      DATABASE_DIALECT: postgres
+      NODE_ENV: production
+
+  gateway:
+    depends_on:
+      - users
+      - products
+      - orders
+    build:
+      context: gateway
+      dockerfile: Dockerfile
+    ports:
+      - 5000:5000
+    environment:
+      PORT: 5000
+      USERS_API_URL: http://users:8001
+      PRODUCTS_API_URL: http://products:8002
+      ORDERS_API_URL: http://orders:8003
+
+  # client:
+  #   depends_on:
+  #     - gateway
+  #   build:
+  #     context: client
+  #     dockerfile: docker/dev/Dockerfile
+  #   ports:
+  #     - "4100:4100"
+
+
+# Names our volume
+volumes:
+  user-db:
+  orders-db:
+  products-db:
