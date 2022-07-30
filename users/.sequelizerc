@@ -1,6 +1,6 @@
 const path = require('path');
 
-const DB_FOLDER = 'src/database'
+const DB_FOLDER = `${__dirname}/src/database`
 
 module.exports = {
   'config': path.resolve(DB_FOLDER, 'db.config.js'),
