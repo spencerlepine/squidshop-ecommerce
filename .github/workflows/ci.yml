@@ -17,6 +17,9 @@ jobs:
 
     name: 🧪 CI (${{ matrix.service }})
     steps:
+      - name: "☁️ Check out Git Repository"
+        uses: actions/checkout@v2
+
       - name: "🧪 Node CI"
         uses: ./.github/workflows/node_ci.yml
         with:
