@@ -51,6 +51,11 @@ jobs:
       - name: "✅ Test"
         run: yarn run test
 
+      - name: Code Coverage Summary Report
+        uses: irongut/CodeCoverageSummary@v1.3.0
+        with:
+          filename: coverage/clover.xml
+
   lint:
     runs-on: ${{ matrix.os }}
     strategy:
