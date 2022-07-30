@@ -24,7 +24,7 @@ jobs:
   lint_and_test:
     runs-on: ${{ matrix.os }}
     env:
-      working_directory: ./{{inputs.folder_name }}
+      working_directory: ./{{ inputs.folder_name }}
     strategy:
       fail-fast: false
       matrix:
@@ -32,7 +32,7 @@ jobs:
         os: [ubuntu-latest]
     defaults:
       run:
-        working-directory: ./{{inputs.folder_name }}
+        working-directory: ./{{ inputs.folder_name }}
 
     name: "Lint and Test"
     steps:
@@ -100,7 +100,7 @@ jobs:
   docker_build:
     needs: [lint_and_test]
     env:
-      working_directory: ./{{inputs.folder_name }}
+      working_directory: ./{{ inputs.folder_name }}
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
