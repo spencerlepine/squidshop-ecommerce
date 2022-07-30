@@ -15,7 +15,6 @@ CREATE TABLE products (
     updated timestamp,
 );
 
-SELECT * FROM products;
 
 insert into products (id, title, price, description, category, image, rating_rate, rating_count) values ('c6dc4be2-3973-4993-adbf-d04a510f66d7', 'Dendrocitta vagabunda', 14.51, 'Nullam porttitor lacus at turpis. Donec posuere metus vitae ipsum. Aliquam non mauris.
 
@@ -313,3 +312,5 @@ insert into products (id, title, price, description, category, image, rating_rat
 Cras mi pede, malesuada in, imperdiet et, commodo vulputate, justo. In blandit ultrices enim. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
 
 Proin interdum mauris non ligula pellentesque ultrices. Phasellus id sapien in sapien iaculis congue. Vivamus metus arcu, adipiscing molestie, hendrerit at, vulputate vitae, nisl.', 'Clothing', 'http://dummyimage.com/239x100.png/dddddd/000000', 1.9, 1);
+
+SELECT * FROM products;
