@@ -49,20 +49,15 @@ jobs:
         run: yarn
 
       - name: "✅ Test"
-        run: yarn run test
+        run: yarn run test --coverage --coverageDirectory=coverage
 
       - name: Copy Coverage To Predictable Location
-        run: cp coverage/clover.xml clover.xml
+        run: cp coverage/cobertura-coverage.xml cobertura-coverage.xml
 
       - name: Code Coverage Summary Report
         uses: irongut/CodeCoverageSummary@v1.3.0
         with:
-          filename: clover.xml
-
-      - name: Code Coverage Summary Report
-        uses: irongut/CodeCoverageSummary@v1.3.0
-        with:
-          filename: clover.xml
+          filename: cobertura-coverage.xml
           badge: true
           fail_below_min: true
           format: markdown

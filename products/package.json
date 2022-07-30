@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js",
-    "test": "npm run db:migrate && NODE_ENV=test jest --forceExit --detectOpenHandles --coverage --coverageDirectory=coverage",
+    "test": "npm run db:migrate && NODE_ENV=test jest --forceExit",
     "lint": "eslint --fix --ext .js .",
     "db:migrate": "sequelize db:migrate",
     "db:seed:all": "sequelize db:seed:all",
