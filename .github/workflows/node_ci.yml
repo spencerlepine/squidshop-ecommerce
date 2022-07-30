@@ -78,8 +78,9 @@ jobs:
       #     path: code-coverage-results.md
 
       - name: Job Summary Output
-        # echo '### Test Coverage :tada:' >> $GITHUB_STEP_SUMMARY
-        run: echo "$(<${{ inputs.working_directory }}/code-coverage-results.md )" >> $GITHUB_STEP_SUMMARY
+        run: |
+          echo '### Test Coverage :tada: `${{ inputs.working_directory }}`' >> $GITHUB_STEP_SUMMARY
+          echo "$(<code-coverage-results.md )" >> $GITHUB_STEP_SUMMARY
 
   docker_build:
     needs: [lint_and_test]
