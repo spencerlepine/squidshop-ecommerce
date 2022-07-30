@@ -67,17 +67,18 @@ jobs:
           output: both
           thresholds: '60 80'
 
-      - name: Add Coverage PR Comment
-        uses: marocchino/sticky-pull-request-comment@v2
-        if: github.event_name == 'pull_request'
-        with:
-          recreate: true
-          path: code-coverage-results.md
+      # Below is BROKEN, github.event_name ALWAYS == 'workflow_dispatch'
+      # - name: Add Coverage PR Comment
+      #   uses: marocchino/sticky-pull-request-comment@v2
+      #   if: github.event_name == 'pull_request'
+      #   with:
+      #     recreate: true
+      #     path: code-coverage-results.md
 
       - name: Job Summary Output
         run: |
           echo '### Test Coverage :tada:' >> $GITHUB_STEP_SUMMARY
-          code-coverage-results.md >> $GITHUB_STEP_SUMMARY
+          echo "$(<code-coverage-results.md )" >> $GITHUB_STEP_SUMMARY
 
   lint:
     runs-on: ${{ matrix.os }}
