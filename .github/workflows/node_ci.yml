@@ -10,7 +10,51 @@ on:
 
 jobs:
 
+  lint:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        node: ['16'] # '12', '14'
+        os: [ubuntu-latest]
+    defaults:
+      run:
+        working-directory: ${{ inputs.working_directory }}
+
+    name: "🧹 Lint"
+    steps:
+      - name: "☁️ Check out Git Repository"
+        uses: actions/checkout@v2
+
+      - name: "🔧 Set up Node"
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node }}
+
+      - name: "⚙️ Get Yarn Cache Directory Path"
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+
+      - name: "⚡️ Cache Dependencies"
+        uses: actions/cache@v1
+        id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+
+      - name: "📦 Install Dependencies"
+        # if: steps.yarn-cache.outputs.cache-hit != 'true' # Over here!
+        run: |
+          yarn
+          yarn global add typescript
+
+      - name: "🧐 Lint"
+        run: yarn run lint
+
   test:
+    needs: [lint]
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
@@ -76,54 +120,11 @@ jobs:
       #     path: code-coverage-results.md
 
       - name: Job Summary Output
-        run: |
-          echo '### Test Coverage :tada:' >> $GITHUB_STEP_SUMMARY
-          echo "$(<code-coverage-results.md )" >> $GITHUB_STEP_SUMMARY
-
-  lint:
-    runs-on: ${{ matrix.os }}
-    strategy:
-      fail-fast: false
-      matrix:
-        node: ['16'] # '12', '14'
-        os: [ubuntu-latest]
-    defaults:
-      run:
-        working-directory: ${{ inputs.working_directory }}
-
-    name: "🧹 Lint"
-    steps:
-      - name: "☁️ Check out Git Repository"
-        uses: actions/checkout@v2
-
-      - name: "🔧 Set up Node"
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.node }}
-
-      - name: "⚙️ Get Yarn Cache Directory Path"
-        id: yarn-cache-dir-path
-        run: echo "::set-output name=dir::$(yarn cache dir)"
-
-      - name: "⚡️ Cache Dependencies"
-        uses: actions/cache@v1
-        id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
-        with:
-          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
-
-      - name: "📦 Install Dependencies"
-        # if: steps.yarn-cache.outputs.cache-hit != 'true' # Over here!
-        run: |
-          yarn
-          yarn global add typescript
-
-      - name: "🧐 Lint"
-        run: yarn run lint
+        # echo '### Test Coverage :tada:' >> $GITHUB_STEP_SUMMARY
+        run: echo "$(<code-coverage-results.md )" >> $GITHUB_STEP_SUMMARY
 
   docker_build:
+    needs: [test]
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
