@@ -19,7 +19,7 @@ module.exports = {
         type: Sequelize.FLOAT,
       },
       status: {
-        type: DataTypes.STRING,
+        type: Sequelize.STRING,
       },
       productId: {
         type: Sequelize.STRING,
