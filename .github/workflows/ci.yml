@@ -8,6 +8,7 @@ on:
 
 jobs:
   node_ci:
+    name: "🧪 Node CI"
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -16,7 +17,7 @@ jobs:
 
     steps:
       - name: 🧪 CI (${{ matrix.service }})
-        uses: ./.github/workflows/node_ci.yml
+        uses: ./.github/workflows/node_ci.yml@main
         with:
           working_directory: ./${{ matrix.service }}
           module_name: ${{ matrix.service }}
