@@ -1,15 +1,27 @@
 name: Node CI
 
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#  Node.js Continuous Integration Workflow
+#  Author: @spencerlepine
+#
+#  Features:
+#    - runs in a specified subdirectory (workflow_call)
+#    - lint, test, and build (w/ Docker)
+#    - install and cache dependencies using yarn
+#    - test with jest
+#    - generate test coverage output (to cobertura-coverage.xml)
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 on:
   workflow_call:
     inputs:
-      working_directory:
-        required: true
-        type: string
-      module_name: # subfolder name without "./"
+      folder_name:
         required: true
         type: string
   workflow_dispatch:
+
+env:
+  working_directory: ./{{inputs.folder_name }}
 
 jobs:
   lint_and_test:
@@ -21,7 +33,7 @@ jobs:
         os: [ubuntu-latest]
     defaults:
       run:
-        working-directory: ${{ inputs.working_directory }}
+        working-directory: ${{ env.working_directory }}
 
     name: "Lint and Test"
     steps:
@@ -62,7 +74,7 @@ jobs:
       - name: Code Coverage Summary Report
         uses: irongut/CodeCoverageSummary@v1.3.0
         with:
-          filename: ${{ inputs.working_directory }}/cobertura-coverage.xml
+          filename: ${{ env.working_directory }}/cobertura-coverage.xml
           badge: true
           fail_below_min: true
           format: markdown
@@ -73,18 +85,18 @@ jobs:
           thresholds: '60 80'
 
       - name: Rename coverage output file
-        run: mv ../code-coverage-results.md ./${{ inputs.module_name }}-code-coverage-results.md
+        run: mv ../code-coverage-results.md ./${{ inputs.folder_name }}-code-coverage-results.md
 
       - name: Archive code coverage results
         uses: actions/upload-artifact@v3
         with:
-          name: ${{ inputs.module_name }}-code-coverage-report
-          path: ${{ inputs.working_directory }}/${{ inputs.module_name }}-code-coverage-results.md
+          name: ${{ inputs.folder_name }}-code-coverage-report-${{ github.sha }}
+          path: ${{ env.working_directory }}/${{ inputs.folder_name }}-code-coverage-results.md
 
       - name: Job Summary Output
         run: |
-          echo '### Test Coverage :tada: `${{ inputs.working_directory }}`' >> $GITHUB_STEP_SUMMARY
-          echo "$(<./${{ inputs.module_name }}-code-coverage-results.md )" >> $GITHUB_STEP_SUMMARY
+          echo '### Test Coverage :tada: `${{ env.working_directory }}`' >> $GITHUB_STEP_SUMMARY
+          echo "$(<./${{ inputs.folder_name }}-code-coverage-results.md )" >> $GITHUB_STEP_SUMMARY
 
   docker_build:
     needs: [lint_and_test]
@@ -96,7 +108,7 @@ jobs:
         os: ['ubuntu-latest']
     defaults:
       run:
-        working-directory: ${{ inputs.working_directory }}
+        working-directory: ${{ env.working_directory }}
 
     name: "🐳 Docker Build"
     steps:
