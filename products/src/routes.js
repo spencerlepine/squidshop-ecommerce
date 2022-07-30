@@ -5,4 +5,11 @@ const router = express.Router();
 
 router.use('/product', profileRoutes);
 
+router.get('/status', (req, res) => (
+  res.status(200).json({
+    status: 'running',
+    service: 'products',
+  })
+));
+
 module.exports = router;
