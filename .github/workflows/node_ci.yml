@@ -20,7 +20,7 @@ jobs:
       run:
         working-directory: ${{ inputs.working_directory }}
 
-    name: "🔎 Lint and 🧪 Test"
+    name: "Lint and Test"
     steps:
       - name: "☁️ Check out Git Repository"
         uses: actions/checkout@v2
@@ -57,7 +57,7 @@ jobs:
         run: cp coverage/cobertura-coverage.xml cobertura-coverage.xml
 
       - name: Code Coverage Summary Report
-        uses: irongut/CodeCoverageSummary@v1.2.0
+        uses: irongut/CodeCoverageSummary@v1.3.0
         with:
           filename: ${{ inputs.working_directory }}/cobertura-coverage.xml
           badge: true
@@ -66,7 +66,7 @@ jobs:
           hide_branch_rate: false
           hide_complexity: true
           indicators: true
-          output: file
+          output: both
           thresholds: '60 80'
 
       # Below is BROKEN, github.event_name ALWAYS == 'workflow_dispatch'
