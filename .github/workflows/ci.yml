@@ -8,18 +8,21 @@ on:
 
 jobs:
 
-  gateway_ci:
-    name: 🧪 Gateway Service CI
-    uses: ./.github/workflows/node_ci.yml
-    with:
-      working_directory: './gateway'
-      module_name: 'gateway'
-
-  gateway_coverage_upload:
-    needs: [gateway_ci]
-    name: Test Coverage Comment
+  ci:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        service: ['gateway', 'products', 'users']
+
+    name: 🧪 CI (${{ matrix.service }})
     steps:
+      - name: "🧪 Node CI"
+        uses: ./.github/workflows/node_ci.yml
+        with:
+          working_directory: ./${{ matrix.service }}
+          module_name: ${{ matrix.service }}
+
       - name: Download Test Covereage Output
         uses: actions/download-artifact@v3
         with:
@@ -32,15 +35,3 @@ jobs:
           header: gateway
           recreate: true
           path: -code-coverage-results.md
-
-  users_ci:
-    name: 🧪 Users Service CI
-    uses: ./.github/workflows/node_ci.yml
-    with:
-      working_directory: './users'
-
-  products_ci:
-    name: 🧪 Products Service CI
-    uses: ./.github/workflows/node_ci.yml
-    with:
-      working_directory: './products'
