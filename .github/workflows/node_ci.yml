@@ -100,7 +100,7 @@ jobs:
   docker_build:
     needs: [lint_and_test]
     env:
-      working_directory: ./{{inputs.folder_name }}
+      working_directory: './{{inputs.folder_name }}'
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
