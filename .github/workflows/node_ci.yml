@@ -81,7 +81,7 @@ jobs:
         run: |
           ls -a
           echo '### Test Coverage :tada: `${{ inputs.working_directory }}`' >> $GITHUB_STEP_SUMMARY
-          echo "$(<code-coverage-results.md )" >> $GITHUB_STEP_SUMMARY
+          echo "$(<../code-coverage-results.md )" >> $GITHUB_STEP_SUMMARY
 
   docker_build:
     needs: [lint_and_test]
