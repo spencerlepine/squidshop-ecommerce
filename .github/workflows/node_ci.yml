@@ -75,19 +75,11 @@ jobs:
       - name: Rename coverage output file
         run: mv ../code-coverage-results.md ./${{ inputs.module_name }}-code-coverage-results.md
 
-      - name: Debug
-        run: |
-          pwd
-          ls -a
-          cd ..
-          pwd
-          ls -a
-
       - name: Archive code coverage results
         uses: actions/upload-artifact@v3
         with:
           name: ${{ inputs.module_name }}-code-coverage-report
-          path: ${{ inputs.module_name }}-code-coverage-results.md
+          path: ${{ inputs.working_directory }}/${{ inputs.module_name }}-code-coverage-results.md
 
       - name: Job Summary Output
         run: |
