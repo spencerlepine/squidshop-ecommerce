@@ -15,10 +15,10 @@ describe('Gateway Service', () => {
     });
   });
 
-  describe('/customers endpoint', () => {
+  describe('/users endpoint', () => {
     test('should respond', (done) => {
       request(app)
-        .get('/customers')
+        .get('/users')
         // .expect(200)
         .then((response) => {
           console.log(response.error);
@@ -28,10 +28,10 @@ describe('Gateway Service', () => {
     });
   });
 
-  describe('/shopping endpoint', () => {
+  describe('/orders endpoint', () => {
     test('should respond', (done) => {
       request(app)
-        .get('/shopping')
+        .get('/orders')
         // .expect(200)
         .then((response) => {
           console.log(response.error);

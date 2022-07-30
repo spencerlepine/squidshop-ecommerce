@@ -87,7 +87,9 @@ jobs:
 
       - name: "📦 Install Dependencies"
         # if: steps.yarn-cache.outputs.cache-hit != 'true' # Over here!
-        run: yarn
+        run: |
+          yarn
+          yarn global add typescript
 
       - name: "🧐 Lint"
         run: yarn run lint
