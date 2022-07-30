@@ -1,0 +1,9 @@
+version: '3.9'
+
+services:
+  users:
+    build: .
+    ports:
+      - 8000:8001
+    environment:
+      PORT: 8001
