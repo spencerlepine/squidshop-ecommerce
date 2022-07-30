@@ -18,3 +18,9 @@ jobs:
     uses: ./.github/workflows/node_ci.yml
     with:
       working_directory: './users'
+
+  products_ci:
+    name: 🧪 Products Service CI
+    uses: ./.github/workflows/node_ci.yml
+    with:
+      working_directory: './products'
