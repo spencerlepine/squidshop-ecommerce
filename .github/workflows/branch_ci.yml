@@ -22,8 +22,7 @@ jobs:
     name: "🧪 Node CI"
     uses: ./.github/workflows/node_ci.yml
     with:
-      working_directory: ./gateway
-      module_name: gateway
+      folder_name: gateway
 
   gateway_coverage:
     needs: [gateway_ci]
@@ -51,8 +50,7 @@ jobs:
     name: "🧪 Node CI"
     uses: ./.github/workflows/node_ci.yml
     with:
-      working_directory: ./users
-      module_name: users
+      folder_name: users
 
   users_coverage:
     needs: [users_ci]
@@ -80,8 +78,7 @@ jobs:
     name: "🧪 Node CI"
     uses: ./.github/workflows/node_ci.yml
     with:
-      working_directory: ./products
-      module_name: products
+      folder_name: products
 
   products_coverage:
     needs: [products_ci]
