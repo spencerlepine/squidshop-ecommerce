@@ -1,0 +1,15 @@
+version: '3.9'
+
+services:
+  users:
+    build: .
+    ports:
+      - 8003:8003
+    environment:
+      PORT: 8003
+      DATABASE_HOST: localhost
+      DATABASE_USER: root
+      DATABASE_PASSWORD: 12345
+      DATABASE_NAME: testdb
+      DATABASE_DIALECT: postgres
+      NODE_ENV: production
