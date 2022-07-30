@@ -1,4 +1,4 @@
-# SquidShop Users Service
+# SquidShop Users Service ![Built With Docker](https://img.shields.io/badge/Built_With-Docker-informational?style=flat&logo=docker)
 
 NodeJS, Express, and Docker API. Connected to MySQL database. CI/CD using GitHub Actions.
 

@@ -1,4 +1,4 @@
-# SquidShop Products Service
+# SquidShop Products Service ![Built With Docker](https://img.shields.io/badge/Built_With-Docker-informational?style=flat&logo=docker)
 
 NodeJS, Express, and Docker API. Connected to Cassanda NoSQL database. CI/CD using GitHub Actions.
 
