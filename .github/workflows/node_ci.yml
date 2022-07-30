@@ -24,7 +24,7 @@ jobs:
   lint_and_test:
     runs-on: ${{ matrix.os }}
     env:
-      working_directory: ./{{ inputs.folder_name }}
+      working_directory: ./${{ inputs.folder_name }}
     strategy:
       fail-fast: false
       matrix:
