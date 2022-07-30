@@ -74,7 +74,7 @@ jobs:
           path: ${{ env.service }}-code-coverage-results.md
 
   # -- Products Microservice --------------------
-  users_ci:
+  products_ci:
     name: "🧪 Node CI"
     uses: ./.github/workflows/node_ci.yml
     with:
