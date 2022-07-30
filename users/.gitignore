@@ -1,3 +1,6 @@
+# Testing
+coverage
+
 # SQLITE Testing Database
 :memory
 *.sqlite3
