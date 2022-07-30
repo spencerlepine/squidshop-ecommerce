@@ -66,7 +66,7 @@ jobs:
           hide_branch_rate: false
           hide_complexity: true
           indicators: true
-          output: code-coverage-results.md
+          output: file
           thresholds: '60 80'
 
       # Below is BROKEN, github.event_name ALWAYS == 'workflow_dispatch'
@@ -79,7 +79,7 @@ jobs:
 
       - name: Job Summary Output
         # echo '### Test Coverage :tada:' >> $GITHUB_STEP_SUMMARY
-        run: echo "$(<code-coverage-results.md )" >> $GITHUB_STEP_SUMMARY
+        run: echo "$(<${{ inputs.working_directory }}/code-coverage-results.md )" >> $GITHUB_STEP_SUMMARY
 
   docker_build:
     needs: [lint_and_test]
