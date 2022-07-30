@@ -1,0 +1,133 @@
+name: Node Cassandra CI
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#  Node.js Continuous Integration Workflow
+#  Author: @spencerlepine
+#
+#  Features:
+#    - runs in a specified subdirectory (workflow_call)
+#    - start Cassandra database for testing
+#    - lint, test, and build (w/ Docker)
+#    - install and cache dependencies using yarn
+#    - test with jest
+#    - generate test coverage output (to cobertura-coverage.xml)
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+on:
+  workflow_call:
+    inputs:
+      folder_name:
+        required: true
+        type: string
+  workflow_dispatch:
+
+jobs:
+  lint_and_test:
+    runs-on: ${{ matrix.os }}
+    env:
+      working_directory: ./${{ inputs.folder_name }}
+    strategy:
+      fail-fast: false
+      matrix:
+        node: ['16'] # '12', '14'
+        os: [ubuntu-latest]
+    defaults:
+      run:
+        working-directory: ./${{ inputs.folder_name }}
+
+    name: "Lint and Test"
+    steps:
+      - name: "☁️ Check out Git Repository"
+        uses: actions/checkout@v2
+
+      - name: "🔧 Set up Node"
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node }}
+
+      - name: "⚙️ Get Yarn Cache Directory Path"
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+
+      - name: "⚡️ Cache Dependencies"
+        uses: actions/cache@v1
+        id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+
+      - name: "📦 Install Dependencies"
+        # if: steps.yarn-cache.outputs.cache-hit != 'true' # Over here!
+        run: yarn
+
+      - name: "🧐 Lint"
+        run: yarn run lint
+
+      - name: "⚙️ Setup Cassandra"
+        uses: fabasoad/setup-cassandra-action@v1.0.0
+        with:
+          host: 127.0.0.1'
+          port: 9042
+          username: my_user
+          password: my_password
+          connect-timeout: 30
+          keyspace: mykeyspace
+          scripts_path: ${{ env.working_directory }}/src/scripts
+
+      - name: "✅ Test"
+        run: yarn run test --coverage --coverageDirectory=coverage
+
+      - name: Copy Coverage To Predictable Location
+        run: cp coverage/cobertura-coverage.xml cobertura-coverage.xml
+
+      - name: Code Coverage Summary Report
+        uses: irongut/CodeCoverageSummary@v1.3.0
+        with:
+          filename: ${{ env.working_directory }}/cobertura-coverage.xml
+          badge: true
+          fail_below_min: true
+          format: markdown
+          hide_branch_rate: false
+          hide_complexity: true
+          indicators: true
+          output: both
+          thresholds: '60 80'
+
+      - name: Rename coverage output file
+        run: mv ../code-coverage-results.md ./${{ inputs.folder_name }}-code-coverage-results.md
+
+      - name: Archive code coverage results
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ inputs.folder_name }}-code-coverage-report-${{ github.sha }}
+          path: ${{ env.working_directory }}/${{ inputs.folder_name }}-code-coverage-results.md
+
+      - name: Job Summary Output
+        run: |
+          echo '### Test Coverage :tada: `${{ env.working_directory }}`' >> $GITHUB_STEP_SUMMARY
+          echo "$(<./${{ inputs.folder_name }}-code-coverage-results.md )" >> $GITHUB_STEP_SUMMARY
+
+  docker_build:
+    needs: [lint_and_test]
+    env:
+      working_directory: ./${{ inputs.folder_name }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        node: ['16'] # '16' '12', '14'
+        os: ['ubuntu-latest']
+    defaults:
+      run:
+        working-directory: ${{ env.working_directory }}
+
+    name: "🐳 Docker Build"
+    steps:
+      - name: "☁️ Check out Git Repository"
+        uses: actions/checkout@v2
+
+      - name: "🏗️ Build"
+        run: |
+          docker-compose build

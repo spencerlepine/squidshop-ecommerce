@@ -1,8 +1,8 @@
 const express = require('express');
-const profileRoutes = require('./controllers/profile');
+const profileRoutes = require('./controllers/product');
 
 const router = express.Router();
 
-router.use('/profile', profileRoutes);
+router.use('/product', profileRoutes);
 
 module.exports = router;
