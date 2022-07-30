@@ -6,18 +6,20 @@ on:
       - 'main'
   pull_request:
 
-runs:
-  using: composite
-  strategy:
-    fail-fast: false
-    matrix:
-      service: ['gateway', 'products', 'users']
+jobs:
+  node_ci:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        service: ['gateway', 'products', 'users']
 
-  - name: 🧪 CI (${{ matrix.service }})
-    uses: ./.github/workflows/node_ci.yml
-    with:
-      working_directory: ./${{ matrix.service }}
-      module_name: ${{ matrix.service }}
+    steps:
+      - name: 🧪 CI (${{ matrix.service }})
+        uses: ./.github/workflows/node_ci.yml
+        with:
+          working_directory: ./${{ matrix.service }}
+          module_name: ${{ matrix.service }}
 
     # name: 🧪 CI (${{ matrix.service }})
     # steps:
