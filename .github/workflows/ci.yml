@@ -20,7 +20,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: 🧪 CI (${{ matrix.service }})
-        uses: ./.github/workflows/node_ci.yml@main
+        uses: ./.github/workflows/node_ci.yml
         with:
           working_directory: ./${{ matrix.service }}
           module_name: ${{ matrix.service }}
