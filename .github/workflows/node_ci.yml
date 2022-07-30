@@ -73,18 +73,18 @@ jobs:
           thresholds: '60 80'
 
       - name: Rename coverage output file
-        run: cp ../code-coverage-results.md ${{ inputs.module_name }}-code-coverage-results.md
+        run: mv ../code-coverage-results.md ./${{ inputs.module_name }}-code-coverage-results.md
 
       - name: Archive code coverage results
         uses: actions/upload-artifact@v3
         with:
           name: ${{ inputs.module_name }}-code-coverage-report
-          path: ${{ inputs.module_name }}-code-coverage-results.md
+          path: ./${{ inputs.module_name }}-code-coverage-results.md
 
       - name: Job Summary Output
         run: |
           echo '### Test Coverage :tada: `${{ inputs.working_directory }}`' >> $GITHUB_STEP_SUMMARY
-          echo "$(<../code-coverage-results.md )" >> $GITHUB_STEP_SUMMARY
+          echo "$(<./${{ inputs.module_name }}-code-coverage-results.md )" >> $GITHUB_STEP_SUMMARY
 
   docker_build:
     needs: [lint_and_test]

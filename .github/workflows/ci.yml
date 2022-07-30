@@ -20,7 +20,7 @@ jobs:
     env:
       service: 'gateway'
 
-    name: Gateway Coverage Comment
+    name: "🎉 Test Coverage"
     steps:
       - name: Download Test Covereage Output
         uses: actions/download-artifact@v3
