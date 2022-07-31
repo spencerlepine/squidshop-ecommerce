@@ -13,12 +13,17 @@ app.use(express.json());
 
 app.use(routes);
 
-app.get('/status', (req, res) => (
+const testDbConnection = (cb) => db.sequelize.authenticate()
+  .then(() => cb(true))
+  .catch(() => cb(false));
+
+app.get('/status', async (req, res) => {
   res.status(200).json({
-    status: 'running',
     service: 'users',
-  })
-));
+    status: 'running',
+    databaseConnection: await testDbConnection((connected) => (connected ? 'success' : 'failure')),
+  });
+});
 
 const { PORT } = config;
 

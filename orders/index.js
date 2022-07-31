@@ -13,21 +13,15 @@ app.use(express.json());
 
 app.use(routes);
 
-const testDbConnection = async () => {
-  try {
-    await db.sequelize.authenticate();
-    return 'success';
-  } catch (err) {
-    console.error('Unable to connect to the database:', err);
-    return 'failure';
-  }
-};
+const testDbConnection = (cb) => db.sequelize.authenticate()
+  .then(() => cb(true))
+  .catch(() => cb(false));
 
-app.get('/status', (req, res) => {
+app.get('/status', async (req, res) => {
   res.status(200).json({
-    status: 'running',
     service: 'orders',
-    databaseConnection: testDbConnection(),
+    status: 'running',
+    databaseConnection: await testDbConnection((connected) => (connected ? 'success' : 'failure')),
   });
 });
 

@@ -13,11 +13,16 @@ app.use(express.json());
 
 app.use(routes);
 
-app.get('/status', (req, res) => {
+const testDbConnection = () => (
+  // eslint-disable-next-line no-underscore-dangle
+  db.orm._connection.contactPoints.length > 0
+);
+
+app.get('/status', async (req, res) => {
   res.status(200).json({
-    status: 'running',
     service: 'products',
-    databaseConnection: db ? 'success' : 'failure',
+    status: 'running',
+    databaseConnection: testDbConnection() ? 'success' : 'failure',
   });
 });
 
