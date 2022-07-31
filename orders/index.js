@@ -13,18 +13,6 @@ app.use(express.json());
 
 app.use(routes);
 
-const testDbConnection = (cb) => db.sequelize.authenticate()
-  .then(() => cb(true))
-  .catch(() => cb(false));
-
-app.get('/status', async (req, res) => {
-  res.status(200).json({
-    service: 'orders',
-    status: 'running',
-    databaseConnection: await testDbConnection((connected) => (connected ? 'success' : 'failure')),
-  });
-});
-
 const { PORT } = config;
 
 if (process.env.NODE_ENV !== 'test') {

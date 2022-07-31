@@ -13,19 +13,6 @@ app.use(express.json());
 
 app.use(routes);
 
-const testDbConnection = () => (
-  // eslint-disable-next-line no-underscore-dangle
-  db.orm._connection.contactPoints.length > 0
-);
-
-app.get('/status', async (req, res) => {
-  res.status(200).json({
-    service: 'products',
-    status: 'running',
-    databaseConnection: testDbConnection() ? 'success' : 'failure',
-  });
-});
-
 const { PORT } = config;
 
 if (process.env.NODE_ENV !== 'test') {
