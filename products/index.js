@@ -13,6 +13,14 @@ app.use(express.json());
 
 app.use(routes);
 
+app.get('/status', (req, res) => {
+  res.status(200).json({
+    status: 'running',
+    service: 'products',
+    databaseConnection: db ? 'success' : 'failure',
+  });
+});
+
 const { PORT } = config;
 
 if (process.env.NODE_ENV !== 'test') {

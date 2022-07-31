@@ -670,9 +670,9 @@
   integrity sha512-HzNRZtp4eepNitP+BD6k2L6DROIDG4Q0fm4x+dwfsr6LGmROENnok75VGw40628xf+iR24WeMFcHuuBDUAzzsQ==
 
 "@types/node@>=8":
-  version "18.6.2"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-18.6.2.tgz#ffc5f0f099d27887c8d9067b54e55090fcd54126"
-  integrity sha512-KcfkBq9H4PI6Vpu5B/KoPeuVDAbmi+2mDBqGPGUgoL7yXQtcWGu2vJWmmRkneWK3Rh0nIAX192Aa87AqKHYChQ==
+  version "18.6.3"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-18.6.3.tgz#4e4a95b6fe44014563ceb514b2598b3e623d1c98"
+  integrity sha512-6qKpDtoaYLM+5+AFChLhHermMQxc3TOEFIDzrZLPRGHPrLEwqFkkT5Kx3ju05g6X7uDPazz3jHbKPX0KzCjntg==
 
 "@types/prettier@^2.1.5":
   version "2.6.3"
@@ -1756,10 +1756,10 @@ expect@^28.1.1:
     jest-message-util "^28.1.1"
     jest-util "^28.1.1"
 
-express-cassandra@^2.8.0:
-  version "2.8.0"
-  resolved "https://registry.yarnpkg.com/express-cassandra/-/express-cassandra-2.8.0.tgz#3866b4ac2eea93190c8a676e9c81e0b5ce73afa6"
-  integrity sha512-eNEE4nUKJ8IdqKqJfbJzXw+8PVwoR2KUA0+bL7/OTiu9LV4BSfnOT8LMsxLBhCfP898ZRudqDTZOfBk1twP4Ug==
+express-cassandra@2.7.0:
+  version "2.7.0"
+  resolved "https://registry.yarnpkg.com/express-cassandra/-/express-cassandra-2.7.0.tgz#52373ceaa9379d17d80ab4acedf800ceedae50c0"
+  integrity sha512-v07QDWXrxMWR4FrQMxLxzWCF+hGTxRCxphB3udDAvs1UMrLyx7erGnnpKT4e3IZ9Q+9O16GwKOz4uyeJzBdMkw==
   dependencies:
     JSONStream "^1.3.1"
     async "^1.5.2"

@@ -1,73 +1,87 @@
 version: '3.9'
 
 services:
-  # mysql_db:
-  #   platform: linux/x86_64 # M1 Chip work
-  #   image: mysql:5.7
-  #   restart: always
-  #   environment:
-  #     MYSQL_DATABASE: 'testdb'
-  #     # So you don't have to use root, but you can if you like
-  #     # MYSQL_USER: 'root' BROKEN
-  #     # You can use whatever password you like
-  #     MYSQL_PASSWORD: '12345'
-  #     # Password for root access
-  #     MYSQL_ROOT_PASSWORD: '12345'
-  #   ports:
-  #     # <Port exposed> : < MySQL Port running inside container>
-  #     - '3306:3306'
-  #   expose:
-  #     # Opens port 3306 on the container
-  #     - '3306'
-  #     # Where our data will be persisted
-  #   volumes:
-  #     - user-db:/var/lib/mysql
+  mysql_db:
+    networks:
+      - mysql-network
+    platform: linux/x86_64 # M1 Chip work
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'testdb'
+      # So you don't have to use root, but you can if you like
+      # MYSQL_USER: 'root' BROKEN
+      # You can use whatever password you like
+      MYSQL_PASSWORD: '12345'
+      # Password for root access
+      MYSQL_ROOT_PASSWORD: '12345'
+    ports:
+      # <Port exposed> : < MySQL Port running inside container>
+      - '3306:3306'
+    expose:
+      # Opens port 3306 on the container
+      - '3306'
+      # Where our data will be persisted
+    volumes:
+      - user-db:/var/lib/mysql
 
-  # users:
-  #   networks:
-  #     - web
-  #   depends_on:
-  #     - mysql_db
-  #   build:
-  #     context: users
-  #     dockerfile: Dockerfile
-  #   ports:
-  #     - 8001:8001
-  #   environment:
-  #     PORT: 8001
-  #     DATABASE_HOST: localhost
-  #     DATABASE_USER: root
-  #     DATABASE_PASSWORD: 12345
-  #     DATABASE_NAME: testdb
-  #     DATABASE_DIALECT: mysql
-  #     NODE_ENV: production
+  users:
+    networks:
+      - web
+      - mysql-network
+    depends_on:
+      - mysql_db
+    build:
+      context: users
+      dockerfile: Dockerfile
+    ports:
+      - 8001:8001
+    environment:
+      PORT: '8001'
+      DATABASE_HOST: localhost
+      DATABASE_USER: root
+      DATABASE_PASSWORD: '12345'
+      DATABASE_NAME: testdb
+      DATABASE_DIALECT: mysql
+      NODE_ENV: production
 
-  # cassandra_db:
-  #   image: cassandra
-  #   restart: always
-  #   ports:
-  #     - "9042:9042"
-  #   volumes:
-  #     - products-db:/var/lib/cassandra
+  cassandra_db:
+    networks:
+      - cassandra-network
+    image: cassandra:3.11.2
+    restart: always
+    ports:
+      - 9042:9042
+    environment:
+      - "MAX_HEAP_SIZE=256M"
+      - "HEAP_NEWSIZE=128M"
+    volumes:
+      - products-db:/var/lib/cassandra
+    healthcheck:
+      test: ["CMD", "cqlsh", "-u cassandra", "-p cassandra" ,"-e describe keyspaces"]
+      interval: 15s
+      timeout: 10s
+      retries: 10
 
-  # products:
-  #   networks:
-  #     - web
-  #   depends_on:
-  #     - cassandra_db
-  #   build:
-  #     context: products
-  #     dockerfile: Dockerfile
-  #   ports:
-  #     - 8002:8002
-  #   environment:
-  #     PORT: 8002
-  #     CASSANDRA_HOST: 127.0.0.1
-  #     CASSANDRA_DATACENTER: datacenter1
-  #     CASSANDRA_KEYSPACE: mykeyspace
-  #     CASSANDRA_USER: my_user
-  #     CASSANDRA_PASSWORD: my_password
-  #     CASSANDRA_PORT: 9042
+  products:
+    networks:
+      - web
+      - cassandra-network
+    depends_on:
+      - cassandra_db
+    build:
+      context: products
+      dockerfile: Dockerfile
+    ports:
+      - 8002:8002
+    environment:
+      PORT: '8002'
+      CASSANDRA_HOST: cassandra_db
+      CASSANDRA_DATACENTER: datacenter1
+      CASSANDRA_KEYSPACE: mykeyspace
+      CASSANDRA_USER: my_user
+      CASSANDRA_PASSWORD: my_password
+      CASSANDRA_PORT: '9042'
 
   postgres_db:
     networks:
@@ -89,15 +103,15 @@ services:
     depends_on:
       - postgres_db
     build:
-      context: users/
+      context: orders
       dockerfile: Dockerfile
     ports:
       - 8003:8003
     environment:
-      PORT: 8003
-      DATABASE_HOST: localhost
+      PORT: '8003'
+      DATABASE_HOST: postgres-network
       DATABASE_USER: root
-      DATABASE_PASSWORD: 12345
+      DATABASE_PASSWORD: '12345'
       DATABASE_NAME: testdb
       DATABASE_DIALECT: postgres
       NODE_ENV: production
@@ -116,9 +130,9 @@ services:
       - 5000:5000
     environment:
       PORT: 5000
-      USERS_API_URL: http://localhost:8001
-      PRODUCTS_API_URL: http://localhost:8002
-      ORDERS_API_URL:  http://localhost:8003
+      USERS_API_URL: http://users:8001
+      PRODUCTS_API_URL: http://products:8002
+      ORDERS_API_URL:  http://orders:8003
 
   # client:
   #   depends_on:
@@ -139,3 +153,5 @@ volumes:
 networks:
   web:
   postgres-network:
+  cassandra-network:
+  mysql-network:
