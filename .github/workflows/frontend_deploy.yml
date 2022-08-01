@@ -3,10 +3,8 @@ name: Netlify Deploy
 on:
   push:
     branches:
-      - 'build-frontend' # TEST
+      - 'main'
   workflow_dispatch:
-    branches:
-      - '*' # TEST
 
 jobs:
   ci:
