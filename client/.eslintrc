@@ -1,8 +1,14 @@
 {
   "rules": {
-    "no-undef": "off"
+    "no-undef": "off",
+    "no-unused-vars": "off"
   },
   "extends": [
-    "@spencerlepine/eslint-config-node"
-  ]
+    "@spencerlepine/eslint-config-react"
+  ],
+  "parser": "@babel/eslint-parser",
+  "parserOptions": {
+    "sourceType": "module",
+    "allowImportExportEverywhere": true
+  }
 }
