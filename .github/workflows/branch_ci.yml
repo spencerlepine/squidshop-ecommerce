@@ -17,6 +17,13 @@ on:
       - '*'
 
 jobs:
+  # -- Client Frontend --------------------
+  client_ci:
+    name: "🧪 Client CI"
+    uses: ./.github/workflows/node_ci.yml
+    with:
+      folder_name: client
+
   # -- Gateway Microservice --------------------
   gateway_ci:
     name: "🧪 Gateway CI"
