@@ -18,7 +18,7 @@ jobs:
         os: [ubuntu-latest]
     defaults:
       run:
-        working-directory: ./client
+        working-directory: client
 
     name: "🚀 Deploy Frontend"
     steps:
@@ -50,12 +50,14 @@ jobs:
       - name: "🏗️ Build"
         env:
           REACT_APP_GATEWAY_API_URL: ${{ secrets.GATEWAY_API_URL }}
-        run: yarn run build
+        run: |
+          yarn run build
+          cd ..
 
       - name: Deploy to Netlify
         uses: nwtgck/actions-netlify@v1.2
         with:
-          publish-dir: './build'
+          publish-dir: './client/build'
           production-branch: main
           github-token: ${{ secrets.GITHUB_TOKEN }}
           deploy-message: "🚀 Deploy from GitHub Actions"
