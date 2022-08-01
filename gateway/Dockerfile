@@ -7,4 +7,5 @@ COPY yarn.lock .
 RUN yarn install --production=true
 
 COPY . .
+EXPOSE 5000
 CMD ["yarn", "run", "start"]

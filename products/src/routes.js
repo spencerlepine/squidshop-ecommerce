@@ -1,8 +1,10 @@
 const express = require('express');
-const profileRoutes = require('./controllers/product');
+const productRoutes = require('./controllers/product');
+const statusRoutes = require('./controllers/status');
 
 const router = express.Router();
 
-router.use('/product', profileRoutes);
+router.use('/product', productRoutes);
+router.use('/status', statusRoutes);
 
 module.exports = router;

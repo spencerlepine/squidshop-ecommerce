@@ -1,19 +1,35 @@
-/* eslint-disable no-unused-vars */
-const ExpressCassandra = require('express-cassandra');
-const dbConfig = require('./db.config');
+/* eslint-disable no-console */
+const Cassandra = require('express-cassandra');
+const config = require('../../config');
 
-const models = ExpressCassandra.createClient({
-  clientOptions: dbConfig(ExpressCassandra),
+const {
+  CASSANDRA_HOST,
+  CASSANDRA_PORT,
+  CASSANDRA_KEYSPACE,
+  // CASSANDRA_USER,
+  // CASSANDRA_PASSWORD,
+} = config;
+
+const cassandra = Cassandra.createClient({
+  clientOptions: {
+    contactPoints: [CASSANDRA_HOST],
+    protocolOptions: { port: Number(CASSANDRA_PORT) },
+    keyspace: CASSANDRA_KEYSPACE,
+    queryOptions: { consistency: Cassandra.consistencies.one },
+    // eslint-disable-next-line max-len
+    // authProvider: new models.driver.auth.PlainTextAuthProvider(CASSANDRA_USER, CASSANDRA_PASSWORD),
+  },
   ormOptions: {
     defaultReplicationStrategy: {
       class: 'SimpleStrategy',
       replication_factor: 1,
     },
-    migration: 'safe',
+    dropTableOnSchemaChange: false,
+    createKeyspace: true,
   },
 });
 
-const ProductModel = models.loadSchema('Product', {
+const ProductSchema = {
   fields: {
     id: {
       type: 'varchar',
@@ -36,18 +52,16 @@ const ProductModel = models.loadSchema('Product', {
     },
   },
   key: ['id'],
-});
+};
+cassandra.loadSchema('Product', ProductSchema);
 
-// MyModel or models.instance.Person can now be used as the model instance
-// nsole.log(models.instance.Product === ProductModel);
+// cassandra.connect((err) => {
+//   if (err) {
+//     console.error(err.message);
+//   } else {
+//     // onsole.log(cassandra.modelInstance.users);
+//     // onsole.log(cassandra.modelInstance.users === UserSchema);
+//   }
+// });
 
-// sync the schema definition with the cassandra database table
-// if the schema has not changed, the callback will fire immediately
-// otherwise express-cassandra will try to migrate the schema and fire the callback afterwards
-ProductModel.syncDB((err, result) => {
-  if (err) throw err;
-  // result == true if any database schema was updated
-  // result == false if no schema change was detected in your models
-});
-
-module.exports = models;
+module.exports = cassandra;

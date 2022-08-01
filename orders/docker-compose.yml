@@ -1,15 +1,43 @@
 version: '3.9'
 
 services:
-  users:
-    build: .
+  postgres_db:
+    networks:
+      - postgres-network
+    image: postgres:14.1-alpine
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=12345
+    ports:
+      - '5432:5432'
+    volumes:
+      - orders-db:/var/lib/postgresql
+
+  orders:
+    networks:
+      - web
+      - postgres-network
+    depends_on:
+      - postgres_db
+    build:
+      context: .
+      dockerfile: Dockerfile
     ports:
       - 8003:8003
     environment:
-      PORT: 8003
-      DATABASE_HOST: localhost
+      PORT: '8003'
+      DATABASE_HOST: postgres-network
       DATABASE_USER: root
-      DATABASE_PASSWORD: 12345
+      DATABASE_PASSWORD: '12345'
       DATABASE_NAME: testdb
       DATABASE_DIALECT: postgres
       NODE_ENV: production
+
+# Persist the database
+volumes:
+  orders-db:
+
+networks:
+  web:
+  postgres-network:

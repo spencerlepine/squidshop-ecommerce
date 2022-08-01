@@ -128,3 +128,8 @@ jobs:
           header: orders
           recreate: true
           path: ${{ env.service }}-code-coverage-results.md
+
+  # -- Integration Tests --------------------
+  docker_ci:
+    name: "🧪 Integration Tests"
+    uses: ./.github/workflows/docker_ci.yml
