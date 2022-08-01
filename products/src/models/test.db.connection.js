@@ -9,8 +9,6 @@ module.exports = () => {
   }
 
   try {
-    console.log(Object.keys(db));
-    console.log(db);
     // eslint-disable-next-line no-underscore-dangle
     const connections = db.orm._connection.contactPoints;
     if (connections.length > 0) {
@@ -18,7 +16,6 @@ module.exports = () => {
     }
     return false;
   } catch (e) {
-    console.log(e)
     return false;
   }
 };

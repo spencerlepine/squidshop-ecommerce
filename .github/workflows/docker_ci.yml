@@ -44,7 +44,11 @@ jobs:
         run: ./docker-compose.test.sh
 
       - name: "🐳 Start Docker Containers"
-        run: docker-compose up -d
+        run: |
+          docker-compose up --build -d
+          docker-compose logs
 
       - name: "✅ Run Integration Tests"
         run: ./integration.test.sh
+
+
