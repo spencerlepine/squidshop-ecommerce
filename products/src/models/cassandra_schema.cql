@@ -1,8 +1,10 @@
-CREATE KEYSPACE mykeyspace WITH replication = {'class': 'NetworkTopologyStrategy', 'datacenter1': '3'}  AND durable_writes = true;
+DROP KEYSPACE IF EXISTS mykeyspace;
+
+CREATE KEYSPACE mykeyspace WITH replication = {'class': 'SimpleStrategy', 'replication_factor': 1}  AND durable_writes = true;
 
 USE mykeyspace;
 
-CREATE TABLE Products (
+CREATE TABLE Product (
     id varchar PRIMARY KEY,
     title varchar,
     price float,

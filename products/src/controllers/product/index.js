@@ -9,7 +9,7 @@ router.post('/upload', (req, res) => {
   const productDetails = req.body;
   const newId = uuid();
 
-  const newProduct = new models.instance.Product({
+  const newProduct = new models.instance.product({
     ...productDetails,
     id: newId,
     created: Date.now(),
@@ -24,6 +24,8 @@ router.post('/upload', (req, res) => {
       });
     })
     .catch((err) => {
+      console.log(err);
+
       res.status(409).json({
         message: 'Unable to create product',
         error: JSON.stringify(err),
@@ -34,24 +36,24 @@ router.post('/upload', (req, res) => {
 // Read
 router.get('/:productId', (req, res) => {
   const { productId } = req.params;
-
-  return models.instance.Product.findOne({ id: productId })
-    .then((data) => {
-      if (data) {
-        res.status(200);
-        return res.json(data);
-      }
-
+  console.log(productId);
+  return models.instance.product.findOne({ id: productId }, (err, data) => {
+    if (err) {
       return res.status(500).json({
-        message: 'Unable to find product record',
-      });
-    })
-    .catch((err) => {
-      res.status(500).json({
         message: 'Unable to find product record',
         error: JSON.stringify(err),
       });
+    }
+
+    if (data) {
+      res.status(200);
+      return res.json(data);
+    }
+
+    return res.status(500).json({
+      message: 'Unable to find product record',
     });
+  });
 });
 
 // Update
@@ -61,7 +63,7 @@ router.put('/:productId/update', (req, res) => {
 
   const query = { id: productId };
   const options = { ttl: 86400, if_exists: true };
-  return models.instance.Product.update(query, productDetails, options)
+  return models.instance.product.update(query, productDetails, options)
     .then((updatedRecord) => {
       if (updatedRecord) {
         return res.status(201).json(productDetails);
@@ -86,7 +88,7 @@ router.delete('/:productId/delete', (req, res) => {
 
   const query = { id: productId };
 
-  return models.instance.Product.delete(query)
+  return models.instance.product.delete(query)
     .then((deleteSuccess) => {
       if (deleteSuccess) {
         return res.status(201).json({
