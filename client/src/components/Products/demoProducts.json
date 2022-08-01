@@ -1,0 +1,29 @@
+{
+  "products": [
+    {
+      "title": "Test",
+      "image": "https://99designs-blog.imgix.net/blog/wp-content/uploads/2016/12/attachment_89561603-e1513587105243.jpg?auto=format&q=60&fit=max&w=930",
+      "description": "The coolest t-shirt ever PERIOD"
+    },
+    {
+      "title": "Test",
+      "image": "https://99designs-blog.imgix.net/blog/wp-content/uploads/2016/12/attachment_89561603-e1513587105243.jpg?auto=format&q=60&fit=max&w=930",
+      "description": "The coolest t-shirt ever PERIOD"
+    },
+    {
+      "title": "Test",
+      "image": "https://99designs-blog.imgix.net/blog/wp-content/uploads/2016/12/attachment_89561603-e1513587105243.jpg?auto=format&q=60&fit=max&w=930",
+      "description": "The coolest t-shirt ever PERIOD"
+    },
+    {
+      "title": "Test",
+      "image": "https://99designs-blog.imgix.net/blog/wp-content/uploads/2016/12/attachment_89561603-e1513587105243.jpg?auto=format&q=60&fit=max&w=930",
+      "description": "The coolest t-shirt ever PERIOD"
+    },
+    {
+      "title": "Test",
+      "image": "https://99designs-blog.imgix.net/blog/wp-content/uploads/2016/12/attachment_89561603-e1513587105243.jpg?auto=format&q=60&fit=max&w=930",
+      "description": "The coolest t-shirt ever PERIOD"
+    }
+  ]
+}

@@ -17,6 +17,34 @@ on:
       - '*'
 
 jobs:
+  # -- Client Frontend --------------------
+  client_ci:
+    name: "🧪 Client CI"
+    uses: ./.github/workflows/node_ci.yml
+    with:
+      folder_name: client
+
+  client_coverage:
+    needs: [client_ci]
+    runs-on: ubuntu-latest
+    env:
+      service: 'client'
+
+    name: "🎉 Coverage Report"
+    steps:
+      - name: Download Test Covereage Output
+        uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.service }}-code-coverage-report-${{ github.sha }}
+
+      - name: Add Coverage PR Comment
+        uses: marocchino/sticky-pull-request-comment@v2
+        if: github.event_name == 'pull_request'
+        with:
+          header: client
+          recreate: true
+          path: ${{ env.service }}-code-coverage-results.md
+
   # -- Gateway Microservice --------------------
   gateway_ci:
     name: "🧪 Gateway CI"
@@ -130,6 +158,7 @@ jobs:
           path: ${{ env.service }}-code-coverage-results.md
 
   # -- Integration Tests --------------------
-  docker_ci:
-    name: "🧪 Integration Tests"
-    uses: ./.github/workflows/docker_ci.yml
+  # BROKEN, keeps saying socket hangup
+  # docker_ci:
+  #   name: "🧪 Integration Tests"
+  #   uses: ./.github/workflows/docker_ci.yml

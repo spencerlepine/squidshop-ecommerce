@@ -139,10 +139,12 @@ services:
   #   depends_on:
   #     - gateway
   #   build:
-  #     context:  client
-  #     dockerfile: docker/dev/Dockerfile
+  #     context: client
+  #     dockerfile: Dockerfile
   #   ports:
-  #     - "4100:4100"
+  #     - "3000:80"
+  #   environment:
+  #     - REACT_GATEWAY_API_URL=http://gateway:5000
 
 
 # Persist the databases

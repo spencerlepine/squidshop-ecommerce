@@ -1,4 +1,4 @@
-# SquidShop Ecommerce Monorepo [![CI](https://github.com/spencerlepine/squidshop-ecommerce/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/spencerlepine/squidshop-ecommerce/actions/workflows/ci.yml)
+# SquidShop Ecommerce Monorepo [![CI](https://github.com/spencerlepine/squidshop-ecommerce/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/spencerlepine/squidshop-ecommerce/actions/workflows/ci.yml) [![Netlify Deploy](https://github.com/spencerlepine/squidshop-ecommerce/actions/workflows/frontend_deploy.yml/badge.svg?branch=main)](https://github.com/spencerlepine/squidshop-ecommerce/actions/workflows/frontend_deploy.yml)
 
 A Full Stack Microservices Ecommerce Application by [@spencerlepine](https://github.com/spencerlepine). Uses continuous integration to lint, test, and build with `GitHub Actions`.
 

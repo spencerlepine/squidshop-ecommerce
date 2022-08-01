@@ -1,0 +1,57 @@
+name: Netlify Deploy
+
+on:
+  push:
+    branches:
+      - 'main'
+  workflow_dispatch:
+
+jobs:
+  ci:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        node: ['16'] # '12', '14'
+        os: [ubuntu-latest]
+
+    name: "🚀 Deploy Frontend"
+    steps:
+      - name: "☁️ Check out Git Repository"
+        uses: actions/checkout@v2
+
+      - name: "🔧 Set up Node"
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node }}
+
+      - name: "📦 Install Dependencies"
+        # if: steps.yarn-cache.outputs.cache-hit != 'true' # Over here!
+        run: |
+          cd client
+          yarn
+          cd ..
+
+      - name: "🏗️ Build"
+        env:
+          REACT_APP_GATEWAY_API_URL: ${{ secrets.GATEWAY_API_URL }}
+        run: |
+          cd client
+          yarn run build
+          cd ..
+
+      - name: Deploy to Netlify
+        uses: nwtgck/actions-netlify@v1.2.3
+        with:
+          publish-dir: './client/build'
+          production-branch: main
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          deploy-message: "🚀 Deploy from GitHub Actions"
+          enable-pull-request-comment: false
+          enable-commit-comment: false
+          overwrites-pull-request-comment: false
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+          REACT_APP_GATEWAY_API_URL: ${{ secrets.GATEWAY_API_URL }}
+        # timeout-minutes: 1
