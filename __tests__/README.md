@@ -6,7 +6,7 @@ These are scripts for continuous integration to build docker images and test the
 ```sh
 cd __tests__
 docker-compose -p ci -f ../docker-compose.yml up -d
-node api.test.js
+node integration.test.js
 # docker-compose -p ci -f ../docker-compose.yml down
 ```
 

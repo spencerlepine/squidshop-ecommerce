@@ -22,9 +22,14 @@ const request = (host, port, path, callback) => {
         const json = JSON.parse(str)
         callback(json)
       } catch (e) {
+        handleFailure()
         callback({})
       }
     })
+  })
+
+  req.on('error', function (e) {
+    handleFailure(e)
   })
 
   req.end()
@@ -33,20 +38,20 @@ const request = (host, port, path, callback) => {
 const handleFailure = (failureMessage) => {
   console.log(`\n  ${lastDescName.slice(-1)[0]}`)
   console.log(`    ${lastTestName.slice(-1)[0]}`)
-  console.log(`${failureMessage}`)
+  console.log(`       ❌ FAILED: ${failureMessage}`)
   process.exit(1);
 }
 
 const assert = (actual, expected) => {
   if (actual !== expected) {
-    handleFailure(`       ❌ FAILED: Expected ${actual} to equal ${expected}`)
+    handleFailure(`Expected ${actual} to equal ${expected}`)
   }
 }
 
 const assertType = (actual, expectedType) => {
   const actualType = typeof actual;
   if (actualType !== expectedType) {
-    handleFailure(`       ❌ FAILED: Expected ${actualType} type to equal ${expectedType}`)
+    handleFailure(`Expected ${actualType} type to equal ${expectedType}`)
   }
 }
 
