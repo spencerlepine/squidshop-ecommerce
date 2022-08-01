@@ -12,6 +12,6 @@ module.exports = async () => {
     return true;
   }
 
-  const isConnected = await testDbConnection();
+  const isConnected = await testDbConnection((status) => status);
   return isConnected;
 };

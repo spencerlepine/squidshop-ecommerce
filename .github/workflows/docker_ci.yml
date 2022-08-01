@@ -1,0 +1,50 @@
+name: Docker CI
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#  Docker Integration Tests Workflow
+#  Author: @spencerlepine
+#
+#  Features:
+#    - runs in a specified subdirectory (workflow_call)
+#    - build and run Docker containers
+#    - test the API running on localhost
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+on:
+  workflow_call:
+
+jobs:
+  integration_test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        node: ['16']
+        os: [ubuntu-latest]
+    defaults:
+      run:
+        working-directory: ./__tests__
+
+    name: "Docker Integration Tests"
+    steps:
+      - name: "☁️ Check out Git Repository"
+        uses: actions/checkout@v2
+
+      - name: "🔧 Set up Node"
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node }}
+
+      - name: "⚙️ Make Scripts Executable"
+        run: |
+          chmod +x ./docker-compose.test.sh
+          chmod +x ./integration.test.sh
+
+      - name: "🏗️ Docker-Compose Build Test"
+        run: ./docker-compose.test.sh
+
+      - name: "🐳 Start Docker Containers"
+        run: docker-compose up
+
+      - name: "✅ Run Integration Tests"
+        run: ./integration.test.sh
