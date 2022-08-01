@@ -1,5 +1,5 @@
 module.exports = {
-  collectCoverageFrom: ['src/**/*.js', '!**/node_modules/**'],
+  collectCoverageFrom: ['src/**/*.js', '!**/node_modules/**', '!<rootDir>/src/index.js'],
   coverageReporters: ['html', 'text', 'text-summary', 'cobertura'],
   testMatch: ['**/*.test.js'],
   projects: [
