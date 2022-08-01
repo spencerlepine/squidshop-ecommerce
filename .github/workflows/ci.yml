@@ -15,6 +15,12 @@ on:
       - 'main'
 
 jobs:
+  client_ci:
+    name: "🧪 Client CI"
+    uses: ./.github/workflows/node_ci.yml
+    with:
+      folder_name: client
+
   gateway_ci:
     name: "🧪 Gateway CI"
     uses: ./.github/workflows/node_ci.yml
