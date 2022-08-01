@@ -8,6 +8,13 @@ A Full Stack Microservices Ecommerce Application by [@spencerlepine](https://git
 
 ![Microservice Architecture Diagram](./.github/architecture_diagram.png)
 
+## Setup
+```
+$ git clone https://github.com/spencerlepine/squidshop-ecommerce.git
+$ cd squidshop-ecommerce
+$ docker-compose up
+# visit localhost:3000 in the browser
+```
 ## Continuous Integration
 Automated CI with GitHub Actions to lint, test, and build (docker images) on every pull request. Creates a VM for each microservice.
 
