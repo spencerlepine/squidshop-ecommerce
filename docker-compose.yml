@@ -135,14 +135,16 @@ services:
       PRODUCTS_API_URL: http://products:8002
       ORDERS_API_URL:  http://orders:8003
 
-  # client:
-  #   depends_on:
-  #     - gateway
-  #   build:
-  #     context:  client
-  #     dockerfile: docker/dev/Dockerfile
-  #   ports:
-  #     - "4100:4100"
+  client:
+    depends_on:
+      - gateway
+    build:
+      context: client
+      dockerfile: Dockerfile
+    ports:
+      - "3000:80"
+    environment:
+      - GATEWAY_API_URL=http://gateway:5000
 
 
 # Persist the databases

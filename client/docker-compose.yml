@@ -1,0 +1,12 @@
+# https://blog.harrison.dev/2016/06/19/integration-testing-with-docker-compose.html
+version: '3.9'
+
+services:
+  client:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:80"
+    environment:
+      - GATEWAY_API_URL=http://localhost:5000
