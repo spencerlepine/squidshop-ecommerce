@@ -16,9 +16,6 @@ jobs:
       matrix:
         node: ['16'] # '12', '14'
         os: [ubuntu-latest]
-    defaults:
-      run:
-        working-directory: client
 
     name: "🚀 Deploy Frontend"
     steps:
@@ -30,27 +27,18 @@ jobs:
         with:
           node-version: ${{ matrix.node }}
 
-      - name: "⚙️ Get Yarn Cache Directory Path"
-        id: yarn-cache-dir-path
-        run: echo "::set-output name=dir::$(yarn cache dir)"
-
-      - name: "⚡️ Cache Dependencies"
-        uses: actions/cache@v1
-        id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
-        with:
-          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
-
       - name: "📦 Install Dependencies"
         # if: steps.yarn-cache.outputs.cache-hit != 'true' # Over here!
-        run: yarn
+        run: |
+          cd client
+          yarn
+          cd ..
 
       - name: "🏗️ Build"
         env:
           REACT_APP_GATEWAY_API_URL: ${{ secrets.GATEWAY_API_URL }}
         run: |
+           cd client
           yarn run build
           cd ..
 
