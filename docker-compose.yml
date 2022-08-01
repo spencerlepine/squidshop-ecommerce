@@ -71,7 +71,7 @@ services:
     depends_on:
       - cassandra_db
     build:
-      context:  products
+      context: products
       dockerfile: Dockerfile
     ports:
       - 8002:8002

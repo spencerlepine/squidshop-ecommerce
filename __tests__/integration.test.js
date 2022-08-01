@@ -26,9 +26,9 @@ describe("Backend Status Checks", () => {
       test("should respond with valid status", async (successCb) => {
         await request('localhost', GATEWAY_API_PORT, endpointPath, (response) => {
           assertType(response, 'object')
-          assert(response.status, 'running')
+          assert(response.status, 'running', endpointPath)
           if (hasDatabaseStatus) {
-            assert(response.databaseConnected, 'success')
+            assert(response.databaseConnected, 'success', endpointPath)
           }
         })
         successCb()

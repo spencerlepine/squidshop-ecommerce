@@ -35,16 +35,20 @@ const request = (host, port, path, callback) => {
   req.end()
 }
 
-const handleFailure = (failureMessage) => {
-  console.log(`\n  ${lastDescName.slice(-1)[0]}`)
+const handleFailure = (failureMessage, optionalName) => {
+  if (optionalName) {
+    console.log(`\n  ${optionalName}`)
+  } else {
+    console.log(`\n  ${lastDescName.slice(-1)[0]}`)
+  }
   console.log(`    ${lastTestName.slice(-1)[0]}`)
   console.log(`       ❌ FAILED: ${failureMessage}`)
   process.exit(1);
 }
 
-const assert = (actual, expected) => {
+const assert = (actual, expected, optionalName = "") => {
   if (actual !== expected) {
-    handleFailure(`Expected ${actual} to equal ${expected}`)
+    handleFailure(`Expected ${actual} to equal ${expected}`, optionalName)
   }
 }
 
