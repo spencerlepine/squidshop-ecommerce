@@ -1,10 +1,12 @@
 import axios from 'axios'
 import config from './config'
-const API = config.REACT_GATEWAY_API_URL
+// const PRODUCTS_API = `${config.REACT_GATEWAY_API_URL}/products`
+// TODO
+const PRODUCTS_API = config.REACT_GATEWAY_API_URL
 
-export const fetchAllProducts = () => {
-  axios.get(`${API}/products/catalog`)
+export const fetchAllProducts = (callback) => {
+  axios.get(`${PRODUCTS_API}/catalog`)
     .then((response) => {
-      console.log(response.data)
+      callback(response.data)
     })
 }

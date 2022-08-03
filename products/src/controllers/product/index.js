@@ -36,7 +36,7 @@ router.post('/upload', (req, res) => {
 // Read
 router.get('/:productId', (req, res) => {
   const { productId } = req.params;
-  console.log(productId);
+
   return models.instance.product.findOne({ id: productId }, (err, data) => {
     if (err) {
       return res.status(500).json({
@@ -53,6 +53,40 @@ router.get('/:productId', (req, res) => {
     return res.status(500).json({
       message: 'Unable to find product record',
     });
+  });
+});
+
+router.get('/catalog', (req, res) => {
+  const query = {
+    // equal query stays for name='john', also could be written as name: { $eq: 'John' }
+    // name: 'John',
+    // range query stays for age>10 and age<=20. You can use $gt (>), $gte (>=), $lt (<), $lte (<=)
+    // age: { $gt: 10, $lte: 20 },
+    // IN clause, means surname should either be Doe or Smith
+    // surname: { $in: ['Doe', 'Smith'] },
+    // like query supported by sasi indexes, complete_name must have an SA
+    // complete_name: { $like: 'J%' },
+    // order results by age in ascending order.
+    // also allowed $desc and complex order like $orderby: {'$asc' : ['k1','k2'] }
+    $orderby: { $asc: 'price' },
+    // group results by a certain field or list of fields
+    // $groupby: ['age'],
+    // limit the result set to 10 rows, $per_partition_limit is also supported
+    $limit: 10,
+  };
+
+  return models.instance.product.find(query, (err, data) => {
+    if (err || !data) {
+      return res.status(500).json({
+        message: 'Unable to find products',
+        error: JSON.stringify(err),
+      });
+    }
+
+    if (data) {
+      res.status(200);
+      return res.json(data);
+    }
   });
 });
 

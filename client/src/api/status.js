@@ -3,7 +3,7 @@ import config from './config'
 const API = config.REACT_GATEWAY_API_URL
 
 export const fetchApiStatus = (callback) => {
-  axios.get(API)
+  axios.get(`${API}/status`)
     .then((response) => {
       callback(response.data && response.data.status === 'running')
     })

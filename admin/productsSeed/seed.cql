@@ -1,22 +1,3 @@
-DROP KEYSPACE IF EXISTS mykeyspace;
-
-CREATE KEYSPACE mykeyspace WITH replication = {'class': 'SimpleStrategy', 'replication_factor': 1}  AND durable_writes = true;
-
-USE mykeyspace;
-
-CREATE TABLE Product (
-    id varchar PRIMARY KEY,
-    title varchar,
-    price float,
-    description varchar,
-    category varchar,
-    image varchar,
-    rating_rate float,
-    rating_count int,
-    created timestamp,
-    updated timestamp,
-);
-
 insert into Product (id, title, price, description, category, image, rating_rate, rating_count, created, updated) values ('aedfd340-9216-4e9b-8369-6dbab78cc182', 'Chaz Kangeroo Hoodie', 84.86, 'This is a variable product called a Chaz Kangeroo Hoodie', 'Hoodies & Sweatshirts', 'http://eimages.valtim.com/acme-images/product/m/h/mh01-gray_main.jpg', 0, 0, toTimestamp(now()), toTimestamp(now()));
 insert into Product (id, title, price, description, category, image, rating_rate, rating_count, created, updated) values ('4ba33349-dd46-4194-92de-aae65e0aa4af', 'Chaz Kangeroo Hoodie-L-Black', 86.12, 'Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat.
 
