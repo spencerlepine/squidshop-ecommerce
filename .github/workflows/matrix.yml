@@ -13,20 +13,22 @@ name: Node CI
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 on:
-  workflow_call:
-    inputs:
-      folder_name:
-        required: true
-        type: string
-  workflow_dispatch:
+  push:
+    branches:
+      - 'main'
+  pull_request:
+    branches:
+      - '*'
 
 jobs:
   lint_and_test:
     runs-on: 'ubuntu-latest'
     env:
-      working_directory: ./apps/${{ inputs.folder_name }}
+      working_directory: ./apps/${{ matrix.folder_name }}
     strategy:
       fail-fast: false
+      matrix:
+        folder_name: ['client', 'users', 'orders', 'products', 'gateway']
     defaults:
       run:
         working-directory: ${{ env.working_directory }}
@@ -84,25 +86,25 @@ jobs:
           thresholds: '60 80'
 
       - name: Rename coverage output file
-        run: mv ../../code-coverage-results.md ./${{ inputs.folder_name }}-code-coverage-results.md
+        run: mv ../../code-coverage-results.md ./${{ matrix.folder_name }}-code-coverage-results.md
 
       - name: Add Coverage PR Comment
         uses: marocchino/sticky-pull-request-comment@v2
         if: github.event_name == 'pull_request'
         with:
-          header: ${{ inputs.folder_name }}
+          header: ${{ matrix.folder_name }}
           recreate: true
-          path: ${{ env.working_directory }}/${{ inputs.folder_name }}-code-coverage-results.md
+          path: ${{ env.working_directory }}/${{ matrix.folder_name }}-code-coverage-results.md
     
       - name: Job Summary Output
         run: |
-          echo '### `${{ inputs.folder_name }}`  Test Coverage :tada:' >> $GITHUB_STEP_SUMMARY
-          echo "$(<./${{ inputs.folder_name }}-code-coverage-results.md )" >> $GITHUB_STEP_SUMMARY
+          echo '### `${{ matrix.folder_name }}`  Test Coverage :tada:' >> $GITHUB_STEP_SUMMARY
+          echo "$(<./${{ matrix.folder_name }}-code-coverage-results.md )" >> $GITHUB_STEP_SUMMARY
 
   docker_build:
     needs: [lint_and_test]
     env:
-      working_directory: ./apps/${{ inputs.folder_name }}
+      working_directory: ./apps/${{ matrix.folder_name }}
     runs-on: 'ubuntu-latest'
     strategy:
       fail-fast: false
