@@ -89,7 +89,7 @@ jobs:
         with:
           header: ${{ inputs.folder_name }}
           recreate: true
-          path: ${{ inputs.folder_name }}-code-coverage-results.md
+          path: ${{ env.working_directory }}/${{ inputs.folder_name }}-code-coverage-results.md
     
       - name: Job Summary Output
         run: |

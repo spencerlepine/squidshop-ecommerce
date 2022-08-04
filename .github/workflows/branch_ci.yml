@@ -22,26 +22,26 @@ jobs:
     with:
       folder_name: client
 
-  client_coverage:
-    needs: [client_ci]
-    runs-on: ubuntu-latest
-    env:
-      service: 'client'
+  # client_coverage:
+  #   needs: [client_ci]
+  #   runs-on: ubuntu-latest
+  #   env:
+  #     service: 'client'
 
-    name: "🎉 Coverage Report"
-    steps:
-      - name: Download Test Covereage Output
-        uses: actions/download-artifact@v3
-        with:
-          name: ${{ env.service }}-code-coverage-report-${{ github.sha }}
+  #   name: "🎉 Coverage Report"
+  #   steps:
+  #     - name: Download Test Covereage Output
+  #       uses: actions/download-artifact@v3
+  #       with:
+  #         name: ${{ env.service }}-code-coverage-report-${{ github.sha }}
 
-      - name: Add Coverage PR Comment
-        uses: marocchino/sticky-pull-request-comment@v2
-        if: github.event_name == 'pull_request'
-        with:
-          header: client
-          recreate: true
-          path: ${{ env.service }}-code-coverage-results.md
+  #     - name: Add Coverage PR Comment
+  #       uses: marocchino/sticky-pull-request-comment@v2
+  #       if: github.event_name == 'pull_request'
+  #       with:
+  #         header: client
+  #         recreate: true
+  #         path: ${{ env.service }}-code-coverage-results.md
 
   # -- Gateway Microservice --------------------
   gateway_ci:
@@ -50,26 +50,26 @@ jobs:
     with:
       folder_name: gateway
 
-  gateway_coverage:
-    needs: [gateway_ci]
-    runs-on: ubuntu-latest
-    env:
-      service: 'gateway'
+  # gateway_coverage:
+  #   needs: [gateway_ci]
+  #   runs-on: ubuntu-latest
+  #   env:
+  #     service: 'gateway'
 
-    name: "🎉 Coverage Report"
-    steps:
-      - name: Download Test Covereage Output
-        uses: actions/download-artifact@v3
-        with:
-          name: ${{ env.service }}-code-coverage-report-${{ github.sha }}
+  #   name: "🎉 Coverage Report"
+  #   steps:
+  #     - name: Download Test Covereage Output
+  #       uses: actions/download-artifact@v3
+  #       with:
+  #         name: ${{ env.service }}-code-coverage-report-${{ github.sha }}
 
-      - name: Add Coverage PR Comment
-        uses: marocchino/sticky-pull-request-comment@v2
-        if: github.event_name == 'pull_request'
-        with:
-          header: gateway
-          recreate: true
-          path: ${{ env.service }}-code-coverage-results.md
+  #     - name: Add Coverage PR Comment
+  #       uses: marocchino/sticky-pull-request-comment@v2
+  #       if: github.event_name == 'pull_request'
+  #       with:
+  #         header: gateway
+  #         recreate: true
+  #         path: ${{ env.service }}-code-coverage-results.md
 
   # -- Users Microservice --------------------
   users_ci:
@@ -78,26 +78,26 @@ jobs:
     with:
       folder_name: users
 
-  users_coverage:
-    needs: [users_ci]
-    runs-on: ubuntu-latest
-    env:
-      service: 'users'
+  # users_coverage:
+  #   needs: [users_ci]
+  #   runs-on: ubuntu-latest
+  #   env:
+  #     service: 'users'
 
-    name: "🎉 Coverage Report"
-    steps:
-      - name: Download Test Covereage Output
-        uses: actions/download-artifact@v3
-        with:
-          name: ${{ env.service }}-code-coverage-report-${{ github.sha }}
+  #   name: "🎉 Coverage Report"
+  #   steps:
+  #     - name: Download Test Covereage Output
+  #       uses: actions/download-artifact@v3
+  #       with:
+  #         name: ${{ env.service }}-code-coverage-report-${{ github.sha }}
 
-      - name: Add Coverage PR Comment
-        uses: marocchino/sticky-pull-request-comment@v2
-        if: github.event_name == 'pull_request'
-        with:
-          header: users
-          recreate: true
-          path: ${{ env.service }}-code-coverage-results.md
+  #     - name: Add Coverage PR Comment
+  #       uses: marocchino/sticky-pull-request-comment@v2
+  #       if: github.event_name == 'pull_request'
+  #       with:
+  #         header: users
+  #         recreate: true
+  #         path: ${{ env.service }}-code-coverage-results.md
 
   # -- Products Microservice --------------------
   products_ci:
@@ -106,26 +106,26 @@ jobs:
     with:
       folder_name: products
 
-  products_coverage:
-    needs: [products_ci]
-    runs-on: ubuntu-latest
-    env:
-      service: 'products'
+  # products_coverage:
+  #   needs: [products_ci]
+  #   runs-on: ubuntu-latest
+  #   env:
+  #     service: 'products'
 
-    name: "🎉 Coverage Report"
-    steps:
-      - name: Download Test Covereage Output
-        uses: actions/download-artifact@v3
-        with:
-          name: ${{ env.service }}-code-coverage-report-${{ github.sha }}
+  #   name: "🎉 Coverage Report"
+  #   steps:
+  #     - name: Download Test Covereage Output
+  #       uses: actions/download-artifact@v3
+  #       with:
+  #         name: ${{ env.service }}-code-coverage-report-${{ github.sha }}
 
-      - name: Add Coverage PR Comment
-        uses: marocchino/sticky-pull-request-comment@v2
-        if: github.event_name == 'pull_request'
-        with:
-          header: products
-          recreate: true
-          path: ${{ env.service }}-code-coverage-results.md
+  #     - name: Add Coverage PR Comment
+  #       uses: marocchino/sticky-pull-request-comment@v2
+  #       if: github.event_name == 'pull_request'
+  #       with:
+  #         header: products
+  #         recreate: true
+  #         path: ${{ env.service }}-code-coverage-results.md
 
   # -- Orders Microservice --------------------
   orders_ci:
@@ -134,23 +134,23 @@ jobs:
     with:
       folder_name: orders
 
-  orders_coverage:
-    needs: [orders_ci]
-    runs-on: ubuntu-latest
-    env:
-      service: 'orders'
+  # orders_coverage:
+  #   needs: [orders_ci]
+  #   runs-on: ubuntu-latest
+  #   env:
+  #     service: 'orders'
 
-    name: "🎉 Coverage Report"
-    steps:
-      - name: Download Test Covereage Output
-        uses: actions/download-artifact@v3
-        with:
-          name: ${{ env.service }}-code-coverage-report-${{ github.sha }}
+  #   name: "🎉 Coverage Report"
+  #   steps:
+  #     - name: Download Test Covereage Output
+  #       uses: actions/download-artifact@v3
+  #       with:
+  #         name: ${{ env.service }}-code-coverage-report-${{ github.sha }}
 
-      - name: Add Coverage PR Comment
-        uses: marocchino/sticky-pull-request-comment@v2
-        if: github.event_name == 'pull_request'
-        with:
-          header: orders
-          recreate: true
-          path: ${{ env.service }}-code-coverage-results.md
+  #     - name: Add Coverage PR Comment
+  #       uses: marocchino/sticky-pull-request-comment@v2
+  #       if: github.event_name == 'pull_request'
+  #       with:
+  #         header: orders
+  #         recreate: true
+  #         path: ${{ env.service }}-code-coverage-results.md
