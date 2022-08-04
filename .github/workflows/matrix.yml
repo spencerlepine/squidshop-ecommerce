@@ -11,8 +11,6 @@ name: Node CI
 #    - test with jest
 #    - generate test coverage output (to cobertura-coverage.xml)
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-env:
-  ROOT_DIR: './apps/' # './'
 
 on:
   push:
@@ -26,7 +24,7 @@ jobs:
   lint_and_test:
     runs-on: 'ubuntu-latest'
     env:
-      working_directory: ${{ env.ROOT_DIR }}${{ matrix.folder_name }}
+      working_directory: ./apps/${{ matrix.folder_name }}
     strategy:
       fail-fast: false
       matrix:
@@ -106,7 +104,7 @@ jobs:
   docker_build:
     needs: [lint_and_test]
     env:
-      working_directory: ${{ env.ROOT_DIR }}${{ matrix.folder_name }}
+      working_directory: ./apps/${{ matrix.folder_name }}
     runs-on: 'ubuntu-latest'
     strategy:
       fail-fast: false
