@@ -1,4 +1,3 @@
-# https://blog.harrison.dev/2016/06/19/integration-testing-with-docker-compose.html
 version: '3.9'
 
 services:
@@ -33,7 +32,7 @@ services:
     depends_on:
       - mysql_db
     build:
-      context:  users
+      context:  ./apps/users
       dockerfile: Dockerfile
     ports:
       - 8001:8001
@@ -71,7 +70,7 @@ services:
     depends_on:
       - cassandra_db
     build:
-      context: products
+      context: ./apps/products
       dockerfile: Dockerfile
     ports:
       - 8002:8002
@@ -104,7 +103,7 @@ services:
     depends_on:
       - postgres_db
     build:
-      context:  orders
+      context:  ./apps/orders
       dockerfile: Dockerfile
     ports:
       - 8003:8003
@@ -127,7 +126,7 @@ services:
       - products
       - orders
     build:
-      context:  gateway
+      context:  ./apps/gateway
       dockerfile: Dockerfile
     ports:
       - 5000:5000
@@ -141,7 +140,7 @@ services:
     depends_on:
       - gateway
     build:
-      context: client
+      context: ./apps/client
       dockerfile: Dockerfile
     ports:
       - "3000:80"

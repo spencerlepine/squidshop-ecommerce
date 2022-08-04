@@ -24,15 +24,13 @@ jobs:
   lint_and_test:
     runs-on: ${{ matrix.os }}
     env:
-      working_directory: ./${{ inputs.folder_name }}
+      working_directory: ./apps/${{ inputs.folder_name }}
+    runs-on: 'ubuntu-latest'
     strategy:
       fail-fast: false
-      matrix:
-        node: ['16'] # '12', '14'
-        os: [ubuntu-latest]
     defaults:
       run:
-        working-directory: ./${{ inputs.folder_name }}
+        working-directory: ${{ env.working_directory }}
 
     name: "Lint and Test"
     steps:
@@ -42,7 +40,7 @@ jobs:
       - name: "🔧 Set up Node"
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node }}
+          node-version: '16'
 
       - name: "⚙️ Get Yarn Cache Directory Path"
         id: yarn-cache-dir-path
@@ -86,27 +84,26 @@ jobs:
       - name: Rename coverage output file
         run: mv ../code-coverage-results.md ./${{ inputs.folder_name }}-code-coverage-results.md
 
-      - name: Archive code coverage results
-        uses: actions/upload-artifact@v3
+      - name: Add Coverage PR Comment
+        uses: marocchino/sticky-pull-request-comment@v2
+        if: github.event_name == 'pull_request'
         with:
-          name: ${{ inputs.folder_name }}-code-coverage-report-${{ github.sha }}
-          path: ${{ env.working_directory }}/${{ inputs.folder_name }}-code-coverage-results.md
-
+          header: ${{ inputs.folder_name }}
+          recreate: true
+          path: ${{ inputs.folder_name }}-code-coverage-results.md
+    
       - name: Job Summary Output
         run: |
-          echo '### Test Coverage :tada: `${{ env.working_directory }}`' >> $GITHUB_STEP_SUMMARY
+          echo '### Test Coverage :tada: `${{ inputs.folder_name }}`' >> $GITHUB_STEP_SUMMARY
           echo "$(<./${{ inputs.folder_name }}-code-coverage-results.md )" >> $GITHUB_STEP_SUMMARY
 
   docker_build:
     needs: [lint_and_test]
     env:
-      working_directory: ./${{ inputs.folder_name }}
-    runs-on: ${{ matrix.os }}
+      working_directory: ./apps/${{ inputs.folder_name }}
+    runs-on: 'ubuntu-latest'
     strategy:
       fail-fast: false
-      matrix:
-        node: ['16'] # '16' '12', '14'
-        os: ['ubuntu-latest']
     defaults:
       run:
         working-directory: ${{ env.working_directory }}

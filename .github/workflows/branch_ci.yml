@@ -6,9 +6,7 @@ name: Branch CI
 #
 #  Features
 #    - lint, test, and build (w/ Docker)
-#    - output test coverage to artifact
 #    - comment test coverage on pull request
-#    - run CI for each microservice
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 on:
@@ -156,9 +154,3 @@ jobs:
           header: orders
           recreate: true
           path: ${{ env.service }}-code-coverage-results.md
-
-  # -- Integration Tests --------------------
-  # BROKEN, keeps saying socket hangup
-  # docker_ci:
-  #   name: "🧪 Integration Tests"
-  #   uses: ./.github/workflows/docker_ci.yml

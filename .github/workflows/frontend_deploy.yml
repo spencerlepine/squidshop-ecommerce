@@ -4,16 +4,19 @@ on:
   push:
     branches:
       - 'main'
+    pull_request:
+      branches:
+        - '*'
   workflow_dispatch:
 
 jobs:
   ci:
-    runs-on: ${{ matrix.os }}
+    runs-on: 'ubuntu-latest'
+    env:
+      working_directory: ./apps/client
+      REACT_APP_GATEWAY_API_URL: ${{ secrets.GATEWAY_API_URL }}
     strategy:
       fail-fast: false
-      matrix:
-        node: ['16'] # '12', '14'
-        os: [ubuntu-latest]
 
     name: "🚀 Deploy Frontend"
     steps:
@@ -23,22 +26,19 @@ jobs:
       - name: "🔧 Set up Node"
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node }}
+          node-version: '16'
 
       - name: "📦 Install Dependencies"
-        # if: steps.yarn-cache.outputs.cache-hit != 'true' # Over here!
         run: |
-          cd client
+          cd ${{ env.working_directory }}
           yarn
-          cd ..
+          cd ../..
 
       - name: "🏗️ Build"
-        env:
-          REACT_APP_GATEWAY_API_URL: ${{ secrets.GATEWAY_API_URL }}
         run: |
-          cd client
-          yarn run build
-          cd ..
+          cd ${{ env.working_directory }}
+          yarn build
+          cd ../..
 
       - name: Deploy to Netlify
         uses: nwtgck/actions-netlify@v1.2.3
@@ -54,4 +54,3 @@ jobs:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
           REACT_APP_GATEWAY_API_URL: ${{ secrets.GATEWAY_API_URL }}
-        # timeout-minutes: 1
