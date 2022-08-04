@@ -15,6 +15,7 @@ const cassandra = Cassandra.createClient({
     contactPoints: [CASSANDRA_HOST],
     protocolOptions: { port: Number(CASSANDRA_PORT) },
     keyspace: CASSANDRA_KEYSPACE,
+    localDataCenter: 'datacenter1',
     queryOptions: { consistency: Cassandra.consistencies.one },
     // eslint-disable-next-line max-len
     // authProvider: new models.driver.auth.PlainTextAuthProvider(CASSANDRA_USER, CASSANDRA_PASSWORD),
@@ -53,7 +54,7 @@ const ProductSchema = {
   },
   key: ['id'],
 };
-cassandra.loadSchema('Product', ProductSchema);
+cassandra.loadSchema('product', ProductSchema);
 
 // cassandra.connect((err) => {
 //   if (err) {

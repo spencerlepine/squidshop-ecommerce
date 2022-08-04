@@ -5,6 +5,7 @@
  *    - Mock the ORM models and CRUD method
  *    - Avoid connectinng to Cassandra database
  *    - Use in-memory storage for test environment
+ *     NOTE: this is very hard coded, not great solution
 */
 jest.mock('../src/models', () => {
   const mockCassandraStorage = {};
@@ -26,35 +27,33 @@ jest.mock('../src/models', () => {
 
   const ProductModelMock = ProductClass;
   // Mock the Read method promise
-  ProductModelMock.findOne = (query) => {
+  ProductModelMock.findOne = (query, callback) => {
     const { id } = query;
 
-    return new Promise((resolve) => {
-      resolve(mockCassandraStorage[id]);
-    });
+    callback(null, mockCassandraStorage[id]);
+  };
+
+  ProductModelMock.find = (query, options, callback) => {
+    callback(null, Object.values(mockCassandraStorage));
   };
   // Mock the Update method promise
-  ProductModelMock.update = (query, updatedRecord) => {
+  ProductModelMock.update = (query, updatedRecord, callback) => {
     const { id } = query;
     mockCassandraStorage[id] = updatedRecord;
 
-    return new Promise((resolve) => {
-      resolve(updatedRecord);
-    });
+    callback(null, updatedRecord);
   };
   // Mock the Read method promise
-  ProductModelMock.delete = (query) => {
+  ProductModelMock.delete = (query, callback) => {
     const { id } = query;
     delete mockCassandraStorage[id];
 
-    return new Promise((resolve) => {
-      resolve({});
-    });
+    callback(null, {});
   };
 
   return ({
     instance: {
-      Product: ProductModelMock,
+      product: ProductModelMock,
     },
   });
 });

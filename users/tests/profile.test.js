@@ -99,7 +99,7 @@ describe('/profile endpoint', () => {
       request(app)
         .put(`/profile/${mockUser.id}/update`)
         .send(updatedProfile)
-        // .expect(201)
+        .expect(201)
         .then((response) => {
           const data = response.body;
           expect(data).toHaveProperty('address', newAddress);
