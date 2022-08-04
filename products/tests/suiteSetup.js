@@ -32,6 +32,10 @@ jest.mock('../src/models', () => {
 
     callback(null, mockCassandraStorage[id]);
   };
+
+  ProductModelMock.find = (query, options, callback) => {
+    callback(null, Object.values(mockCassandraStorage));
+  };
   // Mock the Update method promise
   ProductModelMock.update = (query, updatedRecord, callback) => {
     const { id } = query;
