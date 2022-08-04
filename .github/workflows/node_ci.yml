@@ -81,7 +81,7 @@ jobs:
           thresholds: '60 80'
 
       - name: Rename coverage output file
-        run: mv ../code-coverage-results.md ./${{ inputs.folder_name }}-code-coverage-results.md
+        run: mv ../../code-coverage-results.md ./${{ inputs.folder_name }}-code-coverage-results.md
 
       - name: Add Coverage PR Comment
         uses: marocchino/sticky-pull-request-comment@v2
