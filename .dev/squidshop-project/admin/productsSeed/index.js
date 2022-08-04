@@ -13,13 +13,13 @@ const postProduct = (product) => {
     data: data
   };
 
-  axios(config)
-    .then((response) => {
-      console.log(JSON.stringify(response.data));
-    })
-    .catch((error) => {
-      console.log(error.response.data);
-    });
+  // axios(config)
+  //   .then((response) => {
+  //     cnsole.log(JSON.stringify(response.data));
+  //   })
+  //   .catch((error) => {
+  //     cnsole.log(error.response.data);
+  //   });
 }
 
 postProduct(products[0])

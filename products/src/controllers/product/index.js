@@ -5,7 +5,7 @@ const models = require('../../models');
 const router = express.Router();
 
 // Create
-router.post('/upload', (req, res) => {
+router.post('/upload', async (req, res) => {
   const productDetails = req.body;
   const newId = uuid();
 
@@ -15,29 +15,30 @@ router.post('/upload', (req, res) => {
     created: Date.now(),
   });
 
-  return newProduct.saveAsync(newId)
-    .then(() => {
-      res.status(201);
-      return res.json({
-        message: 'Successfully added product',
-        productId: newId,
-      });
-    })
-    .catch((err) => {
-      console.log(err);
+  await newProduct.saveAsync(newId);
+  return res.status(201).json({
+    message: 'Successfully added product',
+    productId: newId,
+  });
 
-      res.status(409).json({
-        message: 'Unable to create product',
-        error: JSON.stringify(err),
-      });
-    });
+  // .then(() => res.status(201).json({
+  //   message: 'Successfully added product',
+  //   productId: newId,
+  // }))
+  // .catch((err) => {
+  //   return res.status(409).json({
+  //     message: 'Unable to create product',
+  //     error: JSON.stringify(err),
+  //   });
+  // });
 });
 
 // Read
-router.get('/:productId', (req, res) => {
-  const { productId } = req.params;
+router.get('/:productId', async (req, res) => {
+  const query = { id: req.params.productId };
 
-  return models.instance.product.findOne({ id: productId }, (err, data) => {
+  // eslint-disable-next-line max-len
+  return models.instance.product.findOne(query, (err, data) => {
     if (err) {
       return res.status(500).json({
         message: 'Unable to find product record',
