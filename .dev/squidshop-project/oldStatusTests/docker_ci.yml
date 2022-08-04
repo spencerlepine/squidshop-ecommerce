@@ -15,7 +15,6 @@ on:
 
 jobs:
   integration_test:
-    runs-on: ${{ matrix.os }}
     runs-on: 'ubuntu-latest'
     strategy:
       fail-fast: false

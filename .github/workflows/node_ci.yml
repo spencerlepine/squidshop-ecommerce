@@ -22,10 +22,9 @@ on:
 
 jobs:
   lint_and_test:
-    runs-on: ${{ matrix.os }}
+    runs-on: 'ubuntu-latest'
     env:
       working_directory: ./apps/${{ inputs.folder_name }}
-    runs-on: 'ubuntu-latest'
     strategy:
       fail-fast: false
     defaults:
