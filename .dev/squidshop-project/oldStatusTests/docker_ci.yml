@@ -15,12 +15,9 @@ on:
 
 jobs:
   integration_test:
-    runs-on: ${{ matrix.os }}
+    runs-on: 'ubuntu-latest'
     strategy:
       fail-fast: false
-      matrix:
-        node: ['16']
-        os: [ubuntu-latest]
     defaults:
       run:
         working-directory: ./__tests__
@@ -33,7 +30,7 @@ jobs:
       - name: "🔧 Set up Node"
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node }}
+          node-version: '16'
 
       - name: "⚙️ Make Scripts Executable"
         run: |

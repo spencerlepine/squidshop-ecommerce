@@ -1,51 +1,124 @@
-name: CI
+name: Node CI
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#  Continuous Integration Workflow
+#  Node.js Continuous Integration Workflow
 #  Author: @spencerlepine
 #
-#  Features
+#  Features:
+#    - runs in a specified subdirectory (workflow_call)
 #    - lint, test, and build (w/ Docker)
-#    - run CI for each microservice
+#    - install and cache dependencies using yarn
+#    - test with jest
+#    - generate test coverage output (to cobertura-coverage.xml)
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 on:
   push:
     branches:
       - 'main'
+  pull_request:
+    branches:
+      - '*'
 
 jobs:
-  client_ci:
-    name: "🧪 Client CI"
-    uses: ./.github/workflows/node_ci.yml
-    with:
-      folder_name: client
+  lint_and_test:
+    runs-on: 'ubuntu-latest'
+    env:
+      working_directory: ./apps/${{ matrix.folder_name }}
+    strategy:
+      fail-fast: false
+      matrix:
+        folder_name: ['client', 'users', 'orders', 'products', 'gateway']
+    defaults:
+      run:
+        working-directory: ${{ env.working_directory }}
 
-  gateway_ci:
-    name: "🧪 Gateway CI"
-    uses: ./.github/workflows/node_ci.yml
-    with:
-      folder_name: gateway
+    name: "🧪 Lint and Test"
+    steps:
+      - name: "☁️ Check out Git Repository"
+        uses: actions/checkout@v2
 
-  users_ci:
-    name: "🧪 Users CI"
-    uses: ./.github/workflows/node_ci.yml
-    with:
-      folder_name: users
+      - name: "🔧 Set up Node"
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
 
-  products_ci:
-    name: "🧪 Products CI"
-    uses: ./.github/workflows/node_ci.yml
-    with:
-      folder_name: products
+      - name: "⚙️ Get Yarn Cache Directory Path"
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn cache dir)"
 
-  orders_ci:
-    name: "🧪 Orders CI"
-    uses: ./.github/workflows/node_ci.yml
-    with:
-      folder_name: orders
+      - name: "⚡️ Cache Dependencies"
+        uses: actions/cache@v1
+        id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
 
-  # BROKEN, keeps saying socket hangup
-  # docker_ci:
-  #   name: "🧪 Integration Tests"
-  #   uses: ./.github/workflows/docker_ci.yml
+      - name: "📦 Install Dependencies"
+        # if: steps.yarn-cache.outputs.cache-hit != 'true' # Over here!
+        run: yarn
+
+      - name: "🧐 Lint"
+        run: yarn run lint
+
+      - name: "✅ Test"
+        run: yarn run test --coverage --coverageDirectory=coverage
+
+      # The steps below are buggy
+      # Either they interpret the context working directory from GitHub Actions
+      # OR they are using absolute file path from the project root directory
+      - name: Copy Coverage To Predictable Location
+        run: cp coverage/cobertura-coverage.xml cobertura-coverage.xml
+
+      - name: Code Coverage Summary Report
+        uses: irongut/CodeCoverageSummary@v1.3.0
+        with:
+          filename: ${{ env.working_directory }}/cobertura-coverage.xml
+          badge: true
+          fail_below_min: true
+          format: markdown
+          hide_branch_rate: false
+          hide_complexity: true
+          indicators: true
+          output: both
+          thresholds: '60 80'
+
+      - name: Rename coverage output file
+        run: mv ../../code-coverage-results.md ./${{ matrix.folder_name }}-code-coverage-results.md
+
+      - name: Add Coverage PR Comment
+        uses: marocchino/sticky-pull-request-comment@v2
+        if: github.event_name == 'pull_request'
+        with:
+          header: ${{ matrix.folder_name }}
+          recreate: true
+          path: ${{ env.working_directory }}/${{ matrix.folder_name }}-code-coverage-results.md
+    
+      - name: Job Summary Output
+        run: |
+          echo '### `${{ matrix.folder_name }}`  Test Coverage :tada:' >> $GITHUB_STEP_SUMMARY
+          echo "$(<./${{ matrix.folder_name }}-code-coverage-results.md )" >> $GITHUB_STEP_SUMMARY
+
+  docker_build:
+    # needs: [lint_and_test] # Will run CI faster without waiting for tests
+    env:
+      working_directory: ./apps/${{ matrix.folder_name }}
+    runs-on: 'ubuntu-latest'
+    strategy:
+      fail-fast: false
+      matrix:
+        folder_name: ['client', 'users', 'orders', 'products', 'gateway']
+    defaults:
+      run:
+        working-directory: ${{ env.working_directory }}
+
+    name: "🐳 Docker Build"
+    steps:
+      - name: "☁️ Check out Git Repository"
+        uses: actions/checkout@v2
+
+      - name: "🏗️ Build"
+        run: |
+          docker-compose build

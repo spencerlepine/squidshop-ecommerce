@@ -33,6 +33,7 @@ services:
       DATABASE_NAME: testdb
       DATABASE_DIALECT: postgres
       NODE_ENV: production
+      ACCESS_TOKEN_SECRET: mysecret
 
 # Persist the database
 volumes:
