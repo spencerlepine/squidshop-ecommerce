@@ -29,6 +29,8 @@ jobs:
     runs-on: 'ubuntu-latest'
     env:
       working_directory: ${{ env.ROOT_DIR }}${{ matrix.folder_name }}
+      APPS: ${{ env.APPS }}
+      ROOT_DIR: ${{ env.ROOT_DIR }}
     strategy:
       fail-fast: false
       matrix:
@@ -110,6 +112,8 @@ jobs:
     needs: [lint_and_test]
     env:
       working_directory: ${{ env.ROOT_DIR }}${{ matrix.folder_name }}
+      APPS: ${{ env.APPS }}
+      ROOT_DIR: ${{ env.ROOT_DIR }}
     runs-on: 'ubuntu-latest'
     strategy:
       fail-fast: false
