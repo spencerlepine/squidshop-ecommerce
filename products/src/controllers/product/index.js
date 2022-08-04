@@ -1,3 +1,5 @@
+/* eslint-disable consistent-return */
+/* eslint-disable new-cap */
 const express = require('express');
 const { v4: uuid } = require('uuid');
 const models = require('../../models');
