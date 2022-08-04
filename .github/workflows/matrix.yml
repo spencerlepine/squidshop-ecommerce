@@ -12,8 +12,6 @@ name: Node CI
 #    - generate test coverage output (to cobertura-coverage.xml)
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 env:
-  # APPS: [client, users, orders, products, gateway]
-  APPS: 'client, users, orders, products, gateway'
   ROOT_DIR: './apps/' # './'
 
 on:
@@ -29,13 +27,10 @@ jobs:
     runs-on: 'ubuntu-latest'
     env:
       working_directory: ${{ env.ROOT_DIR }}${{ matrix.folder_name }}
-      APPS: ${{ env.APPS }}
-      ROOT_DIR: ${{ env.ROOT_DIR }}
     strategy:
       fail-fast: false
       matrix:
-        # folder_name: ${{ env.APPS }}
-        folder_name: readarray -td, a <<<"${{ env.APPS }}"; declare -p a;
+        folder_name: ['client', 'users', 'orders', 'products', 'gateway']
     defaults:
       run:
         working-directory: ${{ env.working_directory }}
@@ -112,14 +107,11 @@ jobs:
     needs: [lint_and_test]
     env:
       working_directory: ${{ env.ROOT_DIR }}${{ matrix.folder_name }}
-      APPS: ${{ env.APPS }}
-      ROOT_DIR: ${{ env.ROOT_DIR }}
     runs-on: 'ubuntu-latest'
     strategy:
       fail-fast: false
       matrix:
-        # folder_name: ${{ env.APPS }}
-        folder_name: readarray -td, a <<<"${{ env.APPS }}"; declare -p a;
+        folder_name: ['client', 'users', 'orders', 'products', 'gateway']
     defaults:
       run:
         working-directory: ${{ env.working_directory }}
