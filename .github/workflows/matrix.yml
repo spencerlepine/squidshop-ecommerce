@@ -12,7 +12,7 @@ name: Node CI
 #    - generate test coverage output (to cobertura-coverage.xml)
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 env:
-  APPS: ['client', 'users', 'orders', 'products', 'gateway']
+  APPS: [client, users, orders, products, gateway]
   ROOT_DIR: './apps/' # './'
 
 on:
