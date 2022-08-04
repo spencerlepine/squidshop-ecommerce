@@ -1,6 +1,7 @@
 {
   "rules": {
-    "no-undef": "off"
+    "no-undef": "off",
+    "global-require": "warn"
   },
   "extends": [
     "@spencerlepine/eslint-config-node"
