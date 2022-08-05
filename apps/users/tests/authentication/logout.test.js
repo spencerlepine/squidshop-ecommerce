@@ -1,5 +1,6 @@
 const request = require('supertest');
-const app = require('../index');
+const app = require('../../index');
+const { registerUser, loginUser } = require('./authHelpers');
 
 describe('/logout endpoint', () => {
   test('should respond', (done) => {
@@ -13,16 +14,14 @@ describe('/logout endpoint', () => {
       .catch((err) => done(err));
   });
 
-  test('should revoke signed in user', (done) => {
+  test('should log out signed in user', (done) => {
     const mockUser = {
-      email: 'testUser',
+      email: 'testUser200',
       password: 'tE$tP@$$Word',
     };
 
-    request(app)
-      .post('/login')
-      .send(mockUser)
-      .expect(201)
+    registerUser(mockUser)
+      .then(() => loginUser(mockUser))
       .then((response) => (
         request(app)
           .delete('/logout')

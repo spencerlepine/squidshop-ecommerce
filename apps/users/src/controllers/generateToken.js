@@ -6,7 +6,7 @@ const { ACCESS_TOKEN_SECRET, REFRESH_TOKEN_SECRET } = config;
 const EXPIRATION_TIME = 10; // in mins
 
 let refreshTokens = [];
-
+// TODO, use redis cache
 const deleteRefreshToken = (oldToken) => {
   refreshTokens = refreshTokens.filter((token) => token !== oldToken);
 };

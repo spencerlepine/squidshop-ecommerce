@@ -5,7 +5,7 @@ const statusRoutes = require('./controllers/status');
 const loginRoutes = require('./controllers/login');
 const registerRoutes = require('./controllers/register');
 // const tokenRoutes = require('./controllers/token');
-// const logoutRoutes = require('./controllers/logout');
+const logoutRoutes = require('./controllers/logout');
 // const authenticateTokenMiddleware = require('../middleware/authenticateToken');
 
 const router = express.Router();
@@ -16,7 +16,7 @@ router.use('/profile', profileRoutes);
 router.use('/status', statusRoutes);
 router.use('/login', loginRoutes);
 router.use('/register', registerRoutes);
-// router.use('/logout', logoutRoutes);
+router.use('/logout', logoutRoutes);
 // router.use('/token', tokenRoutes);
 
 module.exports = router;
