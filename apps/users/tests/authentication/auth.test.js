@@ -3,6 +3,13 @@ const app = require('../../index');
 
 jest.setTimeout(10000);
 
+const parseResponseCookie = (cookieStr) => {
+  const cookieRe = new RegExp(/=.+; Path=\/; HttpOnly$/);
+
+  const cookie = cookieStr.match(cookieRe)[0];
+  return cookie.substring(1, cookie.length - 18);
+};
+
 describe('JWT Token Authentication', () => {
   test('should handle entire authentication process', (done) => {
     const mockUser = {
@@ -24,9 +31,7 @@ describe('JWT Token Authentication', () => {
         .send(mockUser)
         .expect(201)
         .then((response) => {
-          const cookieRe = new RegExp(/=.+; Path=\/; HttpOnly$/);
-          const cookie = response.header['set-cookie'][0].match(cookieRe)[0];
-          const ACCESS_TOKEN = cookie.substring(1, cookie.length - 18);
+          const ACCESS_TOKEN = parseResponseCookie(response.header['set-cookie'][0]);
           expect(ACCESS_TOKEN).toBeTruthy();
           resolve(ACCESS_TOKEN);
         })

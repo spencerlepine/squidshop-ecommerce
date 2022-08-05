@@ -21,6 +21,7 @@ module.exports = {
     refreshTokens.push(token);
     return token;
   },
+  refreshTokens,
   deleteRefreshToken,
   REFRESH_TOKEN_SECRET,
 };

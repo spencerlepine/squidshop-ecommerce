@@ -20,9 +20,7 @@ router.post('/', (req, res) => {
     .then(async (data) => {
       if (data && data.length === 1 && data[0].dataValues) {
         const userRecord = data[0].dataValues; // hard coded from Sequelize
-        console.log(req.body.password, userRecord.password);
         const passwordCheck = await bcrypt.compare(req.body.password, userRecord.password);
-        console.log(passwordCheck);
 
         if (passwordCheck) {
           // Generate the JWT

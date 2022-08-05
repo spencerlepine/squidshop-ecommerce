@@ -4,7 +4,7 @@ const statusRoutes = require('./controllers/status');
 // const exampleRoutes = require('./controllers/example'); // seperate Authorize app
 const loginRoutes = require('./controllers/login');
 const registerRoutes = require('./controllers/register');
-// const tokenRoutes = require('./controllers/token');
+const tokenRoutes = require('./controllers/token');
 const logoutRoutes = require('./controllers/logout');
 // const authenticateTokenMiddleware = require('../middleware/authenticateToken');
 
@@ -17,6 +17,6 @@ router.use('/status', statusRoutes);
 router.use('/login', loginRoutes);
 router.use('/register', registerRoutes);
 router.use('/logout', logoutRoutes);
-// router.use('/token', tokenRoutes);
+router.use('/token', tokenRoutes);
 
 module.exports = router;
