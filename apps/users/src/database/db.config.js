@@ -8,6 +8,7 @@ module.exports = {
   test: {
     dialect: 'sqlite',
     storage: ':memory',
+    logging: false,
   },
   production: {
     HOST: config.DATABASE_HOST,

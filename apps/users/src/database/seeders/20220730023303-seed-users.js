@@ -17,6 +17,7 @@ module.exports = {
       lastName: 'Dogg',
       address: 'UrMom Avenue, New York City, NY 10001',
       email: 'snoopydog@dogpound.com',
+      password: 'testHashP@$$WOrd',
       createdAt: new Date().toDateString(),
       updatedAt: new Date().toDateString(),
     }, {
@@ -24,6 +25,7 @@ module.exports = {
       lastName: 'Doo',
       address: 'Cat Avenue, New York City, NY 10001',
       email: 'scooby.doo@misterymachine.com',
+      password: 'testHashP@$$WOrd',
       createdAt: new Date().toDateString(),
       updatedAt: new Date().toDateString(),
     }, {
@@ -31,6 +33,7 @@ module.exports = {
       lastName: 'Husker',
       address: 'Dog Avenue, New York City, NY 10001',
       email: 'herbie.husker@unl.edu',
+      password: 'testHashP@$$WOrd',
       createdAt: new Date().toDateString(),
       updatedAt: new Date().toDateString(),
     }], {}),
