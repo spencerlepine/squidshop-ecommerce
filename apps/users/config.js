@@ -12,6 +12,7 @@ const config = {
   DATABASE_NAME: process.env.DATABASE_NAME,
   DATABASE_DIALECT: process.env.DATABASE_DIALECT,
   ACCESS_TOKEN_SECRET: process.env.ACCESS_TOKEN_SECRET || 'testSecret',
+  REFRESH_TOKEN_SECRET: process.env.REFRESH_TOKEN_SECRET || 'refreshSecret',
 };
 
 module.exports = config;

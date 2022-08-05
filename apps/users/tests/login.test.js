@@ -1,6 +1,11 @@
 const request = require('supertest');
 const app = require('../index');
 
+const mockUser = {
+  email: 'testUser',
+  password: 'tE$tP@$$Word',
+};
+
 const parseJwt = (token) => {
   try {
     return JSON.parse(atob(token.split('.')[1]));
@@ -11,42 +16,39 @@ const parseJwt = (token) => {
 
 describe('/login endpoint', () => {
   test('should respond', (done) => {
-    request(app)
-      .post('/login')
-      .send({ email: 'testUser' })
-      .expect(201)
+    const registerUser = () => (new Promise((resolve) => (
+      request(app)
+        .post('/register')
+        .send(mockUser)
+        .then(() => resolve())
+    )));
+
+    const loginUser = () => (new Promise((resolve) => (
+      request(app)
+        .post('/login')
+        .send(mockUser)
+        .expect(201)
+        .then((response) => resolve(response))
+    )));
+
+    registerUser()
+      .then(loginUser)
       .then((response) => {
-        expect(response.header['set-cookie'].length).toBeTruthy();
-        expect(response.body).toBeTruthy();
-        const { body } = response;
-        expect(body).toHaveProperty('accessToken');
-        const { accessToken } = body;
-        expect(accessToken).toBeTruthy();
-        expect(typeof accessToken).toBe('string');
-        expect(accessToken.split('.').length).toBe(3);
-        expect(body).toHaveProperty('refreshToken');
-        const { refreshToken } = body;
-        expect(refreshToken).toBeTruthy();
-        expect(typeof refreshToken).toBe('string');
-        expect(refreshToken.split('.').length).toBe(3);
+        expect(response.header['set-cookie'].length).toBe(2);
         done();
       })
       .catch((err) => done(err));
   });
 
-  test('should create JWT', (done) => {
-    const mockUser = {
-      email: 'testUser',
-      password: 'tE$tP@$$Word',
-    };
-
+  test('should create JWT with user email and ID', (done) => {
     request(app)
       .post('/login')
       .send(mockUser)
       .expect(201)
       .then((response) => {
-        const parsedToken = parseJwt(response.body.accessToken);
-        expect(parsedToken.name).toBe(mockUser.email);
+        const parsedToken = parseJwt(response.header['set-cookie'][0]);
+        expect(parsedToken.email).toBe(mockUser.email);
+        expect(parsedToken.id).toBeDefined();
         done();
       })
       .catch((err) => done(err));
