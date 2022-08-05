@@ -1,22 +1,23 @@
 const express = require('express');
 const profileRoutes = require('./controllers/profile');
 const statusRoutes = require('./controllers/status');
-// const exampleRoutes = require('./controllers/example'); // seperate Authorize app
 const loginRoutes = require('./controllers/login');
 const registerRoutes = require('./controllers/register');
 const tokenRoutes = require('./controllers/token');
 const logoutRoutes = require('./controllers/logout');
-// const authenticateTokenMiddleware = require('../middleware/authenticateToken');
+const authenticateRoutes = require('./controllers/authenticate');
 
 const router = express.Router();
 
-// TODO
-// router.use('/example', authenticateTokenMiddleware, exampleRoutes);
 router.use('/profile', profileRoutes);
-router.use('/status', statusRoutes);
+
 router.use('/login', loginRoutes);
 router.use('/register', registerRoutes);
 router.use('/logout', logoutRoutes);
 router.use('/token', tokenRoutes);
+router.use('/authenticate', authenticateRoutes);
+
+// API up and running status
+router.use('/status', statusRoutes);
 
 module.exports = router;
