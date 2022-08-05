@@ -5,6 +5,8 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import missingImage from '../../../assets/placeholder.jpeg'
+
 const toTitleCase = (str) => {
   return str[0].toUpperCase() + str.substring(1, str.length)
 }
@@ -16,7 +18,7 @@ const ProductCard = ({ product }) => {
         component="img"
         alt="green iguana"
         height="140"
-        image={product.image}
+        image={product.image || missingImage}
       />
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
