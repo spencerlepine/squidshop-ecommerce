@@ -10,12 +10,12 @@ const parseJwt = (token) => {
 
 describe('/login endpoint', () => {
   const mockUser = {
-    email: 'testUser',
+    email: 'testUser102985',
     password: 'tE$tP@$$Word',
   };
 
-  beforeAll(() => {
-    registerUser(mockUser);
+  beforeAll(async () => {
+    await registerUser(mockUser);
   });
 
   test('should respond', (done) => {
