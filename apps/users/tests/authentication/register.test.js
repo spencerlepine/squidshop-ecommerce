@@ -6,15 +6,15 @@ describe('/register endpoint', () => {
     request(app)
       .post('/register')
       .send({ email: 'testUser', password: 'yeet' })
-      .expect(302)
-      .expect('Location', /\/login/, done);
+      .expect(201)
+      .then(() => done());
   });
 
-  test('should return to register endpoint with invalid data', (done) => {
+  test('should revoke invalid data', (done) => {
     request(app)
       .post('/register')
       .send({ email: 'testUser', password: '' })
-      .expect(302)
-      .expect('Location', /\/register/, done);
+      .expect(401)
+      .then(() => done());
   });
 });

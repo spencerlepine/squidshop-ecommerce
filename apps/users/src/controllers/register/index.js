@@ -10,7 +10,7 @@ const { User } = db;
 router.post('/', async (req, res) => {
   try {
     if (!req.body.password || !req.body.email) {
-      return res.redirect('/register');
+      return res.sendStatus(401); // redirect('/register');
     }
 
     const hashPassword = await bcrypt.hash(req.body.password, 10);
@@ -23,10 +23,10 @@ router.post('/', async (req, res) => {
     // .then((data) => data.dataValues.id)
     // const newUserId = data.dataValues.id;
     return User.create(userDetails)
-      .then(() => res.redirect('/login'))
-      .catch(() => res.redirect('/register'));
+      .then(() => res.sendStatus(201)) // res.redirect('/login'))
+      .catch(() => res.sendStatus(401)); // res.redirect('/register'));
   } catch (e) {
-    return res.redirect('/register');
+    return res.sendStatus(401);// res.redirect('/register');
   }
 });
 

@@ -21,7 +21,7 @@ describe('JWT Token Authentication', () => {
       request(app)
         .post('/register')
         .send(mockUser)
-        .expect(302)
+        .expect(201)
         .then(() => resolve())
     ));
 
