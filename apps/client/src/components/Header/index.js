@@ -13,18 +13,27 @@ import MenuIcon from '@material-ui/icons/Menu'
 import React, { useState, useEffect } from "react";
 import { Link as RouterLink } from "react-router-dom";
 import squidShopLogo from '../../assets/squidshop-logo.png';
+import useAuth from '../../context/AuthContext';
 
 // https://github.com/vuonga1103/responsive-header-tutorial
-const headersData = [
+
+const headerDataTemplate = (isLoggedIn) => ([
   {
     label: "Products",
     href: "/",
   },
-  {
-    label: "Sign In",
-    href: "/login",
-  },
-];
+  (isLoggedIn ? (
+    {
+      label: "Logout",
+      href: "/logout",
+    }
+  ) : (
+    {
+      label: "Sign In",
+      href: "/login",
+    }
+  ))
+]);
 
 const useStyles = makeStyles(() => ({
   header: {
@@ -59,12 +68,21 @@ const useStyles = makeStyles(() => ({
 }));
 
 export default function Header() {
+  const { isLoggedIn } = useAuth();
   const { header, logo, menuButton, toolbar, drawerContainer, logoImg } = useStyles();
   const [state, setState] = useState({
     mobileView: false,
     drawerOpen: false
   });
+  
+  const [headersData, setHeadersData] = useState(headerDataTemplate(isLoggedIn))
   const { mobileView, drawerOpen } = state;
+  
+  useEffect((prevState) => {
+    if (isLoggedIn !== prevState) {
+      setHeadersData(headerDataTemplate(isLoggedIn))
+    }
+  }, [isLoggedIn])
 
   useEffect(() => {
     const setResponsiveness = () => {

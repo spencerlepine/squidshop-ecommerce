@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState} from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -8,21 +8,31 @@ import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
+import Alert from '@mui/material/Alert';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import * as authApi from '../../api/authentication';
 
 const theme = createTheme();
 
 export default function SignIn() {
+  const [errorMessage, setErrorMessage] = useState('');
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
+    authApi.signInWithEmailAndPassword({
       email: data.get('email'),
       password: data.get('password'),
-    });
+    })
+    .then(() => {
+      // TODO, redirect to home page
+    })
+    .catch(() => {
+      setErrorMessage('Incorrect email or password')
+    })
   };
 
   return (
@@ -43,6 +53,9 @@ export default function SignIn() {
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
+          {errorMessage && (
+            <Alert severity="error" onClose={() => setErrorMessage('')}>{errorMessage}</Alert>
+          )}
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
             <TextField
               margin="normal"

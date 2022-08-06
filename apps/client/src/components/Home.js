@@ -1,21 +1,16 @@
+import { useEffect } from 'react';
 import Header from './Header';
 import Products from './Products';
 import SignIn from './SignIn'
 import SignUp from './SignUp'
 import Missing from './Missing';
 import Footer from './Footer';
-
 import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import Link from '@mui/material/Link';
-
 import {
   Routes,
   Route,
 } from "react-router-dom";
-
 
 const Home = () => {
   return (
