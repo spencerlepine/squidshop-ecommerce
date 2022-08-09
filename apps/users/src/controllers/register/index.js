@@ -8,7 +8,7 @@ const { User } = db;
 
 // eslint-disable-next-line consistent-return
 router.post('/', (req, res) => {
-  if (!req.body.password || !req.body.email) {
+  if (!req.body.password || !req.body.email || !req.body.firstName || !req.body.lastName) {
     return res.sendStatus(401);
   }
 
@@ -24,6 +24,8 @@ router.post('/', (req, res) => {
         const userDetails = {
           email: req.body.email,
           password: hashPassword,
+          firstName: req.body.firstName,
+          lastName: req.body.lastName,
         };
 
         // To get the Id from the newly created user
@@ -31,7 +33,10 @@ router.post('/', (req, res) => {
         // const newUserId = data.dataValues.id;
         return User.create(userDetails)
           .then(() => res.sendStatus(201))
-          .catch((err) => res.status(500).json({ error: err }));
+          .catch((err) => {
+            console.error(err);
+            return res.status(500).json({ error: err });
+          });
       }
 
       return res.sendStatus(401);
