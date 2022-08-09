@@ -11,10 +11,10 @@ module.exports = {
     logging: false,
   },
   production: {
-    HOST: config.DATABASE_HOST,
-    USER: config.DATABASE_USER,
-    PASSWORD: config.DATABASE_PASSWORD,
-    DB: config.DATABASE_NAME,
+    host: config.DATABASE_HOST,
+    user: config.DATABASE_USER,
+    password: config.DATABASE_PASSWORD,
+    database: config.DATABASE_NAME,
     dialect: config.DATABASE_DIALECT,
     pool: {
       max: 5,

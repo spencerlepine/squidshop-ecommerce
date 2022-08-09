@@ -3,8 +3,8 @@ const testDbConnection = require('../../database/test.db.connection');
 
 const router = express.Router();
 
-router.get('/', (req, res) => {
-  const databaseConnected = testDbConnection();
+router.get('/', async (req, res) => {
+  const databaseConnected = await testDbConnection();
   const statusCode = databaseConnected ? 200 : 500;
 
   res.status(statusCode).json({
