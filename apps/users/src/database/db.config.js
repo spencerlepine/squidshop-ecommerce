@@ -16,6 +16,7 @@ module.exports = {
     password: config.DATABASE_PASSWORD,
     database: config.DATABASE_NAME,
     dialect: config.DATABASE_DIALECT,
+    quoteIdentifiers: false,
     pool: {
       max: 5,
       min: 0,
