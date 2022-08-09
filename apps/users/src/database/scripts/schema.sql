@@ -8,6 +8,8 @@ CREATE TABLE `Users` (
   `password` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   `address` varchar(255) NOT NULL,
+  `createdAt` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updatedAt` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   UNIQUE KEY `id` (`id`),
   UNIQUE KEY `email` (`email`)
 );
