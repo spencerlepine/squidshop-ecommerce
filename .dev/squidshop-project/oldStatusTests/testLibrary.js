@@ -1,4 +1,5 @@
 const https = require('http');
+const logger = console.log;
 
 const lastTestName = []
 const lastDescName = []
@@ -37,12 +38,12 @@ const request = (host, port, path, callback) => {
 
 const handleFailure = (failureMessage, optionalName) => {
   if (optionalName) {
-    console.log(`\n  ${optionalName}`)
+    logger(`\n  ${optionalName}`)
   } else {
-    console.log(`\n  ${lastDescName.slice(-1)[0]}`)
+    logger(`\n  ${lastDescName.slice(-1)[0]}`)
   }
-  console.log(`    ${lastTestName.slice(-1)[0]}`)
-  console.log(`       ❌ FAILED: ${failureMessage}`)
+  logger(`    ${lastTestName.slice(-1)[0]}`)
+  logger(`       ❌ FAILED: ${failureMessage}`)
   process.exit(1);
 }
 
@@ -67,8 +68,8 @@ const describe = (testGroupName, testGroup) => {
 const test = (testName, assertions) => {
   lastTestName.push(testName)
   assertions(() => {
-    console.log(`      ${testName}`)
-    console.log("       ✅ Passed")
+    logger(`      ${testName}`)
+    logger("       ✅ Passed")
   })
 }
 
