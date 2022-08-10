@@ -7,7 +7,7 @@ const db = require('../../database');
 const { User } = db;
 
 // eslint-disable-next-line consistent-return
-router.post('/', (req, res) => {
+router.post('/', (req, res, next) => {
   if (!req.body.password || !req.body.email || !req.body.firstName || !req.body.lastName) {
     return res.sendStatus(401);
   }
@@ -41,10 +41,7 @@ router.post('/', (req, res) => {
 
       return res.sendStatus(401);
     })
-    .catch((err) => {
-      console.error(err);
-      return res.sendStatus(500);
-    });
+    .catch((err) => next(err));
 });
 
 module.exports = router;

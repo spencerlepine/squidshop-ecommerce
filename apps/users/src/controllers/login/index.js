@@ -7,7 +7,7 @@ const { generateAccessToken, generateRefreshToken } = require('../generateToken'
 const { User } = db;
 const router = express.Router();
 
-router.post('/', (req, res) => {
+router.post('/', (req, res, next) => {
   if (!(req.body.email && req.body.password)) {
     return res.sendStatus(401);
   }
@@ -40,10 +40,7 @@ router.post('/', (req, res) => {
 
       return res.sendStatus(403);
     })
-    .catch((err) => {
-      console.error(err);
-      return res.sendStatus(403);
-    });
+    .catch((err) => next(err));
 });
 
 module.exports = router;
