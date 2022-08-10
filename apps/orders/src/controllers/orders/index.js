@@ -24,12 +24,7 @@ router.post('/:userId/create', (req, res) => {
         order: newRecord.dataValues,
       });
     })
-    .catch((err) => (
-      res.status(409).json({
-        message: 'Failed to create order',
-        error: err,
-      })
-    ));
+    .catch((err) => next(err));
 });
 
 // Find all orders for a user
@@ -50,12 +45,7 @@ router.get('/:userId/all', (req, res) => {
         message: 'Unable to find order records',
       });
     })
-    .catch((err) => (
-      res.status(500).json({
-        message: 'Unable to find order records',
-        error: err,
-      })
-    ));
+    .catch((err) => next(err));
 });
 
 // Find single order for a user
@@ -74,12 +64,7 @@ router.get('/:userId/:orderId', (req, res) => {
         message: 'Unable to find order record',
       });
     })
-    .catch((err) => (
-      res.status(500).json({
-        message: 'Unable to find order record',
-        error: err,
-      })
-    ));
+    .catch((err) => next(err));
 });
 
 // Update user order
@@ -102,12 +87,7 @@ router.put('/:userId/:orderId/update', (req, res) => {
         message: 'Unable to update order record',
       });
     })
-    .catch((err) => (
-      res.status(500).json({
-        message: 'Error updating order record',
-        error: err,
-      })
-    ));
+    .catch((err) => next(err));
 });
 
 // Delete user order
@@ -128,12 +108,7 @@ router.delete('/:userId/:orderId/delete', (req, res) => {
         message: 'Unable to delete order record',
       });
     })
-    .catch((err) => (
-      res.status(500).json({
-        message: 'Error deleting order record',
-        error: err,
-      })
-    ));
+    .catch((err) => next(err));
 });
 
 module.exports = router;

@@ -22,17 +22,6 @@ router.post('/upload', async (req, res) => {
     message: 'Successfully added product',
     productId: newId,
   });
-
-  // .then(() => res.status(201).json({
-  //   message: 'Successfully added product',
-  //   productId: newId,
-  // }))
-  // .catch((err) => {
-  //   return res.status(409).json({
-  //     message: 'Unable to create product',
-  //     error: JSON.stringify(err),
-  //   });
-  // });
 });
 
 // Read
@@ -94,7 +83,7 @@ router.get('/catalog', (req, res) => {
 });
 
 // Update
-router.put('/:productId/update', (req, res) => {
+router.put('/:productId/update', (req, res, next) => {
   const { productId } = req.params;
   const productDetails = req.body;
 
@@ -111,16 +100,11 @@ router.put('/:productId/update', (req, res) => {
         message: 'Unable to update product record',
       });
     })
-    .catch((err) => (
-      res.status(500).json({
-        message: 'Error updating product record',
-        error: err,
-      })
-    ));
+    .catch((err) => next(err));
 });
 
 // Delete
-router.delete('/:productId/delete', (req, res) => {
+router.delete('/:productId/delete', (req, res, next) => {
   const { productId } = req.params;
 
   const query = { id: productId };
@@ -138,12 +122,7 @@ router.delete('/:productId/delete', (req, res) => {
         message: 'Unable to delete product record',
       });
     })
-    .catch((err) => (
-      res.status(500).json({
-        message: 'Error deleting product record',
-        error: err,
-      })
-    ));
+    .catch((err) => next(err));
 });
 
 module.exports = router;

@@ -5,7 +5,7 @@ const { User } = db;
 
 const router = express.Router();
 
-router.get('/:userId', (req, res) => {
+router.get('/:userId', (req, res, next) => {
   const { userId } = req.params;
 
   return User.findByPk(userId)
@@ -19,15 +19,10 @@ router.get('/:userId', (req, res) => {
         message: 'Unable to find user profile',
       });
     })
-    .catch((err) => (
-      res.status(500).json({
-        message: 'Unable to find user profile',
-        error: err,
-      })
-    ));
+    .catch((err) => next(err));
 });
 
-router.post('/create', (req, res) => {
+router.post('/create', (req, res, next) => {
   const userDetails = req.body;
 
   return User.create(userDetails)
@@ -38,15 +33,10 @@ router.post('/create', (req, res) => {
         userId: `${data.dataValues.id}`,
       });
     })
-    .catch((err) => (
-      res.status(409).json({
-        message: 'Email address already in use',
-        error: err,
-      })
-    ));
+    .catch((err) => next(err));
 });
 
-router.put('/:userId/update', (req, res) => {
+router.put('/:userId/update', (req, res, next) => {
   const { userId } = req.params;
   const userDetails = req.body;
   delete userDetails.id;
@@ -65,12 +55,7 @@ router.put('/:userId/update', (req, res) => {
         message: 'Unable to update user profile',
       });
     })
-    .catch((err) => (
-      res.status(500).json({
-        message: 'Error updating user profile',
-        error: err,
-      })
-    ));
+    .catch((err) => next(err));
 });
 
 module.exports = router;
