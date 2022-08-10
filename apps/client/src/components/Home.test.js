@@ -3,6 +3,6 @@ import { MemoryRouter } from 'react-router-dom';
 import Home from './Home';
 
 test('should render without throwing error', () => {
-  render(<Home />, { wrapper: MemoryRouter });
+  render(<Home />);
   expect(true).toBeTruthy();
 });

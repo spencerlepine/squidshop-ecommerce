@@ -3,6 +3,6 @@ import { MemoryRouter } from 'react-router-dom';
 import Missing from './index';
 
 test('should render without throwing error', () => {
-  render(<Missing />, { wrapper: MemoryRouter });
+  render(<Missing />);
   expect(true).toBeTruthy();
 });
