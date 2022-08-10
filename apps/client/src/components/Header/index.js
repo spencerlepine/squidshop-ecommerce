@@ -102,16 +102,16 @@ export default function Header() {
   const displayDesktop = () => {
     return (
       <Toolbar className={toolbar}>
-        {femmecubatorLogo}
+        {squidshopLogo}
         <div>{getMenuButtons()}</div>
       </Toolbar>
     );
   };
 
-  const femmecubatorLogo = (
+  const squidshopLogo = (
     <div style={{ display: 'inline-flex' }}>
       <img src={squidShopLogo} alt="logo" className={logoImg} />
-      <Typography variant="h6" component="h1" style={{ margin: 'auto' }}>
+      <Typography variant="h6" component="h1" style={{ margin: 'auto' }} role="heading">
         SquidShop
       </Typography>
     </div>
@@ -181,7 +181,7 @@ export default function Header() {
         >
           <div className={drawerContainer}>{getDrawerChoices()}</div>
         </Drawer>
-        <div>{femmecubatorLogo}</div>
+        <div>{squidshopLogo}</div>
       </Toolbar>
     );
   };

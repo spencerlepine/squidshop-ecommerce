@@ -6,3 +6,9 @@ test('renders app name', () => {
   const titleElement = screen.getByText(/SquidShop/i);
   expect(titleElement).toBeInTheDocument();
 });
+
+test('renders the landing page', () => {
+  render(<App />);
+  
+  expect(screen.getAllByRole("heading")[0]).toHaveTextContent(/SquidShop/);
+});
