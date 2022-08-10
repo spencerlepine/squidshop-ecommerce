@@ -8,10 +8,9 @@ const config = require('../../../config');
 const { ACCESS_TOKEN_SECRET } = config;
 
 const authenticateTokenMiddleware = (req, res) => {
-  const authHeader = req.headers.authorization;
-  const token = authHeader && authHeader.split(' ')[1];
+  const token = req.cookies && req.cookies.accessToken;
 
-  if (token == null) {
+  if (!token) {
     return res.status(401).json({
       message: 'Please provide valid token',
     });

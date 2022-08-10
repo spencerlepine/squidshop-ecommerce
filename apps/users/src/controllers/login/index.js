@@ -11,6 +11,7 @@ router.post('/', (req, res) => {
   if (!(req.body.email && req.body.password)) {
     return res.sendStatus(401);
   }
+  console.log(req.cookies);// TODO
 
   return User.findAll({
     where: {
@@ -19,7 +20,6 @@ router.post('/', (req, res) => {
   })
     .then(async (data) => {
       const userExists = data && data.length === 1 && data[0].dataValues;
-      console.log(userExists, data); // TODO
 
       if (userExists) {
         const userRecord = data[0].dataValues; // hard coded from Sequelize
@@ -35,7 +35,14 @@ router.post('/', (req, res) => {
           const refreshToken = generateRefreshToken(user);
           res.cookie('accessToken', accessToken, { httpOnly: true });
           res.cookie('refreshToken', refreshToken, { httpOnly: true });
-
+          // const responseHeaders = {
+          //   "Content-Type": "application/json",
+          //   "set-cookie": [
+          //     `authToken=''; Path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT; max-age=0;`,
+          //     `refreshToken=''; Path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT; max-age=0;`,
+          //   ],
+          // };
+          // res.writeHead(204, responseHeaders); // TODO
           return res.sendStatus(201);
         }
       }

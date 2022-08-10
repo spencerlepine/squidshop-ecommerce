@@ -1,4 +1,5 @@
 import React, { useState} from 'react';
+import { useNavigate } from "react-router-dom";
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -19,6 +20,7 @@ const theme = createTheme();
 
 export default function SignIn() {
   const [errorMessage, setErrorMessage] = useState('');
+  const navigate = useNavigate();
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -27,8 +29,8 @@ export default function SignIn() {
       email: data.get('email'),
       password: data.get('password'),
     })
-    .then(() => {
-      // TODO, redirect to home page
+    .then((r) => {
+      navigate("/", { replace: true });
     })
     .catch(() => {
       setErrorMessage('Incorrect email or password')

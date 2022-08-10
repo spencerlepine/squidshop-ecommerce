@@ -1,4 +1,5 @@
 import React, { useState}  from 'react';
+import { useNavigate } from "react-router-dom";
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -19,6 +20,7 @@ const theme = createTheme();
 
 export default function SignUp() {
   const [errorMessage, setErrorMessage] = useState('');
+  const navigate = useNavigate();
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -36,7 +38,7 @@ export default function SignUp() {
       password: data.get('password'),
     })
     .then(() => {
-      // TODO, redirect to login page
+      navigate("/login", { replace: true });
     })
     .catch(() => {
       setErrorMessage('Unable to create account')
