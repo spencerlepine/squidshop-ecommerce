@@ -18,7 +18,9 @@ router.post('/', (req, res) => {
     },
   })
     .then(async (data) => {
-      if (data && data.length === 1 && data[0].dataValues) {
+      const userExists = data && data.length === 1 && data[0].dataValues;
+
+      if (userExists) {
         const userRecord = data[0].dataValues; // hard coded from Sequelize
         const passwordCheck = await bcrypt.compare(req.body.password, userRecord.password);
 
@@ -32,7 +34,6 @@ router.post('/', (req, res) => {
           const refreshToken = generateRefreshToken(user);
           res.cookie('accessToken', accessToken, { httpOnly: true });
           res.cookie('refreshToken', refreshToken, { httpOnly: true });
-
           return res.sendStatus(201);
         }
       }

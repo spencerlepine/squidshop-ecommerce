@@ -5,7 +5,7 @@ const registerUser = (user) => (new Promise((resolve) => (
   request(app)
     .post('/register')
     .send(user)
-    .expect(302)
+    .expect(201)
     .then((response) => resolve(response))
 )));
 

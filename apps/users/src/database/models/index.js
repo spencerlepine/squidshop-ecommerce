@@ -11,7 +11,7 @@ const configPath = `${__dirname}/../db.config.js`;
 const config = require(configPath)[env];
 const db = {};
 
-const sequelize = new Sequelize(config.database, config.username, config.password, config);
+const sequelize = new Sequelize(config.database, config.user, config.password, config);
 
 fs
   .readdirSync(__dirname)

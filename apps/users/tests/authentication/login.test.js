@@ -1,3 +1,4 @@
+const generateMockUser = require('generateMockUser');
 const { registerUser, loginUser } = require('./authHelpers');
 
 const parseJwt = (token) => {
@@ -9,10 +10,7 @@ const parseJwt = (token) => {
 };
 
 describe('/login endpoint', () => {
-  const mockUser = {
-    email: 'testUser102985',
-    password: 'tE$tP@$$Word',
-  };
+  const mockUser = generateMockUser();
 
   beforeAll(async () => {
     await registerUser(mockUser);

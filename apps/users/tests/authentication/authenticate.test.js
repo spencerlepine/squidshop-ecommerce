@@ -1,11 +1,9 @@
 const request = require('supertest');
+const generateMockUser = require('generateMockUser');
 const app = require('../../index');
 const { registerUser, loginUser } = require('./authHelpers');
 
-const mockUser = {
-  email: 'someemaiasdfl@gmail.com',
-  password: '$uper$SecretL0L',
-};
+const mockUser = generateMockUser();
 
 const parseResponseCookie = (cookieStr) => {
   const cookieRe = new RegExp(/=.+; Path=\/; HttpOnly$/);
@@ -19,22 +17,22 @@ describe('/authenticate endpoint', () => {
     await registerUser(mockUser);
   });
 
-  test('should reject invalid tokens', (done) => {
+  test('should accept valid tokens', (done) => {
     loginUser(mockUser)
       .then((loginResponse) => (
         request(app)
-          .delete('/authenticate')
-          .set({ Authorization: `Bearer ${parseResponseCookie(loginResponse.header['set-cookie'][0])}` })
+          .get('/authenticate')
+          .set('Cookie', [`accessToken=${parseResponseCookie(loginResponse.header['set-cookie'][0])}`])
           .expect(201)
           .then(() => done())
           .catch((err) => done(err))
       ));
   });
 
-  test('should reject invalid tokens', (done) => {
+  test('should reject missing or invalid tokens', (done) => {
     request(app)
-      .delete('/authenticate')
-      .set({ Authorization: 'Bearer MADE_UP_FAKE_TOKEN' })
+      .get('/authenticate')
+      .set('Cookie', ['accessToken=DEfnotaHacker'])
       .expect(403)
       .then(() => done())
       .catch((err) => done(err));

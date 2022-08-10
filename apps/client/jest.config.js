@@ -1,5 +1,5 @@
 module.exports = {
-  collectCoverageFrom: ['src/**/*.js', '!**/node_modules/**', '!<rootDir>/src/index.js'],
+  collectCoverageFrom: ['src/components/**/*.js', '!**/node_modules/**', '!<rootDir>/src/index.js'],
   coverageReporters: ['html', 'text', 'text-summary', 'cobertura'],
   testMatch: ['**/*.test.js'],
   projects: [
@@ -9,7 +9,7 @@ module.exports = {
       transform: {
         "^.+\\.(js|jsx)$": "babel-jest",
       },
-      setupFilesAfterEnv: ["<rootDir>/src/setupTests.js"],
+      setupFilesAfterEnv: ["<rootDir>/__tests__/setupTests.js"],
       // "extensionsToTreatAsEsm": [".jsx"],
       testMatch: ["<rootDir>/**/*.test.js"],
       setupFiles: ["dotenv/config"],
@@ -21,8 +21,8 @@ module.exports = {
       ],
       moduleFileExtensions: ["js"],
       moduleNameMapper: {
-        "\\.(css|less)$": "<rootDir>/src/__mocks__/styleMock.js",
-        "\\.(png|gif|ttf|eot|svg)$": "<rootDir>/src/__mocks__/fileMock.js",
+        "\\.(css|less)$": "<rootDir>/__tests__/__mocks__/styleMock.js",
+        "\\.(png|gif|ttf|eot|svg|jpeg|jpg)$": "<rootDir>/__tests__/__mocks__/fileMock.js",
       },
       transformIgnorePatterns: ["node_modules/(?!.*?/es/.*\\.js)"],
     },

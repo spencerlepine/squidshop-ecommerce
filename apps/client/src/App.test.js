@@ -1,9 +1,14 @@
 import { render, screen } from '@testing-library/react';
-import { MemoryRouter } from 'react-router-dom';
 import App from './App';
 
 test('renders app name', () => {
-  render(<App />, { wrapper: MemoryRouter });
+  render(<App />);
   const titleElement = screen.getByText(/SquidShop/i);
   expect(titleElement).toBeInTheDocument();
+});
+
+test('renders the landing page', () => {
+  render(<App />);
+  
+  expect(screen.getAllByRole("heading")[0]).toHaveTextContent(/SquidShop/);
 });

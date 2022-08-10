@@ -2,7 +2,8 @@
   "rules": {
     "no-undef": "off",
     "global-require": "warn",
-    "consistent-return": "off"
+    "consistent-return": "off",
+    "import/no-unresolved": "off"
   },
   "extends": [
     "@spencerlepine/eslint-config-node"

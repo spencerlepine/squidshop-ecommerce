@@ -4,26 +4,16 @@ services:
   mysql_db:
     networks:
       - mysql-network
-    platform: linux/x86_64 # M1 Chip work
     image: mysql:5.7
-    restart: always
-    environment:
-      MYSQL_DATABASE: 'testdb'
-      # So you don't have to use root, but you can if you like
-      # MYSQL_USER: 'root' BROKEN
-      # You can use whatever password you like
-      MYSQL_PASSWORD: '12345'
-      # Password for root access
-      MYSQL_ROOT_PASSWORD: '12345'
     ports:
-      # <Port exposed> : < MySQL Port running inside container>
-      - '3306:3306'
-    expose:
-      # Opens port 3306 on the container
-      - '3306'
-      # Where our data will be persisted
+        - 3306:3306
+    environment:
+        MYSQL_ROOT_PASSWORD: root
+        MYSQL_PASSWORD: root
+        MYSQL_DATABASE: testdb
     volumes:
-      - user-db:/var/lib/mysql
+        - ./apps/users/src/database/scripts:/docker-entrypoint-initdb.d
+        - user-db:/var/lib/mysql
 
   users:
     networks:
@@ -36,11 +26,13 @@ services:
       dockerfile: Dockerfile
     ports:
       - 8001:8001
+    links:
+      - mysql_db
     environment:
       PORT: '8001'
-      DATABASE_HOST: localhost
+      DATABASE_HOST: mysql_db
       DATABASE_USER: root
-      DATABASE_PASSWORD: '12345'
+      DATABASE_PASSWORD: root
       DATABASE_NAME: testdb
       DATABASE_DIALECT: mysql
       NODE_ENV: production
@@ -63,12 +55,24 @@ services:
       timeout: 10s
       retries: 10
 
+  cassandra-load-keyspace:
+    container_name: cassandra-load-keyspace
+    networks:
+      - cassandra-network
+    image: cassandra:3.11.2
+    depends_on:
+      cassandra_db:
+        condition: service_healthy
+    volumes:
+      - ./apps/products/src/models/cassandra_schema.cql:/schema.cql
+    command: /bin/bash -c "echo loading cassandra keyspace && cqlsh cassandra_db -f /schema.cql --debug" # -u user -p pass
+
   products:
     networks:
       - web
       - cassandra-network
     depends_on:
-      - cassandra_db
+      - cassandra-load-keyspace
     build:
       context: ./apps/products
       dockerfile: Dockerfile
@@ -136,21 +140,22 @@ services:
       PRODUCTS_API_URL: http://products:8002
       ORDERS_API_URL:  http://orders:8003
 
-  client:
-    depends_on:
-      - gateway
-    build:
-      context: ./apps/client
-      dockerfile: Dockerfile
-    ports:
-      - "3000:80"
-    environment:
-      - REACT_GATEWAY_API_URL=http://gateway:5000
+  # client:
+  #   depends_on:
+  #     - gateway
+  #   build:
+  #     context: ./apps/client
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - "3000:80"
+  #   environment:
+  #     - REACT_GATEWAY_API_URL=http://gateway:5000
 
 
 # Persist the databases
 volumes:
   user-db:
+    driver: local
   orders-db:
   products-db:
 

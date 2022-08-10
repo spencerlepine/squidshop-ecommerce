@@ -5,3 +5,5 @@ beforeAll((done) => {
     .then(() => done())
     .catch(() => done(err));
 });
+
+jest.mock('generateMockUser');

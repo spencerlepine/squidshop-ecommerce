@@ -3,6 +3,6 @@ import { MemoryRouter } from 'react-router-dom';
 import Catalog from './index';
 
 test('should render without throwing error', () => {
-  render(<Catalog />, { wrapper: MemoryRouter });
+  render(<Catalog />);
   expect(true).toBeTruthy();
 });

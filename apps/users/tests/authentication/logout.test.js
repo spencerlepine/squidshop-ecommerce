@@ -1,4 +1,5 @@
 const request = require('supertest');
+const generateMockUser = require('generateMockUser');
 const app = require('../../index');
 const { registerUser, loginUser } = require('./authHelpers');
 
@@ -15,10 +16,7 @@ describe('/logout endpoint', () => {
   });
 
   test('should log out signed in user', (done) => {
-    const mockUser = {
-      email: 'testUser200',
-      password: 'tE$tP@$$Word',
-    };
+    const mockUser = generateMockUser();
 
     registerUser(mockUser)
       .then(() => loginUser(mockUser))
