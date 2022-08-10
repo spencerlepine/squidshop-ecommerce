@@ -1,13 +1,18 @@
 const request = require('supertest');
+const generateMockUser = require('generateMockUser');
 const app = require('../../index');
 
 describe('/register endpoint', () => {
   test('should respond', (done) => {
     request(app)
       .post('/register')
-      .send({ email: 'testUser', password: 'yeet' })
-      .expect(201)
-      .then(() => done());
+      .send(generateMockUser())
+      // .expect(201)
+      .then((r) => {
+        console.error(r.error);
+        done();
+      });
+    // .then(() => done());
   });
 
   test('should revoke invalid data', (done) => {
@@ -19,16 +24,16 @@ describe('/register endpoint', () => {
   });
 
   test('should not sign up duplicate email', (done) => {
-    const duplicateEmail = 'duplicateemail@gmail.com';
+    const duplicateUser = generateMockUser();
 
     request(app)
       .post('/register')
-      .send({ email: duplicateEmail, password: 'password$948' })
+      .send(duplicateUser)
       .expect(201)
       .then(() => (
         request(app)
           .post('/register')
-          .send({ email: duplicateEmail, password: 'password$948' })
+          .send(duplicateUser)
           .expect(401)
       ))
       .then(() => done());

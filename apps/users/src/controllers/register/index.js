@@ -43,7 +43,7 @@ router.post('/', (req, res) => {
     })
     .catch((err) => {
       console.error(err);
-      return res.sendStatus(401);
+      return res.sendStatus(500);
     });
 });
 
