@@ -7,12 +7,8 @@ describe('/register endpoint', () => {
     request(app)
       .post('/register')
       .send(generateMockUser())
-      // .expect(201)
-      .then((r) => {
-        console.error(r.error);
-        done();
-      });
-    // .then(() => done());
+      .expect(201)
+      .then(() => done());
   });
 
   test('should revoke invalid data', (done) => {

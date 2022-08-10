@@ -41,7 +41,6 @@ export const AuthProvider = ({ children }) => {
   function signupUser(firstName, lastName, email, password) {
     setLoading(true);
     authApi.createUserWithEmailAndPassword(firstName, lastName, email, password)
-    // .then((user) => setCurrentUser()) // TODO navigate to login
       .then(res => console.log(res))
       .catch(() => setCurrentUser({}))
       .then(() => setLoading(false))

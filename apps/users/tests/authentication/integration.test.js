@@ -1,4 +1,5 @@
 const request = require('supertest');
+const generateMockUser = require('generateMockUser');
 const app = require('../../index');
 
 jest.setTimeout(10000);
@@ -12,10 +13,7 @@ const parseResponseCookie = (cookieStr) => {
 
 describe('JWT Token Authentication', () => {
   test('should handle entire authentication process', (done) => {
-    const mockUser = {
-      email: 'someemail@gmail.com',
-      password: '$uper$SecretL0L',
-    };
+    const mockUser = generateMockUser();
 
     const registerTest = () => new Promise((resolve) => (
       request(app)

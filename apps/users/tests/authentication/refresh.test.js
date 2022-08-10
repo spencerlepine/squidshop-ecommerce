@@ -1,11 +1,9 @@
 const request = require('supertest');
+const generateMockUser = require('generateMockUser');
 const app = require('../../index');
 const { registerUser, loginUser } = require('./authHelpers');
 
-const mockUser = {
-  email: 'testUser9999',
-  password: 'tE$tP@$$Word098098',
-};
+const mockUser = generateMockUser();
 
 const parseResponseCookie = (cookieStr) => {
   const cookieRe = new RegExp(/=.+; Path=\/; HttpOnly$/);
