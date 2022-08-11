@@ -4,6 +4,7 @@ import * as React from 'react';
 // should display product cards with images
 // should display on-sale products
 // should be vertically scrollable grid with many products
+// should take search from query parameter and load products 
 const CatalogView = () => {
   return (
     <div className="CatalogView">
