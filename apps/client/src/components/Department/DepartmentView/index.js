@@ -15,7 +15,7 @@ const SaleProducts = ({ departmentId }) => {
         Deals
       </Typography>
 
-      <ProductDataLoader isListData isSingleRowList fetchProductData={fetchSaleProducts} />
+      <ProductDataLoader isListData isSingleRowList fetchProductData={fetchSaleProducts} optionalDepartmentId={departmentId} />
     </Box>
   )
 }
@@ -31,7 +31,7 @@ const DepartmentCatalog = ({ departmentId }) => {
         Featured
       </Typography>
 
-      <ProductDataLoader isListData fetchProductData={fetchDepartmentProducts} />
+      <ProductDataLoader isListData fetchProductData={fetchDepartmentProducts} optionalDepartmentId={departmentId} />
     </Box>
   )
 }
