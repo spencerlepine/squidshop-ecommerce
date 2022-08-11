@@ -37,7 +37,7 @@ const CustomSearchBar = ({ customStyles }) => {
   return (
     <SearchBar
       style={customStyles || { width: '40%', margin: '0 auto', float: 'right' }}
-      value={query}
+      value={query || ''}
       onChange={(newValue) => setQuery(newValue)}
       onRequestSearch={handleSubmit}
       onCancelSearch={handleClear}

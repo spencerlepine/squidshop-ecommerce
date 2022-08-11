@@ -1,7 +1,7 @@
 import { Container } from '@mui/system';
 import CartView from '../../components/Cart/CartView';
 
-// should render cart page title TODO
+// should render cart page title
 // should render cart total TODO
 // should render cart checkout button TODO
 // should render product cart with image, title, price, and quantity TODO

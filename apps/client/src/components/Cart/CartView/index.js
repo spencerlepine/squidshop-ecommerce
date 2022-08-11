@@ -4,10 +4,10 @@ import Alert from '@mui/material/Alert';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import CachedIcon from '@mui/icons-material/Cached';
 import CircularProgress from '@mui/material/CircularProgress';
-import useAuth from '../../context/AuthContext';
-import useDemoSettings from '../../context/DemoSettingsContext';
-import useCart from '../../context/CartContext';
-import CartItemCard from './CartItemCard';
+import useAuth from '../../../context/AuthContext';
+import useDemoSettings from '../../../context/DemoSettingsContext';
+import useCart from '../../../context/CartContext';
+import CartItemCard from '../CartItemCard';
 
 const CartView = () => {
   const { currentUser } = useAuth();
@@ -16,14 +16,14 @@ const CartView = () => {
 
   const refreshCart = () => {
     if (useDemoData || (currentUser && currentUser.id)) {
-      loadUserCart(currentUser.id)
+      const id = (currentUser || {})['id']
+      loadUserCart(id)
     }
   }
 
   useEffect(() => {
     refreshCart()
   }, [])
-
 
   const EmptyMessage = () => (
     <Alert severity="warning" style={{ marginTop: '2em' }}>
