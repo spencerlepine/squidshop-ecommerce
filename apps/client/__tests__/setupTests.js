@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { AuthContext } from '../src/context/AuthContext';
+import { DemoSettingsContext } from '../src/context/DemoSettingsContext';
 import { Router } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
 import { MemoryRouter } from 'react-router-dom';
@@ -9,11 +10,13 @@ import '@testing-library/jest-dom';
 const history = createBrowserHistory();
 
 const AllTheProviders = ({ children }) => (
-  <AuthContext.Provider value={{}}>
-    <MemoryRouter history={history}>
-      {children}
-    </MemoryRouter>
-  </AuthContext.Provider>
+  <DemoSettingsContext.Provider value={{}}>
+    <AuthContext.Provider value={{}}>
+      <MemoryRouter history={history}>
+        {children}
+      </MemoryRouter>
+    </AuthContext.Provider>
+  </DemoSettingsContext.Provider>
 );
 
 AllTheProviders.propTypes = {

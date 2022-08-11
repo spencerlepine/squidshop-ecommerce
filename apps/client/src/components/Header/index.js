@@ -2,7 +2,6 @@ import {
   AppBar,
   Toolbar,
   Typography,
-  makeStyles,
   Drawer,
   Link,
   MenuItem,
@@ -12,72 +11,33 @@ import {
 import MenuIcon from '@material-ui/icons/Menu'
 import React, { useState, useEffect } from "react";
 import { Link as RouterLink } from "react-router-dom";
-import squidShopLogo from '../../assets/squidshop-logo.png';
 import useAuth from '../../context/AuthContext';
+import headerDataTemplate from './headerLinkData';
+import SearchBar from "../SearchBar";
+import squidShopLogo from '../../assets/squidshop-logo.png';
+import useStyles from './styles';
+
+// should render squidshop logo
+// should render squidshop name
+// should render search bar
+// should render departments link
+// should render login button by default
+// should render cart link when logged in
+// should render account link
 
 // https://github.com/vuonga1103/responsive-header-tutorial
 
-const headerDataTemplate = (isLoggedIn) => ([
-  {
-    label: "Products",
-    href: "/",
-  },
-  (isLoggedIn ? (
-    {
-      label: "Logout",
-      href: "/logout",
-    }
-  ) : (
-    {
-      label: "Sign In",
-      href: "/login",
-    }
-  ))
-]);
-
-const useStyles = makeStyles(() => ({
-  header: {
-    backgroundColor: "#400CCC",
-    "@media (max-width: 900px)": {
-      paddingLeft: 0,
-    },
-  },
-  logo: {
-    fontFamily: "Work Sans, sans-serif",
-    fontWeight: 600,
-    color: "#FFFEFE",
-    textAlign: "left",
-  },
-  menuButton: {
-    fontFamily: "Open Sans, sans-serif",
-    fontWeight: 700,
-    size: "18px",
-    marginLeft: "38px",
-  },
-  toolbar: {
-    display: "flex",
-    justifyContent: "space-between",
-  },
-  drawerContainer: {
-    padding: "20px 30px",
-  },
-  logoImg: {
-    maxWidth: 40,
-    marginRight: '0.5em'
-  },
-}));
-
-export default function Header() {
+const Header = () => {
   const { isLoggedIn } = useAuth();
   const { header, logo, menuButton, toolbar, drawerContainer, logoImg } = useStyles();
   const [state, setState] = useState({
     mobileView: false,
     drawerOpen: false
   });
-  
+
   const [headersData, setHeadersData] = useState(headerDataTemplate(isLoggedIn))
   const { mobileView, drawerOpen } = state;
-  
+
   useEffect((prevState) => {
     if (isLoggedIn !== prevState) {
       setHeadersData(headerDataTemplate(isLoggedIn))
@@ -102,19 +62,23 @@ export default function Header() {
   const displayDesktop = () => {
     return (
       <Toolbar className={toolbar}>
-        {squidshopLogo}
+        <SquidshopLogo />
+        <SearchBar />
         <div>{getMenuButtons()}</div>
       </Toolbar>
     );
   };
 
-  const squidshopLogo = (
-    <div style={{ display: 'inline-flex' }}>
-      <img src={squidShopLogo} alt="logo" className={logoImg} />
-      <Typography variant="h6" component="h1" style={{ margin: 'auto' }} role="heading">
-        SquidShop
-      </Typography>
-    </div>
+  const SquidshopLogo = () => (
+    <Link to="/" component={RouterLink} style={{ color: 'inherit', textDecoration: 'inherit' }}>
+      <div style={{ display: 'inline-flex' }}>
+        <img src={squidShopLogo} alt="logo" className={logoImg} />
+
+        <Typography variant="h6" component="h1" style={{ margin: 'auto' }} role="heading">
+          SquidShop
+        </Typography>
+      </div>
+    </Link>
   );
 
   const getMenuButtons = () => {
@@ -172,6 +136,7 @@ export default function Header() {
         >
           <MenuIcon />
         </IconButton>
+        <SquidshopLogo />
         <Drawer
           {...{
             anchor: "left",
@@ -181,7 +146,6 @@ export default function Header() {
         >
           <div className={drawerContainer}>{getDrawerChoices()}</div>
         </Drawer>
-        <div>{squidshopLogo}</div>
       </Toolbar>
     );
   };
@@ -194,3 +158,5 @@ export default function Header() {
     </header>
   );
 }
+
+export default Header;

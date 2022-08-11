@@ -1,10 +1,29 @@
-import Home from './components/Home';
+import Header from './components/Header';
+import PageRoutes from './pages';
+import Footer from './components/Footer';
+import CssBaseline from '@mui/material/CssBaseline';
+import Box from '@mui/material/Box';
 import './App.css';
 
-function App() {
+const containerStyling = {
+  display: 'flex',
+  flexDirection: 'column',
+  minHeight: '100vh',
+  marginTop: '4em',
+}
+
+const App = () => {
   return (
     <div className="App">
-      <Home />
+      <Header />
+
+      <Box sx={containerStyling}>
+        <CssBaseline />
+
+        <PageRoutes />
+
+        <Footer />
+      </Box>
     </div>
   );
 }
