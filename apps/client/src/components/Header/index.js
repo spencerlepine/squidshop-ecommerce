@@ -2,7 +2,6 @@ import {
   AppBar,
   Toolbar,
   Typography,
-  makeStyles,
   Drawer,
   Link,
   MenuItem,
@@ -16,6 +15,7 @@ import useAuth from '../../context/AuthContext';
 import headerDataTemplate from './headerLinkData';
 import SearchBar from "../SeachBar";
 import squidShopLogo from '../../assets/squidshop-logo.png';
+import useStyles from './styles';
 
 // should render squidshop logo
 // should render squidshop name
@@ -27,39 +27,7 @@ import squidShopLogo from '../../assets/squidshop-logo.png';
 
 // https://github.com/vuonga1103/responsive-header-tutorial
 
-const useStyles = makeStyles(() => ({
-  header: {
-    backgroundColor: "#400CCC",
-    "@media (max-width: 900px)": {
-      paddingLeft: 0,
-    },
-  },
-  logo: {
-    fontFamily: "Work Sans, sans-serif",
-    fontWeight: 600,
-    color: "#FFFEFE",
-    textAlign: "left",
-  },
-  menuButton: {
-    fontFamily: "Open Sans, sans-serif",
-    fontWeight: 700,
-    size: "18px",
-    marginLeft: "38px",
-  },
-  toolbar: {
-    display: "flex",
-    justifyContent: "space-between",
-  },
-  drawerContainer: {
-    padding: "20px 30px",
-  },
-  logoImg: {
-    maxWidth: 40,
-    marginRight: '0.5em'
-  },
-}));
-
-export default function Header() {
+const Header = () => {
   const { isLoggedIn } = useAuth();
   const { header, logo, menuButton, toolbar, drawerContainer, logoImg } = useStyles();
   const [state, setState] = useState({
@@ -190,3 +158,5 @@ export default function Header() {
     </header>
   );
 }
+
+export default Header;

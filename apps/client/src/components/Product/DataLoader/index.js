@@ -1,28 +1,30 @@
 import { useState, useEffect } from "react";
-import { useDemoSettings } from '../../context/DemoSettingsContext';
+import useDemoSettings from '../../../context/DemoSettingsContext';
 import Typography from '@mui/material/Typography';
 import CircularProgress from '@mui/material/CircularProgress';
 import Alert from '@mui/material/Alert';
 import demoProducts from './demoProducts.json'
+import ProductList from '../ProductList';
+import ProductCard from '../ProductCard';
 
 const getStarterData = (isListData, useDemoData) => {
   if (useDemoData) { 
-    return isListData ? demoProducts[Math.floor(Math.random()*demoProducts.length)] : demoProducts
+    return isListData ? demoProducts.slice(0, 20) : demoProducts[Math.floor(Math.random()*demoProducts.length)]
   }
   return null
 }
 
-const ProductComponent = ({ isListData }) => (
+const ProductComponent = ({ isListData, productData }) => (
   <>
     {isListData ? (
-      <ProductList products={productData}/>
+      <ProductList products={productData || {}}/>
     ) : (
-      <ProductCard product={productData}/>
+      <ProductCard product={productData || {}}/>
     )}
   </>
 )
 
-const ProductDataLoader = ({ isListData, fetchProductData}) => {
+const ProductDataLoader = ({ isListData, fetchProductData }) => {
   const { useDemoData, apiRunning }  = useDemoSettings()
 
   const [loading, isLoading] = useState(!useDemoData);
@@ -37,8 +39,14 @@ const ProductDataLoader = ({ isListData, fetchProductData}) => {
     }
   }, [apiRunning]);
 
+  useEffect(() => {
+    if (useDemoData) {
+      setProductData(getStarterData(isListData, useDemoData))
+    }
+  }, [useDemoData]);
+
   if (useDemoData) {
-    return <ProductComponent isListData={isListData} />
+    return <ProductComponent isListData={isListData} productData={productData} />
   }
   
   if (apiRunning) {
@@ -46,13 +54,13 @@ const ProductDataLoader = ({ isListData, fetchProductData}) => {
       {loading ? (
         <CircularProgress />
       ) : (
-        <ProductComponent isListData={isListData} />
+        <ProductComponent isListData={isListData} productData={productData} />
       )}
       </>)
   } else {
     return (
       <Alert severity="warning">
-        <Typography>Failed to load product</Typography>
+        <Typography>Failed to load</Typography>
       </Alert>
     )
   }

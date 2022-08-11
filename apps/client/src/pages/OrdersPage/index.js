@@ -1,11 +1,11 @@
 // import Products from '../components/Products';
 
-// should render order page title
-// should render each order place date
-// should render each order id
-// should render each order address
-// should render each order total
-// should render each order items with image, title, price
+// should render order page title TODO
+// should render each order place date TODO
+// should render each order id TODO
+// should render each order address TODO
+// should render each order total TODO
+// should render each order items with image, title, price TODO
 const OrdersPage = () => {
   return (
     <div className="Orders">

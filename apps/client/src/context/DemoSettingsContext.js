@@ -7,7 +7,7 @@ import * as status from '../api/status';
 export const DemoSettingsContext = React.createContext();
 
 export const DemoSettingsProvider = ({ children }) => {
-  const [useDemoData, setUseDemoData] = useState(false)
+  const [useDemoData, setUseDemoData] = useState(true) // TODO change this
   const [loading, setLoading] = useState(true)
   const [renderWarning, setRenderWarning] = useState(true)
   const [apiRunning, setApiRunning] = useState(false)
@@ -58,9 +58,18 @@ export const DemoSettingsProvider = ({ children }) => {
     </div>
   )
 
+  const DisableDemoMessage = () => (
+    <div style={{ position: 'fixed', bottom: '1em', left: '0.5em' }}>
+      <Button variant="contained" color="secondary" size="large" sx={{ mt: 4, mb: 2 }} onClick={handleAccept}>
+        Disable Demo
+      </Button>
+    </div>
+  )
+
   return (
     <DemoSettingsContext.Provider value={value}>
       {(!loading && !apiRunning && renderWarning) && <BrokenBackendMessage />}
+      {(!renderWarning && useDemoData) && <DisableDemoMessage />}
       {children}
     </DemoSettingsContext.Provider>
   );

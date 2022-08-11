@@ -1,12 +1,13 @@
 import BannerSlide from '../../components/BannerSlide';
 import CatalogView from '../../components/CatalogView';
+import { Container } from '@mui/material';
 
 const HomePage = () => {
   return (
-    <div className="Home">
+    <Container component="main" maxWidth="md">
       <BannerSlide />
       <CatalogView />
-    </div>
+    </Container>
   );
 }
 
