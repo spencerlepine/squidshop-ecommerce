@@ -6,26 +6,29 @@ export const AuthContext = React.createContext();
 
 export const AuthProvider = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [currentUser, setCurrentUser] = useState({});
+  const [currentUser, setCurrentUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     authApi.authenticateUser()
-    .then((user) => {
-      setCurrentUser(user)
-      setIsLoggedIn(true)
-    })
-    .catch(() => setCurrentUser({}))
-    .then(() => setLoading(false))
+      .then((user) => {
+        setCurrentUser(user)
+        setIsLoggedIn(true)
+      })
+      .catch(() => setCurrentUser(null))
+      .then(() => setLoading(false))
   }, []);
 
-  // function getAccountDetails() {
-  //   setLoading(true);
-  //   authUser.fetchAccountDetails(userDetails => {
-  //     setAccountDetails(userDetails);
-  //     setLoading(false);
-  //   });
-  // }
+  function getAccountDetails() {
+    setLoading(true);
+    authUser.fetchAccountDetails(currentUser.id)
+      .then((userDetails) => {
+        setCurrentUser(userDetails)
+        setIsLoggedIn(true)
+      })
+      .catch(() => setCurrentUser(null))
+      .then(() => setLoading(false))
+  }
 
   function loginUser(email, password) {
     setLoading(true);
@@ -34,37 +37,31 @@ export const AuthProvider = ({ children }) => {
         setCurrentUser(user)
         setIsLoggedIn(true)
       })
-      .catch(() => setCurrentUser({}))
+      .catch(() => setCurrentUser(null))
       .then(() => setLoading(false))
   }
 
   function signupUser(firstName, lastName, email, password) {
     setLoading(true);
     authApi.createUserWithEmailAndPassword(firstName, lastName, email, password)
-      .catch(() => setCurrentUser({}))
+      .catch(() => setCurrentUser(null))
       .then(() => setLoading(false))
   }
 
-  // function logoutUser() {
-  //   setLoading(true);
-  //   authUser.signOut(() => {
-  //     setCurrentUser(null);
-  //     setLoading(false);
-  //   });
-  // }
-
-  // function resetPassword(email) {
-  //   setLoading(true);
-  //   authUser.sendPasswordResetEmail(email, () => {
-  //     setLoading(false);
-  //   });
-  // }
+  function logoutUser() {
+    setLoading(true);
+    authUser.logoutUser()
+      .then(() => setCurrentUser(null))
+      .catch(() => setCurrentUser(null))
+      .then(() => setLoading(false))
+  }
 
   const value = {
     loading,
     currentUser,
     loginUser,
-    // logoutUser,
+    getAccountDetails,
+    logoutUser,
     isLoggedIn,
     signupUser,
   };
