@@ -11,8 +11,8 @@ const defaultRoutes = [
 
 const authenticatedRoutes = [
   {
-    label: "Logout",
-    href: "/logout",
+    label: "Departments",
+    href: "/catalog"
   },
   {
     label: "Cart",
