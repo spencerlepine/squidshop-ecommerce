@@ -1,11 +1,12 @@
 import CatalogView from '../../components/CatalogView';
+import { Container } from '@mui/system';
 
 // should render all departments with clickable buttons TODO 
 const CatalogPage = () => {
   return (
-    <div className="Catalog">
+    <Container component="main" maxWidth="md">
       <CatalogView />
-    </div>
+    </Container>
   );
 }
 
