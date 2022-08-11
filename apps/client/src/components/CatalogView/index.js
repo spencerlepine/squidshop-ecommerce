@@ -5,6 +5,7 @@ import * as React from 'react';
 // should display on-sale products
 // should be vertically scrollable grid with many products
 // should take search from query parameter and load products 
+// should render search bar if mobile
 const CatalogView = () => {
   return (
     <div className="CatalogView">

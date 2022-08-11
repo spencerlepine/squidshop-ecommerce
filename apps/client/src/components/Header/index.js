@@ -14,7 +14,7 @@ import React, { useState, useEffect } from "react";
 import { Link as RouterLink } from "react-router-dom";
 import useAuth from '../../context/AuthContext';
 import headerDataTemplate from './headerLinkData';
-import SearchBar from "./SearchBar";
+import SearchBar from "../SeachBar";
 import squidShopLogo from '../../assets/squidshop-logo.png';
 
 // should render squidshop logo
