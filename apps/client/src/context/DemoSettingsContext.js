@@ -30,6 +30,12 @@ export const DemoSettingsProvider = ({ children }) => {
     setRenderWarning(false)
   }
 
+  const handleDisable = () => {
+    setRenderWarning(true)
+    setLoading(false)
+    setUseDemoData(false)
+  }
+
   const value = {
     loading,
     useDemoData,
@@ -60,7 +66,7 @@ export const DemoSettingsProvider = ({ children }) => {
 
   const DisableDemoMessage = () => (
     <div style={{ position: 'fixed', bottom: '1em', left: '0.5em' }}>
-      <Button variant="contained" color="secondary" size="large" sx={{ mt: 4, mb: 2 }} onClick={handleAccept}>
+      <Button variant="contained" color="secondary" size="large" sx={{ mt: 4, mb: 2 }} onClick={handleDisable}>
         Disable Demo
       </Button>
     </div>
