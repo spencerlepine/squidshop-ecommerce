@@ -11,5 +11,6 @@
   "parserOptions": {
     "sourceType": "module",
     "allowImportExportEverywhere": true
-  }
+  },
+  "requireConfigFile": false
 }
