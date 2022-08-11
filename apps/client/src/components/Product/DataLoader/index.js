@@ -8,24 +8,24 @@ import ProductList from '../ProductList';
 import ProductCard from '../ProductCard';
 
 const getStarterData = (isListData, useDemoData) => {
-  if (useDemoData) { 
-    return isListData ? demoProducts.slice(0, 20) : demoProducts[Math.floor(Math.random()*demoProducts.length)]
+  if (useDemoData) {
+    return isListData ? demoProducts.slice(0, 20) : demoProducts[Math.floor(Math.random() * demoProducts.length)]
   }
   return null
 }
 
-const ProductComponent = ({ isListData, productData }) => (
+const ProductComponent = ({ isListData, productData, isSingleRowList }) => (
   <>
     {isListData ? (
-      <ProductList products={productData || {}}/>
+      <ProductList products={productData || {}} isSingleRowList={isSingleRowList} />
     ) : (
-      <ProductCard product={productData || {}}/>
+      <ProductCard product={productData || {}} />
     )}
   </>
 )
 
-const ProductDataLoader = ({ isListData, fetchProductData }) => {
-  const { useDemoData, apiRunning }  = useDemoSettings()
+const ProductDataLoader = ({ isListData, fetchProductData, isSingleRowList }) => {
+  const { useDemoData, apiRunning } = useDemoSettings()
 
   const [loading, isLoading] = useState(!useDemoData);
   const [productData, setProductData] = useState(getStarterData(isListData, useDemoData))
@@ -46,17 +46,17 @@ const ProductDataLoader = ({ isListData, fetchProductData }) => {
   }, [useDemoData]);
 
   if (useDemoData) {
-    return <ProductComponent isListData={isListData} productData={productData} />
+    return <ProductComponent isListData={isListData} isSingleRowList={isSingleRowList} productData={productData} />
   }
-  
+
   if (apiRunning) {
     return (<>
       {loading ? (
         <CircularProgress />
       ) : (
-        <ProductComponent isListData={isListData} productData={productData} />
+        <ProductComponent isListData={isListData} isSingleRowList={isSingleRowList} productData={productData} />
       )}
-      </>)
+    </>)
   } else {
     return (
       <Alert severity="warning">

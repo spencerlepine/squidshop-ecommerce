@@ -8,3 +8,10 @@ export const fetchAllProducts = (callback) => {
       callback(response.data)
     })
 }
+
+export const fetchDepartmentProducts = (departmentId, callback) => {
+  axios.get(`${PRODUCTS_API}/department/${departmentId}`)
+    .then((response) => {
+      callback(response.data)
+    })
+}

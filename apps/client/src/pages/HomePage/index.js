@@ -1,6 +1,7 @@
-import BannerSlide from '../../components/BannerSlide';
-import CatalogView from '../../components/CatalogView';
-import { Container } from '@mui/material';
+import React from "react";
+import BannerSlide from "../../components/BannerSlide";
+import CatalogView from "../../components/CatalogView";
+import { Container } from "@mui/material";
 
 const HomePage = () => {
   return (
@@ -9,6 +10,6 @@ const HomePage = () => {
       <CatalogView />
     </Container>
   );
-}
+};
 
 export default HomePage;

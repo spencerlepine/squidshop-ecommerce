@@ -7,11 +7,7 @@
 // should render each order total TODO
 // should render each order items with image, title, price TODO
 const OrdersPage = () => {
-  return (
-    <div className="Orders">
-      {/* <Products /> */}
-    </div>
-  );
-}
+  return <div className="Orders">{/* <Products /> */}</div>;
+};
 
 export default OrdersPage;

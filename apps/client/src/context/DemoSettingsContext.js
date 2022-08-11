@@ -35,7 +35,7 @@ export const DemoSettingsProvider = ({ children }) => {
     useDemoData,
     apiRunning
   };
-  
+
   const DemoDataButton = () => (
     <Button variant="contained" color="success" size="large" sx={{ mt: 4, mb: 2 }} onClick={handleAccept}>
       Use Demo Data
@@ -43,7 +43,7 @@ export const DemoSettingsProvider = ({ children }) => {
   )
 
   const IgnoreButton = () => (
-    <Button variant="contained" color="secondary" size="large" sx={{ mt: 4, mb: 2, ml: 1 }} onClick={handleIgnore}>
+    <Button variant="outlined" size="large" sx={{ mt: 4, mb: 2, ml: 1 }} onClick={handleIgnore} style={{ backgroundColor: "#fff" }}>
       Ignore
     </Button>
   )
