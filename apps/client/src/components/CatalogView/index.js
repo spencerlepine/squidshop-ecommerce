@@ -11,9 +11,14 @@ import MobileEnabledSearchBar from '../SearchBar/MobileEnabled';
 // should display product cards with images
 // should display on-sale products
 // should be vertically scrollable grid with many products
-// should take search from query parameter and load products TODO
+// should handle search mode and render sorting options
+// should take search from query parameter and load products
 // should render search bar if mobile
-const CatalogView = () => {
+const CatalogView = ({ currentQuery }) => {
+  const fetchByQuery = (cb) => {
+    return products.fetchSearchProducts(currentQuery, cb)
+  }
+
   return (
     <Box className="CatalogView">
       <MobileEnabledSearchBar customStyles={{ width: '90%', margin: '1em auto' }} />
@@ -24,7 +29,11 @@ const CatalogView = () => {
         Catalog
       </Typography>
 
-      <ProductDataLoader isListData fetchProductData={products.fetchAllProducts} />
+      <ProductDataLoader
+        isListData
+        fetchProductData={currentQuery ? fetchByQuery : products.fetchCatalogProducts}
+        inSearchMode={currentQuery}
+      />
     </Box>
   );
 }

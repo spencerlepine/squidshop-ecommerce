@@ -24,17 +24,25 @@ const getStarterData = (isListData, useDemoData, optionalDepartmentId) => {
   return null
 }
 
-const ProductComponent = ({ isListData, productData, isSingleRowList }) => (
+const ProductComponent = ({ isListData, productData, isSingleRowList, inSearchMode }) => (
   <>
     {isListData ? (
-      <ProductList products={productData || {}} isSingleRowList={isSingleRowList} />
+      <ProductList products={productData || {}} isSingleRowList={isSingleRowList} inSearchMode={inSearchMode} />
     ) : (
       <ProductCard product={productData || {}} />
     )}
   </>
 )
 
-const ProductDataLoader = ({ isListData, fetchProductData, isSingleRowList, optionalDepartmentId }) => {
+const ProductDataLoader = (props) => {
+  const {
+    isListData,
+    fetchProductData,
+    isSingleRowList, // optional
+    optionalDepartmentId, // optional
+    inSearchMode, // optional
+  } = props
+
   const { useDemoData, apiRunning } = useDemoSettings()
 
   const [loading, isLoading] = useState(!useDemoData);
@@ -56,7 +64,7 @@ const ProductDataLoader = ({ isListData, fetchProductData, isSingleRowList, opti
   }, [useDemoData, optionalDepartmentId]);
 
   if (useDemoData) {
-    return <ProductComponent isListData={isListData} isSingleRowList={isSingleRowList} productData={productData} />
+    return <ProductComponent {...props} productData={productData} />
   }
 
   if (apiRunning) {
@@ -64,7 +72,7 @@ const ProductDataLoader = ({ isListData, fetchProductData, isSingleRowList, opti
       {loading ? (
         <CircularProgress />
       ) : (
-        <ProductComponent isListData={isListData} isSingleRowList={isSingleRowList} productData={productData} />
+        <ProductComponent {...props} productData={productData} />
       )}
     </>)
   } else {
