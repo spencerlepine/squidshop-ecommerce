@@ -20,8 +20,10 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   function getAccountDetails() {
+    const id = (currentUser || {}).id
+
     setLoading(true);
-    authUser.fetchAccountDetails(currentUser.id)
+    authApi.fetchAccountDetails(id)
       .then((userDetails) => {
         setCurrentUser(userDetails)
         setIsLoggedIn(true)
@@ -50,7 +52,7 @@ export const AuthProvider = ({ children }) => {
 
   function logoutUser() {
     setLoading(true);
-    authUser.logoutUser()
+    authApi.logoutUser()
       .then(() => setCurrentUser(null))
       .catch(() => setCurrentUser(null))
       .then(() => setLoading(false))
