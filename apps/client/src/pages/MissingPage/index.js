@@ -1,7 +1,7 @@
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 
-const Missing = () => {
+const MissingPage = () => {
   return (
     <Container component="main" sx={{ mt: 8, mb: 2 }} maxWidth="sm">
       <Typography variant="h2" component="h1" gutterBottom>
@@ -13,4 +13,4 @@ const Missing = () => {
     </Container>);
 }
 
-export default Missing;
+export default MissingPage;

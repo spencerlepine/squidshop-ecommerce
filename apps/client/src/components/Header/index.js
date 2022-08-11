@@ -15,6 +15,15 @@ import { Link as RouterLink } from "react-router-dom";
 import squidShopLogo from '../../assets/squidshop-logo.png';
 import useAuth from '../../context/AuthContext';
 
+// should render squidshop logo
+// should render squidshop name
+// should render search bar
+// should render departments link
+// should render departments dropdown with link
+// should render login button by default
+// should render cart icon when logged in
+// should render account icon
+
 // https://github.com/vuonga1103/responsive-header-tutorial
 
 const headerDataTemplate = (isLoggedIn) => ([

@@ -1,9 +1,11 @@
-// import Products from '../components/Products';
+import BannerSlide from '../../components/BannerSlide';
+import CatalogView from '../../components/CatalogView';
 
 const HomePage = () => {
   return (
     <div className="Home">
-      {/* <Products /> */}
+      <BannerSlide />
+      <CatalogView />
     </div>
   );
 }

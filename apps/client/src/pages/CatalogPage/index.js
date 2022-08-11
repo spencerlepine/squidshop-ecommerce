@@ -1,9 +1,9 @@
-// import Products from '../components/Products';
+import CatalogView from '../../components/CatalogView';
 
 const CatalogPage = () => {
   return (
-    <div className="Catalogs">
-      {/* <Products /> */}
+    <div className="Catalog">
+      <CatalogView />
     </div>
   );
 }
