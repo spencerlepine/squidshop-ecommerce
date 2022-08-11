@@ -8,6 +8,10 @@ const SearchableList = ({ products, inSearchMode }) => {
   const [sortOption, setSortOption] = useState("SORT BY");
   const [orderOption, setOrderOption] = useState("ASC");
 
+  useEffect(() => {
+    setFilteredProducts(products)
+  }, [products])
+
   return (
     <>
       <FilterOptions

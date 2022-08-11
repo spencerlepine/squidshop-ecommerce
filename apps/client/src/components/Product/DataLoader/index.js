@@ -65,7 +65,7 @@ const ProductDataLoader = (props) => {
     if (useDemoData) {
       setProductData(getStarterData(isListData, useDemoData, optionalDepartmentId))
     }
-  }, [useDemoData, optionalDepartmentId]);
+  }, [useDemoData]);
 
   if (useDemoData) {
     return <ProductComponent {...props} productData={productData} />
