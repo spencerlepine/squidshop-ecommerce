@@ -6,6 +6,7 @@ import Alert from '@mui/material/Alert';
 import demoProducts from './demoProducts.json'
 import ProductList from '../ProductList';
 import ProductCard from '../ProductCard';
+import ProductPageView from '../PageView';
 
 const getStarterData = (isListData, useDemoData, optionalDepartmentId) => {
   if (useDemoData) {
@@ -24,23 +25,26 @@ const getStarterData = (isListData, useDemoData, optionalDepartmentId) => {
   return null
 }
 
-const ProductComponent = ({ isListData, productData, isSingleRowList, inSearchMode }) => (
-  <>
-    {isListData ? (
-      <ProductList products={productData || {}} isSingleRowList={isSingleRowList} inSearchMode={inSearchMode} />
-    ) : (
-      <ProductCard product={productData || {}} />
-    )}
-  </>
-)
+const ProductComponent = ({ isListData, productData, isSingleRowList, inSearchMode, isPageView }) => {
+  if (isPageView) {
+    return <ProductPageView product={productData || {}} />
+  }
+
+  if (isListData) {
+    return <ProductList products={productData || {}} isSingleRowList={isSingleRowList} inSearchMode={inSearchMode} />
+  }
+
+  return <ProductCard product={productData || {}} />
+}
 
 const ProductDataLoader = (props) => {
   const {
     isListData,
     fetchProductData,
-    isSingleRowList, // optional
+    // isSingleRowList, // optional
     optionalDepartmentId, // optional
-    inSearchMode, // optional
+    // inSearchMode, // optional
+    // isPageView, // optional
   } = props
 
   const { useDemoData, apiRunning } = useDemoSettings()
@@ -77,7 +81,7 @@ const ProductDataLoader = (props) => {
     </>)
   } else {
     return (
-      <Alert severity="warning">
+      <Alert severity="warning" style={{ marginTop: '2em' }}>
         <Typography>Failed to load</Typography>
       </Alert>
     )

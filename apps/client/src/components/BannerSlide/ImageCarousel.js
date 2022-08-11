@@ -53,20 +53,20 @@ const ImageCarousel = ({ images: imagesProp }) => {
   }
 
   return (
-    <Box className="ImageCarousel" sx={{ margin: "auto", display: "flex",  justifyContent: "center", alignItems: "center" }}>
+    <Box className="ImageCarousel" sx={{ margin: "auto", display: "flex", justifyContent: "center", alignItems: "center" }}>
       {!isMobileView && (
-          <Button
-            className="button is-info is-pulled-left carouselImageLeft"
-            onClick={() => scrollImages(-1)}
-            disabled={imageIndex === min}
-            sx={{ borderRadius: '0.5em' }}
-          >
-            <ArrowBackIosIcon />
-          </Button>
-        )}
+        <Button
+          className="button is-info is-pulled-left carouselImageLeft"
+          onClick={() => scrollImages(-1)}
+          disabled={imageIndex === min}
+          sx={{ borderRadius: '0.5em' }}
+        >
+          <ArrowBackIosIcon />
+        </Button>
+      )}
 
-      <ImageList sx={{ width: 700 }} cols={1} rowHeight={164}>
-         <ImageListItem>
+      <ImageList sx={{ width: 700 }} cols={1} rowHeight={250}>
+        <ImageListItem>
           <img
             className="image profileImage is-inline-block"
             alt="Matchable User"
@@ -80,7 +80,7 @@ const ImageCarousel = ({ images: imagesProp }) => {
           className="button is-info is-pulled-right carouselImageRight"
           onClick={() => scrollImages(1)}
           disabled={imageIndex === max}
-          sx={{ borderRadius: '0.5em'}}
+          sx={{ borderRadius: '0.5em' }}
         >
           <ArrowForwardIosIcon />
         </Button>

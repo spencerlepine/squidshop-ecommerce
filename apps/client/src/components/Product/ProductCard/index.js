@@ -1,12 +1,13 @@
 import * as React from 'react';
 import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
-import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Rating from '@mui/material/Rating';
+import { Link } from "@material-ui/core";
+import { Link as RouterLink } from "react-router-dom";
+import AddToCartButton from '../../Cart/AddButton';
 import missingImage from '../../../assets/placeholder.jpeg'
 
 const toTitleCase = (str) => {
@@ -48,39 +49,43 @@ const ProductPrice = ({ price, salePrice }) => {
   )
 }
 
-const ProductCard = ({ product }) => {
+const ProductCard = ({ product, useMinimumDetails }) => {
   return (
-    <Card sx={{ maxWidth: 300, maxHeight: 322 }} style={{ margin: 'auto', position: 'relative' }}>
-      <Typography variant="caption" style={saleStyles}>Limited time deal</Typography>
+    <Link to={`/product/${product.id || 'unkown'}`} component={RouterLink} style={{ color: 'inherit', textDecoration: 'inherit' }}>
+      <Card sx={{ maxWidth: 300, maxHeight: 322, minWidth: 200 }} style={{ margin: 'auto', position: 'relative' }}>
+        {product.sale_price && <Typography variant="caption" style={saleStyles}>Limited time deal</Typography>}
 
-      <CardMedia
-        component="img"
-        alt="green iguana"
-        height="188"
-        image={product.image || missingImage}
-      />
-      <CardContent style={{ position: 'relative' }}>
-        <Typography gutterBottom variant="body4" component="div">
-          {toTitleCase(product.title)}
-        </Typography>
-
-        <Box
-          sx={{
-            '& > legend': { mt: 2 },
-          }}
-          style={{ display: 'table' }}
-        >
-          <Rating name="read-only" value={product.rating_rate} readOnly />
-          <Typography variant="body4" component="text.secondary" style={{ display: 'table-cell', 'vertical-align': 'middle', paddingLeft: '0.25em' }}>
-            {`${product.rating_count}`}
+        <CardMedia
+          component="img"
+          alt="green iguana"
+          height="188"
+          image={product.image || missingImage}
+        />
+        <CardContent style={{ position: 'relative' }}>
+          <Typography gutterBottom variant="body4" component="div">
+            {toTitleCase(product.title)}
           </Typography>
-        </Box>
 
-        <ProductPrice price={product.price} salePrice={product.sale_price} />
+          {!useMinimumDetails && (
+            <Box
+              sx={{
+                '& > legend': { mt: 2 },
+              }}
+              style={{ display: 'table' }}
+            >
+              <Rating name="read-only" value={product.rating_rate} readOnly />
+              <Typography variant="body4" component="text.secondary" style={{ display: 'table-cell', verticalAlign: 'middle', paddingLeft: '0.25em' }}>
+                {`${product.rating_count}`}
+              </Typography>
+            </Box>
+          )}
 
-        <Button size="small" style={{ position: 'absolute', right: '1em', bottom: '1em' }}>Add to Cart</Button>
-      </CardContent>
-    </Card>
+          <ProductPrice price={product.price} salePrice={product.sale_price} />
+
+          {!useMinimumDetails && <AddToCartButton productId={product.id} useTinyButton />}
+        </CardContent>
+      </Card>
+    </Link>
   );
 }
 

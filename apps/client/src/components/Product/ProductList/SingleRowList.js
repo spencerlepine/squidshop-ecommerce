@@ -17,7 +17,7 @@ const SingleRowList = ({ products }) => {
         <>
           {products.map((product, i) => (
             <Grid item xs={2} sm={4} md={6} key={i}>
-              <ProductCard product={product} />
+              <ProductCard product={product} useMinimumDetails />
             </Grid>
           ))}
         </>

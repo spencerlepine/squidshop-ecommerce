@@ -7,7 +7,7 @@ const HomePage = () => {
   return (
     <Container component="main" maxWidth="md">
       <BannerSlide />
-      <CatalogView />
+      <CatalogView hideTitle />
     </Container>
   );
 };

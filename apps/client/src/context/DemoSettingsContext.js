@@ -7,7 +7,7 @@ import * as status from '../api/status';
 export const DemoSettingsContext = React.createContext();
 
 export const DemoSettingsProvider = ({ children }) => {
-  const [useDemoData, setUseDemoData] = useState(true) // TODO change this
+  const [useDemoData, setUseDemoData] = useState(false)
   const [loading, setLoading] = useState(true)
   const [renderWarning, setRenderWarning] = useState(true)
   const [apiRunning, setApiRunning] = useState(false)
@@ -43,32 +43,35 @@ export const DemoSettingsProvider = ({ children }) => {
   };
 
   const DemoDataButton = () => (
-    <Button variant="contained" color="success" size="large" sx={{ mt: 4, mb: 2 }} onClick={handleAccept}>
+    <Button variant="contained" color="success" size="large" sx={{ mt: 1 }} onClick={handleAccept} style={{ zIndex: 99 }}>
       Use Demo Data
     </Button>
   )
 
   const IgnoreButton = () => (
-    <Button variant="outlined" size="large" sx={{ mt: 4, mb: 2, ml: 1 }} onClick={handleIgnore} style={{ backgroundColor: "#fff" }}>
+    <Button variant="outlined" size="large" sx={{ ml: 1, mt: 1 }} onClick={handleIgnore} style={{ color: "rgb(255 232 232)", borderColor: '#b40808', background: '#bc1f1f', fontWeight: 'bold', zIndex: 99 }}>
       Ignore
     </Button>
   )
 
   const BrokenBackendMessage = () => (
-    <div style={{ position: 'fixed', bottom: '1em', left: '0.5em' }}>
-      <DemoDataButton />
-      <IgnoreButton />
+    <div style={{ position: 'fixed', bottom: '1em', left: '0.5em', zIndex: 99 }}>
       <Alert severity="error">
         <Typography>Unable to connect to the servers</Typography>
+        <DemoDataButton />
+        <IgnoreButton />
       </Alert>
     </div>
   )
 
   const DisableDemoMessage = () => (
-    <div style={{ position: 'fixed', bottom: '1em', left: '0.5em' }}>
-      <Button variant="contained" color="secondary" size="large" sx={{ mt: 4, mb: 2 }} onClick={handleDisable}>
-        Disable Demo
-      </Button>
+    <div style={{ position: 'fixed', bottom: '1em', left: '0.5em', zIndex: 99 }}>
+      <Alert severity="info">
+        <Typography>Using placeholder data</Typography>
+        <Button variant="contained" color="secondary" size="large" sx={{ mt: 1 }} onClick={handleDisable}>
+          Disable Demo
+        </Button>
+      </Alert>
     </div>
   )
 

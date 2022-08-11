@@ -14,7 +14,7 @@ import MobileEnabledSearchBar from '../SearchBar/MobileEnabled';
 // should handle search mode and render sorting options
 // should take search from query parameter and load products
 // should render search bar if mobile
-const CatalogView = ({ currentQuery }) => {
+const CatalogView = ({ currentQuery, hideTitle }) => {
   const fetchByQuery = (cb) => {
     return products.fetchSearchProducts(currentQuery, cb)
   }
@@ -25,9 +25,11 @@ const CatalogView = ({ currentQuery }) => {
 
       <br />
 
-      <Typography variant="h4" component="h1" style={{ margin: '1em auto', textAlign: 'center' }} role="heading">
-        Catalog
-      </Typography>
+      {!hideTitle && (
+        <Typography variant="h4" component="h1" style={{ margin: '1em auto', textAlign: 'center' }} role="heading">
+          Catalog
+        </Typography>
+      )}
 
       <ProductDataLoader
         isListData

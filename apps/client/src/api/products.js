@@ -29,3 +29,17 @@ export const fetchDepartmentSaleProducts = (departmentId, callback) => {
       callback(response.data)
     })
 }
+
+export const fetchProductDataById = (productId, callback) => {
+  axios.get(`${PRODUCTS_API}/product/${productId}`)
+    .then((response) => {
+      callback(response.data)
+    })
+}
+
+export const fetchRelatedProducts = (productId, callback) => {
+  axios.get(`${PRODUCTS_API}/product/related/${productId}`)
+    .then((response) => {
+      callback(response.data)
+    })
+}
