@@ -13,16 +13,53 @@ const toTitleCase = (str) => {
   return str[0].toUpperCase() + str.substring(1, str.length)
 }
 
+const saleStyles = {
+  position: 'absolute',
+  left: '1em',
+  top: '1em',
+  backgroundColor: 'rgb(177, 39, 4)',
+  color: 'white',
+  padding: '0.25em 0.5em',
+  fontWeight: 'bold'
+}
+
+const ProductPrice = ({ price, salePrice }) => {
+  const originalPriceStr = Number.parseFloat(price).toFixed(2).toString()
+
+  if (salePrice) {
+    const salePriceStr = Number.parseFloat(salePrice).toFixed(2).toString()
+
+    return (
+      <div style={{ display: 'flex' }}>
+        <Typography gutterBottom variant="h6" component="div">
+          {`$${salePriceStr}`}
+        </Typography>
+        <Typography gutterBottom variant="body2" component="div" style={{ textDecoration: 'line-through', color: 'rgb(118, 118, 118)', margin: 'auto 0.25em' }}>
+          {`$${originalPriceStr}`}
+        </Typography>
+      </div>
+    )
+  }
+
+  return (
+    <Typography gutterBottom variant="h6" component="div">
+      {`$${originalPriceStr}`}
+    </Typography>
+  )
+}
+
 const ProductCard = ({ product }) => {
   return (
-    <Card sx={{ maxWidth: 300, maxHeight: 322 }} style={{ margin: 'auto' }}>
+    <Card sx={{ maxWidth: 300, maxHeight: 322 }} style={{ margin: 'auto', position: 'relative' }}>
+      <Typography variant="caption" style={saleStyles}>Limited time deal</Typography>
+
       <CardMedia
         component="img"
         alt="green iguana"
         height="188"
         image={product.image || missingImage}
       />
-      <CardContent>
+      <CardContent style={{ position: 'relative' }}>
         <Typography gutterBottom variant="body4" component="div">
           {toTitleCase(product.title)}
         </Typography>
@@ -39,13 +76,10 @@ const ProductCard = ({ product }) => {
           </Typography>
         </Box>
 
-        <Typography gutterBottom variant="h6" component="div">
-          {`$${Number.parseFloat(product.price).toFixed(2).toString()}`}
-        </Typography>
+        <ProductPrice price={product.price} salePrice={product.sale_price} />
+
+        <Button size="small" style={{ position: 'absolute', right: '1em', bottom: '1em' }}>Add to Cart</Button>
       </CardContent>
-      <CardActions>
-        <Button size="small">Add to Cart</Button>
-      </CardActions>
     </Card>
   );
 }
