@@ -13,7 +13,7 @@ import React, { useState, useEffect } from "react";
 import { Link as RouterLink } from "react-router-dom";
 import useAuth from '../../context/AuthContext';
 import headerDataTemplate from './headerLinkData';
-import SearchBar from "../SeachBar";
+import SearchBar from "../SearchBar";
 import squidShopLogo from '../../assets/squidshop-logo.png';
 import useStyles from './styles';
 
@@ -34,10 +34,10 @@ const Header = () => {
     mobileView: false,
     drawerOpen: false
   });
-  
+
   const [headersData, setHeadersData] = useState(headerDataTemplate(isLoggedIn))
   const { mobileView, drawerOpen } = state;
-  
+
   useEffect((prevState) => {
     if (isLoggedIn !== prevState) {
       setHeadersData(headerDataTemplate(isLoggedIn))
@@ -70,10 +70,10 @@ const Header = () => {
   };
 
   const SquidshopLogo = () => (
-    <Link to="/" component={RouterLink} style={{ color: 'inherit', textDecoration: 'inherit'}}>
+    <Link to="/" component={RouterLink} style={{ color: 'inherit', textDecoration: 'inherit' }}>
       <div style={{ display: 'inline-flex' }}>
         <img src={squidShopLogo} alt="logo" className={logoImg} />
-        
+
         <Typography variant="h6" component="h1" style={{ margin: 'auto' }} role="heading">
           SquidShop
         </Typography>

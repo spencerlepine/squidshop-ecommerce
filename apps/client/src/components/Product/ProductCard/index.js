@@ -13,7 +13,7 @@ const toTitleCase = (str) => {
 
 const ProductCard = ({ product }) => {
   return (
-    <Card sx={{ maxWidth: 345 }} >
+    <Card sx={{ maxWidth: 345 }} style={{ margin: 'auto' }}>
       <CardMedia
         component="img"
         alt="green iguana"

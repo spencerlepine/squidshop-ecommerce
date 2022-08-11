@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import SearchBar from "material-ui-search-bar";
 
 // should send query as parameter to catalog page
-const CustomSearchBar = () => {
+const CustomSearchBar = ({ customStyles }) => {
   const navigate = useNavigate();
   const [query, setQuery] = useState('');
 
@@ -15,7 +15,7 @@ const CustomSearchBar = () => {
 
   return (
     <SearchBar
-      style={{ width: '40%', margin: '0 auto', float: 'right' }}
+      style={customStyles || { width: '40%', margin: '0 auto', float: 'right' }}
       value={query}
       onChange={(newValue) => setQuery(newValue)}
       onRequestSearch={handleSubmit}
@@ -24,4 +24,3 @@ const CustomSearchBar = () => {
 }
 
 export default CustomSearchBar
-  

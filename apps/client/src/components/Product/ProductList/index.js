@@ -34,7 +34,7 @@ const ProductList = ({ products, isSingleRowList }) => {
   )
 
   const GridList = () => (
-    <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 2, sm: 8, md: 18 }}>
+    <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 2, sm: 8, md: 18 }} style={{ margin: 'auto' }}>
       {productsValid && (
         <>
           {products.map((product, i) => (

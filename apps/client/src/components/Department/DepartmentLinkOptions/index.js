@@ -13,7 +13,7 @@ const highlightCurrentLink = (currentDepartment, thisDepartment) => {
   return {}
 }
 const DepartmentLinkOptions = ({ highlightedDepartment }) => (
-  <Box style={{ display: 'flex', width: 'fit-content', margin: 'auto' }}>
+  <Box style={{ display: 'flex', width: 'fit-content', maxWidth: '90vw', margin: 'auto', overflow: 'scroll' }}>
     {departments.map((department) => (
       <Link
         {...{
