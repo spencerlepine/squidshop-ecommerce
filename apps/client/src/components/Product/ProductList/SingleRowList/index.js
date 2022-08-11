@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Grid from '@mui/material/Grid';
-import ProductCard from '../ProductCard';
+import ProductCard from '../../ProductCard';
 
 const scrollGridStyles = {
   maxHeight: 350,

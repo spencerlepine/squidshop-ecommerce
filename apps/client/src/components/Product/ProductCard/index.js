@@ -89,4 +89,10 @@ const ProductCard = ({ product, useMinimumDetails }) => {
   );
 }
 
+ProductCard.defaultProps = {
+  product: {
+    title: 'Unknown',
+  }
+};
+
 export default ProductCard;

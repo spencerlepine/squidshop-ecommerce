@@ -2,7 +2,7 @@ import React from "react";
 import { Typography } from "@material-ui/core";
 import Box from '@mui/material/Box';
 import Rating from '@mui/material/Rating';
-import AddToCartButton from '../../Cart/AddButton';
+import AddToCartButton from '../../../Cart/AddButton';
 
 const ProductPrice = ({ price, salePrice }) => {
   const originalPriceStr = Number.parseFloat(price).toFixed(2).toString()
@@ -31,9 +31,10 @@ const ProductPrice = ({ price, salePrice }) => {
 
 
 // should handle sale price styling
-const ProductPageView = ({ product }) => {
-  const { category } = product
+const ProductDetails = ({ product }) => {
+  const category = product.category || 'unknown'
   const departmentName = category[0].toUpperCase() + category.substring(1, category.length)
+  const description = product.description || 'missing'
 
   const ProductDetails = () => (
     <>
@@ -59,7 +60,7 @@ const ProductPageView = ({ product }) => {
       <ProductPrice price={product.price} salePrice={product.salePrice} />
 
       <Typography variant="p" component="text.secondary">
-        {product.description.substring(0, 255)}
+        {description.substring(0, 255)}
       </Typography>
     </>
   )
@@ -72,4 +73,9 @@ const ProductPageView = ({ product }) => {
   )
 }
 
-export default ProductPageView
+ProductDetails.defaultProps = {
+  product: {
+    category: ''
+  }
+}
+export default ProductDetails

@@ -35,4 +35,14 @@ const ProductPageView = ({ product }) => {
   )
 }
 
+ProductPageView.defaultProps = {
+  product: {
+    category: 'unknown',
+    description: 'missing',
+    price: 0,
+    image: '',
+    title: '',
+  }
+};
+
 export default ProductPageView

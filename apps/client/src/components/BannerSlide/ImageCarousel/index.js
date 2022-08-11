@@ -24,11 +24,10 @@ const ImageCarousel = ({ images: imagesProp }) => {
     }
   }, []);
 
-  const images = imagesProp.map((imageSrc) => {
+  const images = (imagesProp || []).map((imageSrc) => {
     if (typeof imageSrc === "string") {
       return imageSrc
     }
-    return missingImage
   })
 
   const [imageIndex, setImageIndex] = useState(0)
@@ -70,7 +69,7 @@ const ImageCarousel = ({ images: imagesProp }) => {
           <img
             className="image profileImage is-inline-block"
             alt="Matchable User"
-            src={images[imageIndex] || missingImage}
+            src={images[imageIndex] || ''}
           />
         </ImageListItem>
       </ImageList>

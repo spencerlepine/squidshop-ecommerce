@@ -2,7 +2,7 @@ import React from "react";
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 
-const ProductPageView = ({ product }) => {
+const ProductImage = ({ product }) => {
   return (
     <ImageList sx={{ width: 300, height: 300 }} cols={1} rowHeight={300}>
       <ImageListItem>
@@ -17,4 +17,11 @@ const ProductPageView = ({ product }) => {
   )
 }
 
-export default ProductPageView
+ProductImage.defaultProps = {
+  product: {
+    image: '',
+    title: '',
+  }
+};
+
+export default ProductImage

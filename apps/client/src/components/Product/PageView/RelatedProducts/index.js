@@ -1,8 +1,8 @@
 import React from "react";
-import ProductDataLoader from '../DataLoader';
+import ProductDataLoader from '../../DataLoader';
 import { Typography } from "@material-ui/core";
 import Box from '@mui/material/Box';
-import * as products from '../../../api/products';
+import * as products from '../../../../api/products';
 
 const RelatedProducts = ({ product }) => {
   const fetchProductData = (cb) => {

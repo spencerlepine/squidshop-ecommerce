@@ -5,7 +5,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Typography from '@mui/material/Typography';
 import Select from '@mui/material/Select';
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
-import useStyles from './styles.js';
+import useStyles from '../styles.js';
 
 const sortOptions = [
   "SORT BY",

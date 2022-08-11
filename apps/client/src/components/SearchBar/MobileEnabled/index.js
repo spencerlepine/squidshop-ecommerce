@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import SearchBar from './index';
+import SearchBar from '../index';
 
 const MobileEnabledSearchBar = ({ customStyles }) => {
   const [state, setState] = useState({

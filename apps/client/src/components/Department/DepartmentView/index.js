@@ -37,7 +37,8 @@ const DepartmentCatalog = ({ departmentId }) => {
 }
 
 const DepartmentView = ({ departmentId }) => {
-  const departmentName = departmentId[0].toUpperCase() + departmentId.substring(1, departmentId.length)
+  const id = departmentId || ''
+  const departmentName = id.toUpperCase() + id.substring(1, id.length)
 
   return (
     <div className="CatalogView">
