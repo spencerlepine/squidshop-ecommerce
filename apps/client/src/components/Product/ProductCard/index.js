@@ -5,6 +5,8 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
+import Rating from '@mui/material/Rating';
 import missingImage from '../../../assets/placeholder.jpeg'
 
 const toTitleCase = (str) => {
@@ -13,19 +15,32 @@ const toTitleCase = (str) => {
 
 const ProductCard = ({ product }) => {
   return (
-    <Card sx={{ maxWidth: 345 }} style={{ margin: 'auto' }}>
+    <Card sx={{ maxWidth: 300, maxHeight: 322 }} style={{ margin: 'auto' }}>
       <CardMedia
         component="img"
         alt="green iguana"
-        height="140"
+        height="188"
         image={product.image || missingImage}
       />
       <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
+        <Typography gutterBottom variant="body4" component="div">
           {toTitleCase(product.title)}
         </Typography>
-        <Typography variant="body2" color="text.secondary">
-          {product.description}
+
+        <Box
+          sx={{
+            '& > legend': { mt: 2 },
+          }}
+          style={{ display: 'table' }}
+        >
+          <Rating name="read-only" value={product.rating_rate} readOnly />
+          <Typography variant="body4" component="text.secondary" style={{ display: 'table-cell', 'vertical-align': 'middle', paddingLeft: '0.25em' }}>
+            {`${product.rating_count}`}
+          </Typography>
+        </Box>
+
+        <Typography gutterBottom variant="h6" component="div">
+          {`$${Number.parseFloat(product.price).toFixed(2).toString()}`}
         </Typography>
       </CardContent>
       <CardActions>

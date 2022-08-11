@@ -19,7 +19,7 @@ const SearchableList = ({ products, inSearchMode }) => {
         setFilteredProducts={setFilteredProducts}
       />
 
-      <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 2, sm: 8, md: 18 }} style={{ margin: 'auto' }}>
+      <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 2, sm: 8, md: 18 }} style={{ margin: '1em auto' }}>
         {(filteredProducts && filteredProducts.length > 0) && (
           <>
             {filteredProducts.map((product, i) => (
