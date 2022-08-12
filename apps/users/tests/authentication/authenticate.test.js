@@ -37,24 +37,4 @@ describe('/authenticate endpoint', () => {
       .then(() => done())
       .catch((err) => done(err));
   });
-
-  //   const logoutTest = (accessToken) => new Promise((resolve) => (
-
-  //   ));
-
-  //   const badLoginTest = () => new Promise((resolve) => (
-  //     request(app)
-  //       .post('/login')
-  //       .send({})
-  //       .expect(401)
-  //       .then(() => resolve())
-  //   ));
-
-  //   registerTest()
-  //     .then(loginTest)
-  //     .then(logoutTest)
-  //     .then(badLoginTest)
-  //     .then(loginTest)
-  //     ;
-  // });
 });
