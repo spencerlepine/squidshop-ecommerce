@@ -22,29 +22,27 @@ describe('/product endpoint CRUD operations', () => {
     });
   });
 
+  const uploadProduct = () => new Promise((resolve) => (
+    request(app)
+      .post('/product/upload')
+      .send(mockProduct)
+      .then((res) => resolve(res.body.productId))
+  ));
+
   describe('Reading Products', () => {
     test('should fetch valid product record', (done) => {
-      const uploadProduct = () => new Promise((resolve) => (
-        request(app)
-          .post('/product/upload')
-          .send(mockProduct)
-          .then((res) => resolve(res.body.productId))
-      ));
-
-      const fetchProduct = (mockerProductId) => new Promise((resolve) => (
-        request(app)
-          .get(`/product/${mockerProductId}`)
-          .expect(200)
-          .then((response) => {
-            expect(response.body).toHaveProperty('title');
-            expect(response.body).toHaveProperty('description');
-            expect(response.body).toHaveProperty('price');
-            resolve();
-          })
-      ));
-
       uploadProduct()
-        .then(fetchProduct)
+        .then((mockerProductId) => (
+          request(app)
+            .get(`/product/${mockerProductId}`)
+            .expect(200)
+            .then((response) => {
+              expect(response.body).toHaveProperty('title');
+              expect(response.body).toHaveProperty('description');
+              expect(response.body).toHaveProperty('price');
+              done();
+            })
+        ))
         .then(() => done())
         .catch((err) => done(err));
     });
