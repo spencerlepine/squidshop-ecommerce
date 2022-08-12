@@ -44,7 +44,7 @@ describe('/orders endpoint CRUD operations', () => {
       uploadMockOrder({ userId: readUserId })
         .then((thisOrderId) => (
           request(app)
-            .get(`/orders/${options.userId}/${thisOrderId}`)
+            .get(`/orders/${readUserId}/${thisOrderId}`)
             .expect(201)
         ))
         .then((result) => {
@@ -67,7 +67,7 @@ describe('/orders endpoint CRUD operations', () => {
         .then(() => uploadMockOrder({ userId: readUserId }))
         .then(() => (
           request(app)
-            .get(`/orders/${options.userId}`)
+            .get(`/orders/${readUserId}`)
             .expect(201)
         ))
         .then((result) => {
@@ -104,7 +104,7 @@ describe('/orders endpoint CRUD operations', () => {
     request(app)
       .get(`/orders/${userId}/${orderId}`)
       .expect(201)
-      .then((result) => resolve(result.body))
+      .then((result) => resolve(result))
   ));
 
   describe('Updating Orders', () => {
