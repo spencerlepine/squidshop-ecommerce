@@ -1,5 +1,5 @@
 module.exports = {
-  setupFilesAfterEnv: ['./tests/suiteSetup.js'],
+  setupFilesAfterEnv: ['./__tests__/suiteSetup.js'],
   collectCoverageFrom: ['src/**/*.js', '!**/node_modules/**'],
   coverageReporters: ['html', 'text', 'text-summary', 'cobertura'],
   testMatch: ['**/*.test.js'],
