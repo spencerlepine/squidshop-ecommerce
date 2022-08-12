@@ -54,7 +54,7 @@ const CartView = () => {
   }, [])
 
   useEffect(() => {
-    if (cartItems.length === 0 && useDemoData) {
+    if (cartItems && cartItems.length === 0 && useDemoData) {
       useDemoCart()
     }
   }, [useDemoData])

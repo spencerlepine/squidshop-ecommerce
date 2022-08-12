@@ -99,4 +99,9 @@ const CartItemCard = ({ product, removeFromCart }) => {
   );
 }
 
+CartItemCard.defaultProps = {
+  product: {},
+  removeFromCart: () => { },
+}
+
 export default CartItemCard;

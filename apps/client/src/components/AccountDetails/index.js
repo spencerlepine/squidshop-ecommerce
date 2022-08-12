@@ -49,7 +49,9 @@ const AccountDetails = () => {
   const userData = useDemoData ? demoUser : { ...demoUser, ...(currentUser || {}) }
 
   useEffect(() => {
-    getAccountDetails()
+    if (getAccountDetails) {
+      getAccountDetails()
+    }
   }, [])
 
   return (

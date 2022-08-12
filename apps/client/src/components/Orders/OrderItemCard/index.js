@@ -72,7 +72,7 @@ const OrderItemCard = ({ order }) => {
 
         <CardContent>
           <Grid container spacing={2}>
-            {items.map((cartItem) => (
+            {(items && items.length > 0) && items.map((cartItem) => (
               <Grid container spacing={2}>
                 <Grid item xs={2}>
                   <ProductImage product={cartItem} />
@@ -94,6 +94,10 @@ const OrderItemCard = ({ order }) => {
       </Card>
     </>
   );
+}
+
+OrderItemCard.defaultProps = {
+  order: {}
 }
 
 export default OrderItemCard;

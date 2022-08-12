@@ -26,4 +26,8 @@ const SingleRowList = ({ products }) => {
   );
 }
 
+SingleRowList.defaultProps = {
+  products: [],
+}
+
 export default SingleRowList;

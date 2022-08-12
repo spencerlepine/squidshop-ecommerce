@@ -28,7 +28,7 @@ const OrdersView = () => {
   }, [])
 
   useEffect(() => {
-    if (orderItems.length === 0 && useDemoData) {
+    if (orderItems && orderItems.length === 0 && useDemoData) {
       useDemoOrders()
     }
   }, [useDemoData])

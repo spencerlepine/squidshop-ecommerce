@@ -1,4 +1,4 @@
-# Client - SquidShop Ecommerce
+# Client - SquidShop Ecommerce ![Code Coverage](https://img.shields.io/badge/Code%20Coverage-69%25-success?style=flat)
 
 React Frontend client for the  SquidShop Ecommerce website. Uses continuous integration to lint, test, and build with `GitHub Actions`.
 
