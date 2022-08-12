@@ -32,9 +32,9 @@ describe('/product endpoint CRUD operations', () => {
   describe('Reading Products', () => {
     test('should fetch valid product record', (done) => {
       uploadProduct()
-        .then((mockerProductId) => (
+        .then((mockProductId) => (
           request(app)
-            .get(`/product/${mockerProductId}`)
+            .get(`/product/${mockProductId}`)
             .expect(200)
             .then((response) => {
               expect(response.body).toHaveProperty('title');
@@ -78,8 +78,8 @@ describe('/product endpoint CRUD operations', () => {
         .post('/product/upload')
         .send(freshProduct)
         .then((res) => (res.body.productId))
-        .then((mockerProductId) => request(app)
-          .put(`/product/${mockerProductId}/update`)
+        .then((mockProductId) => request(app)
+          .put(`/product/${mockProductId}/update`)
           .send(updatedProduct)
           .expect(201)
           .then((response) => {
@@ -98,13 +98,51 @@ describe('/product endpoint CRUD operations', () => {
         .post('/product/upload')
         .send(mockProduct)
         .then((res) => (res.body.productId))
-        .then((mockerProductId) => request(app)
-          .delete(`/product/${mockerProductId}/delete`)
+        .then((mockProductId) => request(app)
+          .delete(`/product/${mockProductId}/delete`)
           .expect(201)
           .then((response) => {
             expect(response.body).toBeDefined();
             done();
           }))
+        .catch((err) => done(err));
+    });
+  });
+
+  describe('Related Products', () => {
+    test('should fetch related products from productId', (done) => {
+      uploadProduct()
+        .then(uploadProduct)
+        .then(uploadProduct)
+        .then(uploadProduct)
+        .then(uploadProduct)
+        .then((mockProductId) => (
+          request(app)
+            .get(`/product/related/${mockProductId}`)
+            .expect(200)
+            .then((response) => {
+              expect(response.body).toHaveProperty('products');
+              const { products } = response.body;
+              // ALL products are related EXCEPT the given one
+              expect(products).toHaveLength(4);
+              // DON'T include the given id
+              products.forEach((productData) => {
+                expect(productData.id).not.toBe(mockProductId);
+              });
+              done();
+            })
+        ))
+        .then(() => done())
+        .catch((err) => done(err));
+    });
+
+    test('should reject fake product record', (done) => {
+      request(app)
+        .get('/product/pqoeiup123u40')
+        .expect(500)
+        .then(() => {
+          done();
+        })
         .catch((err) => done(err));
     });
   });
