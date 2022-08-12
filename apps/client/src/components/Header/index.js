@@ -12,6 +12,7 @@ import MenuIcon from '@material-ui/icons/Menu'
 import React, { useState, useEffect } from "react";
 import { Link as RouterLink } from "react-router-dom";
 import useAuth from '../../context/AuthContext';
+import useDemoSettings from '../../context/DemoSettingsContext';
 import headerDataTemplate from './headerLinkData';
 import SearchBar from "../SearchBar";
 import squidShopLogo from '../../assets/squidshop-logo.png';
@@ -24,29 +25,28 @@ import useStyles from './styles';
 // should render login button by default
 // should render cart link when logged in
 // should render account link
-
-// https://github.com/vuonga1103/responsive-header-tutorial
-
 const Header = () => {
   const { isLoggedIn } = useAuth();
+  const { useDemoData } = useDemoSettings();
+
+  const loggedInMode = useDemoData || isLoggedIn;
+
   const { header, logo, menuButton, toolbar, drawerContainer, logoImg } = useStyles();
   const [state, setState] = useState({
     mobileView: false,
     drawerOpen: false
   });
 
-  const [headersData, setHeadersData] = useState(headerDataTemplate(isLoggedIn))
+  const [headersData, setHeadersData] = useState(headerDataTemplate(loggedInMode))
   const { mobileView, drawerOpen } = state;
 
-  useEffect((prevState) => {
-    if (isLoggedIn !== prevState) {
-      setHeadersData(headerDataTemplate(isLoggedIn))
-    }
-  }, [isLoggedIn])
+  useEffect(() => {
+    setHeadersData(headerDataTemplate(useDemoData || isLoggedIn))
+  }, [isLoggedIn, useDemoData])
 
   useEffect(() => {
     const setResponsiveness = () => {
-      return window.innerWidth < 900
+      return window.innerWidth < 950
         ? setState((prevState) => ({ ...prevState, mobileView: true }))
         : setState((prevState) => ({ ...prevState, mobileView: false }));
     };

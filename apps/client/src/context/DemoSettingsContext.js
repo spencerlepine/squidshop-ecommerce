@@ -6,10 +6,13 @@ import * as status from '../api/status';
 
 export const DemoSettingsContext = React.createContext();
 
+const demoSettingsKey = 'squidshopDemoSettingsKey';
+
 export const DemoSettingsProvider = ({ children }) => {
-  const [useDemoData, setUseDemoData] = useState(false)
-  const [loading, setLoading] = useState(true)
-  const [renderWarning, setRenderWarning] = useState(true)
+  const defaultToDemo = !!localStorage.getItem(demoSettingsKey)
+  const [useDemoData, setUseDemoData] = useState(defaultToDemo)
+  const [loading, setLoading] = useState(defaultToDemo ? false : true)
+  const [renderWarning, setRenderWarning] = useState(defaultToDemo ? false : true)
   const [apiRunning, setApiRunning] = useState(false)
 
   useEffect(() => {
@@ -22,6 +25,7 @@ export const DemoSettingsProvider = ({ children }) => {
   const handleAccept = () => {
     setLoading(false)
     setUseDemoData(true)
+    localStorage.setItem(demoSettingsKey, 'true')
     setApiRunning(false)
     setRenderWarning(false)
   }
@@ -33,6 +37,7 @@ export const DemoSettingsProvider = ({ children }) => {
   const handleDisable = () => {
     setRenderWarning(true)
     setLoading(false)
+    localStorage.removeItem(demoSettingsKey)
     setUseDemoData(false)
   }
 

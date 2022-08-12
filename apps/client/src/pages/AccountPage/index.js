@@ -1,15 +1,15 @@
-// import Products from '../components/Products';
+import { Container } from '@mui/system';
+import AccountDetails from '../../components/AccountDetails';
 
-// should render user first name TODO
-// should render orders page link TODO
-// should render cart page link TODO
-// should render current users email TODO
-// should render current address with change feature TODO
+// should render user first name
+// should render current users email
+// should render orders page link
+// should render cart page link
 const AccountPage = () => {
   return (
-    <div className="Account">
-      {/* <Products /> */}
-    </div>
+    <Container component="main" maxWidth="md">
+      <AccountDetails />
+    </Container>
   );
 }
 

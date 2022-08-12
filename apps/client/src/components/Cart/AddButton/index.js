@@ -2,20 +2,24 @@ import React, { useState } from "react";
 import Button from '@mui/material/Button';
 import { useNavigate } from "react-router-dom";
 import useAuth from '../../../context/AuthContext';
+import useCart from '../../../context/CartContext';
+import useDemoSettings from '../../../context/DemoSettingsContext';
 import * as cart from '../../../api/cart';
 
-const AddButton = ({ productId, useTinyButton }) => {
-  const [loading, setLoading] = useState(false)
+const AddButton = ({ productId, useTinyButton, entireProduct }) => {
+  const { addItemToCart } = useCart();
+  const { useDemoData } = useDemoSettings();
   const { isLoggedIn, currentUser } = useAuth();
   const navigate = useNavigate();
 
   const handleAdd = () => {
-    if (isLoggedIn && currentUser.id) {
-      setLoading(true)
-      cart.addProductToCart(productId, currentUser.id, () => {
-        setLoading(false)
-      })
+    if (useDemoData) {
+      addItemToCart(productId, 'userId', { isDemoCart: true, product: entireProduct })
       return
+    }
+
+    if (isLoggedIn && currentUser && currentUser.id) {
+      addItemToCart(productId, currentUser.id)
     }
 
     navigate('/login')
@@ -27,7 +31,6 @@ const AddButton = ({ productId, useTinyButton }) => {
       size="small"
       style={smallButtonStyles}
       onClick={handleAdd}
-      disabled={loading}
     >
       Add to Cart
     </Button>
@@ -40,7 +43,7 @@ const AddButton = ({ productId, useTinyButton }) => {
     marginTop: '2em',
   };
   return (
-    <Button disabled={loading} variant="contained" size="large" style={cartButtonStyles} onClick={handleAdd}>Add to Cart</Button>
+    <Button variant="contained" size="large" style={cartButtonStyles} onClick={handleAdd}>Add to Cart</Button>
   )
 }
 

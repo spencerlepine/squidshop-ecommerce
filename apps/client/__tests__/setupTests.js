@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { AuthContext } from '../src/context/AuthContext';
+import { OrdersContext } from '../src/context/OrdersContext';
 import { DemoSettingsContext } from '../src/context/DemoSettingsContext';
-import { Router } from 'react-router-dom';
+import { CartContext } from '../src/context/CartContext';
 import { createBrowserHistory } from 'history';
 import { MemoryRouter } from 'react-router-dom';
 import '@testing-library/jest-dom';
@@ -12,9 +13,13 @@ const history = createBrowserHistory();
 const AllTheProviders = ({ children }) => (
   <DemoSettingsContext.Provider value={{}}>
     <AuthContext.Provider value={{}}>
-      <MemoryRouter history={history}>
-        {children}
-      </MemoryRouter>
+      <OrdersContext.Provider value={{}}>
+        <CartContext.Provider value={{}}>
+          <MemoryRouter history={history}>
+            {children}
+          </MemoryRouter>
+        </CartContext.Provider>
+      </OrdersContext.Provider>
     </AuthContext.Provider>
   </DemoSettingsContext.Provider>
 );
@@ -24,7 +29,7 @@ AllTheProviders.propTypes = {
 };
 
 // const customRender = (ui, options) =>
-//   render(ui, { wrapper: AllTheProviders, ...options });
+//   render(ui, {wrapper: AllTheProviders, ...options });
 
 // override render method
 jest.mock('@testing-library/react', () => {

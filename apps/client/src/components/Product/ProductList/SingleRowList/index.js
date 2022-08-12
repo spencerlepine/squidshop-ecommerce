@@ -9,21 +9,25 @@ const scrollGridStyles = {
 }
 
 const SingleRowList = ({ products }) => {
-  const productsValid = products && products.length > 0;
+  const CardList = () => (
+    <>
+      {products.map((product, i) => (
+        <Grid item xs={2} sm={4} md={6} key={i}>
+          <ProductCard product={product} useMinimumDetails />
+        </Grid>
+      ))}
+    </>
+  );
 
   return (
     <Grid sx={scrollGridStyles} container wrap='nowrap' spacing={{ xs: 2, md: 3 }} columns={{ xs: 2, sm: 8, md: 18 }}>
-      {productsValid && (
-        <>
-          {products.map((product, i) => (
-            <Grid item xs={2} sm={4} md={6} key={i}>
-              <ProductCard product={product} useMinimumDetails />
-            </Grid>
-          ))}
-        </>
-      )}
+      <CardList />
     </Grid>
   );
+}
+
+SingleRowList.defaultProps = {
+  products: [],
 }
 
 export default SingleRowList;

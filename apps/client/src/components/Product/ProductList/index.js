@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import Typography from '@mui/material/Typography';
 import Alert from '@mui/material/Alert';
 import SearchableList from './SearchableList';
@@ -14,9 +14,9 @@ const ProductList = ({ products, isSingleRowList, inSearchMode }) => {
       )}
 
       {isSingleRowList ? (
-        <SingleRowList products={products} />
+        <SingleRowList products={products || []} />
       ) : (
-        <SearchableList products={products} inSearchMode={inSearchMode} />
+        <SearchableList products={products || []} inSearchMode={inSearchMode} />
       )}
     </div>
   );
