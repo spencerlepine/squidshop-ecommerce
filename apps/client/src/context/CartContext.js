@@ -80,7 +80,15 @@ export const CartProvider = ({ children }) => {
   }
 
   const handleCheckout = (userId, eraseForDemo) => {
-    if (eraseForDemo) {
+    if (eraseForDemo && eraseForDemo.addDemoOrder) {
+      const cart = cartItems.slice()
+      eraseForDemo.addDemoOrder({
+        id: `${(Math.random() + 1).toString(36).substring(7)}`,
+        orderAddress: "60 Wall Street, New York City, 10005",
+        orderTotal: cart.reduce((sum, p) => sum += p.price, 0),
+        purchaseDate: "2/17/22",
+        cartItems: cart
+      })
       setCartItems([])
       return
     }

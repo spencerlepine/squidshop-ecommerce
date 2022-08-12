@@ -8,6 +8,7 @@ import { Link as RouterLink } from "react-router-dom";
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import Button from '@mui/material/Button';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 const ProductPrice = ({ price, salePrice }) => {
   const originalPriceStr = Number.parseFloat(price).toFixed(2).toString()
@@ -49,10 +50,17 @@ const CartItemCard = ({ product, removeFromCart }) => {
   )
 
   const RemoveFromCartBtn = () => {
-    const deleteButtonStyles = {}
+    const deleteButtonStyles = {
+      position: 'absolute',
+      // top: 0,
+      right: 0,
+      top: '20%'
+    }
 
     return (
-      <Button variant="contained" size="large" style={deleteButtonStyles} onClick={removeFromCart}>X</Button>
+      <Button variant="contained" color="error" size="small" style={deleteButtonStyles} onClick={removeFromCart}>
+        <DeleteIcon />
+      </Button>
     )
   }
   const ProductImage = () => {
@@ -73,13 +81,13 @@ const CartItemCard = ({ product, removeFromCart }) => {
     <>
       <hr style={{ color: '#e5e5e5' }} />
       <Box sx={{ flexGrow: 1, mt: 4, mb: 4 }}>
-        <Grid container spacing={2}>
-          <Grid item xs={2}>
+        <Grid container spacing={2} >
+          <Grid item xs={2} style={{ margin: 'auto' }}>
             <Link to={`/product/${product.id || 'unkown'}`} component={RouterLink} style={{ color: 'inherit', textDecoration: 'inherit' }}>
               <ProductImage />
             </Link>
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={6} style={{ position: 'relative', margin: 'auto' }}>
             <Link to={`/product/${product.id || 'unkown'}`} component={RouterLink} style={{ color: 'inherit', textDecoration: 'inherit' }}>
               <ProductDetails />
             </Link>

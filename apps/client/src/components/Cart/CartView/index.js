@@ -7,10 +7,12 @@ import CircularProgress from '@mui/material/CircularProgress';
 import useAuth from '../../../context/AuthContext';
 import useDemoSettings from '../../../context/DemoSettingsContext';
 import useCart from '../../../context/CartContext';
+import useOrders from '../../../context/OrdersContext';
 import CartItemCard from '../CartItemCard';
 
 const CartView = () => {
   const { currentUser } = useAuth();
+  const { addDemoOrder } = useOrders(); // for demo purposes
   const { useDemoData } = useDemoSettings();
   const { cartItems, loading, loadUserCart, useDemoCart, handleCheckout, removeFromCart } = useCart();
 
@@ -25,7 +27,7 @@ const CartView = () => {
 
   const checkoutAction = () => {
     if (useDemoData) {
-      handleCheckout('', { isDemoCart: true })
+      handleCheckout('', { isDemoCart: true, addDemoOrder: addDemoOrder })
     }
 
     if ((currentUser && currentUser.id)) {

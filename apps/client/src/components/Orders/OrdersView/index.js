@@ -12,7 +12,7 @@ import OrderItemCard from '../OrderItemCard';
 const OrdersView = () => {
   const { currentUser } = useAuth();
   const { useDemoData } = useDemoSettings();
-  const { orderItems, loading, loadUserOrders } = useOrders();
+  const { orderItems, loading, loadUserOrders, useDemoOrders } = useOrders();
 
   const refreshOrders = () => {
     if (useDemoData || (currentUser && currentUser.id)) {
@@ -22,8 +22,16 @@ const OrdersView = () => {
   }
 
   useEffect(() => {
-    refreshOrders()
+    if (!useDemoData) {
+      refreshOrders()
+    }
   }, [])
+
+  useEffect(() => {
+    if (orderItems.length === 0 && useDemoData) {
+      useDemoOrders()
+    }
+  }, [useDemoData])
 
   const EmptyMessage = () => (
     <Alert severity="warning" style={{ marginTop: '2em' }}>
