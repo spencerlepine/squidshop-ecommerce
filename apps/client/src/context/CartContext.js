@@ -6,7 +6,7 @@ export const CartContext = React.createContext();
 
 const demoCart = [
   {
-    "id": "1023984",
+    "cartItemId": "1023984",
     "productId": "2310105834087",
     "title": "Zaz Kangeroo Hoodie",
     "description": "This is a variable product called a Chaz Kangeroo Hoodie",
@@ -17,7 +17,7 @@ const demoCart = [
     "rating_count": 0
   },
   {
-    "id": "102984",
+    "cartItemId": "102984",
     "productId": "2310105834087",
     "title": "Teton Pullover Hoodie-L-Red",
     "description": "Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat.\n\nCurabitur gravida nisi at nibh. In hac habitasse platea dictumst. Aliquam augue quam, sollicitudin vitae, consectetuer eget, rutrum at, lorem.\n\nInteger tincidunt ante vel ipsum. Praesent blandit lacinia erat. Vestibulum sed magna at nunc commodo placerat.",
@@ -48,13 +48,13 @@ export const CartProvider = ({ children }) => {
     }
 
     setLoading(true);
-    cartApi.removeProductFromCart(productId, userId)
+    cartApi.removeProductFromCart(cartItemId, userId)
       .then((cart) => setCartItems(cart))
       .catch(() => { })
       .then(() => setLoading(false))
   }
 
-  const addItemToCart = (productId, userId, options) => {
+  const addItemToCart = (product, userId, options) => {
     if (options && options.isDemoCart && options.product) {
       setCartItems((prevList) => ([...prevList, {
         ...options.product,
@@ -65,7 +65,7 @@ export const CartProvider = ({ children }) => {
     }
 
     setLoading(true);
-    cartApi.addProductToCart(productId, userId)
+    cartApi.addProductToCart(product, userId)
       .then((cart) => setCartItems(cart))
       .catch(() => { })
       .then(() => setLoading(false))
