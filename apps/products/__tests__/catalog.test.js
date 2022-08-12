@@ -3,31 +3,60 @@ const request = require('supertest');
 const app = require('../index');
 const mockProduct = require('./mockProduct.json');
 
-const uploadProduct = () => new Promise((resolve) => (
+const uploadProduct = (product = mockProduct) => new Promise((resolve) => (
   request(app)
     .post('/product/upload')
-    .send(mockProduct)
+    .send(product)
     .then((res) => resolve(res.body.productId))
 ));
 
 describe('/catalog endpoint', () => {
-  test('should respond with list of products', (done) => {
-    uploadProduct()
-      .then(uploadProduct)
-      .then(uploadProduct)
-      .then(uploadProduct)
-      .then(() => (
-        request(app)
-          .get('/catalog')
-          .expect(200)
-          .then((response) => {
-            expect(typeof response.body).toBe('object');
-            expect(response.body).toHaveProperty('products');
-            expect(response.body.length > 1).toBeTruthy();
-            resolve();
-          })
-      ))
-      .then(() => done())
-      .catch((err) => done(err));
+  describe('Catalog Products', () => {
+    test('should respond with list of products', (done) => {
+      uploadProduct()
+        .then(uploadProduct)
+        .then(uploadProduct)
+        .then(uploadProduct)
+        .then(() => (
+          request(app)
+            .get('/catalog')
+            .expect(200)
+            .then((response) => {
+              expect(typeof response.body).toBe('object');
+              expect(response.body).toHaveProperty('products');
+              expect(response.body.products.length > 1).toBeTruthy();
+              resolve();
+            })
+        ))
+        .then(() => done())
+        .catch((err) => done(err));
+    });
+  });
+
+  describe('Catalog Search', () => {
+    test('should respond with list of products based on query', (done) => {
+      const renamedProduct = JSON.parse(JSON.stringify(mockProduct));
+      renamedProduct.title = 'My Specific Title';
+      const testQuery = 'my specific title';
+
+      uploadProduct(renamedProduct)
+        .then(uploadProduct)
+        .then(uploadProduct)
+        .then(uploadProduct)
+        .then(() => (
+          request(app)
+            .get(`/catalog?query=${testQuery}`)
+            .expect(200)
+            .then((response) => {
+              expect(response.body).toHaveProperty('products');
+              expect(response.body.products).toHaveLength(1);
+              const searchedProduct = response.body.products[0];
+              expect(searchedProduct.title).toBe(renamedProduct.title);
+              resolve();
+            })
+        ))
+        .then(() => done())
+        .catch((err) => done(err));
+    });
   });
 });
