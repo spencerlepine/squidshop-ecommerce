@@ -15,6 +15,7 @@ setupLogger(app, config);
 app.use('/users', proxy(config.USERS_API_URL));
 app.use('/products', proxy(config.PRODUCTS_API_URL));
 app.use('/orders', proxy(config.ORDERS_API_URL));
+app.use('/carts', proxy(config.ORDERS_API_URL)); // orders and cart is one service
 
 app.get('/status', (req, res) => {
   res.status(200).json({
