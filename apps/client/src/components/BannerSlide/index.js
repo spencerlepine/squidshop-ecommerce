@@ -6,7 +6,7 @@ import banner3 from "../../assets/banner3.jpeg";
 
 import ImageCarousel from './ImageCarousel';
 
-const bannerImages = [banner, banner2, banner3]; // TODO, make custom banners
+const bannerImages = [banner, banner2, banner3];
 
 // should render large image taking full width
 // should display left/right scroll buttons to change image
