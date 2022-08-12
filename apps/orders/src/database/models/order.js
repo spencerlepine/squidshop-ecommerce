@@ -21,29 +21,20 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
       type: DataTypes.INTEGER,
     },
-    productName: {
-      type: DataTypes.STRING,
-    },
     userId: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING,
     },
-    purchasePrice: {
+    orderAddress: {
+      type: DataTypes.STRING,
+    },
+    orderTotal: {
       type: DataTypes.FLOAT,
-    },
-    productId: {
-      type: DataTypes.STRING,
-    },
-    status: {
-      type: DataTypes.STRING,
-    },
-    productImage: {
-      type: DataTypes.STRING,
-    },
-    shipAddress: {
-      type: DataTypes.STRING,
     },
     purchaseDate: {
       type: DataTypes.DATE,
+    },
+    status: {
+      type: DataTypes.STRING,
     },
     createdAt: {
       allowNull: false,

@@ -6,12 +6,13 @@ const { Order } = db;
 const router = express.Router();
 
 // Create user order
-router.post('/:userId/create', (req, res) => {
+router.post('/:userId/create', (req, res, next) => {
   const { userId } = req.params;
 
   const orderDetails = req.body;
   const record = {
     ...orderDetails,
+    purchaseDate: new Date(),
     status: 'ordered',
     userId,
   };
@@ -19,16 +20,13 @@ router.post('/:userId/create', (req, res) => {
   return Order.create(record)
     .then((newRecord) => {
       res.status(201);
-      return res.json({
-        message: 'Successfully created order',
-        order: newRecord.dataValues,
-      });
+      return res.json(newRecord.dataValues);
     })
     .catch((err) => next(err));
 });
 
 // Find all orders for a user
-router.get('/:userId/all', (req, res) => {
+router.get('/:userId/all', (req, res, next) => {
   const { userId } = req.params;
   const query = { where: { userId } };
 
@@ -49,7 +47,7 @@ router.get('/:userId/all', (req, res) => {
 });
 
 // Find single order for a user
-router.get('/:userId/:orderId', (req, res) => {
+router.get('/:userId/:orderId', (req, res, next) => {
   const { userId, orderId } = req.params;
   const query = { where: { userId, id: orderId } };
 
@@ -68,7 +66,7 @@ router.get('/:userId/:orderId', (req, res) => {
 });
 
 // Update user order
-router.put('/:userId/:orderId/update', (req, res) => {
+router.put('/:userId/:orderId/update', (req, res, next) => {
   const { userId, orderId } = req.params;
 
   const orderDetails = req.body;
@@ -91,7 +89,7 @@ router.put('/:userId/:orderId/update', (req, res) => {
 });
 
 // Delete user order
-router.delete('/:userId/:orderId/delete', (req, res) => {
+router.delete('/:userId/:orderId/delete', (req, res, next) => {
   const { userId, orderId } = req.params;
   const query = { where: { userId, id: orderId } };
 

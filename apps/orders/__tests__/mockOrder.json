@@ -1,11 +1,29 @@
 {
-  "productName": "Scooby Snacks",
-  "purchasePrice": 99.99,
-  "productId": "7e69e7f3-d6c7-44d0-9ba0-4b5eec36699e",
-  "productImage": "https://media.istockphoto.com/vectors/thumbnail-image-vector-graphic-vector-id1147544807?k=20&m=1147544807&s=612x612&w=0&h=pBhz1dkwsCMq37Udtp9sfxbjaMl27JUapoyYpQm0anc=",
-  "description": "Lorem Ipsum",
-  "shipAddress": "432 Park Avenue Condominiums, New York City, NY, 10001",
-  "purchaseDate": "1659195713719",
-  "price": 429.50,
-  "userId": 125308123450
+  "orderAddress": "60 Wall Street, New York City, 10005",
+  "orderTotal": 183.09,
+  "purchaseDate": "2/17/22",
+  "cartItems": [
+    {
+      "id": "1023984",
+      "productId": "2310105834087",
+      "title": "Zaz Kangeroo Hoodie",
+      "description": "This is a variable product called a Chaz Kangeroo Hoodie",
+      "image": "http://eimages.valtim.com/acme-images/product/m/h/mh01-gray_main.jpg",
+      "category": "hoodies",
+      "price": 84.86,
+      "rating_rate": 0,
+      "rating_count": 0
+    },
+    {
+      "id": "102984",
+      "productId": "2310105834087",
+      "title": "Teton Pullover Hoodie-L-Red",
+      "description": "Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat.\n\nCurabitur gravida nisi at nibh. In hac habitasse platea dictumst. Aliquam augue quam, sollicitudin vitae, consectetuer eget, rutrum at, lorem.\n\nInteger tincidunt ante vel ipsum. Praesent blandit lacinia erat. Vestibulum sed magna at nunc commodo placerat.",
+      "image": "http://eimages.valtim.com/acme-images/product/m/h/mh02-red_main.jpg",
+      "category": "tees",
+      "price": 98.23,
+      "rating_rate": 0,
+      "rating_count": 0
+    }
+  ]
 }
