@@ -12,7 +12,27 @@ import CartItemCard from '../CartItemCard';
 const CartView = () => {
   const { currentUser } = useAuth();
   const { useDemoData } = useDemoSettings();
-  const { cartItems, loading, loadUserCart } = useCart();
+  const { cartItems, loading, loadUserCart, useDemoCart, handleCheckout } = useCart();
+
+  const getCartTotalSum = () => {
+    try {
+      const sum = cartItems.reduce((sum, p) => sum += p.price, 0)
+      return sum.toFixed(2)
+    } catch (e) {
+      return 0
+    }
+  }
+
+  const checkoutAction = () => {
+    if (useDemoData) {
+      handleCheckout('', { isDemoCart: true })
+    }
+
+    if ((currentUser && currentUser.id)) {
+      const id = (currentUser || {})['id']
+      handleCheckout(id)
+    }
+  }
 
   const refreshCart = () => {
     if (useDemoData || (currentUser && currentUser.id)) {
@@ -22,20 +42,46 @@ const CartView = () => {
   }
 
   useEffect(() => {
-    refreshCart()
+    if (!useDemoData) {
+      refreshCart()
+    }
   }, [])
+
+  useEffect(() => {
+    if (cartItems.length === 0 && useDemoData) {
+      useDemoCart()
+    }
+  }, [useDemoData])
 
   const EmptyMessage = () => (
     <Alert severity="warning" style={{ marginTop: '2em' }}>
-      <Typography>Failed to load <Button style={{ marginLeft: '0.5em' }} onClick={refreshCart}><CachedIcon /> Refresh</Button></Typography>
+      <Typography>Empty cart <Button style={{ marginLeft: '0.5em' }} onClick={refreshCart}><CachedIcon /> Refresh</Button></Typography>
     </Alert>
-  )
+  );
+
+  const checkoutButtonStyles = {
+    backgroundColor: 'rgb(252, 210, 0)',
+    color: 'rgb(15, 17, 17)',
+    display: 'block',
+    margin: '1em',
+    padding: '0.5em 1em',
+    float: 'right'
+  };
 
   return (
     <Box sx={{ textAlign: 'center', mt: 6 }}>
       <Typography variant="h4" component="h2">
         <ShoppingCartIcon /> Cart
       </Typography>
+
+      <Box sx={{ textAlign: 'center', mt: 6 }}>
+        <Typography variant="h5" component="h2" style={{ float: 'left', marginTop: '0.5em', color: '#003500' }}>
+          ${getCartTotalSum()}
+        </Typography>
+
+        <Button variant="contained" size="large" style={checkoutButtonStyles} onClick={checkoutAction}>Checkout</Button>
+        <br />
+      </Box>
 
       <Box sx={{ textAlign: 'left', mt: 6 }}>
         {loading ? (

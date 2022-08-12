@@ -18,3 +18,11 @@ export const fetchUserCart = (userId) => new Promise((resolve, reject) => {
     })
     .catch(reject)
 });
+
+export const checkoutUserCart = (userId) => new Promise((resolve, reject) => {
+  axios.get(`${CARTS_API}/checkout/${userId}`)
+    .then((response) => {
+      resolve(response.data)
+    })
+    .catch(reject)
+});

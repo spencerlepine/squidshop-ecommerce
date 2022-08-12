@@ -9,8 +9,6 @@ const scrollGridStyles = {
 }
 
 const SingleRowList = ({ products }) => {
-  console.log(products)
-
   const CardList = () => (
     <>
       {products.map((product, i) => (

@@ -68,7 +68,7 @@ const ProductDetails = ({ product }) => {
     <>
       <ProductDetails />
 
-      <AddToCartButton productId={product.id} />
+      <AddToCartButton productId={product.id} entireProduct={product} />
     </>
   )
 }
