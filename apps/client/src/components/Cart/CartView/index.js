@@ -12,7 +12,7 @@ import CartItemCard from '../CartItemCard';
 const CartView = () => {
   const { currentUser } = useAuth();
   const { useDemoData } = useDemoSettings();
-  const { cartItems, loading, loadUserCart, useDemoCart, handleCheckout } = useCart();
+  const { cartItems, loading, loadUserCart, useDemoCart, handleCheckout, removeFromCart } = useCart();
 
   const getCartTotalSum = () => {
     try {
@@ -40,6 +40,10 @@ const CartView = () => {
       loadUserCart(id)
     }
   }
+
+  const handleRemove = (cartProduct) => () => (
+    removeFromCart(cartProduct.id, (currentUser || {}).id, { isDemoCart: useDemoData })
+  )
 
   useEffect(() => {
     if (!useDemoData) {
@@ -90,7 +94,7 @@ const CartView = () => {
           <>
             {(cartItems && cartItems.length > 0) ? (
               cartItems.map((cartProduct) => (
-                <CartItemCard product={cartProduct} />
+                <CartItemCard product={cartProduct} removeFromCart={handleRemove(cartProduct)} />
               ))
             ) : (
               <EmptyMessage />

@@ -7,6 +7,7 @@ import { Link } from "@material-ui/core";
 import { Link as RouterLink } from "react-router-dom";
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
+import Button from '@mui/material/Button';
 
 const ProductPrice = ({ price, salePrice }) => {
   const originalPriceStr = Number.parseFloat(price).toFixed(2).toString()
@@ -18,7 +19,7 @@ const ProductPrice = ({ price, salePrice }) => {
   )
 }
 
-const CartItemCard = ({ product }) => {
+const CartItemCard = ({ product, removeFromCart }) => {
   const category = product.category || 'unknown'
   const departmentName = category[0].toUpperCase() + category.substring(1, category.length)
 
@@ -47,6 +48,13 @@ const CartItemCard = ({ product }) => {
     </>
   )
 
+  const RemoveFromCartBtn = () => {
+    const deleteButtonStyles = {}
+
+    return (
+      <Button variant="contained" size="large" style={deleteButtonStyles} onClick={removeFromCart}>X</Button>
+    )
+  }
   const ProductImage = () => {
     return (
       <ImageList sx={{ width: 100, height: 100 }} cols={1} rowHeight={100}>
@@ -62,19 +70,24 @@ const CartItemCard = ({ product }) => {
     )
   }
   return (
-    <Link to={`/product/${product.id || 'unkown'}`} component={RouterLink} style={{ color: 'inherit', textDecoration: 'inherit' }}>
+    <>
       <hr style={{ color: '#e5e5e5' }} />
       <Box sx={{ flexGrow: 1, mt: 4, mb: 4 }}>
         <Grid container spacing={2}>
           <Grid item xs={2}>
-            <ProductImage />
+            <Link to={`/product/${product.id || 'unkown'}`} component={RouterLink} style={{ color: 'inherit', textDecoration: 'inherit' }}>
+              <ProductImage />
+            </Link>
           </Grid>
           <Grid item xs={6}>
-            <ProductDetails />
+            <Link to={`/product/${product.id || 'unkown'}`} component={RouterLink} style={{ color: 'inherit', textDecoration: 'inherit' }}>
+              <ProductDetails />
+            </Link>
+            <RemoveFromCartBtn />
           </Grid>
         </Grid>
       </Box>
-    </Link>
+    </>
   );
 }
 

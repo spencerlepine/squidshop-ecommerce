@@ -11,6 +11,14 @@ export const addProductToCart = (productId, userId) => new Promise((resolve, rej
     .catch(reject)
 });
 
+export const removeProductFromCart = (productId, userId) => new Promise((resolve, reject) => {
+  axios.delete(`${CARTS_API}/remove/${userId}`, { productId })
+    .then((response) => {
+      resolve(response.data)
+    })
+    .catch(reject)
+});
+
 export const fetchUserCart = (userId) => new Promise((resolve, reject) => {
   axios.get(`${CARTS_API}/${userId}`)
     .then((response) => {
@@ -20,7 +28,7 @@ export const fetchUserCart = (userId) => new Promise((resolve, reject) => {
 });
 
 export const checkoutUserCart = (userId) => new Promise((resolve, reject) => {
-  axios.get(`${CARTS_API}/checkout/${userId}`)
+  axios.post(`${CARTS_API}/checkout/${userId}`)
     .then((response) => {
       resolve(response.data)
     })

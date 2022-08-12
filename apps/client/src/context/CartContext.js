@@ -6,7 +6,8 @@ export const CartContext = React.createContext();
 
 const demoCart = [
   {
-    "id": "2310105834087",
+    "id": "1023984",
+    "productId": "2310105834087",
     "title": "Zaz Kangeroo Hoodie",
     "description": "This is a variable product called a Chaz Kangeroo Hoodie",
     "image": "http://eimages.valtim.com/acme-images/product/m/h/mh01-gray_main.jpg",
@@ -16,7 +17,8 @@ const demoCart = [
     "rating_count": 0
   },
   {
-    "id": "2310105834087",
+    "id": "102984",
+    "productId": "2310105834087",
     "title": "Teton Pullover Hoodie-L-Red",
     "description": "Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat.\n\nCurabitur gravida nisi at nibh. In hac habitasse platea dictumst. Aliquam augue quam, sollicitudin vitae, consectetuer eget, rutrum at, lorem.\n\nInteger tincidunt ante vel ipsum. Praesent blandit lacinia erat. Vestibulum sed magna at nunc commodo placerat.",
     "image": "http://eimages.valtim.com/acme-images/product/m/h/mh02-red_main.jpg",
@@ -37,9 +39,28 @@ export const CartProvider = ({ children }) => {
     setLoading(false)
   }
 
+  const removeFromCart = (cartItemId, userId, options) => {
+    if (options && options.isDemoCart) {
+      setCartItems((prevList) => (prevList.filter((p) => (
+        p.id !== cartItemId
+      ))))
+      return
+    }
+
+    setLoading(true);
+    cartApi.removeProductFromCart(productId, userId)
+      .then((cart) => setCartItems(cart))
+      .catch(() => { })
+      .then(() => setLoading(false))
+  }
+
   const addItemToCart = (productId, userId, options) => {
     if (options && options.isDemoCart && options.product) {
-      setCartItems((prevList) => ([...prevList, options.product]))
+      setCartItems((prevList) => ([...prevList, {
+        ...options.product,
+        id: `${(Math.random() + 1).toString(36).substring(7)}`,
+        productId: options.product.id
+      }]))
       return
     }
 
@@ -76,6 +97,7 @@ export const CartProvider = ({ children }) => {
     cartItems,
     loadUserCart,
     addItemToCart,
+    removeFromCart,
     handleCheckout,
     useDemoCart
   };
