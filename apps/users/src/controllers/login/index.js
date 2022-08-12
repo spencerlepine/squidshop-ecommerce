@@ -1,7 +1,7 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
 
-const db = require('../../database');
+const db = require('../../database/connection');
 const { generateAccessToken, generateRefreshToken } = require('../generateToken');
 
 const { User } = db;

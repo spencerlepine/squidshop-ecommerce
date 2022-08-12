@@ -4,7 +4,7 @@ const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const routes = require('./src/routes');
 const { errorLogger, errorResponder, failSafeHandler } = require('./src/middleware/errorHandlers');
-const db = require('./src/database');
+const db = require('./src/database/connection');
 const config = require('./config');
 
 const app = express();

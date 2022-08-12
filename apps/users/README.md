@@ -1,4 +1,4 @@
-# Users API Service - SquidShop Ecommerce ![Code Coverage](https://img.shields.io/badge/Code%20Coverage-92%25-success?style=flat)
+# Users API Service - SquidShop Ecommerce ![Code Coverage](https://img.shields.io/badge/Code%20Coverage-91%25-success?style=flat)
 
 
 Users/Auth API microservice to store and magange customer accounts. Connected to relational MySQL database. Uses continuous integration to lint, test, and build with `GitHub Actions`.

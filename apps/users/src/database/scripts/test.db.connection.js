@@ -1,5 +1,5 @@
-const config = require('../../config');
-const db = require('./index');
+const config = require('../../../config');
+const db = require('../connection');
 
 module.exports = async () => {
   // WARNING: hard coded, used for development
