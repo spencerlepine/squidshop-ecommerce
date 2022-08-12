@@ -1,6 +1,6 @@
 /* eslint-disable consistent-return */
 const express = require('express');
-const models = require('../../models');
+const models = require('../../database/models');
 
 const router = express.Router();
 

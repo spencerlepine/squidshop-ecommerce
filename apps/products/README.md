@@ -20,7 +20,7 @@ docker exec -it cassandra-docker bash
 cqlsh # type that, it will enter the cqlsh shell
 ```
 
-2b. Paste [`db.init.cql`](./db.init.cql) script to initialize database
+2b. Paste [`init.cql`](./src/database/init.cql) script to initialize database
 ```sql
 -- still inside of cqlsh
 CREATE KEYSPACE mykeyspace WITH replication = {'class': 'NetworkTopologyStrategy', 'datacenter1': '3'}  AND durable_writes = true;

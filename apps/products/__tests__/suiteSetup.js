@@ -7,7 +7,7 @@
  *    - Use in-memory storage for test environment
  *     NOTE: this is very hard coded, not great solution
 */
-jest.mock('../src/models', () => {
+jest.mock('../src/database/models', () => {
   const mockCassandraStorage = {};
 
   function ProductClass(obj) {

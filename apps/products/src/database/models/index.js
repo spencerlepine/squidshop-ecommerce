@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 const Cassandra = require('express-cassandra');
-const config = require('../../config');
+const config = require('../../../config');
 
 const {
   CASSANDRA_HOST,

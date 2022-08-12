@@ -2,7 +2,7 @@
 /* eslint-disable new-cap */
 const express = require('express');
 const { v4: uuid } = require('uuid');
-const models = require('../../models');
+const models = require('../../database/models');
 
 const router = express.Router();
 
