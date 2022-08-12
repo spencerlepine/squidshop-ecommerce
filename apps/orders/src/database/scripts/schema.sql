@@ -3,9 +3,13 @@ USE testdb;
 
 CREATE TABLE "Orders"(
     "id" INTEGER NOT NULL,
+    "userId" VARCHAR(255) NOT NULL,
     "orderAddress" VARCHAR(255) NOT NULL,
     "orderTotal" DOUBLE PRECISION NOT NULL,
-    "purchaseDate" DATE NOT NULL
+    "status" VARCHAR(255) NOT NULL,
+    "purchaseDate" DATE NOT NULL,
+    "createdAt" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 );
 ALTER TABLE
     "Orders" ADD PRIMARY KEY("id");
@@ -19,7 +23,9 @@ CREATE TABLE "OrderItems"(
     "category" VARCHAR(255) NOT NULL,
     "price" DOUBLE PRECISION NOT NULL,
     "rating_rate" DOUBLE PRECISION NOT NULL,
-    "rating_count" INTEGER NOT NULL
+    "rating_count" INTEGER NOT NULL,
+    "createdAt" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 );
 ALTER TABLE
     "OrderItems" ADD PRIMARY KEY("id");

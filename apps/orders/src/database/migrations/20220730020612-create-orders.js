@@ -10,28 +10,19 @@ module.exports = {
         type: Sequelize.INTEGER,
       },
       userId: {
-        type: Sequelize.INTEGER,
-      },
-      productName: {
         type: Sequelize.STRING,
       },
-      purchasePrice: {
+      orderAddress: {
+        type: Sequelize.STRING,
+      },
+      orderTotal: {
         type: Sequelize.FLOAT,
-      },
-      status: {
-        type: Sequelize.STRING,
-      },
-      productId: {
-        type: Sequelize.STRING,
-      },
-      productImage: {
-        type: Sequelize.STRING,
-      },
-      shipAddress: {
-        type: Sequelize.STRING,
       },
       purchaseDate: {
         type: Sequelize.DATE,
+      },
+      status: {
+        type: Sequelize.STRING,
       },
       createdAt: {
         allowNull: false,
