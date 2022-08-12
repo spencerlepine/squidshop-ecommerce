@@ -64,7 +64,7 @@ services:
       cassandra_db:
         condition: service_healthy
     volumes:
-      - ./apps/products/src/models/cassandra_schema.cql:/schema.cql
+      - ./apps/products/src/database/scripts/init.cql:/schema.cql
     command: /bin/bash -c "echo loading cassandra keyspace && cqlsh cassandra_db -f /schema.cql --debug" # -u user -p pass
 
   products:
@@ -120,7 +120,6 @@ services:
       DATABASE_DIALECT: postgres
       NODE_ENV: production
       ACCESS_TOKEN_SECRET: mysecret
-
 
   gateway:
     networks:
