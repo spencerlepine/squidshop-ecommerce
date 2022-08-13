@@ -88,6 +88,9 @@ jobs:
       - name: Rename coverage output file
         run: mv ../../code-coverage-results.md ./${{ matrix.folder_name }}-code-coverage-results.md
 
+      - name: Add app title to coverage report
+        run: sed -i '1s/^/### `${{ matrix.folder_name }}`  Test Coverage /' ./${{ matrix.folder_name }}-code-coverage-results.md
+      
       - name: Add Coverage PR Comment
         uses: marocchino/sticky-pull-request-comment@v2
         if: github.event_name == 'pull_request'
@@ -97,9 +100,7 @@ jobs:
           path: ${{ env.working_directory }}/${{ matrix.folder_name }}-code-coverage-results.md
     
       - name: Job Summary Output
-        run: |
-          echo '### `${{ matrix.folder_name }}`  Test Coverage :tada:' >> $GITHUB_STEP_SUMMARY
-          echo "$(<./${{ matrix.folder_name }}-code-coverage-results.md )" >> $GITHUB_STEP_SUMMARY
+        run: echo "$(<./${{ matrix.folder_name }}-code-coverage-results.md )" >> $GITHUB_STEP_SUMMARY
 
   docker_build:
     # needs: [lint_and_test] # Will run CI faster without waiting for tests
