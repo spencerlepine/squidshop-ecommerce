@@ -91,34 +91,23 @@ router.get('/related/:productId', async (req, res, next) => {
   });
 });
 
-router.get('/catalog', (req, res, next) => {
-  const query = {
-    // equal query stays for name='john', also could be written as name: { $eq: 'John' }
-    // name: 'John',
-    // range query stays for age>10 and age<=20. You can use $gt (>), $gte (>=), $lt (<), $lte (<=)
-    // age: { $gt: 10, $lte: 20 },
-    // IN clause, means surname should either be Doe or Smith
-    // surname: { $in: ['Doe', 'Smith'] },
-    // like query supported by sasi indexes, complete_name must have an SA
-    // complete_name: { $like: 'J%' },
-    // order results by age in ascending order.
-    // also allowed $desc and complex order like $orderby: {'$asc' : ['k1','k2'] }
-    $orderby: { $asc: 'price' },
-    // group results by a certain field or list of fields
-    // $groupby: ['age'],
-    // limit the result set to 10 rows, $per_partition_limit is also supported
-    $limit: 10,
-  };
+// Fetch Department Products
+router.get('/department/:departmentId', async (req, res, next) => {
+  const { departmentId } = req.params;
+  const query = { category: departmentId, $limit: 20 };
 
-  return models.instance.product.find(query, (err, data) => {
-    if (err || !data) {
-      return next(err || 'Unable to find catalog');
+  return models.instance.product.find(query, {}, (err, data) => {
+    if (err) {
+      return next(err);
     }
 
     if (data) {
-      res.status(200);
-      return res.json(data);
+      return res.status(200).json({
+        products: data,
+      });
     }
+
+    return next('unable to find products');
   });
 });
 

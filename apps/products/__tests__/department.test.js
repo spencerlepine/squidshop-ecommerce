@@ -27,7 +27,7 @@ describe('/department endpoint', () => {
             .then((response) => {
               expect(response.body).toHaveProperty('products');
               expect(response.body.products).toHaveLength(2);
-              resolve();
+              done();
             })
         ))
         .then(() => done())
@@ -45,10 +45,12 @@ describe('/department endpoint', () => {
             .expect(200)
             .then((response) => {
               expect(response.body).toHaveProperty('products');
-              expect(response.body.products).toHaveLength(1);
-              const searchedProduct = response.body.products[0];
-              expect(searchedProduct.id).toBe(saleProductId);
-              resolve();
+              expect(response.body.products.length).toBeGreaterThan(0);
+              const containsMockProduct = response.body.products.some((p) => (
+                p.id === saleProductId
+              ));
+              expect(containsMockProduct).toBeTruthy();
+              done();
             })
         ))
         .then(() => done())

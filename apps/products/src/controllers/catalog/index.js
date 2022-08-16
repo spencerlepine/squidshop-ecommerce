@@ -4,7 +4,7 @@ const models = require('../../database/models');
 
 const router = express.Router();
 
-router.get('/', (req, res) => {
+router.get('/', (req, res, next) => {
   const query = {
     // equal query stays for name='john', also could be written as name: { $eq: 'John' }
     // title: 'Wayfarer Messenger Bag',
@@ -24,25 +24,17 @@ router.get('/', (req, res) => {
   };
 
   return models.instance.product.find(query, { allow_filtering: true }, (err, data) => {
-    if (err || JSON.stringify(err) === '{}') {
-      return res.status(500).json({
-        message: 'Error finding products',
-        error: JSON.stringify(err),
-        err,
-      });
+    if (err) {
+      return next(err);
     }
 
-    if (!data) {
+    if (data) {
       return res.status(200).json({
-        message: 'Unable to find products',
         products: [],
       });
     }
 
-    if (data) {
-      res.status(200);
-      return res.json(data);
-    }
+    next('unable to find products for catalog');
   });
 });
 
