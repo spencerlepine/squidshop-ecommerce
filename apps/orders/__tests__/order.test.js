@@ -23,6 +23,9 @@ describe('/orders endpoint CRUD operations', () => {
           expect(result.body).toHaveProperty('orders');
           expect(result.body.orders).toHaveLength(1);
           expect(result.body.orders.at(-1)).toHaveProperty('id');
+          const order = result.body.orders[0];
+          expect(order).toHaveProperty('cartItems');
+          expect(order.cartItems).toHaveLength(mockOrder.cartItems.length);
           done();
         })
         .catch((err) => done(err));
@@ -34,7 +37,7 @@ describe('/orders endpoint CRUD operations', () => {
       .post(`/orders/${options.userId}/create`)
       .send(mockOrder)
       .expect(201)
-      .then((result) => resolve(result.body.orders.at(-1)))
+      .then((result) => resolve(result.body.orders.at(-1).id))
   ));
 
   describe('Reading Orders', () => {
@@ -45,7 +48,7 @@ describe('/orders endpoint CRUD operations', () => {
         .then((thisOrderId) => (
           request(app)
             .get(`/orders/${readUserId}/${thisOrderId}`)
-            .expect(201)
+            .expect(200)
         ))
         .then((result) => {
           expect(result.body).toHaveProperty('orderId');
@@ -68,7 +71,7 @@ describe('/orders endpoint CRUD operations', () => {
         .then(() => (
           request(app)
             .get(`/orders/${readUserId}`)
-            .expect(201)
+            .expect(200)
         ))
         .then((result) => {
           expect(result.body).toHaveProperty('orders');
@@ -103,7 +106,7 @@ describe('/orders endpoint CRUD operations', () => {
   const getMockOrder = (userId, orderId) => new Promise((resolve) => (
     request(app)
       .get(`/orders/${userId}/${orderId}`)
-      .expect(201)
+      .expect(200)
       .then((result) => resolve(result))
   ));
 
@@ -111,6 +114,7 @@ describe('/orders endpoint CRUD operations', () => {
     test('should update order record', (done) => {
       const uploadUserId = '0987345987';
       const freshRecord = JSON.parse(JSON.stringify(mockOrder));
+      freshRecord.status = 'ordered';
       const startingStatus = freshRecord.status;
 
       // Create the product
@@ -123,7 +127,7 @@ describe('/orders endpoint CRUD operations', () => {
             recordToChange.status = 'cancelled';
 
             return request(app)
-              .put(`/orders/${userId}/${orderId}/update`)
+              .put(`/orders/${uploadUserId}/${orderId}/update`)
               .send(recordToChange)
               .expect(201);
           }))
@@ -139,10 +143,11 @@ describe('/orders endpoint CRUD operations', () => {
   describe('Deleting Orders', () => {
     test('should delete order record', (done) => {
       const deleteUserId = '092817509812735';
+      const freshRecord = JSON.parse(JSON.stringify(mockOrder));
       uploadMockOrder({ userId: deleteUserId, mockOrder: freshRecord })
         .then((orderId) => getMockOrder(deleteUserId, orderId)
           .then(() => request(app)
-            .delete(`/orders/${mockUserId}/${orderId}/delete`)
+            .delete(`/orders/${deleteUserId}/${orderId}/delete`)
             .expect(201)
             .then((response) => {
               expect(response.body).toBeDefined();
