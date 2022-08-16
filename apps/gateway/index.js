@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const proxy = require('express-http-proxy');
 const { errorLogger, errorResponder, failSafeHandler } = require('./src/middlewares/errorHandler');
+const setupLogger = require('./src/logger/setup');
 const config = require('./config');
 
 const app = express();
