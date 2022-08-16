@@ -25,7 +25,7 @@ describe('/catalog endpoint', () => {
               expect(typeof response.body).toBe('object');
               expect(response.body).toHaveProperty('products');
               expect(response.body.products.length > 1).toBeTruthy();
-              resolve();
+              done();
             })
         ))
         .then(() => done())
@@ -49,10 +49,12 @@ describe('/catalog endpoint', () => {
             .expect(200)
             .then((response) => {
               expect(response.body).toHaveProperty('products');
-              expect(response.body.products).toHaveLength(1);
-              const searchedProduct = response.body.products[0];
-              expect(searchedProduct.title).toBe(renamedProduct.title);
-              resolve();
+              expect(response.body.products.length > 1).toBeTruthy();
+              const containsSearched = response.body.products.some((p) => (
+                p.title === renamedProduct.title
+              ));
+              expect(containsSearched).toBeTruthy();
+              done();
             })
         ))
         .then(() => done())

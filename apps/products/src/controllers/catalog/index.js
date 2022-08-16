@@ -4,7 +4,28 @@ const models = require('../../database/models');
 
 const router = express.Router();
 
+const handleSearchRequest = (searchQuery) => (req, res, next) => {
+  const search = `${searchQuery}%`;
+  const query = { title: { $like: search }, category: { $like: search }, $limit: 10 };
+
+  return models.instance.product.find(query, { allow_filtering: true }, (err, data) => {
+    if (err) {
+      return next(err);
+    }
+    console.log(data.filter((p) => p.title));
+    return res.status(200).json({
+      products: data.filter((p) => p.title),
+    });
+  });
+};
+
 router.get('/', (req, res, next) => {
+  const { query: searchQuery } = req.query;
+
+  if (searchQuery) {
+    return handleSearchRequest(searchQuery)(req, res, next);
+  }
+
   const query = {
     // equal query stays for name='john', also could be written as name: { $eq: 'John' }
     // title: 'Wayfarer Messenger Bag',
@@ -19,6 +40,7 @@ router.get('/', (req, res, next) => {
     // $orderby: { $asc: 'price' },
     // group results by a certain field or list of fields
     // $groupby: ['age'],
+    rating_rate: { $gt: 3 },
     // limit the result set to 10 rows, $per_partition_limit is also supported
     $limit: 10,
   };
@@ -30,7 +52,7 @@ router.get('/', (req, res, next) => {
 
     if (data) {
       return res.status(200).json({
-        products: [],
+        products: data,
       });
     }
 
