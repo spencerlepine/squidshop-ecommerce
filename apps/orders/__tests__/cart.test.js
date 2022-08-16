@@ -1,8 +1,17 @@
 const request = require('supertest');
 
 const app = require('../index');
+const mockProduct = require('./mockProduct.json');
 
 describe('/carts endpoint operations', () => {
+  const addProductToCart = (product, userId) => new Promise((resolve) => (
+    request(app)
+      .post(`/add/${userId}`)
+      .send(product)
+      .expect(201)
+      .then((result) => resolve(result.body.cart))
+  ));
+
   describe('Adding to cart', () => {
     test('should add item to and return entire cart', (done) => {
       request(app)
@@ -27,14 +36,6 @@ describe('/carts endpoint operations', () => {
         .catch((err) => done(err));
     });
 
-    const addProductToCart = (product, userId) => new Promise((resolve) => (
-      request(app)
-        .post(`/add/${userId}`)
-        .send(product)
-        .expect(201)
-        .then((result) => resolve(result.body.cart))
-    ));
-
     test('should add multiple items to user cart', (done) => {
       const mockAddingUserId = 'mockUserId1010';
       addProductToCart(mockProduct, mockAddingUserId)
@@ -57,12 +58,12 @@ describe('/carts endpoint operations', () => {
           expect(cartItemIdOne).toBeTruthy();
 
           return request(app)
-            .delete(`/remove/${userId}`)
+            .delete(`/remove/${mockRemoveUserId}`)
             .send({ cartItemId: cartItemIdOne })
             .expect(201)
             .then((result) => {
               expect(result.body).toHaveProperty('cart');
-              expect(result.body.cart).toHaveLength(3);
+              expect(result.body.cart).toHaveLength(1 + 1 + 1 - 1);
               done();
             });
         })
@@ -72,7 +73,7 @@ describe('/carts endpoint operations', () => {
 
   describe('Fetch the user cart', () => {
     test('should return entire user cart', (done) => {
-      const mockGetUserId = 'mockUserId9999';
+      const mockGetUserId = 'mockUserId7779';
       addProductToCart(mockProduct, mockGetUserId)
         .then(() => addProductToCart(mockProduct, mockGetUserId))
         .then(() => addProductToCart(mockProduct, mockGetUserId))
@@ -116,7 +117,7 @@ describe('/carts endpoint operations', () => {
     const getUserOrders = (userId) => new Promise((resolve) => (
       request(app)
         .get(`/orders/${userId}`)
-        .expect(201)
+        .expect(200)
         .then((result) => resolve(result.body.orders))
     ));
 
