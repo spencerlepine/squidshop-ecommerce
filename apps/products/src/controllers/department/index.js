@@ -19,7 +19,7 @@ router.get('/:departmentId', async (req, res, next) => {
   const { departmentId } = req.params;
   const query = { category: departmentId, $limit: 20 };
 
-  return models.instance.product.find(query, {}, (err, data) => {
+  return models.instance.product.find(query, { allow_filtering: true }, (err, data) => {
     if (err) {
       return next(err);
     }
@@ -37,8 +37,11 @@ router.get('/:departmentId', async (req, res, next) => {
 // Fetch Department Products on SALE
 router.get('/sale/:departmentId', async (req, res, next) => {
   const { departmentId } = req.params;
-  // const query = { sale_price: { $eq: 0 }, category: departmentId, $limit: 20 };
-  const query = { price: { $lt: Math.random() * 200, $gt: 10 }, $limit: 100 };
+  const query = {
+    category: departmentId,
+    price: { $lt: Math.random() * 200, $gt: 10 },
+    $limit: 100,
+  };
 
   return models.instance.product.find(query, { allow_filtering: true }, (err, data) => {
     if (err) {

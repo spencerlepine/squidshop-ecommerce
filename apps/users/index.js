@@ -10,7 +10,18 @@ const config = require('./config');
 const app = express();
 
 // Middlewares
-app.use(cors());
+const whitelist = ['http://localhost:3000']; // frontend, hard coded, TODO
+const corsOptions = {
+  origin(origin, callback) {
+    if (!origin || whitelist.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true,
+};
+app.use(cors(corsOptions));
 app.use(cookieParser());
 app.use(express.json());
 

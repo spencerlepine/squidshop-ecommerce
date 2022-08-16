@@ -54,10 +54,12 @@ const ProductDataLoader = (props) => {
 
   useEffect(() => {
     if (!productData && apiRunning) {
-      fetchProductData((data) => {
-        isLoading(false)
-        setProductData(data)
-      });
+      fetchProductData()
+        .then((data) => {
+          setProductData(data)
+        })
+        .catch(() => { })
+        .then(() => isLoading(false));
     }
   }, [apiRunning]);
 

@@ -2,7 +2,7 @@ CREATE KEYSPACE mykeyspace WITH replication = {'class': 'NetworkTopologyStrategy
 
 USE mykeyspace;
 
-CREATE TABLE products (
+CREATE TABLE product (
     id varchar PRIMARY KEY,
     title varchar,
     price float,

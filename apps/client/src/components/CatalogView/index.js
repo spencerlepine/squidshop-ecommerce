@@ -15,8 +15,8 @@ import MobileEnabledSearchBar from '../SearchBar/MobileEnabled';
 // should take search from query parameter and load products
 // should render search bar if mobile
 const CatalogView = ({ currentQuery, hideTitle }) => {
-  const fetchByQuery = (cb) => {
-    return products.fetchSearchProducts(currentQuery, cb)
+  const fetchByQuery = () => {
+    return products.fetchSearchProducts(currentQuery)
   }
 
   return (

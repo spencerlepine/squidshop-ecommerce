@@ -11,7 +11,7 @@ const scrollGridStyles = {
 const SingleRowList = ({ products }) => {
   const CardList = () => (
     <>
-      {products.map((product, i) => (
+      {(Array.isArray(products) ? products : []).map((product, i) => (
         <Grid item xs={2} sm={4} md={6} key={i}>
           <ProductCard product={product} useMinimumDetails />
         </Grid>
