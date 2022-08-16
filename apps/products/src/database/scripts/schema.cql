@@ -6,6 +6,7 @@ CREATE TABLE products (
     id varchar PRIMARY KEY,
     title varchar,
     price float,
+    sale_price float,
     description varchar,
     category varchar,
     image varchar,

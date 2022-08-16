@@ -91,26 +91,6 @@ router.get('/related/:productId', async (req, res, next) => {
   });
 });
 
-// Fetch Department Products
-router.get('/department/:departmentId', async (req, res, next) => {
-  const { departmentId } = req.params;
-  const query = { category: departmentId, $limit: 20 };
-
-  return models.instance.product.find(query, {}, (err, data) => {
-    if (err) {
-      return next(err);
-    }
-
-    if (data) {
-      return res.status(200).json({
-        products: data,
-      });
-    }
-
-    return next('unable to find products');
-  });
-});
-
 // Update
 router.put('/:productId/update', (req, res, next) => {
   const { productId } = req.params;

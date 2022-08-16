@@ -50,6 +50,11 @@ describe('/department endpoint', () => {
                 p.id === saleProductId
               ));
               expect(containsMockProduct).toBeTruthy();
+
+              const containsOnlyOnSale = response.body.products.every((p) => (
+                !!p.sale_price
+              ));
+              expect(containsOnlyOnSale).toBeTruthy();
               done();
             })
         ))

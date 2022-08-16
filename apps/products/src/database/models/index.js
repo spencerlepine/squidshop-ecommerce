@@ -38,6 +38,7 @@ const ProductSchema = {
     },
     title: { type: 'varchar', default: 'untitled' },
     price: 'float',
+    sale_price: 'float',
     description: { type: 'varchar', default: 'no description provided' },
     category: { type: 'text', default: 'misc' },
     image: 'varchar',
