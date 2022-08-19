@@ -18,6 +18,17 @@ const FindAllProducts = (next, query, options = {}, callback) => (
   })
 );
 
+const FindOneProduct = (next, query, callback) => (
+  models.instance.product.findOne(query, (err, data) => {
+    if (err) {
+      return next(err);
+    } if (!data) {
+      return next('Unable to find product record');
+    }
+    callback(data);
+  })
+);
+
 const shuffleArray = (array) => {
   const newArray = array.slice();
   for (let i = newArray.length - 1; i > 0; i -= 1) {
@@ -51,8 +62,8 @@ router.post('/upload', async (req, res) => {
 router.get('/:productId', async (req, res, next) => {
   const query = { id: req.params.productId };
 
-  FindAllProducts(next, query, {}, (data) => {
-    res.status(200).json(data[0]);
+  FindOneProduct(next, query, (data) => {
+    res.status(200).json(data);
   });
 });
 
