@@ -41,7 +41,6 @@ export const AuthProvider = ({ children }) => {
     setLoading(true);
     return AuthService.signInWithEmailAndPassword({ email, password })
       .then((user) => {
-        console.log('logged in', user)
         setCurrentUser(user)
         setIsLoggedIn(true)
         setLoading(false)

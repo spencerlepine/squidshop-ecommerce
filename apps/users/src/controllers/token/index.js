@@ -12,7 +12,6 @@ const extractToken = (req) => {
 };
 
 router.post('/', (req, res) => {
-  // const refreshToken = req.headers.authorization.split(' ')[1];
   const refreshToken = extractToken(req);
 
   if (!refreshToken) {

@@ -49,7 +49,6 @@ router.get('/', (req, res, next) => {
   const { query: searchQuery } = req.query;
 
   if (searchQuery) {
-    console.log('Handling search catalog query!'); // TODO
     return handleSearchRequest(searchQuery)(req, res, next);
   }
 

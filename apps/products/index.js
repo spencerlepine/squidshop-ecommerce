@@ -7,7 +7,7 @@ const config = require('./config');
 
 const app = express();
 
-const whitelist = ['http://localhost:3000']; // frontend, hard coded, TODO
+const whitelist = ['http://localhost:3000']; // frontend, hard coded, TOO
 const corsOptions = {
   origin(origin, callback) {
     if (!origin || whitelist.indexOf(origin) !== -1) {
@@ -25,7 +25,7 @@ app.use(routes);
 
 // Error Handlers
 const errorLogger = (error, req, res, next) => { // for logging errors
-  console.error(error); // or using any fancy logging library HERE TODO
+  console.error(error); // or using any fancy logging library HERE
   next(error); // forward to next middleware
 };
 

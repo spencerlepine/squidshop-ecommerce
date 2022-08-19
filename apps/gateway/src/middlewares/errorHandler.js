@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 module.exports = {
   errorLogger: (error, req, res, next) => { // for logging errors
-    console.error(error); // or using any fancy logging library HERE TODO
+    console.error(error); // or using any fancy logging library HERE
     next(error); // forward to next middleware
   },
   errorResponder: (error, req, res, next) => { // responding to client
