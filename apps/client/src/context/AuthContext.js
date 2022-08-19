@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import * as authApi from '../api/authentication';
+import AuthService from '../api/authentication';
 
 export const AuthContext = React.createContext();
 
@@ -10,7 +10,7 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    authApi.authenticateUser()
+    AuthService.authenticateUser()
       .then((user) => {
         setCurrentUser(user)
         setIsLoggedIn(true)
@@ -23,7 +23,7 @@ export const AuthProvider = ({ children }) => {
     const id = (currentUser || {}).id
 
     setLoading(true);
-    authApi.fetchAccountDetails(id)
+    AuthService.fetchAccountDetails(id)
       .then((userDetails) => {
         setCurrentUser(userDetails)
         setIsLoggedIn(true)
@@ -34,7 +34,7 @@ export const AuthProvider = ({ children }) => {
 
   function loginUser(email, password) {
     setLoading(true);
-    authApi.signInWithEmailAndPassword(email, password)
+    AuthService.signInWithEmailAndPassword(email, password)
       .then((user) => {
         setCurrentUser(user)
         setIsLoggedIn(true)
@@ -45,14 +45,14 @@ export const AuthProvider = ({ children }) => {
 
   function signupUser(firstName, lastName, email, password) {
     setLoading(true);
-    authApi.createUserWithEmailAndPassword(firstName, lastName, email, password)
+    AuthService.createUserWithEmailAndPassword(firstName, lastName, email, password)
       .catch(() => setCurrentUser(null))
       .then(() => setLoading(false))
   }
 
   function logoutUser() {
     setLoading(true);
-    authApi.logoutUser()
+    AuthService.logoutUser()
       .then(() => setCurrentUser(null))
       .catch(() => setCurrentUser(null))
       .then(() => setLoading(false))

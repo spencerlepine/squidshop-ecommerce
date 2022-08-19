@@ -8,7 +8,7 @@ import { Link } from '@material-ui/core';
 import { Link as RouterLink } from "react-router-dom";
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
-import { logoutUser } from '../../api/authentication';
+import AuthService from '../../api/authentication';
 
 const demoUser = ({
   email: `${(Math.random() + 1).toString(36).substring(7)}@gmail.com`,
@@ -20,7 +20,7 @@ const LogoutButton = ({ isDemoMode }) => {
   const navigate = useNavigate();
   const handleLogout = () => {
     if (isDemoMode === false) {
-      return logoutUser()
+      return AuthService.logoutUser()
         .then(() => navigate("/"))
         .catch((err) => console.error(err))
     }

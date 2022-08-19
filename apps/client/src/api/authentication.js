@@ -1,51 +1,25 @@
-import axios from 'axios'
-import config from './config'
-const AUTH_API = `${config.REACT_GATEWAY_API_URL}/users`
+import ApiInstance from './request';
 
-let axiosConfig = {
-  headers: {
-    'Content-Type': 'application/json;charset=UTF-8',
-    "Access-Control-Allow-Origin": "*",
-  },
-  withCredentials: true
-};
+const AuthService = new ApiInstance('/users');
 
-export const authenticateUser = () => new Promise((resolve, reject) => {
-  axios.get(`${AUTH_API}/authenticate`, axiosConfig)
-    .then((response) => {
-      resolve(response.data)
-    })
-    .catch(reject)
-});
+AuthService.authenticateUser = () => (
+  AuthService.request('get', '/authenticate')
+)
 
-export const signInWithEmailAndPassword = (formData) => new Promise((resolve, reject) => {
-  axios.post(`${AUTH_API}/login`, formData, axiosConfig)
-    .then((response) => {
-      resolve(response.data)
-    })
-    .catch(reject)
-});
+AuthService.signInWithEmailAndPassword = (formData) => (
+  AuthService.request('post', '/login', formData)
+)
 
-export const createUserWithEmailAndPassword = (formData) => new Promise((resolve, reject) => {
-  axios.post(`${AUTH_API}/register`, formData, axiosConfig)
-    .then((response) => {
-      resolve(response.data)
-    })
-    .catch(reject)
-});
+AuthService.createUserWithEmailAndPassword = (formData) => (
+  AuthService.request('post', '/register', formData)
+)
 
-export const logoutUser = () => new Promise((resolve, reject) => {
-  axios.get(`${AUTH_API}/logout`, axiosConfig)
-    .then((response) => {
-      resolve(response.data)
-    })
-    .catch(reject)
-});
+AuthService.logoutUser = () => (
+  AuthService.request('get', '/logout')
+)
 
-export const fetchAccountDetails = (userId) => new Promise((resolve, reject) => {
-  axios.get(`${AUTH_API}/profile/${userId}`, axiosConfig)
-    .then((response) => {
-      resolve(response.data)
-    })
-    .catch(reject)
-});
+AuthService.fetchAccountDetails = (userId) => (
+  AuthService.request('get', `/profile/${userId}`)
+)
+
+export default AuthService;

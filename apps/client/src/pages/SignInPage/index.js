@@ -1,4 +1,4 @@
-import React, { useState} from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -14,7 +14,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import * as authApi from '../../api/authentication';
+import AuthService from '../../api/authentication';
 
 const theme = createTheme();
 
@@ -25,16 +25,16 @@ export default function SignIn() {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    authApi.signInWithEmailAndPassword({
+    AuthService.signInWithEmailAndPassword({
       email: data.get('email'),
       password: data.get('password'),
     })
-    .then((r) => {
-      navigate("/", { replace: true });
-    })
-    .catch(() => {
-      setErrorMessage('Incorrect email or password')
-    })
+      .then((r) => {
+        navigate("/", { replace: true });
+      })
+      .catch(() => {
+        setErrorMessage('Incorrect email or password')
+      })
   };
 
   return (
