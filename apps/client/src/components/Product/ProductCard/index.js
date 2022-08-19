@@ -53,7 +53,7 @@ const ProductCard = ({ product, useMinimumDetails }) => {
   return (
     <Link to={`/product/${product.id || 'unkown'}`} component={RouterLink} style={{ color: 'inherit', textDecoration: 'inherit' }}>
       <Card sx={{ maxWidth: 300, maxHeight: 322, minWidth: 200 }} style={{ margin: 'auto', position: 'relative' }}>
-        {product.sale_price && <Typography variant="caption" style={saleStyles}>Limited time deal</Typography>}
+        {!!product.sale_price && <Typography variant="caption" style={saleStyles}>Limited time deal</Typography>}
 
         <CardMedia
           component="img"

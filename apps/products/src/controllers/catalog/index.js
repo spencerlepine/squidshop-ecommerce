@@ -4,29 +4,9 @@ const models = require('../../database/models');
 
 const router = express.Router();
 
-const handleSearchRequest = (searchQuery) => (req, res, next) => {
-  const search = `${searchQuery}%`;
-  const query = { title: { $like: search }, category: { $like: search }, $limit: 10 };
-
-  return models.instance.product.find(query, { allow_filtering: true }, (err, data) => {
-    if (err) {
-      return next(err);
-    }
-    console.log(data.filter((p) => p.title));
-    return res.status(200).json({
-      products: data.filter((p) => p.title),
-    });
-  });
-};
-
-router.get('/', (req, res, next) => {
-  const { query: searchQuery } = req.query;
-
-  if (searchQuery) {
-    return handleSearchRequest(searchQuery)(req, res, next);
-  }
-
-  const query = {
+/*
+-----EXAMPLE QUERY------
+const query = {
     // equal query stays for name='john', also could be written as name: { $eq: 'John' }
     // title: 'Wayfarer Messenger Bag',
     // range query stays for age>10 and age<=20. You can use $gt (>), $gte (>=), $lt (<), $lte (<=)
@@ -44,19 +24,45 @@ router.get('/', (req, res, next) => {
     // limit the result set to 10 rows, $per_partition_limit is also supported
     $limit: 10,
   };
-
-  return models.instance.product.find(query, { allow_filtering: true }, (err, data) => {
+*/
+const FindProduct = (res, next, query, options = {}, callback) => (
+  models.instance.product.find(query, { allow_filtering: true, ...options }, (err, data) => {
     if (err) {
       return next(err);
     }
+    callback(data);
+  })
+);
 
-    if (data) {
-      return res.status(200).json({
-        products: data,
-      });
-    }
+const handleSearchRequest = (searchQuery) => (req, res, next) => {
+  const search = `${searchQuery}%`;
+  const query = { title: { $like: search }, category: { $like: search }, $limit: 10 };
 
-    next('unable to find products for catalog');
+  FindProduct(res, next, query, {}, (data) => {
+    res.status(200).json({
+      products: data.filter((p) => p.title),
+    });
+  });
+};
+
+router.get('/', (req, res, next) => {
+  const { query: searchQuery } = req.query;
+
+  if (searchQuery) {
+    console.log('Handling search catalog query!'); // TODO
+    return handleSearchRequest(searchQuery)(req, res, next);
+  }
+
+  const query = {
+    price: { $gt: 0, $lte: 100 },
+    rating_rate: { $gt: 3 },
+    $limit: 10,
+  };
+
+  FindProduct(res, next, query, {}, (data) => {
+    res.status(200).json({
+      products: data,
+    });
   });
 });
 
