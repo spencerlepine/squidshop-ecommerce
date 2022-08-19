@@ -13,7 +13,6 @@ let axiosConfig = {
 export const fetchCatalogProducts = () => new Promise((resolve, reject) => {
   return axios.get(`${PRODUCTS_API}/catalog`, axiosConfig)
     .then((response) => {
-      console.log(response.data)
       resolve(response.data.products)
     })
     .catch(reject)

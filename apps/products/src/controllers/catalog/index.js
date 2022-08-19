@@ -25,7 +25,7 @@ const query = {
     $limit: 10,
   };
 */
-const FindProduct = (res, next, query, options = {}, callback) => (
+const FindProduct = (next, query, options = {}, callback) => (
   models.instance.product.find(query, { allow_filtering: true, ...options }, (err, data) => {
     if (err) {
       return next(err);
@@ -38,7 +38,7 @@ const handleSearchRequest = (searchQuery) => (req, res, next) => {
   const search = `${searchQuery}%`;
   const query = { title: { $like: search }, category: { $like: search }, $limit: 10 };
 
-  FindProduct(res, next, query, {}, (data) => {
+  FindProduct(next, query, {}, (data) => {
     res.status(200).json({
       products: data.filter((p) => p.title),
     });
@@ -59,7 +59,7 @@ router.get('/', (req, res, next) => {
     $limit: 10,
   };
 
-  FindProduct(res, next, query, {}, (data) => {
+  FindProduct(next, query, {}, (data) => {
     res.status(200).json({
       products: data,
     });

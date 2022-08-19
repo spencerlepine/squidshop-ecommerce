@@ -1,12 +1,21 @@
 import React from "react";
 import { Link } from '@material-ui/core';
 import { Link as RouterLink } from "react-router-dom";
-import { Box, Button, Grid } from '@mui/material/';
+import { Box, Button, Grid, Typography } from '@mui/material/';
 import ProductDetails from './ProductDetails';
 import ProductImage from './ProductImage';
 import RelatedProducts from './RelatedProducts';
+import Alert from '@mui/material/Alert';
 
 const ProductPageView = ({ product }) => {
+  if (!(product && product.id)) {
+    return (
+      <Alert severity="warning" style={{ marginTop: '2em' }}>
+        <Typography>Failed to load <Button style={{ marginLeft: '0.5em' }} onClick={refreshOrders}><CachedIcon /> Refresh</Button></Typography>
+      </Alert>
+    )
+  }
+
   return (
     <>
       <Box sx={{ mt: 2 }}>

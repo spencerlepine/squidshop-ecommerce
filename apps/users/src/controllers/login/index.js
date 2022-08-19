@@ -34,7 +34,7 @@ router.post('/', (req, res, next) => {
           const refreshToken = generateRefreshToken(user);
           res.cookie('accessToken', accessToken, { httpOnly: true });
           res.cookie('refreshToken', refreshToken, { httpOnly: true });
-          return res.sendStatus(201);
+          return res.status(201).json(user);
         }
       }
 

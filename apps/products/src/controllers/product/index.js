@@ -7,6 +7,28 @@ const models = require('../../database/models');
 
 const router = express.Router();
 
+const FindAllProducts = (next, query, options = {}, callback) => (
+  models.instance.product.find(query, { allow_filtering: true, ...options }, (err, data) => {
+    if (err) {
+      return next(err);
+    } if (!(data && data.length > 0)) {
+      return next('Unable to find product record(s)');
+    }
+    callback(data);
+  })
+);
+
+const shuffleArray = (array) => {
+  const newArray = array.slice();
+  for (let i = newArray.length - 1; i > 0; i -= 1) {
+    const j = Math.floor(Math.random() * (i + 1));
+    const temp = newArray[i];
+    newArray[i] = newArray[j];
+    newArray[j] = temp;
+  }
+  return newArray;
+};
+
 // Create
 router.post('/upload', async (req, res) => {
   const productDetails = req.body;
@@ -29,64 +51,27 @@ router.post('/upload', async (req, res) => {
 router.get('/:productId', async (req, res, next) => {
   const query = { id: req.params.productId };
 
-  // eslint-disable-next-line max-len
-  return models.instance.product.findOne(query, (err, data) => {
-    if (err || !data) {
-      return next(err || 'Unable to find product');
-    }
-
-    if (data) {
-      res.status(200);
-      return res.json(data);
-    }
-
-    return res.status(500).json({
-      message: 'Unable to find product record',
-    });
+  FindAllProducts(next, query, {}, (data) => {
+    res.status(200).json(data[0]);
   });
 });
-
-function shuffleArray(array) {
-  const newArray = array.slice();
-  for (let i = newArray.length - 1; i > 0; i -= 1) {
-    const j = Math.floor(Math.random() * (i + 1));
-    const temp = newArray[i];
-    newArray[i] = newArray[j];
-    newArray[j] = temp;
-  }
-  return newArray;
-}
 
 // Fetch Related Products
 router.get('/related/:productId', async (req, res, next) => {
   const query = { id: req.params.productId, $limit: 30 };
-  // get this product
-  // get the category
-  // query similar in category
 
-  return models.instance.product.findOne(query, (err, data) => {
-    if (err) {
-      return next(err);
-    }
+  if (!req.params.productId) {
+    next('Invalid productId provided');
+  }
 
-    if (data) {
-      return models.instance.product.find({ category: data.category }, {}, (findErr, related) => {
-        if (findErr) {
-          return next(findErr);
-        }
-
-        if (related) {
-          const filterProducts = related.filter((p) => p.id !== req.params.productId);
-          const relatedProducts = shuffleArray(filterProducts).slice(0, 10);
-          return res.status(200).json({
-            products: relatedProducts,
-          });
-        }
+  FindAllProducts(next, query, {}, (data) => {
+    const relatedQuery = { category: data[0].category };
+    FindAllProducts(next, relatedQuery, {}, (related) => {
+      const filterProducts = related.filter((p) => p.id !== req.params.productId);
+      const relatedProducts = shuffleArray(filterProducts).slice(0, 10);
+      return res.status(200).json({
+        products: relatedProducts,
       });
-    }
-
-    return res.status(500).json({
-      message: 'Unable to find product record',
     });
   });
 });

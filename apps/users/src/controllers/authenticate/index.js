@@ -22,8 +22,7 @@ const authenticateTokenMiddleware = (req, res) => {
         message: 'Token no longer valid',
       });
     }
-    req.user = user;
-    return res.sendStatus(201);
+    return res.status(201).json(user);
   });
 };
 

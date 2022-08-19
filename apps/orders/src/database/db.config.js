@@ -11,10 +11,11 @@ module.exports = {
     logging: false,
   },
   production: {
-    HOST: config.POSTGRES_HOST,
-    USER: config.POSTGRES_USER,
-    PASSWORD: config.POSTGRES_PASSWORD,
-    DB: config.POSTGRES_DATABASE,
+    host: config.POSTGRES_HOST,
+    port: 5432,
+    user: config.POSTGRES_USER,
+    password: config.POSTGRES_PASSWORD,
+    database: config.POSTGRES_DATABASE,
     dialect: config.DATABASE_DIALECT,
     pool: {
       max: 5,

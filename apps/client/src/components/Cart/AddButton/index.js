@@ -22,7 +22,7 @@ const AddButton = ({ productId, useTinyButton, entireProduct }) => {
       addItemToCart(entireProduct, currentUser.id)
     }
 
-    navigate('/login')
+    navigate('/cart')
   };
 
   if (useTinyButton) {

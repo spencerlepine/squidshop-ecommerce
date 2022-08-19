@@ -45,11 +45,11 @@ const LogoutButton = ({ isDemoMode }) => {
 
 const AccountDetails = () => {
   const { currentUser, getAccountDetails } = useAuth();
-  const { useDemoData } = useDemoSettings();
+  const { useDemoData, apiRunning } = useDemoSettings();
   const userData = useDemoData ? demoUser : { ...demoUser, ...(currentUser || {}) }
 
   useEffect(() => {
-    if (getAccountDetails) {
+    if (getAccountDetails && apiRunning) {
       getAccountDetails()
     }
   }, [])

@@ -88,15 +88,20 @@ services:
   postgres_db:
     networks:
       - postgres-network
-    image: postgres:14.1-alpine
+    image: postgres:latest
     restart: always
     environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=12345
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=example
     ports:
       - '5432:5432'
+    logging:
+      options:
+        max-size: 10m
+        max-file: "3"
     volumes:
       - orders-db:/var/lib/postgresql
+      - ./apps/orders/src/database/scripts/schema.sql:/docker-entrypoint-initdb.d/schema.sql
 
   orders:
     networks:
@@ -110,10 +115,10 @@ services:
     ports:
       - 8003:8003
     environment:
-      PORT: '8003'
-      POSTGRES_HOST: postgres-network
+      PORT: 8003
+      POSTGRES_HOST: postgres_db
       POSTGRES_USER: root
-      POSTGRES_PASSWORD: '12345'
+      POSTGRES_PASSWORD: example
       POSTGRES_DATABASE: testdb
 
   gateway:

@@ -75,11 +75,13 @@ export const CartProvider = ({ children }) => {
     setLoading(true);
     cartApi.fetchUserCart(userId)
       .then((cart) => {
-        console.log(cart)
         setCartItems(cart)
+        setLoading(false)
       })
-      .catch(() => setCartItems([]))
-      .then(() => setLoading(false))
+      .catch(() => {
+        setCartItems([])
+        setLoading(false)
+      })
   }
 
   const handleCheckout = (userId, eraseForDemo) => {

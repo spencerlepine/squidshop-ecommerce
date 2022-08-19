@@ -5,19 +5,18 @@ import * as authApi from '../api/authentication';
 export const AuthContext = React.createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [isLoggedIn, setIsLoggedIn] = useState(true); // TODO change back
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // TODO ENABLE THIS
-    // authApi.authenticateUser()
-    //   .then((user) => {
-    //     setCurrentUser(user)
-    //     setIsLoggedIn(true)
-    //   })
-    //   .catch(() => setCurrentUser(null))
-    //   .then(() => setLoading(false))
+    authApi.authenticateUser()
+      .then((user) => {
+        setCurrentUser(user)
+        setIsLoggedIn(true)
+      })
+      .catch(() => setCurrentUser(null))
+      .then(() => setLoading(false))
   }, []);
 
   function getAccountDetails() {
