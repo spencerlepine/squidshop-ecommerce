@@ -26,7 +26,7 @@ import useStyles from './styles';
 // should render cart link when logged in
 // should render account link
 const Header = () => {
-  const { isLoggedIn } = useAuth();
+  const { isLoggedIn, currentUser } = useAuth();
   const { useDemoData } = useDemoSettings();
 
   const loggedInMode = useDemoData || isLoggedIn;
@@ -42,7 +42,7 @@ const Header = () => {
 
   useEffect(() => {
     setHeadersData(headerDataTemplate(useDemoData || isLoggedIn))
-  }, [isLoggedIn, useDemoData])
+  }, [isLoggedIn, useDemoData, currentUser])
 
   useEffect(() => {
     const setResponsiveness = () => {

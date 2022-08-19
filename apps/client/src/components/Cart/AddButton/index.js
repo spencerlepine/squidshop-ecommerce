@@ -14,15 +14,15 @@ const AddButton = ({ productId, useTinyButton, entireProduct }) => {
 
   const handleAdd = () => {
     if (useDemoData) {
-      addItemToCart(productId, 'userId', { isDemoCart: true, product: entireProduct })
+      addItemToCart(entireProduct, 'userId', { isDemoCart: true, product: entireProduct })
       return
     }
 
     if (isLoggedIn && currentUser && currentUser.id) {
-      addItemToCart(productId, currentUser.id)
+      addItemToCart(entireProduct, currentUser.id)
     }
 
-    navigate('/login')
+    navigate('/cart')
   };
 
   if (useTinyButton) {

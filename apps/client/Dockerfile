@@ -1,7 +1,10 @@
 # stage1 - build react app first
 FROM node:16 as build
 WORKDIR /app
+
+ENV NODE_ENV=production
 ENV PATH /app/node_modules/.bin:$PATH
+
 COPY ./package.json /app/
 COPY ./yarn.lock /app/
 RUN yarn

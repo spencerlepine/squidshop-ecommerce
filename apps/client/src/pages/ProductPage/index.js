@@ -13,8 +13,8 @@ import * as products from '../../api/products';
 const ProductPage = () => {
   const { productId } = useParams();
 
-  const fetchProductData = (cb) => {
-    return products.fetchProductDataById(productId, cb)
+  const fetchProductData = () => {
+    return products.fetchProductDataById(productId)
   };
 
   return (

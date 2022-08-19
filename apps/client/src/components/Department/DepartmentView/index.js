@@ -5,8 +5,8 @@ import * as products from '../../../api/products';
 import ProductDataLoader from '../../Product/DataLoader';
 
 const SaleProducts = ({ departmentId }) => {
-  const fetchSaleProducts = (cb) => {
-    return products.fetchDepartmentSaleProducts(departmentId, cb)
+  const fetchSaleProducts = () => {
+    return products.fetchDepartmentSaleProducts(departmentId)
   }
 
   return (
@@ -21,8 +21,8 @@ const SaleProducts = ({ departmentId }) => {
 }
 
 const DepartmentCatalog = ({ departmentId }) => {
-  const fetchDepartmentProducts = (cb) => {
-    return products.fetchDepartmentProducts(departmentId, cb)
+  const fetchDepartmentProducts = () => {
+    return products.fetchDepartmentProducts(departmentId)
   }
 
   return (
@@ -38,7 +38,7 @@ const DepartmentCatalog = ({ departmentId }) => {
 
 const DepartmentView = ({ departmentId }) => {
   const id = departmentId || ''
-  const departmentName = id.toUpperCase() + id.substring(1, id.length)
+  const departmentName = id[0].toUpperCase() + id.substring(1, id.length)
 
   return (
     <div className="CatalogView">
@@ -51,6 +51,10 @@ const DepartmentView = ({ departmentId }) => {
       <DepartmentCatalog departmentId={departmentId} />
     </div>
   );
+}
+
+DepartmentView.defaultProps = {
+  departmentId: 'fakeDepartment'
 }
 
 export default DepartmentView;

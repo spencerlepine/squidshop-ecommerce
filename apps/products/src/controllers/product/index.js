@@ -1,10 +1,44 @@
+/* eslint-disable no-param-reassign */
 /* eslint-disable consistent-return */
 /* eslint-disable new-cap */
 const express = require('express');
 const { v4: uuid } = require('uuid');
-const models = require('../../models');
+const models = require('../../database/models');
 
 const router = express.Router();
+
+const FindAllProducts = (next, query, options = {}, callback) => (
+  models.instance.product.find(query, { allow_filtering: true, ...options }, (err, data) => {
+    if (err) {
+      return next(err);
+    } if (!(data && data.length > 0)) {
+      return next('Unable to find product record(s)');
+    }
+    callback(data);
+  })
+);
+
+const FindOneProduct = (next, query, callback) => (
+  models.instance.product.findOne(query, (err, data) => {
+    if (err) {
+      return next(err);
+    } if (!data) {
+      return next('Unable to find product record');
+    }
+    callback(data);
+  })
+);
+
+const shuffleArray = (array) => {
+  const newArray = array.slice();
+  for (let i = newArray.length - 1; i > 0; i -= 1) {
+    const j = Math.floor(Math.random() * (i + 1));
+    const temp = newArray[i];
+    newArray[i] = newArray[j];
+    newArray[j] = temp;
+  }
+  return newArray;
+};
 
 // Create
 router.post('/upload', async (req, res) => {
@@ -25,60 +59,31 @@ router.post('/upload', async (req, res) => {
 });
 
 // Read
-router.get('/:productId', async (req, res) => {
+router.get('/:productId', async (req, res, next) => {
   const query = { id: req.params.productId };
 
-  // eslint-disable-next-line max-len
-  return models.instance.product.findOne(query, (err, data) => {
-    if (err) {
-      return res.status(500).json({
-        message: 'Unable to find product record',
-        error: JSON.stringify(err),
-      });
-    }
-
-    if (data) {
-      res.status(200);
-      return res.json(data);
-    }
-
-    return res.status(500).json({
-      message: 'Unable to find product record',
-    });
+  FindOneProduct(next, query, (data) => {
+    res.status(200).json(data);
   });
 });
 
-router.get('/catalog', (req, res) => {
-  const query = {
-    // equal query stays for name='john', also could be written as name: { $eq: 'John' }
-    // name: 'John',
-    // range query stays for age>10 and age<=20. You can use $gt (>), $gte (>=), $lt (<), $lte (<=)
-    // age: { $gt: 10, $lte: 20 },
-    // IN clause, means surname should either be Doe or Smith
-    // surname: { $in: ['Doe', 'Smith'] },
-    // like query supported by sasi indexes, complete_name must have an SA
-    // complete_name: { $like: 'J%' },
-    // order results by age in ascending order.
-    // also allowed $desc and complex order like $orderby: {'$asc' : ['k1','k2'] }
-    $orderby: { $asc: 'price' },
-    // group results by a certain field or list of fields
-    // $groupby: ['age'],
-    // limit the result set to 10 rows, $per_partition_limit is also supported
-    $limit: 10,
-  };
+// Fetch Related Products
+router.get('/related/:productId', async (req, res, next) => {
+  const query = { id: req.params.productId, $limit: 30 };
 
-  return models.instance.product.find(query, (err, data) => {
-    if (err || !data) {
-      return res.status(500).json({
-        message: 'Unable to find products',
-        error: JSON.stringify(err),
+  if (!req.params.productId) {
+    next('Invalid productId provided');
+  }
+
+  FindAllProducts(next, query, {}, (data) => {
+    const relatedQuery = { category: data[0].category };
+    FindAllProducts(next, relatedQuery, {}, (related) => {
+      const filterProducts = related.filter((p) => p.id !== req.params.productId);
+      const relatedProducts = shuffleArray(filterProducts).slice(0, 10);
+      return res.status(200).json({
+        products: relatedProducts,
       });
-    }
-
-    if (data) {
-      res.status(200);
-      return res.json(data);
-    }
+    });
   });
 });
 
@@ -89,18 +94,20 @@ router.put('/:productId/update', (req, res, next) => {
 
   const query = { id: productId };
   const options = { ttl: 86400, if_exists: true };
-  return models.instance.product.update(query, productDetails, options)
-    .then((updatedRecord) => {
-      if (updatedRecord) {
-        return res.status(201).json(productDetails);
-      }
+  return models.instance.product.update(query, productDetails, options, (err, updatedRecord) => {
+    if (err) {
+      return next(err);
+    }
 
-      res.status(409);
-      return res.json({
-        message: 'Unable to update product record',
-      });
-    })
-    .catch((err) => next(err));
+    if (updatedRecord) {
+      return res.status(201).json(productDetails);
+    }
+
+    res.status(409);
+    return res.json({
+      message: 'Unable to update product record',
+    });
+  });
 });
 
 // Delete
@@ -109,20 +116,22 @@ router.delete('/:productId/delete', (req, res, next) => {
 
   const query = { id: productId };
 
-  return models.instance.product.delete(query)
-    .then((deleteSuccess) => {
-      if (deleteSuccess) {
-        return res.status(201).json({
-          message: 'Successfully deleted product record',
-        });
-      }
+  return models.instance.product.delete(query, (err, deleteSuccess) => {
+    if (err) {
+      return next(err);
+    }
 
-      res.status(409);
-      return res.json({
-        message: 'Unable to delete product record',
+    if (deleteSuccess) {
+      return res.status(201).json({
+        message: 'Successfully deleted product record',
       });
-    })
-    .catch((err) => next(err));
+    }
+
+    res.status(409);
+    return res.json({
+      message: 'Unable to delete product record',
+    });
+  });
 });
 
 module.exports = router;

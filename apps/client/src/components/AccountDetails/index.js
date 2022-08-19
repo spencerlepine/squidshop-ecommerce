@@ -8,7 +8,7 @@ import { Link } from '@material-ui/core';
 import { Link as RouterLink } from "react-router-dom";
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
-import { logoutUser } from '../../api/authentication';
+import AuthService from '../../api/authentication';
 
 const demoUser = ({
   email: `${(Math.random() + 1).toString(36).substring(7)}@gmail.com`,
@@ -16,7 +16,7 @@ const demoUser = ({
   lastName: 'Deer',
 })
 
-const LogoutButton = ({ isDemoMode }) => {
+const LogoutButton = ({ isDemoMode, logoutUser }) => {
   const navigate = useNavigate();
   const handleLogout = () => {
     if (isDemoMode === false) {
@@ -44,12 +44,12 @@ const LogoutButton = ({ isDemoMode }) => {
 }
 
 const AccountDetails = () => {
-  const { currentUser, getAccountDetails } = useAuth();
-  const { useDemoData } = useDemoSettings();
+  const { currentUser, getAccountDetails, logoutUser } = useAuth();
+  const { useDemoData, apiRunning } = useDemoSettings();
   const userData = useDemoData ? demoUser : { ...demoUser, ...(currentUser || {}) }
 
   useEffect(() => {
-    if (getAccountDetails) {
+    if (getAccountDetails && apiRunning) {
       getAccountDetails()
     }
   }, [])
@@ -79,7 +79,7 @@ const AccountDetails = () => {
         </Link>
       </Box>
 
-      <LogoutButton isDemoMode={useDemoData} />
+      <LogoutButton isDemoMode={useDemoData} logoutUser={logoutUser} />
     </Box>)
 }
 

@@ -5,11 +5,11 @@ if (process.env.NODE_ENV !== 'production') {
 const config = {
   NODE_ENV: process.env.NODE_ENV || 'development',
   PORT: process.env.PORT || 8001,
-  DATABASE_HOST: process.env.DATABASE_HOST,
-  DATABASE_USER: process.env.DATABASE_USER,
-  DATABASE_PASSWORD: process.env.DATABASE_PASSWORD,
-  DATABASE_NAME: process.env.DATABASE_NAME,
-  DATABASE_DIALECT: process.env.DATABASE_DIALECT,
+  MYSQL_DATABASE_HOST: process.env.MYSQL_DATABASE_HOST,
+  MYSQL_USER: process.env.MYSQL_USER,
+  MYSQL_PASSWORD: process.env.MYSQL_PASSWORD,
+  MYSQL_DATABASE: process.env.MYSQL_DATABASE,
+  DATABASE_DIALECT: 'mysql',
   ACCESS_TOKEN_SECRET: process.env.ACCESS_TOKEN_SECRET || 'testSecret',
   REFRESH_TOKEN_SECRET: process.env.REFRESH_TOKEN_SECRET || 'refreshSecret',
 };

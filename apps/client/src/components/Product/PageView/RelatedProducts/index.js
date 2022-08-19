@@ -5,8 +5,8 @@ import Box from '@mui/material/Box';
 import * as products from '../../../../api/products';
 
 const RelatedProducts = ({ product }) => {
-  const fetchProductData = (cb) => {
-    return products.fetchRelatedProducts(product.id, cb)
+  const fetchProductData = () => {
+    return products.fetchRelatedProducts(product.id)
   }
 
   return (

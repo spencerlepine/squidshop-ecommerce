@@ -1,4 +1,4 @@
-import React, { useState}  from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -12,7 +12,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Alert from '@mui/material/Alert';
-import * as authApi from '../../api/authentication';
+import AuthService from '../../api/authentication';
 
 const theme = createTheme();
 
@@ -23,18 +23,18 @@ export default function SignUp() {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    authApi.createUserWithEmailAndPassword({
+    AuthService.createUserWithEmailAndPassword({
       firstName: data.get('firstName'),
       lastName: data.get('lastName'),
       email: data.get('email'),
       password: data.get('password'),
     })
-    .then(() => {
-      navigate("/login", { replace: true });
-    })
-    .catch(() => {
-      setErrorMessage('Unable to create account')
-    })
+      .then(() => {
+        navigate("/login", { replace: true });
+      })
+      .catch(() => {
+        setErrorMessage('Unable to create account')
+      })
   };
 
   return (

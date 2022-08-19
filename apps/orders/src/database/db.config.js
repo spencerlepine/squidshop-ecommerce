@@ -8,12 +8,14 @@ module.exports = {
   test: {
     dialect: 'sqlite',
     storage: ':memory',
+    logging: false,
   },
   production: {
-    HOST: config.DATABASE_HOST,
-    USER: config.DATABASE_USER,
-    PASSWORD: config.DATABASE_PASSWORD,
-    DB: config.DATABASE_NAME,
+    host: config.POSTGRES_HOST,
+    port: 5432,
+    user: config.POSTGRES_USER,
+    password: config.POSTGRES_PASSWORD,
+    database: config.POSTGRES_DATABASE,
     dialect: config.DATABASE_DIALECT,
     pool: {
       max: 5,

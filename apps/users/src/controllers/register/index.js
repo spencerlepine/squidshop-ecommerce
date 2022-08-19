@@ -2,7 +2,7 @@ const express = require('express');
 
 const router = express.Router();
 const bcrypt = require('bcrypt');
-const db = require('../../database');
+const db = require('../../database/connection');
 
 const { User } = db;
 

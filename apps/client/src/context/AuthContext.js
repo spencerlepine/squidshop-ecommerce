@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import * as authApi from '../api/authentication';
+import AuthService from '../api/authentication';
 
 export const AuthContext = React.createContext();
 
@@ -9,13 +9,18 @@ export const AuthProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  const handleStateLogout = () => {
+    setCurrentUser(null)
+    setIsLoggedIn(false)
+  }
+
   useEffect(() => {
-    authApi.authenticateUser()
+    AuthService.authenticateUser()
       .then((user) => {
         setCurrentUser(user)
         setIsLoggedIn(true)
       })
-      .catch(() => setCurrentUser(null))
+      .catch(() => { })
       .then(() => setLoading(false))
   }, []);
 
@@ -23,7 +28,7 @@ export const AuthProvider = ({ children }) => {
     const id = (currentUser || {}).id
 
     setLoading(true);
-    authApi.fetchAccountDetails(id)
+    AuthService.fetchAccountDetails(id)
       .then((userDetails) => {
         setCurrentUser(userDetails)
         setIsLoggedIn(true)
@@ -34,27 +39,31 @@ export const AuthProvider = ({ children }) => {
 
   function loginUser(email, password) {
     setLoading(true);
-    authApi.signInWithEmailAndPassword(email, password)
+    return AuthService.signInWithEmailAndPassword({ email, password })
       .then((user) => {
+        console.log('logged in', user)
         setCurrentUser(user)
         setIsLoggedIn(true)
+        setLoading(false)
+        return user
       })
-      .catch(() => setCurrentUser(null))
-      .then(() => setLoading(false))
+      .catch(() => {
+        setLoading(false)
+      })
   }
 
   function signupUser(firstName, lastName, email, password) {
     setLoading(true);
-    authApi.createUserWithEmailAndPassword(firstName, lastName, email, password)
-      .catch(() => setCurrentUser(null))
+    AuthService.createUserWithEmailAndPassword({ firstName, lastName, email, password })
+      .catch(() => handleStateLogout())
       .then(() => setLoading(false))
   }
 
   function logoutUser() {
     setLoading(true);
-    authApi.logoutUser()
-      .then(() => setCurrentUser(null))
-      .catch(() => setCurrentUser(null))
+    return AuthService.logoutUser()
+      .then(() => handleStateLogout())
+      .catch(() => handleStateLogout())
       .then(() => setLoading(false))
   }
 
