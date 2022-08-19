@@ -11,10 +11,10 @@ module.exports = {
     logging: false,
   },
   production: {
-    host: config.DATABASE_HOST,
-    user: config.DATABASE_USER,
-    password: config.DATABASE_PASSWORD,
-    database: config.DATABASE_NAME,
+    host: config.MYSQL_DATABASE_HOST,
+    user: config.MYSQL_USER,
+    password: config.MYSQL_PASSWORD,
+    database: config.MYSQL_DATABASE,
     dialect: config.DATABASE_DIALECT,
     quoteIdentifiers: false,
     pool: {

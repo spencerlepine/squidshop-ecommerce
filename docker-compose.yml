@@ -29,13 +29,11 @@ services:
     links:
       - mysql_db
     environment:
-      PORT: '8001'
-      DATABASE_HOST: mysql_db
-      DATABASE_USER: root
-      DATABASE_PASSWORD: root
-      DATABASE_NAME: testdb
-      DATABASE_DIALECT: mysql
-      NODE_ENV: production
+      PORT: 8001
+      MYSQL_DATABASE_HOST: mysql_db
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
+      MYSQL_DATABASE: testdb   
 
   cassandra_db:
     networks:
@@ -79,13 +77,13 @@ services:
     ports:
       - 8002:8002
     environment:
-      PORT: '8002'
+      PORT: 8002
       CASSANDRA_HOST: cassandra_db
       CASSANDRA_DATACENTER: datacenter1
       CASSANDRA_KEYSPACE: mykeyspace
       CASSANDRA_USER: my_user
       CASSANDRA_PASSWORD: my_password
-      CASSANDRA_PORT: '9042'
+      CASSANDRA_PORT: 9042
 
   postgres_db:
     networks:
@@ -113,13 +111,10 @@ services:
       - 8003:8003
     environment:
       PORT: '8003'
-      DATABASE_HOST: postgres-network
-      DATABASE_USER: root
-      DATABASE_PASSWORD: '12345'
-      DATABASE_NAME: testdb
-      DATABASE_DIALECT: postgres
-      NODE_ENV: production
-      ACCESS_TOKEN_SECRET: mysecret
+      POSTGRES_HOST: postgres-network
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: '12345'
+      POSTGRES_DATABASE: testdb
 
   gateway:
     networks:
