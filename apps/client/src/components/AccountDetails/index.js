@@ -16,11 +16,11 @@ const demoUser = ({
   lastName: 'Deer',
 })
 
-const LogoutButton = ({ isDemoMode }) => {
+const LogoutButton = ({ isDemoMode, logoutUser }) => {
   const navigate = useNavigate();
   const handleLogout = () => {
     if (isDemoMode === false) {
-      return AuthService.logoutUser()
+      return logoutUser()
         .then(() => navigate("/"))
         .catch((err) => console.error(err))
     }
@@ -44,7 +44,7 @@ const LogoutButton = ({ isDemoMode }) => {
 }
 
 const AccountDetails = () => {
-  const { currentUser, getAccountDetails } = useAuth();
+  const { currentUser, getAccountDetails, logoutUser } = useAuth();
   const { useDemoData, apiRunning } = useDemoSettings();
   const userData = useDemoData ? demoUser : { ...demoUser, ...(currentUser || {}) }
 
@@ -79,7 +79,7 @@ const AccountDetails = () => {
         </Link>
       </Box>
 
-      <LogoutButton isDemoMode={useDemoData} />
+      <LogoutButton isDemoMode={useDemoData} logoutUser={logoutUser} />
     </Box>)
 }
 

@@ -15,7 +15,7 @@ AuthService.createUserWithEmailAndPassword = (formData) => (
 )
 
 AuthService.logoutUser = () => (
-  AuthService.request('get', '/logout')
+  AuthService.request('delete', '/logout')
 )
 
 AuthService.fetchAccountDetails = (userId) => (

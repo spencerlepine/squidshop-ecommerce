@@ -22,7 +22,8 @@ router.post('/', (req, res) => {
     if (err) {
       res.sendStatus(403);
     }
-    const accessToken = generateAccessToken({ name: user.name });
+    const { email, id } = user;
+    const accessToken = generateAccessToken({ email, id });
     res.cookie('accessToken', accessToken, { httpOnly: true });
     res.status(204).json({
       accessToken,

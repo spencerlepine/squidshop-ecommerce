@@ -16,13 +16,13 @@ const authenticateTokenMiddleware = (req, res) => {
     });
   }
 
-  jwt.verify(token, ACCESS_TOKEN_SECRET, (err, user) => {
+  jwt.verify(token, ACCESS_TOKEN_SECRET, (err, decodedToken) => {
     if (err) {
-      return res.status(403).json({
-        message: 'Token no longer valid',
-      });
+      // Token no longer valid
+      return res.sendStatus(403);
     }
-    return res.status(201).json(user);
+
+    return res.status(201).json(decodedToken);
   });
 };
 

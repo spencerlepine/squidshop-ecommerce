@@ -9,13 +9,18 @@ export const AuthProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  const handleStateLogout = () => {
+    setCurrentUser(null)
+    setIsLoggedIn(false)
+  }
+
   useEffect(() => {
     AuthService.authenticateUser()
       .then((user) => {
         setCurrentUser(user)
         setIsLoggedIn(true)
       })
-      .catch(() => setCurrentUser(null))
+      .catch(() => { })
       .then(() => setLoading(false))
   }, []);
 
@@ -34,27 +39,31 @@ export const AuthProvider = ({ children }) => {
 
   function loginUser(email, password) {
     setLoading(true);
-    AuthService.signInWithEmailAndPassword(email, password)
+    return AuthService.signInWithEmailAndPassword({ email, password })
       .then((user) => {
+        console.log('logged in', user)
         setCurrentUser(user)
         setIsLoggedIn(true)
+        setLoading(false)
+        return user
       })
-      .catch(() => setCurrentUser(null))
-      .then(() => setLoading(false))
+      .catch(() => {
+        setLoading(false)
+      })
   }
 
   function signupUser(firstName, lastName, email, password) {
     setLoading(true);
-    AuthService.createUserWithEmailAndPassword(firstName, lastName, email, password)
-      .catch(() => setCurrentUser(null))
+    AuthService.createUserWithEmailAndPassword({ firstName, lastName, email, password })
+      .catch(() => handleStateLogout())
       .then(() => setLoading(false))
   }
 
   function logoutUser() {
     setLoading(true);
-    AuthService.logoutUser()
-      .then(() => setCurrentUser(null))
-      .catch(() => setCurrentUser(null))
+    return AuthService.logoutUser()
+      .then(() => handleStateLogout())
+      .catch(() => handleStateLogout())
       .then(() => setLoading(false))
   }
 
