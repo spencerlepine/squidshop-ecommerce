@@ -15,10 +15,11 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import useAuth from '../../context/AuthContext';
+import withAuthRedirect from '../../hooks/useAuthRedirect';
 
 const theme = createTheme();
 
-export default function SignIn() {
+const SignIn = () => {
   const { loginUser } = useAuth();
   const [errorMessage, setErrorMessage] = useState('');
   const navigate = useNavigate();
@@ -109,3 +110,8 @@ export default function SignIn() {
     </ThemeProvider>
   );
 }
+
+const redirectOptions = {
+  inaccessibleWhenLoggedIn: true,
+};
+export default withAuthRedirect(SignIn, redirectOptions);

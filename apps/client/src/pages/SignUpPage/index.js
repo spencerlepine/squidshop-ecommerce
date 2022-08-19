@@ -13,10 +13,11 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Alert from '@mui/material/Alert';
 import AuthService from '../../api/authentication';
+import withAuthRedirect from '../../hooks/useAuthRedirect';
 
 const theme = createTheme();
 
-export default function SignUp() {
+const SignUp = () => {
   const [errorMessage, setErrorMessage] = useState('');
   const navigate = useNavigate();
 
@@ -124,3 +125,8 @@ export default function SignUp() {
     </ThemeProvider>
   );
 }
+
+const redirectOptions = {
+  inaccessibleWhenLoggedIn: true,
+};
+export default withAuthRedirect(SignUp, redirectOptions);
