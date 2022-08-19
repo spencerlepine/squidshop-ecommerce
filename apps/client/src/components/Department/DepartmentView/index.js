@@ -53,4 +53,8 @@ const DepartmentView = ({ departmentId }) => {
   );
 }
 
+DepartmentView.defaultProps = {
+  departmentId: 'fakeDepartment'
+}
+
 export default DepartmentView;
