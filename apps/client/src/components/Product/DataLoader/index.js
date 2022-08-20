@@ -3,35 +3,10 @@ import useDemoSettings from '../../../context/DemoSettingsContext';
 import Typography from '@mui/material/Typography';
 import CircularProgress from '@mui/material/CircularProgress';
 import Alert from '@mui/material/Alert';
-import demoProducts from './demoProducts.json'
 import ProductList from '../ProductList';
 import ProductCard from '../ProductCard';
 import ProductPageView from '../PageView';
-
-const getStarterData = (isListData, useDemoData, optionalDepartmentId, demoProductId) => {
-  if (useDemoData) {
-    if (demoProductId) {
-      const demoProductIndex = demoProducts.findIndex(({ id }) => id === demoProductId)
-
-      if (demoProductIndex !== -1) {
-        return demoProducts[demoProductIndex]
-      }
-    }
-
-    let list = demoProducts.slice()
-
-    if (optionalDepartmentId) {
-      list = list = list.filter((product) => product.category === optionalDepartmentId)
-    }
-
-    if (isListData) {
-      return list.slice(0, 20)
-    }
-
-    return list[Math.floor(Math.random() * list.length)]
-  }
-  return null
-}
+import getStarterData from "./getStarterDemoData";
 
 const ProductComponent = ({ isListData, productData, isSingleRowList, inSearchMode, isPageView }) => {
   if (isPageView) {
@@ -53,7 +28,8 @@ const ProductDataLoader = (props) => {
     optionalDepartmentId, // optional
     // inSearchMode, // optional
     // isPageView, // optional
-    demoProductId // optional
+    demoProductId, // optional
+    isSaleData, // optional
   } = props
 
   const { useDemoData, apiRunning } = useDemoSettings()
@@ -75,9 +51,9 @@ const ProductDataLoader = (props) => {
 
   useEffect(() => {
     if (useDemoData) {
-      setProductData(getStarterData(isListData, useDemoData, optionalDepartmentId, demoProductId))
+      setProductData(getStarterData(isListData, useDemoData, optionalDepartmentId, demoProductId, isSaleData))
     }
-  }, [useDemoData, optionalDepartmentId]);
+  }, [useDemoData, optionalDepartmentId, demoProductId]);
 
   if (useDemoData) {
     return <ProductComponent {...props} productData={productData} />
