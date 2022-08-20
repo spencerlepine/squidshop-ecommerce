@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const proxy = require('express-http-proxy');
 const { errorLogger, errorResponder, failSafeHandler } = require('./src/middlewares/errorHandler');
+const authenticationMiddleware = require('./src/middlewares/authenticate');
 const setupLogger = require('./src/logger/setup');
 const config = require('./config');
 
@@ -26,8 +27,8 @@ setupLogger(app, config);
 // Routes
 app.use('/users', proxy(config.USERS_API_URL));
 app.use('/products', proxy(config.PRODUCTS_API_URL));
-app.use('/orders', proxy(config.ORDERS_API_URL));
-app.use('/carts', proxy(config.ORDERS_API_URL)); // orders and cart is one service
+app.use('/orders', authenticationMiddleware, proxy(config.ORDERS_API_URL));
+app.use('/carts', authenticationMiddleware, proxy(config.ORDERS_API_URL)); // orders and cart is one service
 
 app.get('/status', (req, res) => {
   res.status(200).json({
