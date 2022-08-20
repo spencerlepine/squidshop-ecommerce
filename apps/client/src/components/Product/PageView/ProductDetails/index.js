@@ -52,7 +52,7 @@ const ProductDetails = ({ product }) => {
         style={{ display: 'table' }}
       >
         <Rating name="read-only" value={product.rating_rate} readOnly />
-        <Typography variant="body4" component="text.secondary" style={{ display: 'table-cell', verticalAlign: 'middle', paddingLeft: '0.25em' }}>
+        <Typography variant="body1" component="text.secondary" style={{ display: 'table-cell', verticalAlign: 'middle', paddingLeft: '0.25em' }}>
           {`${product.rating_count}`}
         </Typography>
       </Box>
