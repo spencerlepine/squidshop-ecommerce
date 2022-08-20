@@ -1,12 +1,12 @@
 const express = require('express');
 const db = require('../../database/connection');
 
-const { CartItem, Order, OrderItem } = db;
+const { cartitem: CartItem, order: Order, orderitem: OrderItem } = db;
 
 const router = express.Router();
 
 const fetchEntireUserCart = (userId) => (
-  new Promise((resolve, reject) => CartItem.findAll({ where: { userId } })
+  new Promise((resolve, reject) => CartItem.findAll({ where: { userid: userId } })
     .then((data) => data.map((l) => ({
       ...l.dataValues,
       cartItemId: l.dataValues.id,
@@ -34,7 +34,7 @@ router.post('/add/:userId', (req, res, next) => {
 // Remove item from cart
 router.delete('/remove/:userId', (req, res, next) => {
   const { userId } = req.params;
-  const query = { where: { id: req.body.cartItemId, userId } };
+  const query = { where: { id: req.body.cartItemId, userid: userId } };
 
   return CartItem.destroy(query)
     .then(() => fetchEntireUserCart(userId))
@@ -93,7 +93,7 @@ router.post('/checkout/:userId', (req, res, next) => {
           createOrderItemRecords(userCart, orderId)
         ))
         // delete all cart items
-        .then(() => CartItem.destroy({ where: { userId } }));
+        .then(() => CartItem.destroy({ where: { userid: userId } }));
     })
     .then(() => fetchEntireUserCart(userId))
     // return entire order

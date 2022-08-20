@@ -21,11 +21,11 @@ module.exports = (sequelize, Sequelize) => {
       primaryKey: true,
       type: Sequelize.INTEGER,
     },
-    productId: {
+    productid: {
       allowNull: false,
       type: Sequelize.STRING,
     },
-    userId: {
+    userid: {
       allowNull: false,
       type: Sequelize.STRING,
     },
@@ -54,17 +54,18 @@ module.exports = (sequelize, Sequelize) => {
     rating_count: {
       type: Sequelize.INTEGER,
     },
-    createdAt: {
+    createdat: {
       allowNull: false,
       type: Sequelize.DATE,
     },
-    updatedAt: {
+    updatedat: {
       allowNull: false,
       type: Sequelize.DATE,
     },
   }, {
     sequelize,
-    modelName: 'CartItem',
+    freezeTableName: true,
+    modelName: 'cartitem',
   });
   return CartItem;
 };

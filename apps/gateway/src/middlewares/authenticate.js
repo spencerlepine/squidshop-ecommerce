@@ -2,10 +2,10 @@
 const jwt = require('jsonwebtoken');
 const config = require('../../config');
 
-const { ACCESS_TOKEN_SECRET } = config;
+const { REFRESH_TOKEN_SECRET } = config;
 
 const authenticateTokenMiddleware = (req, res, next) => {
-  const token = req.cookies && req.cookies.accessToken;
+  const token = req.cookies && req.cookies.refreshToken;
 
   if (!token) {
     return res.status(401).json({
@@ -13,9 +13,10 @@ const authenticateTokenMiddleware = (req, res, next) => {
     });
   }
 
-  jwt.verify(token, ACCESS_TOKEN_SECRET, (err) => {
+  jwt.verify(token, REFRESH_TOKEN_SECRET, (err) => {
     if (err) {
       // Token no longer valid
+      console.error(err);
       return res.sendStatus(403);
     }
 

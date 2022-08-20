@@ -21,32 +21,33 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
       type: DataTypes.INTEGER,
     },
-    userId: {
+    userid: {
       type: DataTypes.STRING,
     },
-    orderAddress: {
+    orderaddress: {
       type: DataTypes.STRING,
     },
-    orderTotal: {
+    ordertotal: {
       type: DataTypes.FLOAT,
     },
-    purchaseDate: {
+    purchasedate: {
       type: DataTypes.DATE,
     },
     status: {
       type: DataTypes.STRING,
     },
-    createdAt: {
+    createdat: {
       allowNull: false,
       type: DataTypes.DATE,
     },
-    updatedAt: {
+    updatedat: {
       allowNull: false,
       type: DataTypes.DATE,
     },
   }, {
     sequelize,
-    modelName: 'Order',
+    freezeTableName: true,
+    modelName: 'order',
   });
   return Order;
 };

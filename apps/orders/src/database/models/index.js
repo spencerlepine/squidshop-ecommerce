@@ -13,6 +13,14 @@ const db = {};
 
 const sequelize = new Sequelize(config.database, config.user, config.password, config);
 
+sequelize.getQueryInterface().showAllSchemas().then((tableObj) => {
+  console.log('// Tables in database', '==========================');
+  console.log(tableObj);
+})
+  .catch((err) => {
+    console.log('showAllSchemas ERROR', err);
+  });
+
 fs
   .readdirSync(__dirname)
   .filter((file) => (file.indexOf('.') !== 0) && (file !== basename) && (file.slice(-3) === '.js'))
