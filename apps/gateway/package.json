@@ -18,6 +18,7 @@
     "express-http-proxy": "^1.6.3",
     "express-rate-limit": "^6.5.1",
     "jest": "^28.1.2",
+    "jsonwebtoken": "^8.5.1",
     "morgan": "^1.10.0",
     "nodemon": "^2.0.19",
     "supertest": "^6.2.4"

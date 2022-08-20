@@ -1,4 +1,5 @@
 /* eslint-disable consistent-return */
+const jwt = require('jsonwebtoken');
 const config = require('../../config');
 
 const { ACCESS_TOKEN_SECRET } = config;
