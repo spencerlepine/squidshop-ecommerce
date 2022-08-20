@@ -4,12 +4,14 @@ on:
   push:
     branches:
       - 'main'
+    paths:
+      - apps/client/**
   pull_request:
     branches:
       - '*'
+    paths:
+      - apps/client/**
   workflow_dispatch:
-  paths:
-    - apps/client/**
 
 jobs:
   ci:
