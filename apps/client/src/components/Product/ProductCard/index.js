@@ -62,7 +62,7 @@ const ProductCard = ({ product, useMinimumDetails }) => {
           image={product.image || missingImage}
         />
         <CardContent style={{ position: 'relative' }}>
-          <Typography gutterBottom variant="body4" component="div">
+          <Typography gutterBottom variant="body1" component="div">
             {toTitleCase(product.title)}
           </Typography>
 
@@ -74,15 +74,13 @@ const ProductCard = ({ product, useMinimumDetails }) => {
               style={{ display: 'table' }}
             >
               <Rating name="read-only" value={product.rating_rate} readOnly />
-              <Typography variant="body4" component="p" style={{ display: 'table-cell', verticalAlign: 'middle', paddingLeft: '0.25em' }}>
+              <Typography variant="body1" component="p" style={{ display: 'table-cell', verticalAlign: 'middle', paddingLeft: '0.25em' }}>
                 {`${product.rating_count}`}
               </Typography>
             </Box>
           )}
 
           <ProductPrice price={product.price} salePrice={product.sale_price} />
-
-          {!useMinimumDetails && <AddToCartButton productId={product.id} useTinyButton entireProduct={product} />}
         </CardContent>
       </Card>
     </Link>

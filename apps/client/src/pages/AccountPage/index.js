@@ -1,5 +1,6 @@
 import { Container } from '@mui/system';
 import AccountDetails from '../../components/AccountDetails';
+import withAuthRedirect from '../../hooks/useAuthRedirect';
 
 // should render user first name
 // should render current users email
@@ -13,4 +14,8 @@ const AccountPage = () => {
   );
 }
 
-export default AccountPage;
+const redirectOptions = {
+  shouldBeLoggedIn: true,
+  // inaccessibleWhenLoggedIn: false,
+};
+export default withAuthRedirect(AccountPage, redirectOptions);

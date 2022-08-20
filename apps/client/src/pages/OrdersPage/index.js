@@ -1,5 +1,6 @@
 import { Container } from '@mui/system';
 import OrdersView from '../../components/Orders/OrdersView';
+import withAuthRedirect from '../../hooks/useAuthRedirect';
 
 // should render order page title
 // should render each order place date
@@ -15,4 +16,8 @@ const OrdersPage = () => {
   );
 }
 
-export default OrdersPage;
+const redirectOptions = {
+  shouldBeLoggedIn: true,
+  // inaccessibleWhenLoggedIn: false,
+};
+export default withAuthRedirect(OrdersPage, redirectOptions);

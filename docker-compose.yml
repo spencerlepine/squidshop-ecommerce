@@ -33,7 +33,9 @@ services:
       MYSQL_DATABASE_HOST: mysql_db
       MYSQL_USER: root
       MYSQL_PASSWORD: root
-      MYSQL_DATABASE: testdb   
+      MYSQL_DATABASE: testdb 
+      ACCESS_TOKEN_SECRET: testSecret
+      REFRESH_TOKEN_SECRET: testRefreshSecret
 
   cassandra_db:
     networks:
@@ -138,6 +140,7 @@ services:
       USERS_API_URL: http://users:8001
       PRODUCTS_API_URL: http://products:8002
       ORDERS_API_URL:  http://orders:8003
+      ACCESS_TOKEN_SECRET: testSecret
 
   # client:
   #   depends_on:

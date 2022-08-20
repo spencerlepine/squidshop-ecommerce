@@ -8,8 +8,16 @@ import ProductList from '../ProductList';
 import ProductCard from '../ProductCard';
 import ProductPageView from '../PageView';
 
-const getStarterData = (isListData, useDemoData, optionalDepartmentId) => {
+const getStarterData = (isListData, useDemoData, optionalDepartmentId, demoProductId) => {
   if (useDemoData) {
+    if (demoProductId) {
+      const demoProductIndex = demoProducts.findIndex(({ id }) => id === demoProductId)
+
+      if (demoProductIndex !== -1) {
+        return demoProducts[demoProductIndex]
+      }
+    }
+
     let list = demoProducts.slice()
 
     if (optionalDepartmentId) {
@@ -45,12 +53,14 @@ const ProductDataLoader = (props) => {
     optionalDepartmentId, // optional
     // inSearchMode, // optional
     // isPageView, // optional
+    demoProductId // optional
   } = props
 
   const { useDemoData, apiRunning } = useDemoSettings()
 
   const [loading, isLoading] = useState(!useDemoData);
-  const [productData, setProductData] = useState(getStarterData(isListData, useDemoData, optionalDepartmentId))
+  const [productData, setProductData] = useState(getStarterData(isListData, useDemoData, optionalDepartmentId, demoProductId))
+
 
   useEffect(() => {
     if (!productData && apiRunning) {
@@ -65,9 +75,9 @@ const ProductDataLoader = (props) => {
 
   useEffect(() => {
     if (useDemoData) {
-      setProductData(getStarterData(isListData, useDemoData, optionalDepartmentId))
+      setProductData(getStarterData(isListData, useDemoData, optionalDepartmentId, demoProductId))
     }
-  }, [useDemoData]);
+  }, [useDemoData, optionalDepartmentId]);
 
   if (useDemoData) {
     return <ProductComponent {...props} productData={productData} />

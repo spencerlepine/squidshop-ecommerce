@@ -1,5 +1,6 @@
 import { Container } from '@mui/system';
 import CartView from '../../components/Cart/CartView';
+import withAuthRedirect from '../../hooks/useAuthRedirect';
 
 // should render cart page title
 // should render cart total
@@ -14,4 +15,8 @@ const CartPage = () => {
   );
 }
 
-export default CartPage;
+const redirectOptions = {
+  shouldBeLoggedIn: true,
+  // inaccessibleWhenLoggedIn: false,
+};
+export default withAuthRedirect(CartPage, redirectOptions);

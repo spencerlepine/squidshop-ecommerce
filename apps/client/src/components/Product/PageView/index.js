@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from '@material-ui/core';
 import { Link as RouterLink } from "react-router-dom";
-import { Box, Grid, Typography } from '@mui/material/';
+import { Box, Grid, Typography, Button } from '@mui/material/';
 import ProductDetails from './ProductDetails';
 import ProductImage from './ProductImage';
 import RelatedProducts from './RelatedProducts';
