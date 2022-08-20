@@ -7,7 +7,7 @@ CartService.addProductToCart = (product, userId) => (
 )
 
 CartService.removeProductFromCart = (cartItemId, userId) => (
-  CartService.request('delete', `/remove/${userId}`, { cartItemId })
+  CartService.request('delete', `/remove/${userId}/${cartItemId}`)
 )
 
 CartService.fetchUserCart = (userId) => (

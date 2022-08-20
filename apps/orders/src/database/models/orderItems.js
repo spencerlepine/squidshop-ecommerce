@@ -65,7 +65,7 @@ module.exports = (sequelize, Sequelize) => {
   }, {
     sequelize,
     freezeTableName: true,
-    modelName: 'OrderItem',
+    modelName: 'OrderItems',
   });
   return OrderItem;
 };

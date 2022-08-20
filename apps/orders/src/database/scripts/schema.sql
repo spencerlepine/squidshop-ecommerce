@@ -1,7 +1,7 @@
 CREATE DATABASE IF NOT EXISTS testdb;
 USE testdb;
 
-CREATE TABLE Order (
+CREATE TABLE `Orders` (
     `id` int(11) NOT NULL AUTO_INCREMENT,
     `userId` varchar(100) NOT NULL,
     `orderAddress` varchar(100) NOT NULL,
@@ -13,7 +13,7 @@ CREATE TABLE Order (
     PRIMARY KEY `id` (`id`)
 );
 
-CREATE TABLE OrderItem (
+CREATE TABLE `OrderItems` (
     `id` int(11) NOT NULL AUTO_INCREMENT,
     `orderId` int(11) NOT NULL,
     `productId` varchar(100) NOT NULL,
@@ -29,12 +29,12 @@ CREATE TABLE OrderItem (
     PRIMARY KEY `id` (`id`)
 );
 
-CREATE TABLE CartItem (
+CREATE TABLE `CartItems` (
     `id` int(11) NOT NULL AUTO_INCREMENT,
     `userId` varchar(100) NOT NULL,
     `productId` varchar(100) NOT NULL,
     `title` varchar(255) NOT NULL,
-    `description` varchar(255) NOT NULL,
+    `description` varchar(500) NOT NULL,
     `image` varchar(255) NOT NULL,
     `category` varchar(50) NOT NULL,
     `price` float(2) NOT NULL,

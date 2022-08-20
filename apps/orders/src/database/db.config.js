@@ -4,17 +4,11 @@ module.exports = {
   development: {
     dialect: 'sqlite',
     storage: './database.sqlite3',
-    define: {
-      freezeTableName: true,
-    },
   },
   test: {
     dialect: 'sqlite',
     storage: ':memory',
     logging: false,
-    define: {
-      freezeTableName: true,
-    },
   },
   production: {
     host: config.MYSQL_HOST,
@@ -23,9 +17,6 @@ module.exports = {
     password: config.MYSQL_PASSWORD,
     database: config.MYSQL_DATABASE,
     dialect: config.DATABASE_DIALECT,
-    define: {
-      freezeTableName: true,
-    },
     pool: {
       max: 5,
       min: 0,

@@ -49,7 +49,7 @@ export const CartProvider = ({ children }) => {
 
     setLoading(true);
     CartService.removeProductFromCart(cartItemId, userId)
-      .then((cart) => setCartItems(cart))
+      .then(({ cart }) => setCartItems(cart))
       .catch(() => { })
       .then(() => setLoading(false))
   }

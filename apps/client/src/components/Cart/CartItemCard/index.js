@@ -77,18 +77,21 @@ const CartItemCard = ({ product, removeFromCart }) => {
       </ImageList>
     )
   }
+
+  const productPageLink = `/product/${product.productId || product.id || 'unkown'}`
+
   return (
     <>
       <hr style={{ color: '#e5e5e5' }} />
       <Box sx={{ flexGrow: 1, mt: 4, mb: 4 }}>
         <Grid container spacing={2} >
           <Grid item xs={2} style={{ margin: 'auto' }}>
-            <Link to={`/product/${product.id || 'unkown'}`} component={RouterLink} style={{ color: 'inherit', textDecoration: 'inherit' }}>
+            <Link to={productPageLink} component={RouterLink} style={{ color: 'inherit', textDecoration: 'inherit' }}>
               <ProductImage />
             </Link>
           </Grid>
           <Grid item xs={6} style={{ position: 'relative', margin: 'auto' }}>
-            <Link to={`/product/${product.id || 'unkown'}`} component={RouterLink} style={{ color: 'inherit', textDecoration: 'inherit' }}>
+            <Link to={productPageLink} component={RouterLink} style={{ color: 'inherit', textDecoration: 'inherit' }}>
               <ProductDetails />
             </Link>
             <RemoveFromCartBtn />

@@ -18,6 +18,10 @@ const AddButton = ({ productId, useTinyButton, entireProduct }) => {
       return
     }
 
+    if (!isLoggedIn) {
+      navigate('/login')
+    }
+
     if (isLoggedIn && currentUser && currentUser.id) {
       addItemToCart(entireProduct, currentUser.id)
       navigate('/cart')
