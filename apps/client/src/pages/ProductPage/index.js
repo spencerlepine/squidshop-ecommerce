@@ -19,7 +19,7 @@ const ProductPage = () => {
 
   return (
     <Container component="main" maxWidth="md">
-      <ProductDataLoader isPageView fetchProductData={fetchProductData} />
+      <ProductDataLoader isPageView fetchProductData={fetchProductData} demoProductId={productId} />
     </Container >
   );
 }

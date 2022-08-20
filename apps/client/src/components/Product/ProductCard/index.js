@@ -81,8 +81,6 @@ const ProductCard = ({ product, useMinimumDetails }) => {
           )}
 
           <ProductPrice price={product.price} salePrice={product.sale_price} />
-
-          {!useMinimumDetails && <AddToCartButton productId={product.id} useTinyButton entireProduct={product} />}
         </CardContent>
       </Card>
     </Link>
