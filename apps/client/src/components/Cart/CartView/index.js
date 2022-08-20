@@ -44,7 +44,7 @@ const CartView = () => {
   }
 
   const handleRemove = (cartProduct) => () => (
-    removeFromCart(cartProduct.cartItemId, (currentUser || {}).id, { isDemoCart: useDemoData })
+    removeFromCart(cartProduct.cartItemId || cartProduct.id, (currentUser || {}).id, { isDemoCart: useDemoData })
   )
 
   useEffect(() => {

@@ -74,7 +74,7 @@ export const CartProvider = ({ children }) => {
   const loadUserCart = (userId) => {
     setLoading(true);
     CartService.fetchUserCart(userId)
-      .then((cart) => {
+      .then(({ cart }) => {
         setCartItems(cart)
         setLoading(false)
       })

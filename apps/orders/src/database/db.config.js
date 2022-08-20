@@ -18,7 +18,7 @@ module.exports = {
   },
   production: {
     host: config.MYSQL_HOST,
-    port: 5432,
+    port: config.MYSQL_DATABASE_PORT,
     user: config.MYSQL_USER,
     password: config.MYSQL_PASSWORD,
     database: config.MYSQL_DATABASE,

@@ -14,13 +14,18 @@ services:
     volumes:
         - ./apps/users/src/database/scripts:/docker-entrypoint-initdb.d
         - user-db:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
 
   users:
     networks:
       - web
       - mysql-network
     depends_on:
-      - mysql_db
+      mysql_db:
+        condition: service_healthy
     build:
       context:  ./apps/users
       dockerfile: Dockerfile
@@ -93,7 +98,7 @@ services:
       - order-db-network
     image: mysql:5.7
     ports:
-        - 3306:3306
+        - 3307:3306
     environment:
         MYSQL_ROOT_PASSWORD: root
         MYSQL_PASSWORD: root
@@ -101,13 +106,18 @@ services:
     volumes:
         - ./apps/orders/src/database/scripts:/docker-entrypoint-initdb.d
         - orders-db:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
 
   orders:
     networks:
       - web
       - order-db-network
     depends_on:
-      - mysql_orders_db
+      mysql_orders_db:
+        condition: service_healthy
     build:
       context:  ./apps/orders
       dockerfile: Dockerfile
@@ -117,7 +127,8 @@ services:
       - mysql_orders_db
     environment:
       PORT: 8003
-      MYSQL_DATABASE_HOST: mysql_orders_db
+      MYSQL_HOST: mysql_orders_db
+      MYSQL_DATABASE_PORT: 3306
       MYSQL_USER: root
       MYSQL_PASSWORD: root
       MYSQL_DATABASE: testdb 

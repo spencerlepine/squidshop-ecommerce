@@ -1,7 +1,7 @@
 const express = require('express');
 const db = require('../../database/connection');
 
-const { cartitem: CartItem, order: Order, OrderItem: OrderItem } = db;
+const { CartItem, Order, OrderItem } = db;
 
 const router = express.Router();
 
@@ -34,6 +34,7 @@ router.post('/add/:userId', (req, res, next) => {
 // Remove item from cart
 router.delete('/remove/:userId', (req, res, next) => {
   const { userId } = req.params;
+  console.log(req.body.cartItemId);
   const query = { where: { id: req.body.cartItemId, userId } };
 
   return CartItem.destroy(query)

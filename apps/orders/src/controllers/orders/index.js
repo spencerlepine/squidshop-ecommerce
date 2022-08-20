@@ -1,7 +1,7 @@
 const express = require('express');
 const db = require('../../database/connection');
 
-const { order: Order, OrderItem: OrderItem } = db;
+const { Order, OrderItem } = db;
 
 const router = express.Router();
 
