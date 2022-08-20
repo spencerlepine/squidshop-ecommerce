@@ -12,7 +12,7 @@ COPY . /app
 RUN yarn build && yarn cache clean
 
 # stage 2 - build the final image and copy the react build files
-FROM nginx:1.17.8-alpine
+FROM nginx:1.22.0
 COPY --from=build /app/build /usr/share/nginx/html
 RUN rm /etc/nginx/conf.d/default.conf
 COPY nginx/nginx.conf /etc/nginx/conf.d
