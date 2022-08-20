@@ -75,7 +75,7 @@ const FilterOptions = ({ sortOption, orderOption, setOrderOption, setSortOption,
       <Box sx={{ minWidth: 100 }} style={{ position: "relative" }}>
         <div style={queryTextStyle}>
           <FilterAltIcon />
-          <Typography variant="body1" color="text.secondary">{inSearchMode}</Typography>
+          <Typography variant="body1" color="p">{inSearchMode}</Typography>
         </div>
         <div style={{ display: 'flex', marginLeft: 'auto', width: 'fit-content' }}>
           <InputLabel id="demo-simple-select-label" style={{ margin: 'auto 0.5em' }}>Sort</InputLabel>

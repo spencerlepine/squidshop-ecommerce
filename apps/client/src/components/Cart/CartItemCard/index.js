@@ -29,7 +29,7 @@ const CartItemCard = ({ product, removeFromCart }) => {
       <Typography variant="h5" component="h2" style={{ fontWeight: 500 }} role="heading">
         {product.title}
       </Typography>
-      <Typography variant="p" component="text.secondary" style={{ fontWeight: 200 }}>
+      <Typography variant="body1" component="p" style={{ fontWeight: 200 }}>
         {departmentName}
       </Typography>
 

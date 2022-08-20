@@ -35,7 +35,7 @@ export const CartProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   const useDemoCart = () => {
-    setCartItems(demoCart)
+    setCartItems([]) // setCartItems(demoCart)
     setLoading(false)
   }
 

@@ -61,7 +61,7 @@ const AccountDetails = () => {
       </Typography>
 
       <Alert style={{ width: 250, margin: '1em auto' }}>
-        <Typography variant="p" component="p">
+        <Typography variant="body1" component="p">
           <span style={{ fontWeight: 'bold' }}>Email:</span> {userData.email}
         </Typography>
       </Alert>

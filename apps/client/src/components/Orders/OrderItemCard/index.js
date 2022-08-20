@@ -13,7 +13,7 @@ const ProductPrice = ({ price }) => {
   const originalPriceStr = Number.parseFloat(price).toFixed(2).toString()
 
   return (
-    <Typography gutterBottom variant="p" component="div">
+    <Typography gutterBottom variant="body1" component="div">
       {`$${originalPriceStr}`}
     </Typography>
   )
@@ -45,25 +45,25 @@ const OrderItemCard = ({ order }) => {
         <CardContent>
           <Grid container spacing={2} style={{ backgroundColor: '#e1e1e1', padding: '1em' }}>
             <Grid item xs={9}>
-              <Typography variant="p" component="p" style={{ fontWeight: 500, display: 'inline' }} role="heading">
+              <Typography variant="body1" component="p" style={{ fontWeight: 500, display: 'inline' }} role="heading">
                 Order ID: <span style={{ fontWeight: 400, color: '#323232' }}>#{order.id}</span>
               </Typography>
             </Grid>
 
             <Grid item xs={3}>
-              <Typography variant="p" component="p" style={{ fontWeight: 500, display: 'inline' }} role="heading">
+              <Typography variant="body1" component="p" style={{ fontWeight: 500, display: 'inline' }} role="heading">
                 Total: <span style={{ fontWeight: 400, color: '#ac6f00' }}>${order.orderTotal}</span>
               </Typography>
             </Grid>
 
             <Grid item xs={9}>
-              <Typography variant="p" component="p" style={{ fontWeight: 500, display: 'inline' }} role="heading">
+              <Typography variant="body1" component="p" style={{ fontWeight: 500, display: 'inline' }} role="heading">
                 Address: <span style={{ fontWeight: 400, color: '#323232' }}>{order.orderAddress}</span>
               </Typography>
             </Grid>
 
             <Grid item xs={3}>
-              <Typography variant="p" component="p" style={{ fontWeight: 500, display: 'inline' }} role="heading">
+              <Typography variant="body1" component="p" style={{ fontWeight: 500, display: 'inline' }} role="heading">
                 Date: <span style={{ fontWeight: 400, color: '#323232' }}>{order.purchaseDate}</span>
               </Typography>
             </Grid>
@@ -72,15 +72,15 @@ const OrderItemCard = ({ order }) => {
 
         <CardContent>
           <Grid container spacing={2}>
-            {(items && items.length > 0) && items.map((cartItem) => (
-              <Grid container spacing={2}>
+            {(items && items.length > 0) && items.map((cartItem, i) => (
+              <Grid container spacing={2} key={i}>
                 <Grid item xs={2}>
                   <ProductImage product={cartItem} />
                 </Grid>
 
                 <Grid item xs={4}>
                   <Link to={`/product/${cartItem.productId || 'unkown'}`} component={RouterLink} style={{ color: 'inherit', textDecoration: 'inherit' }}>
-                    <Typography variant="p" component="p" style={{ fontWeight: 500, display: 'inline' }} role="heading">
+                    <Typography variant="body1" component="p" style={{ fontWeight: 500, display: 'inline' }} role="heading">
                       {cartItem.title}
                     </Typography>
 
