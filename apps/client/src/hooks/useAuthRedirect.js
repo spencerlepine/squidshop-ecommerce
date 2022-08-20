@@ -1,15 +1,19 @@
 import React from 'react';
 import useAuth from '../context/AuthContext';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useLocation } from 'react-router-dom';
 
 const withAuthRedirect = (Component, redirectOptions) =>
   () => {
+    const location = useLocation();
     const { inaccessibleWhenLoggedIn, shouldBeLoggedIn } = redirectOptions
 
     const { currentUser, isLoggedIn } = useAuth();
-
     const isAuthenticated = isLoggedIn && currentUser
     const shouldRedirect = (inaccessibleWhenLoggedIn && isAuthenticated) || (shouldBeLoggedIn && !isAuthenticated)
+
+    if (isAuthenticated) {
+      return shouldRedirect ? <Navigate to="/" /> : <Component />
+    }
 
     return shouldRedirect ? <Navigate to="/login" /> : <Component />
   };

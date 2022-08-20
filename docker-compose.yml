@@ -49,30 +49,20 @@ services:
       - "HEAP_NEWSIZE=128M"
     volumes:
       - products-db:/var/lib/cassandra
+      - ./apps/products/src/database/scripts/init.sql:/docker-entrypoint-initdb.d/schema.sql
     healthcheck:
       test: ["CMD", "cqlsh", "-u cassandra", "-p cassandra" ,"-e describe keyspaces"]
       interval: 15s
       timeout: 10s
       retries: 10
 
-  cassandra-load-keyspace:
-    container_name: cassandra-load-keyspace
-    networks:
-      - cassandra-network
-    image: cassandra:3.11.2
-    depends_on:
-      cassandra_db:
-        condition: service_healthy
-    volumes:
-      - ./apps/products/src/database/scripts/init.cql:/schema.cql
-    command: /bin/bash -c "echo loading cassandra keyspace && cqlsh cassandra_db -f /schema.cql --debug" # -u user -p pass
-
   products:
     networks:
       - web
       - cassandra-network
     depends_on:
-      - cassandra-load-keyspace
+      cassandra_db:
+        condition: service_healthy
     build:
       context: ./apps/products
       dockerfile: Dockerfile
