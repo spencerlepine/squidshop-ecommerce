@@ -21,11 +21,11 @@ module.exports = (sequelize, Sequelize) => {
       primaryKey: true,
       type: Sequelize.INTEGER,
     },
-    productid: {
+    productId: {
       allowNull: false,
       type: Sequelize.STRING,
     },
-    userid: {
+    userId: {
       allowNull: false,
       type: Sequelize.STRING,
     },
@@ -54,11 +54,11 @@ module.exports = (sequelize, Sequelize) => {
     rating_count: {
       type: Sequelize.INTEGER,
     },
-    createdat: {
+    createdAt: {
       allowNull: false,
       type: Sequelize.DATE,
     },
-    updatedat: {
+    updatedAt: {
       allowNull: false,
       type: Sequelize.DATE,
     },

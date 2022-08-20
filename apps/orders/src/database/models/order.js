@@ -21,26 +21,26 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
       type: DataTypes.INTEGER,
     },
-    userid: {
+    userId: {
       type: DataTypes.STRING,
     },
-    orderaddress: {
+    orderAddress: {
       type: DataTypes.STRING,
     },
-    ordertotal: {
+    orderTotal: {
       type: DataTypes.FLOAT,
     },
-    purchasedate: {
+    purchaseDate: {
       type: DataTypes.DATE,
     },
     status: {
       type: DataTypes.STRING,
     },
-    createdat: {
+    createdAt: {
       allowNull: false,
       type: DataTypes.DATE,
     },
-    updatedat: {
+    updatedAt: {
       allowNull: false,
       type: DataTypes.DATE,
     },

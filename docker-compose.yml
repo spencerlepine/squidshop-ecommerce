@@ -88,47 +88,39 @@ services:
       CASSANDRA_PASSWORD: my_password
       CASSANDRA_PORT: 9042
 
-  postgres_db:
+  mysql_orders_db:
     networks:
-      - postgres-network
-    image: postgres:latest
-    restart: always
-    environment:
-      - POSTGRES_USER=testuser
-      - POSTGRES_PASSWORD=password
+      - order-db-network
+    image: mysql:5.7
     ports:
-      - '5432:5432'
-    logging:
-      options:
-        max-size: 10m
-        max-file: "3"
+        - 3306:3306
+    environment:
+        MYSQL_ROOT_PASSWORD: root
+        MYSQL_PASSWORD: root
+        MYSQL_DATABASE: testdb
     volumes:
-      - orders-db:/var/lib/postgresql
-      - ./apps/orders/src/database/scripts/schema.sql:/docker-entrypoint-initdb.d/schema.sql
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready", "-d", "db_prod"]
-      interval: 15s
-      timeout: 10s
-      retries: 10
+        - ./apps/orders/src/database/scripts:/docker-entrypoint-initdb.d
+        - orders-db:/var/lib/mysql
 
   orders:
     networks:
       - web
-      - postgres-network
+      - order-db-network
     depends_on:
-      postgres_db:
-        condition: service_healthy
+      - mysql_orders_db
     build:
       context:  ./apps/orders
       dockerfile: Dockerfile
     ports:
       - 8003:8003
+    links:
+      - mysql_orders_db
     environment:
       PORT: 8003
-      POSTGRES_HOST: postgres_db
-      POSTGRES_USER: root
-      POSTGRES_PASSWORD: example
-      POSTGRES_DATABASE: testdb
+      MYSQL_DATABASE_HOST: mysql_orders_db
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
+      MYSQL_DATABASE: testdb 
 
   gateway:
     networks:
@@ -167,10 +159,11 @@ volumes:
   user-db:
     driver: local
   orders-db:
+    driver: local
   products-db:
 
 networks:
   web:
-  postgres-network:
+  order-db-network:
   cassandra-network:
   mysql-network:

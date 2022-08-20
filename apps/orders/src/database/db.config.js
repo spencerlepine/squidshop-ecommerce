@@ -6,8 +6,6 @@ module.exports = {
     storage: './database.sqlite3',
     define: {
       freezeTableName: true,
-      updatedAt: 'updatedat',
-      createdAt: 'createdat',
     },
   },
   test: {
@@ -16,21 +14,17 @@ module.exports = {
     logging: false,
     define: {
       freezeTableName: true,
-      updatedAt: 'updatedat',
-      createdAt: 'createdat',
     },
   },
   production: {
-    host: config.POSTGRES_HOST,
+    host: config.MYSQL_HOST,
     port: 5432,
-    user: config.POSTGRES_USER,
-    password: config.POSTGRES_PASSWORD,
-    database: config.POSTGRES_DATABASE,
+    user: config.MYSQL_USER,
+    password: config.MYSQL_PASSWORD,
+    database: config.MYSQL_DATABASE,
     dialect: config.DATABASE_DIALECT,
     define: {
       freezeTableName: true,
-      updatedAt: 'updatedat',
-      createdAt: 'createdat',
     },
     pool: {
       max: 5,
