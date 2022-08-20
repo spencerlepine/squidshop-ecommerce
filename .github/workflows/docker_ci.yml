@@ -1,0 +1,50 @@
+name: Docker Build
+
+on:
+  push:
+    branches:
+      - 'main'
+  pull_request:
+    branches:
+      - '*'
+
+jobs:
+  docker_build:
+    env:
+      working_directory: ./apps/${{ matrix.folder_name }}
+    runs-on: 'ubuntu-latest'
+    strategy:
+      fail-fast: false
+      matrix:
+        folder_name: ['client', 'users', 'orders', 'products', 'gateway']
+    defaults:
+      run:
+        working-directory: ${{ env.working_directory }}
+
+    name: "🐳 Docker Build & Scan"
+    steps:
+      - name: "☁️ Check out Git Repository"
+        uses: actions/checkout@v2
+
+      - name: "🧪 Lint Dockerfile"
+        uses: hadolint/hadolint-action@v2.0.0
+        with:
+          dockerfile: ${{ env.working_directory }}/Dockerfile
+    
+      - name: "🏗️ Build"
+        run: docker build . -t spencerlepine/service:${{ github.sha }}
+
+      - name: "✅ Preform Container Scan"
+        uses: Azure/container-scan@v0
+        with:
+          image-name: spencerlepine/service:${{ github.sha }}
+
+      # - name: " Publish Docker Image"
+      #   if: github.ref == 'refs/heads/master'
+      # - uses: Azure/docker-login@v1
+      # with:
+      #   login-server: contoso.azurecr.io
+      #   username: ${{ secrets.REGISTRY_USERNAME }}
+      #   password: ${{ secrets.REGISTRY_PASSWORD }}
+    
+      # - run: docker push contoso.azurecr.io/k8sdemo:${{ github.sha }}

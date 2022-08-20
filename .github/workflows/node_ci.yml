@@ -85,15 +85,14 @@ jobs:
           output: both
           thresholds: '60 80'
 
-      - name: Rename coverage output file
-        run: mv ../../code-coverage-results.md ./${{ matrix.folder_name }}-code-coverage-results.md
-
-      - name: Add app title to coverage report
-        run: sed -i '1s/^/### `${{ matrix.folder_name }}`  Test Coverage /' ./${{ matrix.folder_name }}-code-coverage-results.md
+      - name: "⚙️ Format coverage report file"
+        run: |
+          mv ../../code-coverage-results.md ./${{ matrix.folder_name }}-code-coverage-results.md
+          sed -i '1s/^/### `${{ matrix.folder_name }}`  Test Coverage /' ./${{ matrix.folder_name }}-code-coverage-results.md
       
       - name: Add Coverage PR Comment
         uses: marocchino/sticky-pull-request-comment@v2
-        if: github.event_name == 'pull_request'
+        if: github.event_name == 'pull_request' && ${{ github.actor != 'dependabot[bot]' }}
         with:
           header: ${{ matrix.folder_name }}
           recreate: true
@@ -101,25 +100,3 @@ jobs:
     
       - name: Job Summary Output
         run: echo "$(<./${{ matrix.folder_name }}-code-coverage-results.md )" >> $GITHUB_STEP_SUMMARY
-
-  docker_build:
-    # needs: [lint_and_test] # Will run CI faster without waiting for tests
-    env:
-      working_directory: ./apps/${{ matrix.folder_name }}
-    runs-on: 'ubuntu-latest'
-    strategy:
-      fail-fast: false
-      matrix:
-        folder_name: ['client', 'users', 'orders', 'products', 'gateway']
-    defaults:
-      run:
-        working-directory: ${{ env.working_directory }}
-
-    name: "🐳 Docker Build"
-    steps:
-      - name: "☁️ Check out Git Repository"
-        uses: actions/checkout@v2
-
-      - name: "🏗️ Build"
-        run: |
-          docker-compose build

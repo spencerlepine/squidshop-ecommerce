@@ -1,4 +1,6 @@
-# SquidShop Ecommerce Monorepo [![CI](https://github.com/spencerlepine/squidshop-ecommerce/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/spencerlepine/squidshop-ecommerce/actions/workflows/ci.yml) [![Netlify Deploy](https://github.com/spencerlepine/squidshop-ecommerce/actions/workflows/frontend_deploy.yml/badge.svg?branch=main)](https://github.com/spencerlepine/squidshop-ecommerce/actions/workflows/frontend_deploy.yml)
+# SquidShop Ecommerce Monorepo
+
+[![CI](https://github.com/spencerlepine/squidshop-ecommerce/actions/workflows/node_ci.yml/badge.svg?branch=main)](https://github.com/spencerlepine/squidshop-ecommerce/actions/workflows/node_ci.yml) [![Docker Build](https://github.com/spencerlepine/squidshop-ecommerce/actions/workflows/docker_ci.yml/badge.svg?branch=main)](https://github.com/spencerlepine/squidshop-ecommerce/actions/workflows/docker_ci.yml) [![Netlify Deploy](https://github.com/spencerlepine/squidshop-ecommerce/actions/workflows/frontend_deploy.yml/badge.svg?branch=main)](https://github.com/spencerlepine/squidshop-ecommerce/actions/workflows/frontend_deploy.yml) [![CodeQL](https://github.com/spencerlepine/squidshop-ecommerce/actions/workflows/codeql.yml/badge.svg?branch=main)](https://github.com/spencerlepine/squidshop-ecommerce/actions/workflows/codeql.yml)
 
 A full stack ecommerce application built with microservices by [@spencerlepine](https://github.com/spencerlepine). Runs with Docker. Uses continuous integration to lint, test, and build with `GitHub Actions`.
 
