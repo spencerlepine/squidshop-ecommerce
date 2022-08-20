@@ -41,7 +41,7 @@ const ProductDetails = ({ product }) => {
       <Typography variant="h5" component="h2" style={{ fontWeight: 500 }} role="heading">
         {product.title}
       </Typography>
-      <Typography variant="p" component="text.secondary" style={{ fontWeight: 200 }}>
+      <Typography variant="body1" component="p" style={{ fontWeight: 200 }}>
         {departmentName}
       </Typography>
 
@@ -52,14 +52,14 @@ const ProductDetails = ({ product }) => {
         style={{ display: 'table' }}
       >
         <Rating name="read-only" value={product.rating_rate} readOnly />
-        <Typography variant="body1" component="text.secondary" style={{ display: 'table-cell', verticalAlign: 'middle', paddingLeft: '0.25em' }}>
+        <Typography variant="body1" component="p" style={{ display: 'table-cell', verticalAlign: 'middle', paddingLeft: '0.25em' }}>
           {`${product.rating_count}`}
         </Typography>
       </Box>
 
       <ProductPrice price={product.price} salePrice={product.salePrice} />
 
-      <Typography variant="p" component="text.secondary">
+      <Typography variant="body1" component="p">
         {description.substring(0, 255)}
       </Typography>
     </>

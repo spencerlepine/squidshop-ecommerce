@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import useAuth from '../../../context/AuthContext';
 import useCart from '../../../context/CartContext';
 import useDemoSettings from '../../../context/DemoSettingsContext';
-import * as cart from '../../../api/cart';
 
 const AddButton = ({ productId, useTinyButton, entireProduct }) => {
   const { addItemToCart } = useCart();
@@ -17,6 +16,10 @@ const AddButton = ({ productId, useTinyButton, entireProduct }) => {
       addItemToCart(entireProduct, 'userId', { isDemoCart: true, product: entireProduct })
       navigate('/cart')
       return
+    }
+
+    if (!isLoggedIn) {
+      navigate('/login')
     }
 
     if (isLoggedIn && currentUser && currentUser.id) {

@@ -51,8 +51,8 @@ const OrdersView = () => {
         ) : (
           <>
             {(orderItems && orderItems.length > 0) ? (
-              orderItems.map((orderItem) => (
-                <OrderItemCard order={orderItem} />
+              orderItems.map((orderItem, i) => (
+                <OrderItemCard order={orderItem} key={i} />
               ))
             ) : (
               <EmptyMessage />

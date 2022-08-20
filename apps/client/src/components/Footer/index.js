@@ -7,7 +7,7 @@ import Link from '@mui/material/Link';
 
 function Copyright() {
   return (
-    <Typography variant="body2" color="text.secondary">
+    <Typography variant="body2" color="p">
       {'Built by '}
       <Link color="inherit" href="https://spencerlepine.com/">
         Spencer Lepine

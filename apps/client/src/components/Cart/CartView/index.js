@@ -44,7 +44,7 @@ const CartView = () => {
   }
 
   const handleRemove = (cartProduct) => () => (
-    removeFromCart(cartProduct.cartItemId, (currentUser || {}).id, { isDemoCart: useDemoData })
+    removeFromCart(cartProduct.cartItemId || cartProduct.id, (currentUser || {}).id, { isDemoCart: useDemoData })
   )
 
   useEffect(() => {
@@ -95,8 +95,8 @@ const CartView = () => {
         ) : (
           <>
             {(cartItems && cartItems.length > 0) ? (
-              cartItems.map((cartProduct) => (
-                <CartItemCard product={cartProduct} removeFromCart={handleRemove(cartProduct)} />
+              cartItems.map((cartProduct, i) => (
+                <CartItemCard product={cartProduct} removeFromCart={handleRemove(cartProduct)} key={i} />
               ))
             ) : (
               <EmptyMessage />

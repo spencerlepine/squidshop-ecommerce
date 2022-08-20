@@ -7,7 +7,7 @@ const { generateAccessToken, REFRESH_TOKEN_SECRET, refreshTokens } = require('..
 
 const extractToken = (req) => {
   const cookie = req.cookies.refreshToken;
-  const header = req.headers.authorization.split(' ')[1];
+  const header = req.headers.authorization ? req.headers.authorization.split(' ')[1] : '';
   return cookie || header;
 };
 

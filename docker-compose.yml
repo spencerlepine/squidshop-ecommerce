@@ -14,13 +14,18 @@ services:
     volumes:
         - ./apps/users/src/database/scripts:/docker-entrypoint-initdb.d
         - user-db:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
 
   users:
     networks:
       - web
       - mysql-network
     depends_on:
-      - mysql_db
+      mysql_db:
+        condition: service_healthy
     build:
       context:  ./apps/users
       dockerfile: Dockerfile
@@ -49,6 +54,7 @@ services:
       - "HEAP_NEWSIZE=128M"
     volumes:
       - products-db:/var/lib/cassandra
+      # - ./apps/products/src/database/scripts/init.sql:/docker-entrypoint-initdb.d/schema.sql
     healthcheck:
       test: ["CMD", "cqlsh", "-u cassandra", "-p cassandra" ,"-e describe keyspaces"]
       interval: 15s
@@ -87,41 +93,45 @@ services:
       CASSANDRA_PASSWORD: my_password
       CASSANDRA_PORT: 9042
 
-  postgres_db:
+  mysql_orders_db:
     networks:
-      - postgres-network
-    image: postgres:latest
-    restart: always
-    environment:
-      - POSTGRES_USER=root
-      - POSTGRES_PASSWORD=example
+      - order-db-network
+    image: mysql:5.7
     ports:
-      - '5432:5432'
-    logging:
-      options:
-        max-size: 10m
-        max-file: "3"
+        - 3307:3306
+    environment:
+        MYSQL_ROOT_PASSWORD: root
+        MYSQL_PASSWORD: root
+        MYSQL_DATABASE: testdb
     volumes:
-      - orders-db:/var/lib/postgresql
-      - ./apps/orders/src/database/scripts/schema.sql:/docker-entrypoint-initdb.d/schema.sql
+        - ./apps/orders/src/database/scripts:/docker-entrypoint-initdb.d
+        - orders-db:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
 
   orders:
     networks:
       - web
-      - postgres-network
+      - order-db-network
     depends_on:
-      - postgres_db
+      mysql_orders_db:
+        condition: service_healthy
     build:
       context:  ./apps/orders
       dockerfile: Dockerfile
     ports:
       - 8003:8003
+    links:
+      - mysql_orders_db
     environment:
       PORT: 8003
-      POSTGRES_HOST: postgres_db
-      POSTGRES_USER: root
-      POSTGRES_PASSWORD: example
-      POSTGRES_DATABASE: testdb
+      MYSQL_HOST: mysql_orders_db
+      MYSQL_DATABASE_PORT: 3306
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
+      MYSQL_DATABASE: testdb 
 
   gateway:
     networks:
@@ -141,6 +151,7 @@ services:
       PRODUCTS_API_URL: http://products:8002
       ORDERS_API_URL:  http://orders:8003
       ACCESS_TOKEN_SECRET: testSecret
+      REFRESH_TOKEN_SECRET: testRefreshSecret
 
   # client:
   #   depends_on:
@@ -159,10 +170,11 @@ volumes:
   user-db:
     driver: local
   orders-db:
+    driver: local
   products-db:
 
 networks:
   web:
-  postgres-network:
+  order-db-network:
   cassandra-network:
   mysql-network:

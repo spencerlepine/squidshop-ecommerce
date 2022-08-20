@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import * as cartApi from '../api/cart';
+import CartService from '../api/cart';
 
 export const CartContext = React.createContext();
 
@@ -35,7 +35,7 @@ export const CartProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   const useDemoCart = () => {
-    setCartItems(demoCart)
+    setCartItems([]) // setCartItems(demoCart)
     setLoading(false)
   }
 
@@ -48,8 +48,8 @@ export const CartProvider = ({ children }) => {
     }
 
     setLoading(true);
-    cartApi.removeProductFromCart(cartItemId, userId)
-      .then((cart) => setCartItems(cart))
+    CartService.removeProductFromCart(cartItemId, userId)
+      .then(({ cart }) => setCartItems(cart))
       .catch(() => { })
       .then(() => setLoading(false))
   }
@@ -65,7 +65,7 @@ export const CartProvider = ({ children }) => {
     }
 
     setLoading(true);
-    cartApi.addProductToCart(product, userId)
+    CartService.addProductToCart(product, userId)
       .then((cart) => setCartItems(cart))
       .catch(() => { })
       .then(() => setLoading(false))
@@ -73,8 +73,8 @@ export const CartProvider = ({ children }) => {
 
   const loadUserCart = (userId) => {
     setLoading(true);
-    cartApi.fetchUserCart(userId)
-      .then((cart) => {
+    CartService.fetchUserCart(userId)
+      .then(({ cart }) => {
         setCartItems(cart)
         setLoading(false)
       })
@@ -99,7 +99,7 @@ export const CartProvider = ({ children }) => {
     }
 
     setLoading(true);
-    cartApi.checkoutUserCart(userId)
+    CartService.checkoutUserCart(userId)
       .then(() => setCartItems([]))
       .catch(() => { })
       .then(() => setLoading(false))

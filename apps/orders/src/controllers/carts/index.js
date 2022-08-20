@@ -1,12 +1,12 @@
 const express = require('express');
 const db = require('../../database/connection');
 
-const { CartItem, Order, OrderItem } = db;
+const { CartItems, Orders, OrderItems } = db;
 
 const router = express.Router();
 
 const fetchEntireUserCart = (userId) => (
-  new Promise((resolve, reject) => CartItem.findAll({ where: { userId } })
+  new Promise((resolve, reject) => CartItems.findAll({ where: { userId } })
     .then((data) => data.map((l) => ({
       ...l.dataValues,
       cartItemId: l.dataValues.id,
@@ -21,7 +21,7 @@ router.post('/add/:userId', (req, res, next) => {
   const data = { ...req.body, productId: req.body.id, userId };
   delete data.id;
 
-  return CartItem.create(data)
+  return CartItems.create(data)
     .then(() => fetchEntireUserCart(userId))
     .then((userCart) => (
       res.status(201).json({
@@ -32,17 +32,15 @@ router.post('/add/:userId', (req, res, next) => {
 });
 
 // Remove item from cart
-router.delete('/remove/:userId', (req, res, next) => {
-  const { userId } = req.params;
-  const query = { where: { id: req.body.cartItemId, userId } };
+router.delete('/remove/:userId/:cartItemId', (req, res, next) => {
+  const { userId, cartItemId } = req.params;
+  const query = { where: { id: cartItemId, userId } };
 
-  return CartItem.destroy(query)
+  return CartItems.destroy(query)
     .then(() => fetchEntireUserCart(userId))
-    .then((userCart) => (
-      res.status(201).json({
-        cart: userCart,
-      })
-    ))
+    .then((userCart) => res.status(201).json({
+      cart: userCart,
+    }))
     .catch((err) => next(err));
 });
 
@@ -65,7 +63,7 @@ const createOrderItemRecords = (allCartItems, orderId) => allCartItems.map((prod
     const orderItemRecord = { ...product, orderId };
     delete orderItemRecord.id;
 
-    return OrderItem.create(orderItemRecord).then(resolve);
+    return OrderItems.create(orderItemRecord).then(resolve);
   })));
 
 router.post('/checkout/:userId', (req, res, next) => {
@@ -86,14 +84,14 @@ router.post('/checkout/:userId', (req, res, next) => {
       };
 
       // create order
-      return Order.create(orderMetaData)
+      return Orders.create(orderMetaData)
         .then((order) => order.dataValues.id)
         // create order item records under orderId
         .then((orderId) => (
           createOrderItemRecords(userCart, orderId)
         ))
         // delete all cart items
-        .then(() => CartItem.destroy({ where: { userId } }));
+        .then(() => CartItems.destroy({ where: { userId } }));
     })
     .then(() => fetchEntireUserCart(userId))
     // return entire order

@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import * as ordersApi from '../api/orders';
+import OrdersService from '../api/orders';
 
 export const OrdersContext = React.createContext();
 
@@ -40,16 +40,19 @@ const demoOrders = [
 export const OrdersProvider = ({ children }) => {
   const [orderItems, setOrderItems] = useState([]);
   const [loading, setLoading] = useState(true);
+  console.log(orderItems)
 
   const useDemoOrders = () => {
-    setOrderItems(demoOrders)
+    setOrderItems([]) // setOrderItems(demoOrders)
     setLoading(false)
   }
 
   function loadUserOrders(userId) {
     setLoading(true);
-    ordersApi.fetchUserOrders(userId)
-      .then((orders) => setOrderItems(orders))
+    OrdersService.fetchUserOrders(userId)
+      .then(({ orders }) => {
+        setOrderItems(orders)
+      })
       .catch(() => setOrderItems([]))
       .then(() => setLoading(false))
   }

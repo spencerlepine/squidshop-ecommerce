@@ -5,7 +5,7 @@ const { deleteRefreshToken } = require('../generateToken');
 
 const extractToken = (req) => {
   const cookie = req.cookies.accessToken;
-  const header = req.headers.authorization;
+  const header = req.headers.authorization ? req.headers.authorization.split(' ')[1] : '';
   return cookie || header;
 };
 

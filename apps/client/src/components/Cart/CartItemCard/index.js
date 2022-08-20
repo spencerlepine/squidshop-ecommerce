@@ -29,7 +29,7 @@ const CartItemCard = ({ product, removeFromCart }) => {
       <Typography variant="h5" component="h2" style={{ fontWeight: 500 }} role="heading">
         {product.title}
       </Typography>
-      <Typography variant="p" component="text.secondary" style={{ fontWeight: 200 }}>
+      <Typography variant="body1" component="p" style={{ fontWeight: 200 }}>
         {departmentName}
       </Typography>
 
@@ -40,7 +40,7 @@ const CartItemCard = ({ product, removeFromCart }) => {
         style={{ display: 'table' }}
       >
         <Rating name="read-only" value={product.rating_rate} readOnly />
-        <Typography variant="body1" component="text.secondary" style={{ display: 'table-cell', verticalAlign: 'middle', paddingLeft: '0.25em' }}>
+        <Typography variant="body1" component="p" style={{ display: 'table-cell', verticalAlign: 'middle', paddingLeft: '0.25em' }}>
           {`${product.rating_count}`}
         </Typography>
       </Box>
@@ -77,18 +77,21 @@ const CartItemCard = ({ product, removeFromCart }) => {
       </ImageList>
     )
   }
+
+  const productPageLink = `/product/${product.productId || product.id || 'unkown'}`
+
   return (
     <>
       <hr style={{ color: '#e5e5e5' }} />
       <Box sx={{ flexGrow: 1, mt: 4, mb: 4 }}>
         <Grid container spacing={2} >
           <Grid item xs={2} style={{ margin: 'auto' }}>
-            <Link to={`/product/${product.id || 'unkown'}`} component={RouterLink} style={{ color: 'inherit', textDecoration: 'inherit' }}>
+            <Link to={productPageLink} component={RouterLink} style={{ color: 'inherit', textDecoration: 'inherit' }}>
               <ProductImage />
             </Link>
           </Grid>
           <Grid item xs={6} style={{ position: 'relative', margin: 'auto' }}>
-            <Link to={`/product/${product.id || 'unkown'}`} component={RouterLink} style={{ color: 'inherit', textDecoration: 'inherit' }}>
+            <Link to={productPageLink} component={RouterLink} style={{ color: 'inherit', textDecoration: 'inherit' }}>
               <ProductDetails />
             </Link>
             <RemoveFromCartBtn />

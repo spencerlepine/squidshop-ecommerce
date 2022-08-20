@@ -1,19 +1,19 @@
 const express = require('express');
 const db = require('../../database/connection');
 
-const { Order, OrderItem } = db;
+const { Orders, OrderItems } = db;
 
 const router = express.Router();
 
 const getAllUserOrders = (userId) => (
-  new Promise((resolve) => Order.findAll({ where: { userId } })
+  new Promise((resolve) => Orders.findAll({ where: { userId } })
     .then((data) => {
       const userOrdersMetaData = data.map((l) => l.dataValues);
 
       // Combine order metadata with cart items
       resolve(Promise.all(
         userOrdersMetaData.map((orderMetaData) => new Promise((resolveInner) => {
-          OrderItem.findAll({ where: { orderId: orderMetaData.id } })
+          OrderItems.findAll({ where: { orderId: orderMetaData.id } })
             .then((itemData) => (
               itemData.map((i) => i.dataValues)
             ))
@@ -48,11 +48,11 @@ router.post('/:userId/create', (req, res, next) => {
       const orderItemRecord = { ...product, orderId };
       delete orderItemRecord.id;
 
-      return OrderItem.create(orderItemRecord).then(resolve);
+      return OrderItems.create(orderItemRecord).then(resolve);
     })));
 
   // Create Order metadata record
-  return Order.create(record)
+  return Orders.create(record)
     .then((order) => (
       // Save all cart item purchase record
       Promise.all(createCartItemRecords(order.dataValues.id))
@@ -87,11 +87,11 @@ router.get('/:userId/:orderId', (req, res, next) => {
   const { userId, orderId } = req.params;
   const query = { where: { userId, id: orderId } };
 
-  return Order.findAll(query)
+  return Orders.findAll(query)
     .then((data) => {
       const orderData = JSON.parse(JSON.stringify(data[0].dataValues));
 
-      return OrderItem.findAll({ where: { id: orderId } })
+      return OrderItems.findAll({ where: { id: orderId } })
         .then((orderItems) => {
           orderData.cartItems = orderItems[0].dataValues;
           orderData.orderId = orderId;
@@ -109,7 +109,7 @@ router.put('/:userId/:orderId/update', (req, res, next) => {
   const orderDetails = req.body;
   delete orderDetails.id;
 
-  return Order.update(orderDetails, {
+  return Orders.update(orderDetails, {
     where: { id: orderId, userId },
   })
     .then((num) => {
@@ -130,7 +130,7 @@ router.delete('/:userId/:orderId/delete', (req, res, next) => {
   const { userId, orderId } = req.params;
   const query = { where: { userId, id: orderId } };
 
-  return Order.destroy(query)
+  return Orders.destroy(query)
     .then((deleteSuccess) => {
       if (deleteSuccess) {
         return res.status(201).json({
