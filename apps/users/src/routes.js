@@ -15,8 +15,8 @@ router.use('/profile', profileRoutes);
 router.use('/login', rateLimiter(), loginRoutes);
 router.use('/register', registerRoutes);
 router.use('/logout', logoutRoutes);
-router.use('/token', tokenRoutes);
-router.use('/authenticate', authenticateRoutes);
+router.use('/token', rateLimiter(10), tokenRoutes);
+router.use('/authenticate', rateLimiter(10), authenticateRoutes);
 
 // API up and running status
 router.use('/status', statusRoutes);
