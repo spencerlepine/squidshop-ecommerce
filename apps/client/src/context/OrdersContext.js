@@ -49,7 +49,9 @@ export const OrdersProvider = ({ children }) => {
   function loadUserOrders(userId) {
     setLoading(true);
     OrdersService.fetchUserOrders(userId)
-      .then((orders) => setOrderItems(orders))
+      .then(({ orders }) => {
+        setOrderItems(orders)
+      })
       .catch(() => setOrderItems([]))
       .then(() => setLoading(false))
   }

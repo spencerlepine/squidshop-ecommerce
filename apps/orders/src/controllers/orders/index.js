@@ -19,8 +19,8 @@ const getAllUserOrders = (userId) => (
             ))
             .then((cartItems) => {
               const thisEntireOrder = { ...orderMetaData };
-              thisEntireOrders.orderId = orderMetaData.id;
-              thisEntireOrders.cartItems = cartItems;
+              thisEntireOrder.orderId = orderMetaData.id;
+              thisEntireOrder.cartItems = cartItems;
               resolveInner(thisEntireOrder);
             });
         })),
