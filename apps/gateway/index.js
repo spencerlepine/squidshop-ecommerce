@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const proxy = require('express-http-proxy');
+const cookieParser = require('cookie-parser');
 const { errorLogger, errorResponder, failSafeHandler } = require('./src/middlewares/errorHandler');
 const authenticationMiddleware = require('./src/middlewares/authenticate');
 const rateLimiterUsingThirdParty = require('./src/middlewares/rateLimiter');
@@ -22,6 +23,7 @@ const corsOptions = {
   credentials: true,
 };
 app.use(cors(corsOptions));
+app.use(cookieParser());
 app.use(express.json());
 setupLogger(app, config);
 app.use(rateLimiterUsingThirdParty);
