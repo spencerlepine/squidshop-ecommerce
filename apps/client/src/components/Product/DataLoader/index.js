@@ -61,6 +61,7 @@ const ProductDataLoader = (props) => {
   const [loading, isLoading] = useState(!useDemoData);
   const [productData, setProductData] = useState(getStarterData(isListData, useDemoData, optionalDepartmentId, demoProductId))
 
+
   useEffect(() => {
     if (!productData && apiRunning) {
       fetchProductData()
@@ -76,7 +77,7 @@ const ProductDataLoader = (props) => {
     if (useDemoData) {
       setProductData(getStarterData(isListData, useDemoData, optionalDepartmentId, demoProductId))
     }
-  }, [useDemoData]);
+  }, [useDemoData, optionalDepartmentId]);
 
   if (useDemoData) {
     return <ProductComponent {...props} productData={productData} />
