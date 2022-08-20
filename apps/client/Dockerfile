@@ -9,7 +9,7 @@ COPY ./package.json /app/
 COPY ./yarn.lock /app/
 RUN yarn
 COPY . /app
-RUN yarn build
+RUN yarn build && yarn cache clean
 
 # stage 2 - build the final image and copy the react build files
 FROM nginx:1.17.8-alpine

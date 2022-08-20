@@ -6,8 +6,7 @@ ENV NODE_ENV=production
 
 COPY package.json .
 COPY yarn.lock .
-RUN yarn global add pg
-RUN yarn install --production=true
+RUN yarn install --production=true && yarn cache clean
 
 COPY . .
 CMD ["yarn", "run", "start"]
