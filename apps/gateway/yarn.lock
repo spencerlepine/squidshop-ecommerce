@@ -590,10 +590,10 @@
     eslint-config-airbnb-base "^14.0.0"
     eslint-plugin-import "^2.18.2"
 
-"@spencerlepine/prettier-config@^2.0.0":
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/@spencerlepine/prettier-config/-/prettier-config-2.0.0.tgz#7abf4306c9fd787d685e999c9a78aa3dd4b921e6"
-  integrity sha512-YfgNibSWVuX/NH7ZpRYcLIkpZBb9ly0NKleq/KmsD7+E/luTQsqfj8/WNI3iwP6pNivJPyyA38osakUN27ZkIw==
+"@spencerlepine/prettier-config@^2.0.1":
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/@spencerlepine/prettier-config/-/prettier-config-2.0.1.tgz#92040147f51a3ec99e8ccb7168038f5d9f3a7e33"
+  integrity sha512-fGEYLt+JOIPq7iVN1/0yUfuGAFTE0rikNydvMZ5FH1G1DNcUF+11KKvFLvq+nknq1oZHym5Me79PrNyazgR0sA==
 
 "@types/babel__core@^7.1.14":
   version "7.1.19"
