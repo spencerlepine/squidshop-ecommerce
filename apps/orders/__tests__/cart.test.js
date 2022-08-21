@@ -58,8 +58,7 @@ describe('/carts endpoint operations', () => {
           expect(cartItemIdOne).toBeTruthy();
 
           return request(app)
-            .delete(`/remove/${mockRemoveUserId}`)
-            .send({ cartItemId: cartItemIdOne })
+            .delete(`/remove/${mockRemoveUserId}/${cartItemIdOne}`)
             .expect(201)
             .then((result) => {
               expect(result.body).toHaveProperty('cart');
