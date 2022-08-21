@@ -1,12 +1,13 @@
-name: Docker Build
+name: Docker Scan
 
 on:
   push:
     branches:
       - 'main'
-  pull_request:
-    branches:
-      - '*'
+  # pull_request:
+  #   branches:
+  #     - '*'
+  workflow_dispatch:
 
 jobs:
   docker_build:
@@ -21,15 +22,15 @@ jobs:
       run:
         working-directory: ${{ env.working_directory }}
 
-    name: "🐳 Docker Build & Scan"
+    name: "🐳 Docker Security Scan"
     steps:
       - name: "☁️ Check out Git Repository"
         uses: actions/checkout@v2
 
-      - name: "🧪 Lint Dockerfile"
-        uses: hadolint/hadolint-action@v2.0.0
-        with:
-          dockerfile: ${{ env.working_directory }}/Dockerfile
-    
       - name: "🏗️ Build"
         run: docker build . -t spencerlepine/service:${{ github.sha }}
+
+      - name: "✅ Preform Container Scan"
+        uses: Azure/container-scan@v0
+        with:
+          image-name: spencerlepine/service:${{ github.sha }}
