@@ -40,7 +40,6 @@ const demoOrders = [
 export const OrdersProvider = ({ children }) => {
   const [orderItems, setOrderItems] = useState([]);
   const [loading, setLoading] = useState(true);
-  console.log(orderItems)
 
   const useDemoOrders = () => {
     setOrderItems([]) // setOrderItems(demoOrders)

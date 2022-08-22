@@ -1,6 +1,6 @@
 import axios from 'axios'
-import config from './config'
-const API = config.REACT_GATEWAY_API_URL
+import config from '../config'
+const API = config.REACT_APP_GATEWAY_API_URL
 
 export const fetchApiStatus = (callback) => {
   axios.get(`${API}/status`)
