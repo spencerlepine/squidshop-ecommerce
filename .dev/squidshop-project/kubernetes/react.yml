@@ -14,10 +14,10 @@ spec:
     spec:
       containers:
       - name: minikube-react-app
-        image: spencerlepine/squidshop-client:33c3011
-        envFrom:
-         - configMapRef:
-             name: react-config
+        image: spencerlepine/squidshop-client:33c3010
+        env:
+          - name: REACT_APP_GATEWAY_API_URL
+            value: _GATEWAY_API_URL_
         imagePullPolicy: Always
         ports:
         - containerPort: 80
