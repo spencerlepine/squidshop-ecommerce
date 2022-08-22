@@ -34,7 +34,7 @@
   "devDependencies": {
     "@spencerlepine/eslint-config-node": "^2.0.0",
     "@spencerlepine/prettier-config": "^2.0.0",
-    "eslint": "^8.20.0",
+    "eslint": "^8.22.0",
     "prettier": "^2.7.1"
   }
 }
