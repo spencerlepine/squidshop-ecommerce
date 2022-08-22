@@ -1,6 +1,6 @@
 import axios from 'axios'
-import config from './config'
-const PRODUCTS_API = `${config.REACT_GATEWAY_API_URL}/products`
+import config from '../config'
+const PRODUCTS_API = `${config.REACT_APP_GATEWAY_API_URL}/products`
 
 let axiosConfig = {
   headers: {

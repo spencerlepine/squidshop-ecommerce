@@ -30,8 +30,10 @@ kubectl port-forward service/hello-minikube 7080:8080
 cd apps/client
 docker build -t spencerlepine/squidshop-client:33c30f8 .
 docker push spencerlepine/squidshop-client:33c30f8
+kubectl create configmap react-config --from-literal=REACT_APP_GATEWAY_API_URL=99999
 kubectl apply -f react.yml
 kubectl get svc
 kubectl get deployment
 minikube service minikube-react-app # service name defined in K8s yaml file
+kubectl delete -n default deployment minikube-react-app
 ```

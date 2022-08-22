@@ -1,11 +1,11 @@
 import axios from "axios"
-import config from './config'
+import config from '../config'
 
 const AUTHENTICATE_ENDPOINT = '/users/authenticate';
 const REFRESH_TOKEN_ENDPOINT = '/users/token';
 
 const axiosConfig = {
-  baseURL: config.REACT_GATEWAY_API_URL,
+  baseURL: config.REACT_APP_GATEWAY_API_URL,
   headers: {
     'Content-Type': 'application/json;charset=UTF-8',
     "Access-Control-Allow-Origin": "*",
@@ -17,7 +17,7 @@ const instance = axios.create(axiosConfig);
 
 class ApiInstance {
   constructor(urlPath) {
-    this.url = `${config.REACT_GATEWAY_API_URL}${urlPath}`
+    this.url = `${config.REACT_APP_GATEWAY_API_URL}${urlPath}`
   }
 
   request(axiosMethod, endpointUrl, data) {
