@@ -6,6 +6,19 @@ const passwordRegex = new RegExp(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z
 const nameRegex = new RegExp(/^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u)
 const emailRegex = new RegExp(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)
 
+async function generateHash(password) {
+  const saltRounds = 10;
+
+  const hashedPassword = await new Promise((resolve, reject) => {
+    bcrypt.hash(password, saltRounds, function (err, hash) {
+      if (err) reject(err)
+      resolve(hash)
+    });
+  })
+
+  return hashedPassword
+}
+
 class User {
   constructor({ firstName, lastName, email, password }) {
     this.firstName = firstName
@@ -40,9 +53,10 @@ class User {
     return this.validateName(this.firstName) && this.validateName(this.lastName) && this.validateEmail(this.email)
   }
 
+
   async generateHashedPassword() {
     if (this.passwordValidated && this.passwordNotHashed) {
-      const hashPassword = await bcrypt.hash(this.password, 10);
+      const hashPassword = await generateHash(this.password)
       this.passwordNotHashed = false
       this.password = hashPassword
     }

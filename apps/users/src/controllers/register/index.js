@@ -5,17 +5,18 @@ const UserData = require('./UserData');
 const db = require('../../database/connection');
 const { User } = db;
 
-router.post('/', (req, res, next) => {
+router.post('/', async (req, res, next) => {
   const user = new UserData(req.body)
 
-  if (!user.validateUserData()) {
+  if (!(await user.validateUserData())) {
     return res.sendStatus(401);
   }
 
   return User.findAll({ where: { email: req.body.email } })
-    .then((data) => {
+    .then(async (data) => {
       const userAlreadyExists = !(data && data.length === 1 && data[0].dataValues)
       if (userAlreadyExists) {
+        await user.generateHashedPassword()
         return User.create(user.getData())
           .then(() => res.sendStatus(201))
       }

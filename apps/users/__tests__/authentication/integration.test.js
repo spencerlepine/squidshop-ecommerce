@@ -14,7 +14,6 @@ const parseResponseCookie = (cookieStr) => {
 describe('JWT Token Authentication', () => {
   test('should handle entire authentication process', (done) => {
     const mockUser = generateMockUser();
-
     const registerTest = () => new Promise((resolve) => (
       request(app)
         .post('/register')
