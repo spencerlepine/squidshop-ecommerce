@@ -4,13 +4,25 @@ const validMockUser = {
   firstName: 'Danny',
   lastName: 'Devito',
   email: 'devito@urmom.com',
-  password: 'T0ttallY#ArdPa55$'
+  password: 'T0ttallY#ArdPa55$',
+};
+
+function validateFormTest(formDataName, validInputs, invalidInputs) {
+  const testList = (expectedResult, list) => (
+    list.forEach((input) => {
+      const data = new UserData({ ...validMockUser, [formDataName]: input });
+      expect(data.validateUserData()).toBe(expectedResult);
+    })
+  );
+
+  testList(true, validInputs);
+  testList(false, invalidInputs);
 }
 
 describe('UserData Class', () => {
   it('should store user registration data', () => {
-    const userData = new UserData(validMockUser)
-    expect(userData.getData()).toMatchObject(validMockUser)
+    const userData = new UserData(validMockUser);
+    expect(userData.getData()).toMatchObject(validMockUser);
   });
 
   it('should only accept valid name values', () => {
@@ -33,7 +45,7 @@ describe('UserData Class', () => {
       'mysite@.org.org',
       '.mysite@mysite.org',
       'mysite()*@gmail.com',
-      'mysite..1234@yahoo.com'
+      'mysite..1234@yahoo.com',
     ];
 
     validateFormTest('email', validEmails, invalidEmails);
@@ -44,7 +56,7 @@ describe('UserData Class', () => {
     const validPasses = [
       '$nA$98488',
       '$Dd00pqRS1',
-      'T0ttallY#ArdPa55$'
+      'T0ttallY#ArdPa55$',
     ];
     const invalidPasses = [
       '',
@@ -58,20 +70,8 @@ describe('UserData Class', () => {
   });
 
   it('should be hashing passwords after validating', () => {
-    const validPass = new UserData(validMockUser)
-    expect(validPass.validateUserData()).toBeTruthy()
-    expect(validPass.getData()).not.toBe(validMockUser.password) // un-hashed
+    const validPass = new UserData(validMockUser);
+    expect(validPass.validateUserData()).toBeTruthy();
+    expect(validPass.getData()).not.toBe(validMockUser.password); // un-hashed
   });
-})
-
-function validateFormTest(formDataName, validInputs, invalidInputs) {
-  const testList = (expectedResult, list) => (
-    list.forEach((input) => {
-      const data = new UserData({ ...validMockUser, [formDataName]: input })
-      expect(data.validateUserData()).toBe(expectedResult);
-    })
-  );
-
-  testList(true, validInputs);
-  testList(false, invalidInputs);
-}
+});
