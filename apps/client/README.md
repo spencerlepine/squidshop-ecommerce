@@ -6,8 +6,6 @@ React Frontend client for the  SquidShop Ecommerce website. Uses continuous inte
 
 ![Frontend Screenshot](./frontend_screenshot.png)
 
-![Microservice Architecture Diagram](./architecture_diagram.png)
-
 ## ⚙️ Startup and Configuration
 
 1. ### Update Environment Variables
