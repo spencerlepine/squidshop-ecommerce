@@ -1,6 +1,6 @@
 // import Products from '../components/Products';
 import React from "react";
-import { Container } from '@mui/system';
+import PageElement from '../../components/PageElement';
 import MissingPage from '../MissingPage';
 import DepartmentView from '../../components/Department/DepartmentView';
 import DepartmentLinkOptions from '../../components/Department/DepartmentLinkOptions';
@@ -23,11 +23,11 @@ const DepartmentPage = () => {
   }
 
   return (
-    <Container component="main" maxWidth="md">
+    <PageElement maxWidth="md">
       <DepartmentLinkOptions highlightedDepartment={departmentId} />
 
       <DepartmentView departmentId={departmentId} />
-    </Container>
+    </PageElement>
   )
 };
 

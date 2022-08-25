@@ -1,6 +1,6 @@
 import React from 'react';
+import PageElement from '../../components/PageElement';
 import CatalogView from '../../components/CatalogView';
-import { Container } from '@mui/system';
 import { useLocation } from "react-router-dom";
 import DepartmentLinkOptions from '../../components/Department/DepartmentLinkOptions';
 
@@ -15,11 +15,11 @@ const CatalogPage = () => {
   const query = useQuery();
 
   return (
-    <Container component="main" maxWidth="md">
+    <PageElement maxWidth="md">
       <DepartmentLinkOptions />
 
       <CatalogView currentQuery={query.get('query')} />
-    </Container >
+    </PageElement >
   );
 }
 

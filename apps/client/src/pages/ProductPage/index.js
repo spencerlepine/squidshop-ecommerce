@@ -1,6 +1,6 @@
 import React from 'react';
 import ProductDataLoader from '../../components/Product/DataLoader';
-import { Container } from '@mui/system';
+import PageElement from '../../components/PageElement';
 import { useParams } from "react-router-dom";
 import * as products from '../../api/products';
 
@@ -18,9 +18,9 @@ const ProductPage = () => {
   };
 
   return (
-    <Container component="main" maxWidth="md">
+    <PageElement maxWidth="md">
       <ProductDataLoader isPageView fetchProductData={fetchProductData} demoProductId={productId} />
-    </Container >
+    </PageElement >
   );
 }
 

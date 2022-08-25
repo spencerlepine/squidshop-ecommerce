@@ -1,14 +1,14 @@
 import React from "react";
 import BannerSlide from "../../components/BannerSlide";
 import CatalogView from "../../components/CatalogView";
-import { Container } from "@mui/material";
+import PageElement from '../../components/PageElement';
 
 const HomePage = () => {
   return (
-    <Container component="main" maxWidth="md">
+    <PageElement maxWidth="md">
       <BannerSlide />
       <CatalogView hideTitle />
-    </Container>
+    </PageElement>
   );
 };
 

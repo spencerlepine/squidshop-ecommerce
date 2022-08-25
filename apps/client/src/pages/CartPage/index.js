@@ -1,4 +1,4 @@
-import { Container } from '@mui/system';
+import CenteredElement from '../../components/CenteredElement';
 import CartView from '../../components/Cart/CartView';
 import withAuthRedirect from '../../hooks/useAuthRedirect';
 
@@ -9,9 +9,9 @@ import withAuthRedirect from '../../hooks/useAuthRedirect';
 // should render all products in cart details
 const CartPage = () => {
   return (
-    <Container component="main" maxWidth="md">
+    <CenteredElement maxWidth="md">
       <CartView />
-    </Container>
+    </CenteredElement>
   );
 }
 
