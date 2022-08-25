@@ -1,6 +1,6 @@
 // import Products from '../components/Products';
 import React from "react";
-import PageElement from '../../components/PageElement';
+import PageElement from '../../layout/PageElement';
 import MissingPage from '../MissingPage';
 import DepartmentView from '../../components/Department/DepartmentView';
 import DepartmentLinkOptions from '../../components/Department/DepartmentLinkOptions';

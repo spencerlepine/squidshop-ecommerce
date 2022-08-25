@@ -29,6 +29,7 @@ const OrdersView = () => {
 
   useEffect(() => {
     if (orderItems && orderItems.length === 0 && useDemoData) {
+      // eslint-disable-next-line react-hooks/rules-of-hooks
       useDemoOrders()
     }
   }, [useDemoData])

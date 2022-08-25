@@ -1,5 +1,5 @@
-import { render, screen } from '@testing-library/react';
-import MobileEnabled from './index';
+import { render } from '@testing-library/react';
+import MobileEnabled from './MobileEnabled';
 
 test('should render without without throwing an error', () => {
   render(<MobileEnabled />);

@@ -14,7 +14,7 @@ import { Link as RouterLink } from "react-router-dom";
 import useAuth from '../../context/AuthContext';
 import useDemoSettings from '../../context/DemoSettingsContext';
 import headerDataTemplate from './headerLinkData';
-import SearchBar from "../SearchBar";
+import SearchBar from "../../components/SearchBar";
 import squidShopLogo from '../../assets/squidshop-logo.png';
 import useStyles from './styles';
 

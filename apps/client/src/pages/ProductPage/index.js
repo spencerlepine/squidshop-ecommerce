@@ -1,9 +1,10 @@
 import React from 'react';
-import PageElement from '../../components/PageElement';
+import PageElement from '../../layout/PageElement';
 import { useParams } from "react-router-dom";
 import useDataLoadHandler from '../../hooks/useDataLoadHandler';
 import useHandleProductState from '../../hooks/useHandleProductState';
 import * as products from '../../api/products';
+import getStarterDemoData from './getStarterDemoData';
 
 // should take productId from URL parameters
 // should render product title, price, description
@@ -17,7 +18,14 @@ const ProductPage = () => {
   // Return a return a promise
   const refreshFetch = ({ useDemoData }) => {
     if (useDemoData) {
-      return setProductData(getStarterData(isListData, useDemoData, optionalDepartmentId, demoProductId, isSaleData))
+      const demoDataOptions = {
+        isListData: false,
+        optionalDepartmentId: null,
+        demoProductId: productId,
+        isSaleData: false,
+      }
+      const demoProduct = getStarterDemoData(demoDataOptions)
+      return new Promise((resolve) => resolve(demoProduct))
     }
     return products.fetchProductDataById(productId)
   }

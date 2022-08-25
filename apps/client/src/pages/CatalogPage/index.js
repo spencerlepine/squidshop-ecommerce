@@ -1,5 +1,5 @@
 import React from 'react';
-import PageElement from '../../components/PageElement';
+import PageElement from '../../layout/PageElement';
 import CatalogView from '../../components/CatalogView';
 import { useLocation } from "react-router-dom";
 import DepartmentLinkOptions from '../../components/Department/DepartmentLinkOptions';

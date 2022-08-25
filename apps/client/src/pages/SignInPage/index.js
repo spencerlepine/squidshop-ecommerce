@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import CenteredElement from '../../components/CenteredElement';
+import CenteredElement from '../../layout/CenteredElement';
 import { useNavigate } from "react-router-dom";
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';

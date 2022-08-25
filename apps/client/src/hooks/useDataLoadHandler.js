@@ -1,34 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import LoadingStatusWrapper from '../components/LoadingStatusWrapper';
+import LoadingStatusWrapper from '../layout/LoadingStatusWrapper';
 import useDemoSettings from '../context/DemoSettingsContext';
 
-// import ProductList from '../../components/Product/ProductList';
-// import ProductCard from '../../components/Product/ProductCard';
-// const loadList = () => getProductById("123") // promise
-// const ProductsList = handleProductData(loadList, {
-//   renderAsList: true,
-//   showRating: true
-//   optDepartmentId: null
-//   optDemoProductId: null
-// });
-// return (
-//   {Products}
-// )
-// should accept a fetch function to get the product data
-// should accept options:
-//     is it a list?
-//     does it show the rating?
-
-// const ProductDisplay = () => {
-//   if (renderAsList) {
-//     return <ProductList products={productData || []} />
-//   }
-
-//   return <ProductCard product={productData} />
-// }
-
-
-// const Products = dataLoadingHandler(ProductCard, () => loadProductById("123"))
 const dataLoadingHandler = (Component, fetchFunction, customProps = {}) =>
   () => {
     const { apiRunning } = useDemoSettings()
