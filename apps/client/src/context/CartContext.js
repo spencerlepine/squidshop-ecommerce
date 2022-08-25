@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 import CartService from '../api/cart';
 
@@ -35,8 +35,10 @@ export const CartProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   const useDemoCart = () => {
-    setCartItems([]) // setCartItems(demoCart)
-    setLoading(false)
+    if (cartItems.length !== 0) {
+      setCartItems([]) // setCartItems(demoCart)
+      setLoading(false)
+    }
     return []
   }
 

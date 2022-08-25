@@ -5,13 +5,25 @@ import { Typography } from "@material-ui/core";
 import Box from '@mui/material/Box';
 import * as products from '../../../../api/products';
 import ProductHoriList from '../../ProductHoriList'
+import getStarterDemoData from '../../../../hooks/getStarterDemoData';
 
 const RelatedProducts = ({ product }) => {
-  const fetchProductData = () => {
+  const relatedFetch = ({ useDemoData }) => {
+    if (useDemoData) {
+      const demoDataOptions = {
+        isListData: true,
+        optionalDepartmentId: product.category,
+        demoProductId: product.id,
+        isSaleData: false,
+      }
+      const demoProduct = getStarterDemoData(demoDataOptions)
+      return () => new Promise((resolve) => resolve(demoProduct))
+    }
+
     return products.fetchRelatedProducts(product.id)
   }
 
-  const ProductState = useHandleProductState(ProductHoriList, { productId: product.id, fetchFunction: fetchProductData });
+  const ProductState = useHandleProductState(ProductHoriList, { productId: product.id, fetchFunction: relatedFetch });
   const ProductDataLoader = useDataLoadHandler(ProductState.Component, ProductState.fetchFunction, ProductState.options)
 
   return (

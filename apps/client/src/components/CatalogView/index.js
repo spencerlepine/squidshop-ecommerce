@@ -8,6 +8,7 @@ import useDataLoadHandler from '../../hooks/useDataLoadHandler';
 import useHandleProductState from '../../hooks/useHandleProductState';
 import MobileEnabledSearchBar from '../SearchBar/MobileEnabled';
 import ProductList from '../Product/ProductList';
+import getStarterDemoData from '../../hooks/getStarterDemoData';
 
 // should display catalog title
 // should display product cards with images
@@ -17,12 +18,23 @@ import ProductList from '../Product/ProductList';
 // should take search from query parameter and load products
 // should render search bar if mobile
 const CatalogView = ({ currentQuery, hideTitle }) => {
-  const fetchByQuery = () => {
-    return products.fetchSearchProducts(currentQuery)
-  }
-  const fetchFunction = () => currentQuery ? fetchByQuery : products.fetchCatalogProducts
+  // Return a return a promise
+  const queryFetch = ({ useDemoData }) => {
+    if (useDemoData) {
+      const demoDataOptions = {
+        isListData: true,
+        optionalDepartmentId: null,
+        demoProductId: null,
+        isSaleData: false,
+      }
+      const demoProduct = getStarterDemoData(demoDataOptions)
+      return () => new Promise((resolve) => resolve(demoProduct))
+    }
 
-  const ProductState = useHandleProductState(ProductList, { fetchFunction: fetchFunction });
+    return currentQuery ? products.fetchSearchProducts(currentQuery) : products.fetchCatalogProducts
+  }
+
+  const ProductState = useHandleProductState(ProductList, { fetchFunction: queryFetch });
   const ProductDataLoader = useDataLoadHandler(ProductState.Component, ProductState.fetchFunction, ProductState.options)
 
   return (

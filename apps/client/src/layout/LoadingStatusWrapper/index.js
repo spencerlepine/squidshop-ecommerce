@@ -8,12 +8,13 @@ const LoadingStatusWrapper = (props) => {
     isError,
     apiRunning,
     handleRefresh,
-    dataForChild
+    dataForChild,
+    usingDemoData
   } = props
 
   const RefreshBtn = () => <Button style={{ marginLeft: '0.5em' }} onClick={handleRefresh}><CachedIcon /> Refresh</Button>
 
-  if (!apiRunning || isError || !dataForChild) {
+  if (isError || !dataForChild || (!usingDemoData && !apiRunning === false)) {
     return (
       <Alert severity="warning" style={{ marginTop: '2em' }}>
         <Typography>Failed to load <RefreshBtn /></Typography>

@@ -19,7 +19,7 @@ const useHandleProductState = (Component, options) => {
   }, []);
 
   return {
-    Component: () => <Component />,
+    Component: Component,
     fetchFunction: fetchProductData(),
     options: { productId }
   }

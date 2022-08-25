@@ -1,10 +1,23 @@
-import demoProducts from './demoProducts.json'
+import demoData from './demoProducts.json'
+const demoProducts = demoData.products;
+
+/* Randomize array in-place using Durstenfeld shuffle algorithm */
+function shuffleArray(array) {
+  for (var i = array.length - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i + 1));
+    var temp = array[i];
+    array[i] = array[j];
+    array[j] = temp;
+  }
+  return array
+}
 
 const extractDemoProductList = (list, optionalDepartmentId, isSaleData) => {
   // If given a specific depertmentId, filter the output list
   if (optionalDepartmentId) {
     list = list.filter(({ category }) => category === optionalDepartmentId)
   }
+
 
   // Optionally populate the product data to have sale prices
   if (isSaleData) {
@@ -14,11 +27,11 @@ const extractDemoProductList = (list, optionalDepartmentId, isSaleData) => {
     }))
   }
 
-  return list.slice(0, 20)
+  return shuffleArray(list.slice(0, 20))
 }
 
 const extractDemoProduct = (list, isSaleData) => {
-  const random = demoProducts[Math.floor(Math.random() * demoProducts.length)]
+  const random = demoProducts[Math.floor(Math.random() * list.length)]
   const product = JSON.parse(JSON.stringify(random));
 
   // Optionally populate the product data to have sale price
@@ -38,11 +51,10 @@ const getStarterData = (options) => {
   } = options
 
   // If given a single productId, return that data
-  if (demoProductId) {
+  if (demoProductId && !isListData) {
     const demoProductIndex = demoProducts.findIndex(({ id }) => id === demoProductId)
     return demoProductIndex !== -1 ? demoProducts[demoProductIndex] : null
   }
-
   // If rendering a multiple products, return a list of demo products
   if (isListData) {
     return extractDemoProductList(demoProducts, optionalDepartmentId, isSaleData)

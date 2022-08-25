@@ -43,16 +43,16 @@ const useHandleCartState = (Component) => {
 
   if (useDemoData) {
     return {
-      Component: () => <Component data={cartItems} handleCheckout={checkoutAction} handleRemove={handleRemove} />,
-      fetchFunction: refreshCart('', useDemoData),
-      options: { handleCheckout, handleRemove }
+      Component: Component,
+      fetchFunction: () => refreshCart('', useDemoData),
+      options: { handleCheckout: checkoutAction, handleRemove, data: cartItems }
     }
   }
 
   return {
-    Component: () => <Component data={cartItems} handleCheckout={checkoutAction} handleRemove={handleRemove} />,
-    fetchFunction: refreshCart((currentUser || {})['id'], useDemoData),
-    options: { handleCheckout, handleRemove }
+    Component: Component,
+    fetchFunction: () => refreshCart((currentUser || {})['id'], useDemoData),
+    options: { handleCheckout: checkoutAction, handleRemove, data: cartItems }
   }
 }
 

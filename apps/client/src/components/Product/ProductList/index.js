@@ -3,7 +3,7 @@ import Typography from '@mui/material/Typography';
 import Alert from '@mui/material/Alert';
 import SearchableList from './SearchableList';
 
-const ProductList = ({ products, inSearchMode }) => {
+const ProductList = ({ data: products, inSearchMode }) => {
   return (
     <div component="main" sx={{ mt: 8, mb: 2 }}>
       {products && products.length === 0 && (

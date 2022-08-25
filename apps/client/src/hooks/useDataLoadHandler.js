@@ -4,7 +4,7 @@ import useDemoSettings from '../context/DemoSettingsContext';
 
 const dataLoadingHandler = (Component, fetchFunction, customProps = {}) =>
   () => {
-    const { apiRunning } = useDemoSettings()
+    const { apiRunning, useDemoData } = useDemoSettings()
     const [dataForChild, setDataForChild] = useState(null);
     const [loading, setLoading] = useState(false);
     const [isError, setIsError] = useState(false);
@@ -19,7 +19,7 @@ const dataLoadingHandler = (Component, fetchFunction, customProps = {}) =>
     }
 
     useEffect(() => {
-      if (process.env.NODE_ENV !== 'test') {
+      if (process.env.NODE_ENV !== 'test' && !loading) {
         handleRefresh()
       }
     }, [])
@@ -29,7 +29,8 @@ const dataLoadingHandler = (Component, fetchFunction, customProps = {}) =>
       isError,
       apiRunning,
       handleRefresh,
-      dataForChild
+      dataForChild,
+      usingDemoData: useDemoData
     }
 
     return (

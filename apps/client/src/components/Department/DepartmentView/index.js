@@ -5,9 +5,21 @@ import * as products from '../../../api/products';
 import useDataLoadHandler from '../../../hooks/useDataLoadHandler';
 import useHandleProductState from '../../../hooks/useHandleProductState';
 import ProductHoriList from '../../Product/ProductHoriList';
+import getStarterDemoData from '../../../hooks/getStarterDemoData';
 
 const SaleProducts = ({ departmentId }) => {
-  const fetchSaleProducts = () => {
+  // Return a return a promise
+  const fetchSaleProducts = ({ useDemoData }) => {
+    if (useDemoData) {
+      const demoDataOptions = {
+        isListData: true,
+        optionalDepartmentId: departmentId,
+        demoProductId: null,
+        isSaleData: true,
+      }
+      const demoProduct = getStarterDemoData(demoDataOptions)
+      return () => new Promise((resolve) => resolve(demoProduct))
+    }
     return products.fetchDepartmentSaleProducts(departmentId)
   }
 
@@ -26,7 +38,19 @@ const SaleProducts = ({ departmentId }) => {
 }
 
 const DepartmentCatalog = ({ departmentId }) => {
-  const fetchDepartmentProducts = () => {
+
+  // Return a return a promise
+  const fetchDepartmentProducts = ({ useDemoData }) => {
+    if (useDemoData) {
+      const demoDataOptions = {
+        isListData: true,
+        optionalDepartmentId: departmentId,
+        demoProductId: null,
+        isSaleData: false,
+      }
+      const demoProduct = getStarterDemoData(demoDataOptions)
+      return () => new Promise((resolve) => resolve(demoProduct))
+    }
     return products.fetchDepartmentProducts(departmentId)
   }
 
@@ -54,7 +78,7 @@ const DepartmentView = ({ departmentId }) => {
         {departmentName}
       </Typography>
 
-      <SaleProducts departmentId={departmentId} />
+      <SaleProducts departmentId={departmentId} TODO />
 
       <DepartmentCatalog departmentId={departmentId} />
     </div>
