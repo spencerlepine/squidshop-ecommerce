@@ -1,5 +1,5 @@
-import { render, screen } from '@testing-library/react';
-import AccountDetails from './index';
+import { render } from '@testing-library/react';
+import AccountDetails from './AccountDetails';
 
 test('should render without without throwing an error', () => {
   render(<AccountDetails />);
