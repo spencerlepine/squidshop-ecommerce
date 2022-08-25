@@ -33,7 +33,7 @@ class User {
   }
 
   validPassword(passwordStr) {
-    const isValid = passwordRegex.test(passwordStr);
+    const isValid = passwordStr.length < 20 && passwordRegex.test(passwordStr);
     this.passwordValidated = isValid;
     return isValid;
   }
@@ -43,7 +43,7 @@ class User {
   }
 
   validateEmail(emailStr) {
-    return emailRegex.test(emailStr);
+    return emailStr.length < 20 && emailRegex.test(emailStr);
   }
 
   validateUserData() {
