@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import SingleRowList from './index';
 
 test('should render without without throwing an error', () => {

@@ -1,9 +1,9 @@
 import React from 'react';
 import Typography from '@mui/material/Typography';
 import Alert from '@mui/material/Alert';
-import SearchableList from './SearchableList';
+import SingleRowList from './SingleRowList';
 
-const ProductList = ({ products, inSearchMode }) => {
+const ProductHoriList = ({ data: products }) => {
   return (
     <div component="main" sx={{ mt: 8, mb: 2 }}>
       {products && products.length === 0 && (
@@ -12,9 +12,9 @@ const ProductList = ({ products, inSearchMode }) => {
         </Alert>
       )}
 
-      <SearchableList products={products || []} inSearchMode={inSearchMode} />
+      <SingleRowList products={products || []} />
     </div>
   );
 }
 
-export default ProductList;
+export default ProductHoriList;

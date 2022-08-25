@@ -25,21 +25,28 @@ const useHandleCartState = (Component) => {
     removeFromCart(cartProduct.cartItemId || cartProduct.id, (currentUser || {}).id, { isDemoCart: useDemoData })
   )
 
-  if (useDemoData) {
-    return () => <Component data={cartItems} handleCheckout={checkoutAction} handleRemove={handleRemove} />
-  }
-
   const refreshCart = (userId, useDemoData) => {
     if (useDemoData) {
-      if (cartItems && cartItems.length === 0) {
-        // eslint-disable-next-line react-hooks/rules-of-hooks
-        useDemoCart()
-      }
+      return new Promise((resolve) => {
+        if (cartItems && cartItems.length === 0) {
+          // eslint-disable-next-line react-hooks/rules-of-hooks
+          useDemoCart()
+        }
+        resolve([])
+      })
     } else if (userId) {
       return () => new Promise(() => loadUserCart(id))
     }
 
     return () => new Promise((resolve) => resolve([]))
+  }
+
+  if (useDemoData) {
+    return {
+      Component: () => <Component data={cartItems} handleCheckout={checkoutAction} handleRemove={handleRemove} />,
+      fetchFunction: refreshCart('', useDemoData),
+      options: { handleCheckout, handleRemove }
+    }
   }
 
   return {

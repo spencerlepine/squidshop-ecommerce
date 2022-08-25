@@ -4,8 +4,10 @@ import {
 } from "@material-ui/core";
 import Box from '@mui/material/Box';
 import * as products from '../../api/products';
-import ProductDataLoader from '../Product/DataLoader'
+import useDataLoadHandler from '../../hooks/useDataLoadHandler';
+import useHandleProductState from '../../hooks/useHandleProductState';
 import MobileEnabledSearchBar from '../SearchBar/MobileEnabled';
+import ProductList from '../Product/ProductList';
 
 // should display catalog title
 // should display product cards with images
@@ -18,6 +20,10 @@ const CatalogView = ({ currentQuery, hideTitle }) => {
   const fetchByQuery = () => {
     return products.fetchSearchProducts(currentQuery)
   }
+  const fetchFunction = () => currentQuery ? fetchByQuery : products.fetchCatalogProducts
+
+  const ProductState = useHandleProductState(ProductList, { fetchFunction: fetchFunction });
+  const ProductDataLoader = useDataLoadHandler(ProductState.Component, ProductState.fetchFunction, ProductState.options)
 
   return (
     <Box className="CatalogView">
@@ -31,11 +37,7 @@ const CatalogView = ({ currentQuery, hideTitle }) => {
         </Typography>
       )}
 
-      <ProductDataLoader
-        isListData
-        fetchProductData={currentQuery ? fetchByQuery : products.fetchCatalogProducts}
-        inSearchMode={currentQuery}
-      />
+      <ProductDataLoader />
     </Box>
   );
 }

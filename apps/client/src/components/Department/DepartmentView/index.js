@@ -2,12 +2,17 @@ import * as React from 'react';
 import { Typography } from "@material-ui/core";
 import Box from '@mui/material/Box';
 import * as products from '../../../api/products';
-import ProductDataLoader from '../../Product/DataLoader';
+import useDataLoadHandler from '../../../hooks/useDataLoadHandler';
+import useHandleProductState from '../../../hooks/useHandleProductState';
+import ProductHoriList from '../../Product/ProductHoriList';
 
 const SaleProducts = ({ departmentId }) => {
   const fetchSaleProducts = () => {
     return products.fetchDepartmentSaleProducts(departmentId)
   }
+
+  const ProductState = useHandleProductState(ProductHoriList, { fetchFunction: fetchSaleProducts });
+  const ProductSaleLoader = useDataLoadHandler(ProductState.Component, ProductState.fetchFunction, ProductState.options)
 
   return (
     <Box sx={{ mb: 6 }}>
@@ -15,7 +20,7 @@ const SaleProducts = ({ departmentId }) => {
         Deals
       </Typography>
 
-      <ProductDataLoader isListData isSingleRowList fetchProductData={fetchSaleProducts} optionalDepartmentId={departmentId} isSaleData />
+      <ProductSaleLoader />
     </Box>
   )
 }
@@ -25,13 +30,16 @@ const DepartmentCatalog = ({ departmentId }) => {
     return products.fetchDepartmentProducts(departmentId)
   }
 
+  const ProductState = useHandleProductState(ProductHoriList, { fetchFunction: fetchDepartmentProducts });
+  const ProductDeptLoader = useDataLoadHandler(ProductState.Component, ProductState.fetchFunction, ProductState.options)
+
   return (
     <Box sx={{ mb: 6 }}>
       <Typography gutterBottom variant="h5" component="div">
         Featured
       </Typography>
 
-      <ProductDataLoader isListData fetchProductData={fetchDepartmentProducts} optionalDepartmentId={departmentId} />
+      <ProductDeptLoader />
     </Box>
   )
 }
