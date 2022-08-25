@@ -1,4 +1,4 @@
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import AccountPage from './index';
 
 const mockUser = {
@@ -6,7 +6,8 @@ const mockUser = {
   id: 'p2048570938475',
   email: 'johndeer@gmail.com',
 }
-// TODO
+const RenderOptions = { renderAsMockUser: true, mockUser }
+
 describe('AccountPage', () => {
   test('should render without without throwing an error', () => {
     render(<AccountPage />);
@@ -14,22 +15,26 @@ describe('AccountPage', () => {
   });
 
   test('should render user first name', () => {
-    render(<AccountPage />, { renderAsMockUser, mockUser });
+    render(<AccountPage />, RenderOptions);
 
+    const nameElement = screen.getByText(new RegExp(`${mockUser.firstName}`, 'i'));
+    expect(nameElement).toBeInTheDocument();
   });
 
-  test('should render current users email', () => {
-    render(<AccountPage />, { renderAsMockUser, mockUser });
+  test('should render current user\'s email', () => {
+    render(<AccountPage />, RenderOptions);
 
+    const emailElement = screen.getByText(new RegExp(`${mockUser.email}`, 'i'));
+    expect(emailElement).toBeInTheDocument();
   });
 
-  test('should render orders page link', () => {
-    render(<AccountPage />);
+  // test('should render orders page link', () => {
+  //   render(<AccountPage />);
 
-  });
+  // });
 
-  test('should render cart page link', () => {
-    render(<AccountPage />);
+  // test('should render cart page link', () => {
+  //   render(<AccountPage />);
 
-  });
+  // });
 });

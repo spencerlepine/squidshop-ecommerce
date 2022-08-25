@@ -13,8 +13,6 @@ import Alert from '@mui/material/Alert';
 import AuthService from '../../api/authentication';
 import withAuthRedirect from '../../hooks/useAuthRedirect';
 
-const theme = createTheme();
-
 const SignUp = () => {
   const [errorMessage, setErrorMessage] = useState('');
   const navigate = useNavigate();
