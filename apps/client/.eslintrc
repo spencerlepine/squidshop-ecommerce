@@ -1,12 +1,16 @@
 {
-  "plugins": ["jsx"],
+  "plugins": [
+    "jsx"
+  ],
   "rules": {
     "no-undef": "off",
     "no-unused-vars": "off",
     "global-require": "warn"
   },
   "extends": [
-    "@spencerlepine/eslint-config-react"
+    "@spencerlepine/eslint-config-react",
+    "react-app",
+    "react-app/jest"
   ],
   "parser": "@babel/eslint-parser",
   "parserOptions": {
