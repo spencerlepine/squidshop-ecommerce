@@ -17,14 +17,14 @@ describe('AccountPage', () => {
   test('should render user first name', () => {
     render(<AccountPage />, RenderOptions);
 
-    const nameElement = screen.getByText(new RegExp(`${mockUser.firstName}`, 'i'));
+    const nameElement = screen.getByText(new RegExp(`${mockUser.firstName}`));
     expect(nameElement).toBeInTheDocument();
   });
 
   test('should render current user\'s email', () => {
     render(<AccountPage />, RenderOptions);
 
-    const emailElement = screen.getByText(new RegExp(`${mockUser.email}`, 'i'));
+    const emailElement = screen.getByText(new RegExp(`${mockUser.email}`));
     expect(emailElement).toBeInTheDocument();
   });
 
