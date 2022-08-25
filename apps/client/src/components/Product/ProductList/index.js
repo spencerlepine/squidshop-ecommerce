@@ -5,7 +5,7 @@ import SearchableList from './SearchableList';
 
 const ProductList = ({ data: products, inSearchMode }) => {
   return (
-    <div component="main" sx={{ mt: 8, mb: 2 }}>
+    <div className="productList" component="main" sx={{ mt: 8, mb: 2 }}>
       {products && products.length === 0 && (
         <Alert severity="warning">
           <Typography>No products found</Typography>

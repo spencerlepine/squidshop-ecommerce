@@ -27,7 +27,7 @@ const RelatedProducts = ({ product }) => {
   const ProductDataLoader = useDataLoadHandler(ProductState.Component, ProductState.fetchFunction, ProductState.options)
 
   return (
-    <Box sx={{ mt: 2 }}>
+    <Box sx={{ mt: 2 }} className="relatedProducts">
       <Typography gutterBottom variant="h6" component="div" style={{ color: 'rgb(204, 102, 0)' }}>
         Related Products
       </Typography>

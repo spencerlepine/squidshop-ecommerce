@@ -46,7 +46,7 @@ const AddButton = ({ productId, useTinyButton, entireProduct }) => {
     marginTop: '2em',
   };
   return (
-    <Button variant="contained" size="large" style={cartButtonStyles} onClick={handleAdd}>Add to Cart</Button>
+    <Button className="addToCartBtn" variant="contained" size="large" style={cartButtonStyles} onClick={handleAdd}>Add to Cart</Button>
   )
 }
 

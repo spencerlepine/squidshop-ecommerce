@@ -26,7 +26,7 @@ const CartItemCard = ({ product, removeFromCart }) => {
 
   const ProductDetails = () => (
     <>
-      <Typography variant="h5" component="h2" style={{ fontWeight: 500 }} role="heading">
+      <Typography variant="h5" component="h2" style={{ fontWeight: 500 }} role="heading" className="productTitle">
         {product.title}
       </Typography>
       <Typography variant="body1" component="p" style={{ fontWeight: 200 }}>
@@ -58,7 +58,7 @@ const CartItemCard = ({ product, removeFromCart }) => {
     }
 
     return (
-      <Button variant="contained" color="error" size="small" style={deleteButtonStyles} onClick={removeFromCart}>
+      <Button variant="contained" color="error" size="small" style={deleteButtonStyles} onClick={removeFromCart} className="removeBtn">
         <DeleteIcon />
       </Button>
     )

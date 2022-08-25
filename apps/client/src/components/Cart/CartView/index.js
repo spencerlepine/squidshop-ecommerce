@@ -26,7 +26,7 @@ const CartView = ({ data, handleCheckout, handleRemove }) => {
           {priceStr}
         </Typography>
 
-        <Button variant="contained" size="large" style={checkoutButtonStyles} onClick={handleCheckout}>
+        <Button variant="contained" size="large" style={checkoutButtonStyles} onClick={handleCheckout} className="checkoutBtn">
           Checkout
         </Button>
         <br />

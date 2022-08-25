@@ -38,7 +38,7 @@ const ProductDetails = ({ product }) => {
 
   const ProductDetails = () => (
     <>
-      <Typography variant="h5" component="h2" style={{ fontWeight: 500 }} role="heading">
+      <Typography variant="h5" component="h2" style={{ fontWeight: 500 }} role="heading" className="productTitle">
         {product.title}
       </Typography>
       <Typography variant="body1" component="p" style={{ fontWeight: 200 }}>

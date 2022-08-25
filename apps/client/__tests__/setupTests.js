@@ -52,3 +52,12 @@ jest.mock('@testing-library/react', () => {
     render: customRender
   }
 });
+
+// jest.mock('axios', () => {
+//   return {
+//     get: () => new Promise((resolve) => resolve()),
+//     post: () => new Promise((resolve) => resolve()),
+//     delete: () => new Promise((resolve) => resolve()),
+//     put: () => new Promise((resolve) => resolve())
+//   }
+// })
