@@ -1,6 +1,6 @@
 import React from 'react';
-import useAuth from '../../context/AuthContext';
-import useDemoSettings from '../../context/DemoSettingsContext';
+import useAuth from '../context/AuthContext';
+import useDemoSettings from '../context/DemoSettingsContext';
 import { Navigate, useLocation } from 'react-router-dom';
 
 const withAuthRedirect = (Component, redirectOptions) =>

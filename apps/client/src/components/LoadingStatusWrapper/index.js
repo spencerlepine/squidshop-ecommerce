@@ -1,14 +1,15 @@
 import React from 'react';
 import { Alert, Typography, Button, CircularProgress } from '@mui/material';
+import CachedIcon from '@mui/icons-material/Cached';
 
 const LoadingStatusWrapper = (props) => {
-  const props = {
+  const {
     loading,
     isError,
     apiRunning,
     handleRefresh,
     dataForChild
-  }
+  } = props
 
   const RefreshBtn = () => <Button style={{ marginLeft: '0.5em' }} onClick={handleRefresh}><CachedIcon /> Refresh</Button>
 

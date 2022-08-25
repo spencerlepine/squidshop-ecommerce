@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import LoadingStatusWrapper from '../../components/LoadingStatusWrapper';
-import useDemoSettings from '../../../context/DemoSettingsContext';
+import React, { useState, useEffect } from 'react';
+import LoadingStatusWrapper from '../components/LoadingStatusWrapper';
+import useDemoSettings from '../context/DemoSettingsContext';
 
 // import ProductList from '../../components/Product/ProductList';
 // import ProductCard from '../../components/Product/ProductCard';
@@ -29,7 +29,7 @@ import useDemoSettings from '../../../context/DemoSettingsContext';
 
 
 // const Products = dataLoadingHandler(ProductCard, () => loadProductById("123"))
-const dataLoadingHandler = (Component, fetchFunction) =>
+const dataLoadingHandler = (Component, fetchFunction, customProps = {}) =>
   () => {
     const { apiRunning } = useDemoSettings()
     const [dataForChild, setDataForChild] = useState(null);
@@ -39,11 +39,17 @@ const dataLoadingHandler = (Component, fetchFunction) =>
     const handleRefresh = () => {
       setIsError(false);
       setLoading(true);
-      fetchFunction
+      fetchFunction()
         .then((data) => setDataForChild(data))
         .catch(() => setIsError(true))
         .then(() => setLoading(false))
     }
+
+    useEffect(() => {
+      if (process.env.NODE_ENV !== 'test') {
+        handleRefresh()
+      }
+    }, [])
 
     const loadingStatusProps = {
       loading,
@@ -55,7 +61,7 @@ const dataLoadingHandler = (Component, fetchFunction) =>
 
     return (
       <LoadingStatusWrapper {...loadingStatusProps}>
-        <Component data={dataForChild} />
+        <Component data={dataForChild} {...customProps} />
       </LoadingStatusWrapper>
     )
   };

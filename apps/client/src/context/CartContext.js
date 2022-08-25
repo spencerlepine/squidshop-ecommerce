@@ -37,6 +37,7 @@ export const CartProvider = ({ children }) => {
   const useDemoCart = () => {
     setCartItems([]) // setCartItems(demoCart)
     setLoading(false)
+    return []
   }
 
   const removeFromCart = (cartItemId, userId, options) => {
@@ -73,14 +74,16 @@ export const CartProvider = ({ children }) => {
 
   const loadUserCart = (userId) => {
     setLoading(true);
-    CartService.fetchUserCart(userId)
+    return CartService.fetchUserCart(userId)
       .then(({ cart }) => {
         setCartItems(cart)
         setLoading(false)
+        return cart
       })
       .catch(() => {
         setCartItems([])
         setLoading(false)
+        return []
       })
   }
 

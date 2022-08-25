@@ -6,10 +6,4 @@ describe('CartPage', () => {
     render(<CartPage />);
     expect(true).toBeTruthy();
   });
-
-  test('should render cart page title', () => {
-    render(<CartPage />)
-    const titleElement = screen.getByText(/Cart/);
-    expect(titleElement).toBeInTheDocument();
-  });
 });
