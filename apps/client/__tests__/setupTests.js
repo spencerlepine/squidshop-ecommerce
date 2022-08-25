@@ -37,9 +37,6 @@ AllTheProviders.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
-// const customRender = (ui, options) =>
-//   render(ui, {wrapper: AllTheProviders, ...options });
-
 // override render method
 jest.mock('@testing-library/react', () => {
   const originalModule = jest.requireActual('@testing-library/react');

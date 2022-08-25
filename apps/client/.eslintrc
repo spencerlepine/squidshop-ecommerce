@@ -5,7 +5,8 @@
   "rules": {
     "no-undef": "off",
     "no-unused-vars": "off",
-    "global-require": "warn"
+    "global-require": "warn",
+    "testing-library/no-node-access": "off"
   },
   "extends": [
     "@spencerlepine/eslint-config-react",

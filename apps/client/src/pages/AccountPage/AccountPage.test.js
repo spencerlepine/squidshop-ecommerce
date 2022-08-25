@@ -28,13 +28,15 @@ describe('AccountPage', () => {
     expect(emailElement).toBeInTheDocument();
   });
 
-  // test('should render orders page link', () => {
-  //   render(<AccountPage />);
+  test('should render orders page link', () => {
+    render(<AccountPage />);
 
-  // });
+    expect(screen.getByText('Orders').closest('a')).toHaveAttribute('href', '/orders')
+  });
 
-  // test('should render cart page link', () => {
-  //   render(<AccountPage />);
+  test('should render cart page link', () => {
+    render(<AccountPage />);
 
-  // });
+    expect(screen.getByText('Cart').closest('a')).toHaveAttribute('href', '/cart')
+  });
 });
