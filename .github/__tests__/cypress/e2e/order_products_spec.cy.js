@@ -37,7 +37,6 @@ describe('The Home Page', () => {
         .click()
     })
 
-
     const user = {
       firstName: 'John',
       lastName: 'Doe',
@@ -83,6 +82,21 @@ describe('The Home Page', () => {
       cy.get('button[type="submit"]')
         .should('be.visible')
         .click()
+
+      cy.getCookies()
+        .should('have.length', 2)
+        .then((cookies) => {
+          expect(cookies[0]).to.have.property('name', 'accessToken')
+          expect(cookies[0]).to.have.property('httpOnly')
+          expect(cookies[0]).to.have.property('secure')
+          expect(cookies[1]).to.have.property('name', 'refreshToken')
+          expect(cookies[1]).to.have.property('httpOnly')
+          expect(cookies[1]).to.have.property('secure')
+
+          // expect(cookies[0]).to.have.property('value', '123ABC')
+          // expect(cookies[0]).to.have.property('domain')
+          // expect(cookies[0]).to.have.property('path')
+        })
     })
   })
 

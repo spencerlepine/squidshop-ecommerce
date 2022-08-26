@@ -17,8 +17,8 @@ router.delete('/', (req, res) => {
   }
   deleteRefreshToken(token);
 
-  res.cookie('accessToken', '', { httpOnly: true });
-  res.cookie('refreshToken', '', { httpOnly: true });
+  res.cookie('accessToken', '', { httpOnly: true, secure: false });
+  res.cookie('refreshToken', '', { httpOnly: true, secure: false });
   return res.sendStatus(204);
 });
 

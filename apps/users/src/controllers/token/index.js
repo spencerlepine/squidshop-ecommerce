@@ -29,7 +29,7 @@ router.post('/', (req, res) => {
     }
     const { email, id } = user;
     const accessToken = generateAccessToken({ email, id });
-    res.cookie('accessToken', accessToken, { httpOnly: true });
+    res.cookie('accessToken', accessToken, { httpOnly: true, secure: false });
     res.status(204).json({
       accessToken,
     });

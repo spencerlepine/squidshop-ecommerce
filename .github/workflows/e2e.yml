@@ -1,0 +1,49 @@
+name: end-to-end
+on:
+  push:
+    branches:
+      - 'main'
+  pull_request:
+jobs:
+
+  end-to-end-tests:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Start the Docker Containers
+        run: docker-compose up
+        
+      - name: Cypress info
+        uses: ./.github/__tests__
+        with:
+          # just for full picture after installing Cypress
+          # print information about detected browsers, etc
+          # see https://on.cypress.io/command-line#cypress-info
+          build: npx cypress info
+          working-directory: examples/v10/chrome
+
+      - name: Chrome
+        uses: ./
+        with:
+          working-directory: examples/v10/chrome
+          browser: chrome
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: screenshots-in-chrome
+          path: examples/v10/chrome/cypress/screenshots
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: video-in-chrome
+          path: examples/v10/chrome/cypress/videos
+
+      - run: npx image-size cypress/screenshots/**/*.png
+        working-directory: examples/v10/chrome
+
+      # I wonder if GH Actions VM includes any of the tools that
+      # can tell us the resolution of a video file
+      - run: ffprobe cypress/videos/*.mp4 || true
+      - run: mplayer -really-quiet -ao null -vo null -identify -frames 0 cypress/videos/*.mp4 || true
