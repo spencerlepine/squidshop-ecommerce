@@ -8,7 +8,6 @@ const authenticateTokenMiddleware = (req, res, next) => {
   const token = req.cookies && req.cookies.refreshToken;
 
   if (!token) {
-    console.log(req.cookies);
     return res.status(401).json({
       message: 'Please provide valid token',
     });

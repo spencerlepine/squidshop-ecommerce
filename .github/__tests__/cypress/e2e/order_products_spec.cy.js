@@ -1,3 +1,5 @@
+// GRRRRRRR
+// These are broken becuase cypress does not store the cookies rip
 const clickHeaderLink = (index) => {
   return cy.get('header')
     .within(() => {
@@ -82,9 +84,6 @@ describe('The Home Page', () => {
       cy.get('button[type="submit"]')
         .should('be.visible')
         .click()
-
-      cy.setCookie('accessToken', 'top_secret');
-      cy.setCookie('refreshToken', 'top_secret');
 
       cy.visit('http://localhost:3000')
 
