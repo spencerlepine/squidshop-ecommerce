@@ -8,6 +8,10 @@ jobs:
 
   end-to-end-tests:
     runs-on: ubuntu-20.04
+    strategy:
+      fail-fast: false
+      matrix:
+        browser: ['chrome', 'firefox', 'electron', 'microsoft-edge']
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -23,7 +27,7 @@ jobs:
           # see https://on.cypress.io/command-line#cypress-info
           build: npx cypress info
           working-directory: ./apps/__tests__
-          browser: chrome
+          browser: ${{ matrix.browser }}
           wait-on: http://localhost:3000
 
       # - uses: actions/upload-artifact@v2
