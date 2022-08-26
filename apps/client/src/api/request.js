@@ -27,6 +27,7 @@ class ApiInstance {
       return new Promise((resolve, reject) => {
         instance[axiosMethod](`${this.url}${endpointUrl}`, data)
           .then((response) => {
+            console.log(response.headers)
             resolve(response.data)
           })
           .catch(reject)
