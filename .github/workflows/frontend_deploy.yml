@@ -41,7 +41,7 @@ jobs:
       - name: "🏗️ Build"
         run: |
           cd ${{ env.working_directory }}
-          yarn build
+          CI=false yarn build
           cd ../..
 
       - name: Deploy to Netlify

@@ -1,8 +1,11 @@
 import React from 'react';
-import ProductDataLoader from '../../components/Product/DataLoader';
-import { Container } from '@mui/system';
+import PageElement from '../../layout/PageElement';
 import { useParams } from "react-router-dom";
+import useDataLoadHandler from '../../hooks/useDataLoadHandler';
+import useHandleProductState from '../../hooks/useHandleProductState';
 import * as products from '../../api/products';
+import getStarterDemoData from '../../hooks/getStarterDemoData';
+import ProductPageView from '../../components/Product/PageView';
 
 // should take productId from URL parameters
 // should render product title, price, description
@@ -13,14 +16,28 @@ import * as products from '../../api/products';
 const ProductPage = () => {
   const { productId } = useParams();
 
-  const fetchProductData = () => {
-    return products.fetchProductDataById(productId)
-  };
+  // Return a return a promise
+  const refreshFetch = ({ useDemoData }) => {
+    if (useDemoData) {
+      const demoDataOptions = {
+        isListData: false,
+        optionalDepartmentId: null,
+        demoProductId: productId,
+        isSaleData: false,
+      }
+      const demoProduct = getStarterDemoData(demoDataOptions)
+      return () => new Promise((resolve) => resolve(demoProduct))
+    }
+    return () => products.fetchProductDataById(productId)
+  }
+
+  const ProductState = useHandleProductState(ProductPageView, { productId, fetchFunction: refreshFetch });
+  const ProductDataLoader = useDataLoadHandler(ProductState.Component, ProductState.fetchFunction, ProductState.options)
 
   return (
-    <Container component="main" maxWidth="md">
-      <ProductDataLoader isPageView fetchProductData={fetchProductData} demoProductId={productId} />
-    </Container >
+    <PageElement maxWidth="md">
+      <ProductDataLoader />
+    </PageElement >
   );
 }
 

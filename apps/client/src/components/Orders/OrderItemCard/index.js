@@ -80,7 +80,7 @@ const OrderItemCard = ({ order }) => {
 
                 <Grid item xs={4}>
                   <Link to={`/product/${cartItem.productId || 'unkown'}`} component={RouterLink} style={{ color: 'inherit', textDecoration: 'inherit' }}>
-                    <Typography variant="body1" component="p" style={{ fontWeight: 500, display: 'inline' }} role="heading">
+                    <Typography variant="body1" component="p" style={{ fontWeight: 500, display: 'inline' }} role="heading" className="productTitle">
                       {cartItem.title}
                     </Typography>
 

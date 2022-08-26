@@ -153,16 +153,16 @@ services:
       ACCESS_TOKEN_SECRET: testSecret
       REFRESH_TOKEN_SECRET: testRefreshSecret
 
-  # client:
-  #   depends_on:
-  #     - gateway
-  #   build:
-  #     context: ./apps/client
-  #     dockerfile: Dockerfile
-  #   ports:
-  #     - "3000:80"
-  #   environment:
-  #     - REACT_APP_GATEWAY_API_URL=http://gateway:5000
+  client:
+    depends_on:
+      - gateway
+    build:
+      context: ./apps/client
+      dockerfile: Dockerfile
+    ports:
+      - "3000:80"
+    environment:
+      - REACT_APP_GATEWAY_API_URL=http://gateway:5000
 
 
 # Persist the databases

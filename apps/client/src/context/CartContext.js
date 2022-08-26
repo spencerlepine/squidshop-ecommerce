@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 import CartService from '../api/cart';
 
@@ -32,19 +32,19 @@ const demoCart = [
 
 export const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   const useDemoCart = () => {
-    setCartItems([]) // setCartItems(demoCart)
-    setLoading(false)
+    if (cartItems.length !== 0) {
+      setCartItems([]) // setCartItems(demoCart)
+      setLoading(false)
+    }
+    return []
   }
 
   const removeFromCart = (cartItemId, userId, options) => {
     if (options && options.isDemoCart) {
-      setCartItems((prevList) => (prevList.filter((p) => (
-        p.id !== cartItemId
-      ))))
-      return
+      return CartService.removeDemoProductFromCart(cartItemId, userId)
     }
 
     setLoading(true);
@@ -55,37 +55,49 @@ export const CartProvider = ({ children }) => {
   }
 
   const addItemToCart = (product, userId, options) => {
-    if (options && options.isDemoCart && options.product) {
-      setCartItems((prevList) => ([...prevList, {
-        ...options.product,
-        id: `${(Math.random() + 1).toString(36).substring(7)}`,
-        productId: options.product.id
-      }]))
-      return
-    }
+    if (loading === false) {
+      setLoading(true)
 
-    setLoading(true);
-    CartService.addProductToCart(product, userId)
-      .then((cart) => setCartItems(cart))
-      .catch(() => { })
-      .then(() => setLoading(false))
+      if (options && options.isDemoCart && options.product) {
+        setLoading(false)
+        return CartService.addDemoProductToCart({
+          ...options.product,
+          id: `${(Math.random() + 1).toString(36).substring(7)}`,
+          productId: options.product.id
+        })
+      }
+
+      return CartService.addProductToCart(product, userId)
+        .then(({ cart }) => setCartItems(cart))
+        .catch(() => { })
+        .then(() => setLoading(false))
+    }
   }
 
   const loadUserCart = (userId) => {
-    setLoading(true);
-    CartService.fetchUserCart(userId)
-      .then(({ cart }) => {
-        setCartItems(cart)
-        setLoading(false)
-      })
-      .catch(() => {
-        setCartItems([])
-        setLoading(false)
-      })
+    if (loading === false && userId) {
+
+      setLoading(true);
+      return CartService.fetchUserCart(userId)
+        .then(({ cart }) => {
+          if (cart.length > 0) {
+            setCartItems(cart)
+          }
+          setLoading(false)
+          return cart
+        })
+        .catch(() => {
+          setCartItems([])
+          setLoading(false)
+          return []
+        })
+    }
+    return new Promise((resolve) => resolve([]))
   }
 
   const handleCheckout = (userId, eraseForDemo) => {
     if (eraseForDemo && eraseForDemo.addDemoOrder) {
+      CartService.demoCart = []
       const cart = cartItems.slice()
       eraseForDemo.addDemoOrder({
         id: `${(Math.random() + 1).toString(36).substring(7)}`,

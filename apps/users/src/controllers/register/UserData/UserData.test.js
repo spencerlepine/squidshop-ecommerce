@@ -33,7 +33,7 @@ describe('UserData Class', () => {
 
   it('should only accept valid email values', () => {
     const validEmails = [
-      // TODO
+      'john@gmail.com',
     ];
     const invalidEmails = [
       '',

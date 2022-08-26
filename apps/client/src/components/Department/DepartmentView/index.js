@@ -2,12 +2,29 @@ import * as React from 'react';
 import { Typography } from "@material-ui/core";
 import Box from '@mui/material/Box';
 import * as products from '../../../api/products';
-import ProductDataLoader from '../../Product/DataLoader';
+import useDataLoadHandler from '../../../hooks/useDataLoadHandler';
+import useHandleProductState from '../../../hooks/useHandleProductState';
+import ProductHoriList from '../../Product/ProductHoriList';
+import getStarterDemoData from '../../../hooks/getStarterDemoData';
 
 const SaleProducts = ({ departmentId }) => {
-  const fetchSaleProducts = () => {
-    return products.fetchDepartmentSaleProducts(departmentId)
+  // Return a return a promise
+  const fetchSaleProducts = ({ useDemoData }) => {
+    if (useDemoData) {
+      const demoDataOptions = {
+        isListData: true,
+        optionalDepartmentId: departmentId,
+        demoProductId: null,
+        isSaleData: true,
+      }
+      const demoProduct = getStarterDemoData(demoDataOptions)
+      return () => new Promise((resolve) => resolve(demoProduct))
+    }
+    return () => products.fetchDepartmentSaleProducts(departmentId)
   }
+
+  const ProductState = useHandleProductState(ProductHoriList, { fetchFunction: fetchSaleProducts });
+  const ProductSaleLoader = useDataLoadHandler(ProductState.Component, ProductState.fetchFunction, ProductState.options)
 
   return (
     <Box sx={{ mb: 6 }}>
@@ -15,15 +32,30 @@ const SaleProducts = ({ departmentId }) => {
         Deals
       </Typography>
 
-      <ProductDataLoader isListData isSingleRowList fetchProductData={fetchSaleProducts} optionalDepartmentId={departmentId} isSaleData />
+      <ProductSaleLoader />
     </Box>
   )
 }
 
 const DepartmentCatalog = ({ departmentId }) => {
-  const fetchDepartmentProducts = () => {
-    return products.fetchDepartmentProducts(departmentId)
+
+  // Return a return a promise
+  const fetchDepartmentProducts = ({ useDemoData }) => {
+    if (useDemoData) {
+      const demoDataOptions = {
+        isListData: true,
+        optionalDepartmentId: departmentId,
+        demoProductId: null,
+        isSaleData: false,
+      }
+      const demoProduct = getStarterDemoData(demoDataOptions)
+      return () => new Promise((resolve) => resolve(demoProduct))
+    }
+    return () => products.fetchDepartmentProducts(departmentId)
   }
+
+  const ProductState = useHandleProductState(ProductHoriList, { fetchFunction: fetchDepartmentProducts });
+  const ProductDeptLoader = useDataLoadHandler(ProductState.Component, ProductState.fetchFunction, ProductState.options)
 
   return (
     <Box sx={{ mb: 6 }}>
@@ -31,7 +63,7 @@ const DepartmentCatalog = ({ departmentId }) => {
         Featured
       </Typography>
 
-      <ProductDataLoader isListData fetchProductData={fetchDepartmentProducts} optionalDepartmentId={departmentId} />
+      <ProductDeptLoader />
     </Box>
   )
 }
@@ -46,7 +78,7 @@ const DepartmentView = ({ departmentId }) => {
         {departmentName}
       </Typography>
 
-      <SaleProducts departmentId={departmentId} />
+      <SaleProducts departmentId={departmentId} TODO />
 
       <DepartmentCatalog departmentId={departmentId} />
     </div>

@@ -1,6 +1,6 @@
-import { Container } from '@mui/system';
 import OrdersView from '../../components/Orders/OrdersView';
 import withAuthRedirect from '../../hooks/useAuthRedirect';
+import CenteredElement from '../../layout/CenteredElement';
 
 // should render order page title
 // should render each order place date
@@ -10,9 +10,9 @@ import withAuthRedirect from '../../hooks/useAuthRedirect';
 // should render each order items with image, title, price
 const OrdersPage = () => {
   return (
-    <Container component="main" maxWidth="md">
+    <CenteredElement maxWidth="md">
       <OrdersView />
-    </Container>
+    </CenteredElement>
   );
 }
 

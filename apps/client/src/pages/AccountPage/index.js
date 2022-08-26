@@ -1,16 +1,12 @@
-import { Container } from '@mui/system';
-import AccountDetails from '../../components/AccountDetails';
+import AccountDetails from '../../components/Account/AccountDetails';
 import withAuthRedirect from '../../hooks/useAuthRedirect';
+import CenteredElement from '../../layout/CenteredElement';
 
-// should render user first name
-// should render current users email
-// should render orders page link
-// should render cart page link
 const AccountPage = () => {
   return (
-    <Container component="main" maxWidth="md">
+    <CenteredElement>
       <AccountDetails />
-    </Container>
+    </CenteredElement>
   );
 }
 

@@ -13,6 +13,10 @@ const withAuthRedirect = (Component, redirectOptions) =>
     const isAuthenticated = isLoggedIn && currentUser
     const shouldRedirect = (inaccessibleWhenLoggedIn && isAuthenticated) || (shouldBeLoggedIn && !isAuthenticated)
 
+    if (process.env.NODE_ENV === 'test') {
+      return <Component />
+    }
+
     if (useDemoData) {
       return inaccessibleWhenLoggedIn ? <Navigate to="/" /> : <Component />
     }

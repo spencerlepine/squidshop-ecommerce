@@ -2,22 +2,17 @@ import React from 'react';
 import Typography from '@mui/material/Typography';
 import Alert from '@mui/material/Alert';
 import SearchableList from './SearchableList';
-import SingleRowList from './SingleRowList';
 
-const ProductList = ({ products, isSingleRowList, inSearchMode }) => {
+const ProductList = ({ data: products, inSearchMode }) => {
   return (
-    <div component="main" sx={{ mt: 8, mb: 2 }}>
+    <div className="productList" component="main" sx={{ mt: 8, mb: 2 }}>
       {products && products.length === 0 && (
         <Alert severity="warning">
           <Typography>No products found</Typography>
         </Alert>
       )}
 
-      {isSingleRowList ? (
-        <SingleRowList products={products || []} />
-      ) : (
-        <SearchableList products={products || []} inSearchMode={inSearchMode} />
-      )}
+      <SearchableList products={products || []} inSearchMode={inSearchMode} />
     </div>
   );
 }

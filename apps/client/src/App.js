@@ -1,6 +1,6 @@
-import Header from './components/Header';
+import Header from './layout/Header';
 import PageRoutes from './pages';
-import Footer from './components/Footer';
+import Footer from './layout/Footer';
 import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
 import './App.css';

@@ -17,17 +17,23 @@ const instance = axios.create(axiosConfig);
 
 class ApiInstance {
   constructor(urlPath) {
+    this.loading = false
     this.url = `${config.REACT_APP_GATEWAY_API_URL}${urlPath}`
   }
 
   request(axiosMethod, endpointUrl, data) {
-    return new Promise((resolve, reject) => {
-      instance[axiosMethod](`${this.url}${endpointUrl}`, data)
-        .then((response) => {
-          resolve(response.data)
-        })
-        .catch(reject)
-    })
+    if (this.loading === false) {
+      this.loading = true;
+      return new Promise((resolve, reject) => {
+        instance[axiosMethod](`${this.url}${endpointUrl}`, data)
+          .then((response) => {
+            resolve(response.data)
+          })
+          .catch(reject)
+          .then(() => this.loading = false)
+      })
+    }
+    return new Promise((res, rej) => rej())
   }
 }
 

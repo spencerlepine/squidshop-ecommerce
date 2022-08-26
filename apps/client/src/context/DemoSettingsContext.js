@@ -12,7 +12,7 @@ export const DemoSettingsProvider = ({ children }) => {
   const defaultToDemo = !!localStorage.getItem(demoSettingsKey)
   const [useDemoData, setUseDemoData] = useState(defaultToDemo)
   const [loading, setLoading] = useState(defaultToDemo ? false : true)
-  const [renderWarning, setRenderWarning] = useState(defaultToDemo ? false : true)
+  const [renderWarning, setRenderWarning] = useState(true)
   const [apiRunning, setApiRunning] = useState(false)
 
   useEffect(() => {
@@ -80,9 +80,20 @@ export const DemoSettingsProvider = ({ children }) => {
     </div>
   )
 
+  const GenericDemoMessage = () => (
+    <div style={{ position: 'fixed', bottom: '1em', left: '0.5em', zIndex: 99 }}>
+      <Alert severity="info">
+        <Typography>Enable Demo Mode</Typography>
+        <DemoDataButton />
+        <IgnoreButton />
+      </Alert>
+    </div>
+  )
+
   return (
     <DemoSettingsContext.Provider value={value}>
       {(!loading && !apiRunning && renderWarning) && <BrokenBackendMessage />}
+      {(!loading && apiRunning && renderWarning) && <GenericDemoMessage />}
       {(!renderWarning && useDemoData) && <DisableDemoMessage />}
       {children}
     </DemoSettingsContext.Provider>

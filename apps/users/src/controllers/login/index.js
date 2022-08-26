@@ -32,8 +32,8 @@ router.post('/', (req, res, next) => {
           };
           const accessToken = generateAccessToken(user);
           const refreshToken = generateRefreshToken(user);
-          res.cookie('accessToken', accessToken, { httpOnly: true });
-          res.cookie('refreshToken', refreshToken, { httpOnly: true });
+          res.cookie('accessToken', accessToken, { httpOnly: true, secure: false });
+          res.cookie('refreshToken', refreshToken, { httpOnly: true, secure: false });
           return res.status(201).json(user);
         }
       }

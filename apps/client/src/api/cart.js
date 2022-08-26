@@ -18,4 +18,13 @@ CartService.checkoutUserCart = (userId) => (
   CartService.request('post', `/checkout/${userId}`)
 )
 
+CartService.demoCart = [];
+CartService.removeDemoProductFromCart = (cartItemId) => (
+  CartService.demoCart = CartService.demoCart.filter((p) => p.id !== cartItemId)
+)
+
+CartService.addDemoProductToCart = (item) => (
+  CartService.demoCart.push(item)
+)
+
 export default CartService;

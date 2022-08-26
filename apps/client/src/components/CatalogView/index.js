@@ -4,8 +4,11 @@ import {
 } from "@material-ui/core";
 import Box from '@mui/material/Box';
 import * as products from '../../api/products';
-import ProductDataLoader from '../Product/DataLoader'
+import useDataLoadHandler from '../../hooks/useDataLoadHandler';
+import useHandleProductState from '../../hooks/useHandleProductState';
 import MobileEnabledSearchBar from '../SearchBar/MobileEnabled';
+import ProductList from '../Product/ProductList';
+import getStarterDemoData from '../../hooks/getStarterDemoData';
 
 // should display catalog title
 // should display product cards with images
@@ -15,9 +18,24 @@ import MobileEnabledSearchBar from '../SearchBar/MobileEnabled';
 // should take search from query parameter and load products
 // should render search bar if mobile
 const CatalogView = ({ currentQuery, hideTitle }) => {
-  const fetchByQuery = () => {
-    return products.fetchSearchProducts(currentQuery)
+  // Return a return a promise
+  const queryFetch = ({ useDemoData }) => {
+    if (useDemoData) {
+      const demoDataOptions = {
+        isListData: true,
+        optionalDepartmentId: null,
+        demoProductId: null,
+        isSaleData: false,
+      }
+      const demoProduct = getStarterDemoData(demoDataOptions)
+      return () => new Promise((resolve) => resolve(demoProduct))
+    }
+
+    return currentQuery ? () => products.fetchSearchProducts(currentQuery) : () => products.fetchCatalogProducts()
   }
+
+  const ProductState = useHandleProductState(ProductList, { fetchFunction: queryFetch });
+  const ProductDataLoader = useDataLoadHandler(ProductState.Component, ProductState.fetchFunction, ProductState.options)
 
   return (
     <Box className="CatalogView">
@@ -31,11 +49,7 @@ const CatalogView = ({ currentQuery, hideTitle }) => {
         </Typography>
       )}
 
-      <ProductDataLoader
-        isListData
-        fetchProductData={currentQuery ? fetchByQuery : products.fetchCatalogProducts}
-        inSearchMode={currentQuery}
-      />
+      <ProductDataLoader />
     </Box>
   );
 }
