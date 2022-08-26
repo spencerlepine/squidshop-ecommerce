@@ -12,9 +12,10 @@ const dataLoadingHandler = (Component, fetchFunction, customProps = {}) =>
     const handleRefresh = () => {
       setIsError(false);
       setLoading(true);
-      fetchFunction()
+
+      return fetchFunction()
         .then((data) => setDataForChild(data))
-        .catch(() => setIsError(true))
+        .catch((err) => err ? setIsError(true) : '')
         .then(() => setLoading(false))
     }
 

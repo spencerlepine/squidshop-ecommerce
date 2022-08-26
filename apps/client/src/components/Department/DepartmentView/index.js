@@ -20,7 +20,7 @@ const SaleProducts = ({ departmentId }) => {
       const demoProduct = getStarterDemoData(demoDataOptions)
       return () => new Promise((resolve) => resolve(demoProduct))
     }
-    return products.fetchDepartmentSaleProducts(departmentId)
+    return () => products.fetchDepartmentSaleProducts(departmentId)
   }
 
   const ProductState = useHandleProductState(ProductHoriList, { fetchFunction: fetchSaleProducts });
@@ -51,7 +51,7 @@ const DepartmentCatalog = ({ departmentId }) => {
       const demoProduct = getStarterDemoData(demoDataOptions)
       return () => new Promise((resolve) => resolve(demoProduct))
     }
-    return products.fetchDepartmentProducts(departmentId)
+    return () => products.fetchDepartmentProducts(departmentId)
   }
 
   const ProductState = useHandleProductState(ProductHoriList, { fetchFunction: fetchDepartmentProducts });

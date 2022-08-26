@@ -28,7 +28,7 @@ const ProductPage = () => {
       const demoProduct = getStarterDemoData(demoDataOptions)
       return () => new Promise((resolve) => resolve(demoProduct))
     }
-    return products.fetchProductDataById(productId)
+    return () => products.fetchProductDataById(productId)
   }
 
   const ProductState = useHandleProductState(ProductPageView, { productId, fetchFunction: refreshFetch });

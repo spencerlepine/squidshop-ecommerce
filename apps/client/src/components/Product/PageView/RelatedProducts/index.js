@@ -20,7 +20,7 @@ const RelatedProducts = ({ product }) => {
       return () => new Promise((resolve) => resolve(demoProduct))
     }
 
-    return products.fetchRelatedProducts(product.id)
+    return () => products.fetchRelatedProducts(product.id)
   }
 
   const ProductState = useHandleProductState(ProductHoriList, { productId: product.id, fetchFunction: relatedFetch });

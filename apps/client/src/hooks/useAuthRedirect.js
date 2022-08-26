@@ -13,6 +13,8 @@ const withAuthRedirect = (Component, redirectOptions) =>
     const isAuthenticated = isLoggedIn && currentUser
     const shouldRedirect = (inaccessibleWhenLoggedIn && isAuthenticated) || (shouldBeLoggedIn && !isAuthenticated)
 
+    console.log(Component, isAuthenticated, shouldRedirect)
+
     if (process.env.NODE_ENV === 'test') {
       return <Component />
     }

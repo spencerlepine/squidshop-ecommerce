@@ -33,7 +33,7 @@ export const AuthProvider = ({ children }) => {
         setCurrentUser(userDetails)
         setIsLoggedIn(true)
       })
-      .catch(() => setCurrentUser(null))
+      .catch(() => { })
       .then(() => setLoading(false))
   }
 

@@ -32,7 +32,7 @@ const demoCart = [
 
 export const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   const useDemoCart = () => {
     if (cartItems.length !== 0) {
@@ -58,35 +58,45 @@ export const CartProvider = ({ children }) => {
   }
 
   const addItemToCart = (product, userId, options) => {
-    if (options && options.isDemoCart && options.product) {
-      setCartItems((prevList) => ([...prevList, {
-        ...options.product,
-        id: `${(Math.random() + 1).toString(36).substring(7)}`,
-        productId: options.product.id
-      }]))
-      return
-    }
+    if (loading === false) {
+      setLoading(true)
 
-    setLoading(true);
-    CartService.addProductToCart(product, userId)
-      .then((cart) => setCartItems(cart))
-      .catch(() => { })
-      .then(() => setLoading(false))
+      if (options && options.isDemoCart && options.product) {
+        setCartItems((prevList) => ([...prevList, {
+          ...options.product,
+          id: `${(Math.random() + 1).toString(36).substring(7)}`,
+          productId: options.product.id
+        }]))
+        setLoading(false)
+        return
+      }
+
+      return CartService.addProductToCart(product, userId)
+        .then(({ cart }) => setCartItems(cart))
+        .catch(() => { })
+        .then(() => setLoading(false))
+    }
   }
 
   const loadUserCart = (userId) => {
-    setLoading(true);
-    return CartService.fetchUserCart(userId)
-      .then(({ cart }) => {
-        setCartItems(cart)
-        setLoading(false)
-        return cart
-      })
-      .catch(() => {
-        setCartItems([])
-        setLoading(false)
-        return []
-      })
+    if (loading === false && userId) {
+
+      setLoading(true);
+      return CartService.fetchUserCart(userId)
+        .then(({ cart }) => {
+          if (cart.length > 0) {
+            setCartItems(cart)
+          }
+          setLoading(false)
+          return cart
+        })
+        .catch(() => {
+          setCartItems([])
+          setLoading(false)
+          return []
+        })
+    }
+    return new Promise((resolve) => resolve([]))
   }
 
   const handleCheckout = (userId, eraseForDemo) => {

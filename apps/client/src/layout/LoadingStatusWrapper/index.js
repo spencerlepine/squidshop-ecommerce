@@ -14,16 +14,16 @@ const LoadingStatusWrapper = (props) => {
 
   const RefreshBtn = () => <Button style={{ marginLeft: '0.5em' }} onClick={handleRefresh}><CachedIcon /> Refresh</Button>
 
-  if (isError || !dataForChild || (!usingDemoData && !apiRunning === false)) {
+  if (loading) {
+    return <CircularProgress />
+  }
+
+  if (isError || !dataForChild || (!usingDemoData && apiRunning === false)) {
     return (
       <Alert severity="warning" style={{ marginTop: '2em' }}>
         <Typography>Failed to load <RefreshBtn /></Typography>
       </Alert>
     )
-  }
-
-  if (loading) {
-    return <CircularProgress />
   }
 
   return <>{props.children}</>

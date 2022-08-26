@@ -31,7 +31,7 @@ const CatalogView = ({ currentQuery, hideTitle }) => {
       return () => new Promise((resolve) => resolve(demoProduct))
     }
 
-    return currentQuery ? products.fetchSearchProducts(currentQuery) : products.fetchCatalogProducts
+    return currentQuery ? () => products.fetchSearchProducts(currentQuery) : () => products.fetchCatalogProducts()
   }
 
   const ProductState = useHandleProductState(ProductList, { fetchFunction: queryFetch });

@@ -3,12 +3,13 @@ import useAuth from '../context/AuthContext';
 import useDemoSettings from '../context/DemoSettingsContext';
 import useCart from '../context/CartContext';
 import useOrders from '../context/OrdersContext';
+import CartService from '../api/cart';
 
 const useHandleCartState = (Component) => {
   const { currentUser } = useAuth();
   const { addDemoOrder } = useOrders(); // for demo purposes
   const { useDemoData } = useDemoSettings();
-  const { cartItems, loadUserCart, useDemoCart, handleCheckout, removeFromCart } = useCart();
+  const { cartItems, useDemoCart, handleCheckout, removeFromCart } = useCart();
 
   const checkoutAction = () => {
     if (useDemoData) {
@@ -27,7 +28,7 @@ const useHandleCartState = (Component) => {
 
   const refreshCart = (userId, useDemoData) => {
     if (useDemoData) {
-      return new Promise((resolve) => {
+      return () => new Promise((resolve) => {
         if (cartItems && cartItems.length === 0) {
           // eslint-disable-next-line react-hooks/rules-of-hooks
           useDemoCart()
@@ -35,24 +36,20 @@ const useHandleCartState = (Component) => {
         resolve([])
       })
     } else if (userId) {
-      return () => new Promise(() => loadUserCart(id))
+      return () => CartService.fetchUserCart(userId).then(({ cart }) => {
+        return cart
+      })
     }
 
     return () => new Promise((resolve) => resolve([]))
   }
-
-  if (useDemoData) {
-    return {
-      Component: Component,
-      fetchFunction: () => refreshCart('', useDemoData),
-      options: { handleCheckout: checkoutAction, handleRemove, data: cartItems }
-    }
-  }
+  const demoFetch = refreshCart('', useDemoData);
+  const regularFetch = refreshCart((currentUser || {})['id'], false)
 
   return {
     Component: Component,
-    fetchFunction: () => refreshCart((currentUser || {})['id'], useDemoData),
-    options: { handleCheckout: checkoutAction, handleRemove, data: cartItems }
+    fetchFunction: useDemoData ? demoFetch : regularFetch,
+    options: { handleCheckout: checkoutAction, handleRemove }
   }
 }
 
