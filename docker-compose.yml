@@ -5,6 +5,7 @@ services:
     networks:
       - mysql-network
     image: mysql:5.7
+    restart: always
     ports:
         - 3306:3306
     environment:
@@ -29,6 +30,7 @@ services:
     build:
       context:  ./apps/users
       dockerfile: Dockerfile
+    restart: always
     ports:
       - 8001:8001
     links:
@@ -82,6 +84,7 @@ services:
     build:
       context: ./apps/products
       dockerfile: Dockerfile
+    restart: always
     ports:
       - 8002:8002
     environment:
@@ -97,6 +100,7 @@ services:
     networks:
       - order-db-network
     image: mysql:5.7
+    restart: always
     ports:
         - 3307:3306
     environment:
@@ -121,6 +125,7 @@ services:
     build:
       context:  ./apps/orders
       dockerfile: Dockerfile
+    restart: always
     ports:
       - 8003:8003
     links:
@@ -143,6 +148,7 @@ services:
     build:
       context:  ./apps/gateway
       dockerfile: Dockerfile
+    restart: always
     ports:
       - 5000:5000
     environment:
@@ -159,6 +165,7 @@ services:
     build:
       context: ./apps/client
       dockerfile: Dockerfile
+    restart: always
     ports:
       - "3000:80"
     environment:
