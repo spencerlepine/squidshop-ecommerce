@@ -4,8 +4,10 @@ import useDemoSettings from '../context/DemoSettingsContext';
 import useCart from '../context/CartContext';
 import useOrders from '../context/OrdersContext';
 import CartService from '../api/cart';
+import { useNavigate } from "react-router-dom";
 
 const useHandleCartState = (Component) => {
+  const navigate = useNavigate();
   const { currentUser } = useAuth();
   const { addDemoOrder } = useOrders(); // for demo purposes
   const { useDemoData } = useDemoSettings();
@@ -13,7 +15,15 @@ const useHandleCartState = (Component) => {
 
   const checkoutAction = () => {
     if (useDemoData) {
-      handleCheckout('', { isDemoCart: true, addDemoOrder: addDemoOrder })
+      const demoOrder = {
+        id: "21093857",
+        orderAddress: "60 Wall Street, New York City, 10005",
+        orderTotal: 183.09,
+        purchaseDate: "2/17/22",
+        cartItems: CartService.demoCart
+      }
+      handleCheckout('', { isDemoCart: true, addDemoOrder: () => addDemoOrder(demoOrder) })
+      navigate('/orders');
     }
 
     if ((currentUser && currentUser.id)) {
@@ -22,9 +32,13 @@ const useHandleCartState = (Component) => {
     }
   }
 
-  const handleRemove = (cartProduct) => () => (
-    removeFromCart(cartProduct.cartItemId || cartProduct.id, (currentUser || {}).id, { isDemoCart: useDemoData })
-  )
+  const handleRemove = (cartProduct) => () => {
+    if (useDemoData) {
+      navigate('/cart');
+      CartService.removeDemoProductFromCart(cartProduct.id)
+    }
+    return removeFromCart(cartProduct.cartItemId || cartProduct.id, (currentUser || {}).id, { isDemoCart: useDemoData })
+  }
 
   const refreshCart = (userId, useDemoData) => {
     if (useDemoData) {
@@ -33,7 +47,7 @@ const useHandleCartState = (Component) => {
           // eslint-disable-next-line react-hooks/rules-of-hooks
           useDemoCart()
         }
-        resolve([])
+        resolve(CartService.demoCart)
       })
     } else if (userId) {
       return () => CartService.fetchUserCart(userId).then(({ cart }) => {

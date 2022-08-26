@@ -44,10 +44,7 @@ export const CartProvider = ({ children }) => {
 
   const removeFromCart = (cartItemId, userId, options) => {
     if (options && options.isDemoCart) {
-      setCartItems((prevList) => (prevList.filter((p) => (
-        p.id !== cartItemId
-      ))))
-      return
+      return CartService.removeDemoProductFromCart(cartItemId, userId)
     }
 
     setLoading(true);
@@ -62,13 +59,12 @@ export const CartProvider = ({ children }) => {
       setLoading(true)
 
       if (options && options.isDemoCart && options.product) {
-        setCartItems((prevList) => ([...prevList, {
+        setLoading(false)
+        return CartService.addDemoProductToCart({
           ...options.product,
           id: `${(Math.random() + 1).toString(36).substring(7)}`,
           productId: options.product.id
-        }]))
-        setLoading(false)
-        return
+        })
       }
 
       return CartService.addProductToCart(product, userId)
@@ -101,6 +97,7 @@ export const CartProvider = ({ children }) => {
 
   const handleCheckout = (userId, eraseForDemo) => {
     if (eraseForDemo && eraseForDemo.addDemoOrder) {
+      CartService.demoCart = []
       const cart = cartItems.slice()
       eraseForDemo.addDemoOrder({
         id: `${(Math.random() + 1).toString(36).substring(7)}`,
