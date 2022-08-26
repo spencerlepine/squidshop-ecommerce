@@ -94,28 +94,21 @@ describe('[DEMO MODE] The Home Page', () => {
         })
 
       // Test the item is in cart
-      cy.get('.productTitle')
-        .then(($elem) => {
-          let productName = $elem.text()
-          cy.log($elem.text())
+      cy.get('.productTitle').should('be.visible')
 
-          // Click button
-          cy.get('.addToCartBtn')
-            .should('be.visible')
-            .click()
+      // Click button
+      cy.get('.addToCartBtn')
+        .should('be.visible')
+        .click({ force: true })
 
-          // Navigate to cart
-          clickHeaderLink(2)
+      cy.get('h2')
+        .should('contain.text', 'Cart')
 
-          cy.get('h2')
-            .should('contain.text', 'Cart')
+      cy.get('.productTitle').should('be.visible');
 
-          cy.get('.productTitle').should('be.visible');
+      cy.get('.removeBtn').closest('button').click()
 
-          cy.get('.removeBtn').click()
-
-          cy.get('.productTitle').should('not.exist');
-        })
+      cy.get('.productTitle').should('not.exist');
     })
   })
 
@@ -137,19 +130,11 @@ describe('[DEMO MODE] The Home Page', () => {
       // add to cart
       cy.get('.addToCartBtn').click()
 
-      // navigate to cart
-      clickHeaderLink(2)
+      // Checkout
+      cy.get('.checkoutBtn').contains('Checkout').click({ force: true })
 
-      // checkout order
-      cy.get('.productTitle')
-        .should('be.visible')
-
-      cy.get('.checkoutBtn')
-        .should('be.visible')
-        .click()
-
-      // Navigate to account page
-      clickHeaderLink(3)
+      // // Navigate to account page
+      // clickHeaderLink(3)
 
       // Navigate to orders page
       cy.contains('Orders').click()
