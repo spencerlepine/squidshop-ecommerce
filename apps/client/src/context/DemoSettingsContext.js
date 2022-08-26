@@ -22,6 +22,13 @@ export const DemoSettingsProvider = ({ children }) => {
     })
   }, [setApiRunning])
 
+  useEffect(() => {
+    const demoSettings = localStorage.getItem(demoSettingsKey)
+    if (demoSettings === 'true') {
+      handleAccept()
+    }
+  }, [])
+
   const handleAccept = () => {
     setLoading(false)
     setUseDemoData(true)
@@ -92,9 +99,10 @@ export const DemoSettingsProvider = ({ children }) => {
 
   return (
     <DemoSettingsContext.Provider value={value}>
+      {useDemoData && <DisableDemoMessage />}
+
       {(!loading && !apiRunning && renderWarning) && <BrokenBackendMessage />}
       {(!loading && apiRunning && renderWarning) && <GenericDemoMessage />}
-      {(!renderWarning && useDemoData) && <DisableDemoMessage />}
       {children}
     </DemoSettingsContext.Provider>
   );

@@ -8,6 +8,10 @@ jobs:
 
   end-to-end-tests:
     runs-on: ubuntu-20.04
+    strategy:
+      fail-fast: false
+      matrix:
+        browser: ['chrome'] # ['chrome', 'electron', 'edge']
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -22,22 +26,22 @@ jobs:
           # print information about detected browsers, etc
           # see https://on.cypress.io/command-line#cypress-info
           build: npx cypress info
-          working-directory: ./.github/__tests__
-          browser: chrome
+          working-directory: ./apps/__tests__
+          browser: ${{ matrix.browser }}
           wait-on: http://localhost:3000
 
       # - uses: actions/upload-artifact@v2
       #   with:
       #     name: screenshots-in-chrome
-      #     path: ./.github/__tests__cypress/screenshots
+      #     path: ./apps/__tests__cypress/screenshots
 
       # - uses: actions/upload-artifact@v2
       #   with:
       #     name: video-in-chrome
-      #     path: ./.github/__tests__cypress/videos
+      #     path: ./apps/__tests__cypress/videos
 
       # - run: npx image-size cypress/screenshots/**/*.png
-      #   working-directory: ./.github/__tests__
+      #   working-directory: ./apps/__tests__
 
       # # I wonder if GH Actions VM includes any of the tools that
       # # can tell us the resolution of a video file

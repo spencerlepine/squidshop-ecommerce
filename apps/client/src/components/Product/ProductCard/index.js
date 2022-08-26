@@ -14,6 +14,15 @@ const toTitleCase = (str) => {
   return str[0].toUpperCase() + str.substring(1, str.length)
 }
 
+const formatProductTitle = (str) => {
+  const capitalized = toTitleCase(str)
+
+  if (capitalized.length > 52) {
+    return `${capitalized.substring(0, 52)}...`
+  }
+  return capitalized
+}
+
 const saleStyles = {
   position: 'absolute',
   left: '1em',
@@ -44,26 +53,37 @@ const ProductPrice = ({ price, salePrice }) => {
 
   return (
     <Typography gutterBottom variant="h6" component="div">
-      {`$${originalPriceStr}`}
+      <strong>{`$${originalPriceStr}`}</strong>
     </Typography>
   )
+}
+
+const CardStyles = {
+  maxWidth: 300,
+  maxHeight: '25em',
+  minWidth: 200,
+  margin: 'auto',
+  position: 'relative',
+  border: 'none',
 }
 
 const ProductCard = ({ product, useMinimumDetails }) => {
   return (
     <Link to={`/product/${product.id || 'unkown'}`} component={RouterLink} style={{ color: 'inherit', textDecoration: 'inherit' }}>
-      <Card sx={{ maxWidth: 300, maxHeight: 322, minWidth: 200 }} style={{ margin: 'auto', position: 'relative' }}>
-        {!!product.sale_price && <Typography variant="caption" style={saleStyles}>Limited time deal</Typography>}
+      <Card style={CardStyles}>
+        {!!product.sale_price && <Typography variant="caption" style={saleStyles}>ON SALE</Typography>}
 
-        <CardMedia
-          component="img"
-          alt="green iguana"
-          height="188"
+        <img
+          alt={product.title}
+          src={product.image}
+          // height="188"
+          style={{ width: '17rem', height: '17rem', margin: 'auto' }}
           image={product.image || missingImage}
         />
+
         <CardContent style={{ position: 'relative' }}>
-          <Typography gutterBottom variant="body1" component="div">
-            {toTitleCase(product.title)}
+          <Typography gutterBottom variant="body2" component="div">
+            {formatProductTitle(product.title)}
           </Typography>
 
           {!useMinimumDetails && (
@@ -73,7 +93,7 @@ const ProductCard = ({ product, useMinimumDetails }) => {
               }}
               style={{ display: 'table' }}
             >
-              <Rating name="read-only" value={product.rating_rate} readOnly />
+              <Rating name="size-small" value={product.rating_rate} readOnly size="small" />
               <Typography variant="body1" component="p" style={{ display: 'table-cell', verticalAlign: 'middle', paddingLeft: '0.25em' }}>
                 {`${product.rating_count}`}
               </Typography>
