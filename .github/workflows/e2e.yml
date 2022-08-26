@@ -24,6 +24,7 @@ jobs:
           build: npx cypress info
           working-directory: ./.github/__tests__
           browser: chrome
+          wait-on: http://localhost:3000
 
       # - uses: actions/upload-artifact@v2
       #   with:
