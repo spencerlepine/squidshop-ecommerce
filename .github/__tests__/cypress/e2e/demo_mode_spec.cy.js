@@ -147,7 +147,6 @@ describe('[DEMO MODE] The Home Page', () => {
       cy.get('.checkoutBtn')
         .should('be.visible')
         .click()
-      cy.get('.productTitle').should('not.exist');
 
       // Navigate to account page
       clickHeaderLink(3)
