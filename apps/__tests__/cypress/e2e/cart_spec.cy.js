@@ -26,9 +26,9 @@ describe('The Cart Page', () => {
         .should('be.visible')
         .click()
 
-      cy.visit('http://localhost:3000/cart')
+      cy.contains('SquidShop').click()
+      cy.contains('Cart').click()
 
-      cy.get('h2').should('contain.text', 'Cart')
       cy.get('.productTitle').should('be.visible');
 
       cy.get('.removeBtn').click()
@@ -41,23 +41,16 @@ describe('The Cart Page', () => {
       updateCookies(cy, user)
 
       // navigate home
-      cy.get('header')
-        .should('be.visible')
-        .within(() => {
-          cy.get('h1').click()
-        })
+      cy.contains('SquidShop').click()
 
       // choose a product
-      cy.get('.productList').find('img')
-        .and(($img) => {
-          $img[5].click()
-        })
+      cy.get('.productList').find('img').first().click()
 
-      // add to cart
       cy.get('.addToCartBtn').click()
 
       // navigate to cart
-      clickHeaderLink(cy, 2)
+      cy.contains('SquidShop').click()
+      cy.contains('Cart').click()
 
       // checkout order
       cy.get('.productTitle')
