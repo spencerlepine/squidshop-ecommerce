@@ -11,11 +11,14 @@
       "@components/*": [
         "./src/components/*"
       ],
-      "@contenxt/*": [
+      "@context/*": [
         "./src/context/*"
       ],
       "@hooks/*": [
         "./src/hooks/*"
+      ],
+      "@layout/*": [
+        "./src/layout/*"
       ],
     }
   }

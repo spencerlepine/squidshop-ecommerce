@@ -9,7 +9,7 @@ module.exports = {
       transform: {
         "^.+\\.(js|jsx)$": "babel-jest",
       },
-      setupFilesAfterEnv: ["<rootDir>/__tests__/setupTests.js"],
+      setupFilesAfterEnv: ["<rootDir>/src/__tests__/setupTests.js"],
       // "extensionsToTreatAsEsm": [".jsx"],
       testMatch: ["<rootDir>/**/*.test.js"],
       setupFiles: ["dotenv/config"],
@@ -21,8 +21,8 @@ module.exports = {
       ],
       moduleFileExtensions: ["js"],
       moduleNameMapper: {
-        "\\.(css|less)$": "<rootDir>/__tests__/__mocks__/styleMock.js",
-        "\\.(png|gif|ttf|eot|svg|jpeg|jpg)$": "<rootDir>/__tests__/__mocks__/fileMock.js",
+        "\\.(css|less)$": "<rootDir>/src/__tests__/__mocks__/styleMock.js",
+        "\\.(png|gif|ttf|eot|svg|jpeg|jpg)$": "<rootDir>/src/__tests__/__mocks__/fileMock.js",
       },
       transformIgnorePatterns: ["node_modules/(?!.*?/es/.*\\.js)"],
     },
