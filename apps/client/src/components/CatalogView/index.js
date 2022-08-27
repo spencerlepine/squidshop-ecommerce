@@ -6,7 +6,7 @@ import Box from '@mui/material/Box';
 import * as products from '../../api/products';
 import useDataLoadHandler from '../../hooks/useDataLoadHandler';
 import useHandleProductState from '../../hooks/useHandleProductState';
-import MobileEnabledSearchBar from '../SearchBar/MobileEnabled';
+import MobileEnabledSearchBar from '../SearchBar/MobileSearchBar';
 import ProductList from '../Product/ProductList';
 import getStarterDemoData from '../../hooks/getStarterDemoData';
 
