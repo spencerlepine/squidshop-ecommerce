@@ -9,6 +9,8 @@
     "allowJs": true,
     "baseUrl": "./src",
     "rootDir": "./src",
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
     "moduleResolution": "node",
     "lib": [
       "es6",

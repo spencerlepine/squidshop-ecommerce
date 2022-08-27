@@ -1,4 +1,4 @@
-
+import * as React from 'react';
 import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -17,16 +17,16 @@ const sortOptions = [
 
 const sortFunctions = {
   "SORT BY": () => 0,
-  "NAME": (sortAdjustment, productA, productB) => {
+  "NAME": (sortAdjustment: number, productA: any, productB: any) => {
     return (productA.title.localeCompare(productB.title)) * sortAdjustment
   },
-  "RATING": (sortAdjustment, productA, productB) => {
+  "RATING": (sortAdjustment: number, productA: any, productB: any) => {
     return (productA.rating_rate - productB.rating_rate) * sortAdjustment
   },
-  "POPULARITY": (sortAdjustment, productA, productB) => {
+  "POPULARITY": (sortAdjustment: number, productA: any, productB: any) => {
     return (productA.rating_count - productB.rating_count) * sortAdjustment
   },
-  "PRICE": (sortAdjustment, productA, productB) => {
+  "PRICE": (sortAdjustment: number, productA: any, productB: any) => {
     return (productA.price - productB.price) * sortAdjustment
   }
 }
@@ -43,19 +43,28 @@ const orderAdjustments = {
   "DESC": 1
 };
 
-const FilterOptions = ({ sortOption, orderOption, setOrderOption, setSortOption, inSearchMode, setFilteredProducts }) => {
+type Props = {
+  sortOption: string;
+  orderOption: string;
+  setOrderOption: Function;
+  setSortOption: Function;
+  inSearchMode: any;
+  setFilteredProducts: Function;
+}
+
+const FilterOptions: React.FC<Props> = ({ sortOption, orderOption, setOrderOption, setSortOption, inSearchMode, setFilteredProducts }) => {
   const classes = useStyles();
 
   const handleSortProducts = () => {
-    setFilteredProducts((prevProducts) => {
+    setFilteredProducts((prevProducts: any) => {
       const newList = prevProducts.slice()
-      return newList.sort((productA, productB) => (
+      return newList.sort((productA: any, productB: any) => (
         sortFunctions[sortOption](orderAdjustments[orderOption], productA, productB)
       ))
     })
   }
 
-  const handleChange = (setState, newValue) => {
+  const handleChange = (setState: Function, newValue: any) => {
     setState(newValue.target.value)
     handleSortProducts()
   };

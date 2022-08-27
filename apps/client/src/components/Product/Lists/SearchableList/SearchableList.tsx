@@ -1,14 +1,19 @@
-import { useState, useEffect } from 'react';
+import * as React from 'react';
 import Grid from '@mui/material/Grid';
 import ProductCard from '../../ProductCard';
 import FilterOptions from './FilterOptions';
 
-const SearchableList = ({ products, inSearchMode }) => {
-  const [filteredProducts, setFilteredProducts] = useState(products);
-  const [sortOption, setSortOption] = useState("SORT BY");
-  const [orderOption, setOrderOption] = useState("ASC");
+type Props = {
+  products: any;
+  inSearchMode: any;
+}
 
-  useEffect(() => {
+const SearchableList: React.FC<Props> = ({ products, inSearchMode }) => {
+  const [filteredProducts, setFilteredProducts] = useState(products);
+  const [sortOption, setSortOption] = React.useState("SORT BY");
+  const [orderOption, setOrderOption] = React.useState("ASC");
+
+  React.useEffect(() => {
     setFilteredProducts(products)
   }, [products])
 

@@ -7,14 +7,13 @@ import Box from '@mui/material/Box';
 import Rating from '@mui/material/Rating';
 import { Link } from "@material-ui/core";
 import { Link as RouterLink } from "react-router-dom";
-import AddToCartButton from '../../Cart/AddButton';
 import missingImage from 'assets/placeholder.jpeg'
 
-const toTitleCase = (str) => {
+const toTitleCase = (str: string) => {
   return str[0].toUpperCase() + str.substring(1, str.length)
 }
 
-const formatProductTitle = (str) => {
+const formatProductTitle = (str: string) => {
   const capitalized = toTitleCase(str)
 
   if (capitalized.length > 52) {
@@ -33,7 +32,12 @@ const saleStyles = {
   fontWeight: 'bold'
 }
 
-const ProductPrice = ({ price, salePrice }) => {
+type PriceProps = {
+  price: string;
+  salePrice: any;
+}
+
+const ProductPrice: React.FC<PriceProps> = ({ price, salePrice }) => {
   const originalPriceStr = Number.parseFloat(price).toFixed(2).toString()
 
   if (salePrice) {
@@ -67,7 +71,12 @@ const CardStyles = {
   border: 'none',
 }
 
-const ProductCard = ({ product, useMinimumDetails }) => {
+type Props = {
+  product: any;
+  useMinimumDetails: any;
+}
+
+const ProductCard: React.FC<Props> = ({ product, useMinimumDetails }) => {
   return (
     <Link to={`/product/${product.id || 'unkown'}`} component={RouterLink} style={{ color: 'inherit', textDecoration: 'inherit' }}>
       <Card style={CardStyles}>
