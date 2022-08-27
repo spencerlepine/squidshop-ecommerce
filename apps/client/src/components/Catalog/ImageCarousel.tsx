@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react"
-import PropTypes from "prop-types"
+import { useState, useEffect } from "react"
+import * as PropTypes from "prop-types"
 import { Box, Button } from "@mui/material";
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';

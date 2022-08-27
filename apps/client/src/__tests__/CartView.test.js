@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import CartView from '@components/Cart/CartView'
+import CartView from 'components/Cart/CartView'
 
 const mockCart = [
   {

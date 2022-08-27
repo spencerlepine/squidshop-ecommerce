@@ -4,8 +4,8 @@ import DepartmentPage from './DepartmentPage';
 import ProductPage from './ProductPage';
 import AccountPage from './AccountPage';
 import CartPage from './CartPage';
-import OrdersPage from './OrdersPage/OrdersPage';
-import SignInPage from './SignInPage/SignInPage.tsc';
+import OrdersPage from './OrdersPage';
+import SignInPage from './SignInPage';
 import SignUpPage from './SignUpPage';
 import MissingPage from './MissingPage';
 import {

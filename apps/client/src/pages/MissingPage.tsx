@@ -1,5 +1,5 @@
 import Typography from '@mui/material/Typography';
-import CenteredElement from '@layout/CenteredElement';
+import CenteredElement from 'layout/CenteredElement';
 
 const MissingPage = () => {
   return (

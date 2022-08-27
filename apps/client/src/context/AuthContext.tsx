@@ -1,22 +1,36 @@
-import React, { useState, useContext, useEffect } from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
 import AuthService from '../api/authentication';
 
-export const AuthContext = React.createContext();
+interface ContextInt {
+  loading: boolean;
+    currentUser: any;
+    loginUser: (email: string, password: string) => any;
+    getAccountDetails: () => any;
+    logoutUser: () => any;
+    isLoggedIn: boolean;
+    signupUser: (firstName: string, lastName: string, email: string, password: string) => any;
+}
 
-export const AuthProvider = ({ children }) => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [currentUser, setCurrentUser] = useState(null);
-  const [loading, setLoading] = useState(true);
+export const AuthContext = React.createContext<ContextInt>(undefined);
+
+interface Props {
+  children: any;
+}
+
+export const AuthProvider: React.FC<Props> = ({ children }) => {
+  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
+  const [currentUser, setCurrentUser] = React.useState(null);
+  const [loading, setLoading] = React.useState(true);
 
   const handleStateLogout = () => {
     setCurrentUser(null)
     setIsLoggedIn(false)
   }
 
-  useEffect(() => {
+  React.useEffect(() => {
     AuthService.authenticateUser()
-      .then((user) => {
+      .then((user: any) => {
         setCurrentUser(user)
         setIsLoggedIn(true)
       })
@@ -29,7 +43,7 @@ export const AuthProvider = ({ children }) => {
 
     setLoading(true);
     AuthService.fetchAccountDetails(id)
-      .then((userDetails) => {
+      .then((userDetails: any) => {
         setCurrentUser(userDetails)
         setIsLoggedIn(true)
       })
@@ -37,10 +51,10 @@ export const AuthProvider = ({ children }) => {
       .then(() => setLoading(false))
   }
 
-  function loginUser(email, password) {
+  function loginUser(email: string, password: string) {
     setLoading(true);
     return AuthService.signInWithEmailAndPassword({ email, password })
-      .then((user) => {
+      .then((user: any) => {
         setCurrentUser(user)
         setIsLoggedIn(true)
         setLoading(false)
@@ -51,7 +65,7 @@ export const AuthProvider = ({ children }) => {
       })
   }
 
-  function signupUser(firstName, lastName, email, password) {
+  function signupUser(firstName: string, lastName: string, email: string, password: string) {
     setLoading(true);
     AuthService.createUserWithEmailAndPassword({ firstName, lastName, email, password })
       .catch(() => handleStateLogout())
@@ -79,7 +93,7 @@ export const AuthProvider = ({ children }) => {
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
 
-const useAuth = () => useContext(AuthContext);
+const useAuth = () => React.useContext(AuthContext);
 
 export default useAuth;
 

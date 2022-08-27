@@ -8,18 +8,19 @@ module.exports = {
       testEnvironment: "jsdom",
       transform: {
         "^.+\\.(js|jsx)$": "babel-jest",
+        "^.+\\.(ts|js)x?$": "ts-jest"
       },
       setupFilesAfterEnv: ["<rootDir>/src/__tests__/setupTests.js"],
       // "extensionsToTreatAsEsm": [".jsx"],
       testMatch: ["<rootDir>/**/*.test.js"],
       setupFiles: ["dotenv/config"],
-      modulePaths: ["/src/"],
-      moduleDirectories: ["node_modules", "src"],
+      modulePaths: ["<rootDir>/src"],
+      moduleDirectories: ["node_modules", "<rootDir>/src"],
       watchPlugins: [
         "jest-watch-typeahead/filename",
         "jest-watch-typeahead/testname",
       ],
-      moduleFileExtensions: ["js"],
+      moduleFileExtensions: ["js", "tsx", "ts"],
       moduleNameMapper: {
         "\\.(css|less)$": "<rootDir>/src/__tests__/__mocks__/styleMock.js",
         "\\.(png|gif|ttf|eot|svg|jpeg|jpg)$": "<rootDir>/src/__tests__/__mocks__/fileMock.js",

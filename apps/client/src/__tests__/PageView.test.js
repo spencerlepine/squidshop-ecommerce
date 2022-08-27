@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import PageView from '@components/Product/PageView'
+import PageView from 'components/Product/PageView'
 
 const mockProduct = {
   "id": "102984",

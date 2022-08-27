@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
-import useAuth from '../../context/AuthContext';
-import useDemoSettings from '../../context/DemoSettingsContext';
+import { useEffect } from 'react';
+import useAuth from 'context/AuthContext';
+import useDemoSettings from 'context/DemoSettingsContext';
 import { Box, Typography, Button } from '@mui/material';
 import Alert from '@mui/material/Alert';
 import { useNavigate } from "react-router-dom";

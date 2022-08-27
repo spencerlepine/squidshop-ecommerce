@@ -1,12 +1,12 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { Box, Typography, Button } from '@mui/material';
 import Alert from '@mui/material/Alert';
 import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
 import CachedIcon from '@mui/icons-material/Cached';
 import CircularProgress from '@mui/material/CircularProgress';
-import useAuth from '../../../context/AuthContext';
-import useDemoSettings from '../../../context/DemoSettingsContext';
-import useOrders from '../../../context/OrdersContext';
+import useAuth from 'context/AuthContext';
+import useDemoSettings from 'context/DemoSettingsContext';
+import useOrders from 'context/OrdersContext';
 import OrderItemCard from '../OrderItemCard';
 
 const OrdersView = () => {

@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from 'react';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 

@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import CenteredElement from '../@layout/CenteredElement';
+import { useState } from 'react';
+import CenteredElement from 'layout/CenteredElement';
 import { useNavigate } from "react-router-dom";
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -11,7 +11,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Alert from '@mui/material/Alert';
 import AuthService from '../../api/authentication';
-import withAuthRedirect from '../../hooks/useAuthRedirect';
+import withAuthRedirect from 'hooks/useAuthRedirect';
 
 const SignUp = () => {
   const [errorMessage, setErrorMessage] = useState('');

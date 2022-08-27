@@ -3,12 +3,12 @@ import {
   Typography,
 } from "@material-ui/core";
 import Box from '@mui/material/Box';
-import * as products from '../../api/products';
-import useDataLoadHandler from '../../hooks/useDataLoadHandler';
-import useHandleProductState from '../../hooks/useHandleProductState';
-import MobileEnabledSearchBar from '../SearchBar/MobileSearchBar';
-import ProductList from '../Product/ProductList';
-import getStarterDemoData from '../../hooks/getStarterDemoData';
+import * as products from 'api/productsts';
+import useDataLoadHandler from 'hooks/useDataLoadHandler';
+import useHandleProductState from 'hooks/useHandleProductState';
+import MobileEnabledSearchBar from '../MobileSearchBar';
+import ProductList from 'components/Product/List/ProductList';
+import getStarterDemoData from 'hooks/getStarterDemoData';
 
 // should display catalog title
 // should display product cards with images

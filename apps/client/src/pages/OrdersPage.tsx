@@ -1,6 +1,6 @@
-import OrdersView from '../../components/Orders/OrdersView';
-import withAuthRedirect from '../../hooks/useAuthRedirect';
-import CenteredElement from '../@layout/CenteredElement';
+import OrdersView from 'components/Orders/OrdersView';
+import withAuthRedirect from 'hooks/useAuthRedirect';
+import CenteredElement from 'layout/CenteredElement';
 
 // should render order page title
 // should render each order place date

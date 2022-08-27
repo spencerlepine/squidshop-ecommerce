@@ -1,8 +1,8 @@
 import ApiInstance from './request';
 
-const OrdersService = new ApiInstance('/orders/orders');
+const OrdersService: any = new ApiInstance('/orders/orders');
 
-OrdersService.fetchUserOrders = (userId) => (
+OrdersService.fetchUserOrders = (userId: string) => (
   OrdersService.request('get', `/${userId}`)
 )
 

@@ -1,8 +1,8 @@
-import React from "react";
+import * as React from 'react';
 import { Typography } from "@material-ui/core";
 import Box from '@mui/material/Box';
 import Rating from '@mui/material/Rating';
-import AddToCartButton from '@components/Cart/AddButton';
+import AddToCartButton from 'components/Cart/AddButton';
 
 const ProductPrice = ({ price, salePrice }) => {
   const originalPriceStr = Number.parseFloat(price).toFixed(2).toString()

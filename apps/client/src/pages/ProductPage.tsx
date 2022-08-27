@@ -1,11 +1,11 @@
-import React from 'react';
-import PageElement from '../@layout/PageElement';
+
+import PageElement from 'layout/PageElement';
 import { useParams } from "react-router-dom";
-import useDataLoadHandler from '../../hooks/useDataLoadHandler';
-import useHandleProductState from '../../hooks/useHandleProductState';
+import useDataLoadHandler from 'hooks/useDataLoadHandler';
+import useHandleProductState from 'hooks/useHandleProductState';
 import * as products from '../../api/products';
-import getStarterDemoData from '../../hooks/getStarterDemoData';
-import ProductPageView from '../../components/Product/PageView';
+import getStarterDemoData from 'hooks/getStarterDemoData';
+import ProductPageView from 'components/Product/PageView';
 
 // should take productId from URL parameters
 // should render product title, price, description

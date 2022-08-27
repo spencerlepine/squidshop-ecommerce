@@ -1,8 +1,16 @@
-import React, { useState, useContext, useEffect } from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
 import OrdersService from '../api/orders';
 
-export const OrdersContext = React.createContext();
+interface ContextInt {
+  loading: boolean;
+    orderItems: Array<any>,
+    loadUserOrders: (userId: string) => any,
+    useDemoOrders: () => any,
+    addDemoOrder: (newOrder: any) => any
+}
+
+export const OrdersContext = React.createContext<ContextInt>(undefined);
 
 const demoOrders = [
   {
@@ -37,26 +45,30 @@ const demoOrders = [
   }
 ];
 
-export const OrdersProvider = ({ children }) => {
-  const [orderItems, setOrderItems] = useState([]);
-  const [loading, setLoading] = useState(false);
+interface Props {
+  children: any;
+}
+
+export const OrdersProvider: React.FC<Props> = ({ children }) => {
+  const [orderItems, setOrderItems] = React.useState([]);
+  const [loading, setLoading] = React.useState(false);
 
   const useDemoOrders = () => {
     setOrderItems([]) // setOrderItems(demoOrders)
     setLoading(false)
   }
 
-  function loadUserOrders(userId) {
+  function loadUserOrders(userId: string) {
     setLoading(true);
     OrdersService.fetchUserOrders(userId)
-      .then(({ orders }) => {
-        setOrderItems(orders)
+      .then((result: any) => {
+        setOrderItems(result.orders)
       })
       .catch(() => setOrderItems([]))
       .then(() => setLoading(false))
   }
 
-  const addDemoOrder = (newOrder) => {
+  const addDemoOrder = (newOrder: any) => {
     setOrderItems((prevOrders) => [...prevOrders, newOrder])
   }
 
@@ -71,7 +83,7 @@ export const OrdersProvider = ({ children }) => {
   return <OrdersContext.Provider value={value}>{children}</OrdersContext.Provider>;
 };
 
-const useOrders = () => useContext(OrdersContext);
+const useOrders = () => React.useContext(OrdersContext);
 
 export default useOrders;
 

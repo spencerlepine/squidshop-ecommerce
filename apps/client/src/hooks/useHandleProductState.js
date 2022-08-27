@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import useDemoSettings from '../context/DemoSettingsContext';
+import { useEffect } from 'react';
+import useDemoSettings from 'context/DemoSettingsContext';
 
 const useHandleProductState = (Component, options) => {
   const { productId, fetchFunction } = options;

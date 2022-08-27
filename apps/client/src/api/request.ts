@@ -13,20 +13,23 @@ const axiosConfig = {
   withCredentials: true
 }
 
-const instance = axios.create(axiosConfig);
+const instance: any = axios.create(axiosConfig);
 
 class ApiInstance {
-  constructor(urlPath) {
+  url : string;
+  loading: boolean;
+
+  constructor(urlPath: string) {
     this.loading = false
     this.url = `${config.REACT_APP_GATEWAY_API_URL}${urlPath}`
   }
 
-  request(axiosMethod, endpointUrl, data) {
+  request(axiosMethod: string, endpointUrl: string, data: any) {
     if (this.loading === false) {
       this.loading = true;
       return new Promise((resolve, reject) => {
         instance[axiosMethod](`${this.url}${endpointUrl}`, data)
-          .then((response) => {
+          .then((response: any) => {
             resolve(response.data)
           })
           .catch(reject)
@@ -40,10 +43,10 @@ class ApiInstance {
 // Automatically request new Refresh tokens every failed request
 // HttpOnly Cookies are sent back/forth automatically by the browser
 instance.interceptors.response.use(
-  (res) => {
+  (res: any) => {
     return res;
   },
-  async (err) => {
+  async (err: any) => {
     const originalConfig = err.config;
     const wasLoginAttempt = originalConfig.url.slice(-(AUTHENTICATE_ENDPOINT.length)) !== AUTHENTICATE_ENDPOINT
 

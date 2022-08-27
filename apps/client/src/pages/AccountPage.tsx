@@ -1,6 +1,6 @@
-import AccountDetails from '../../components/Account/AccountDetails';
-import withAuthRedirect from '../../hooks/useAuthRedirect';
-import CenteredElement from '../@layout/CenteredElement';
+import AccountDetails from 'components/Account/AccountDetails';
+import withAuthRedirect from 'hooks/useAuthRedirect';
+import CenteredElement from 'layout/CenteredElement';
 
 const AccountPage = () => {
   return (

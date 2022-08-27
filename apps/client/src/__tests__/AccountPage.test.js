@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import AccountPage from './AccountPage/AccountPage';
+import AccountPage from 'pages/AccountPage/AccountPage';
 
 const mockUser = {
   firstName: 'John',

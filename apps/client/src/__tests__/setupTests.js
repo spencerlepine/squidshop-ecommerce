@@ -1,9 +1,9 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { AuthContext } from '../context/AuthContext';
-import { OrdersContext } from '../context/OrdersContext';
-import { DemoSettingsContext } from '../context/DemoSettingsContext';
-import { CartContext } from '../context/CartContext';
+
+import * as PropTypes from 'prop-types';
+import { AuthContext } from 'context/AuthContext';
+import { OrdersContext } from 'context/OrdersContext';
+import { DemoSettingsContext } from 'context/DemoSettingsContext';
+import { CartContext } from 'context/CartContext';
 import { createBrowserHistory } from 'history';
 import { MemoryRouter } from 'react-router-dom';
 import '@testing-library/jest-dom';

@@ -1,5 +1,5 @@
-import { render, screen } from '@testing-library/react';
-import Header from '.'
+import { render } from '@testing-library/react';
+import Header from 'layout/Header'
 
 // should render squidshop logo
 // should render squidshop name

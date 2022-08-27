@@ -1,28 +1,38 @@
-import React, { useState, useContext, useEffect } from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
 import { Alert, Button, Typography } from '@mui/material';
 
 import * as status from '../api/status';
 
-export const DemoSettingsContext = React.createContext();
+interface ContextInt {
+  loading: boolean;
+  useDemoData: boolean;
+  apiRunning: boolean;
+}
+
+export const DemoSettingsContext = React.createContext<ContextInt>(undefined);
 
 const demoSettingsKey = 'squidshopDemoSettingsKey';
 
-export const DemoSettingsProvider = ({ children }) => {
-  const defaultToDemo = !!localStorage.getItem(demoSettingsKey)
-  const [useDemoData, setUseDemoData] = useState(defaultToDemo)
-  const [loading, setLoading] = useState(defaultToDemo ? false : true)
-  const [renderWarning, setRenderWarning] = useState(true)
-  const [apiRunning, setApiRunning] = useState(false)
+interface Props {
+  children: any;
+}
 
-  useEffect(() => {
-    status.fetchApiStatus((isRunning, error) => {
+export const DemoSettingsProvider: React.FC<Props> = ({ children }) => {
+  const defaultToDemo = !!localStorage.getItem(demoSettingsKey)
+  const [useDemoData, setUseDemoData] = React.useState(defaultToDemo)
+  const [loading, setLoading] = React.useState(defaultToDemo ? false : true)
+  const [renderWarning, setRenderWarning] = React.useState(true)
+  const [apiRunning, setApiRunning] = React.useState(false)
+
+  React.useEffect(() => {
+    status.fetchApiStatus((isRunning: any, error: any) => {
       setApiRunning(isRunning)
       setLoading(false)
     })
   }, [setApiRunning])
 
-  useEffect(() => {
+  React.useEffect(() => {
     const demoSettings = localStorage.getItem(demoSettingsKey)
     if (demoSettings === 'true') {
       handleAccept()
@@ -108,7 +118,7 @@ export const DemoSettingsProvider = ({ children }) => {
   );
 };
 
-const useDemoSettings = () => useContext(DemoSettingsContext);
+const useDemoSettings = () => React.useContext(DemoSettingsContext);
 
 export default useDemoSettings;
 

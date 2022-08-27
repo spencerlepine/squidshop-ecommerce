@@ -18,7 +18,7 @@ export const fetchCatalogProducts = () => new Promise((resolve, reject) => {
     .catch(reject)
 })
 
-export const fetchSearchProducts = (query) => new Promise((resolve, reject) => {
+export const fetchSearchProducts = (query: string) => new Promise((resolve, reject) => {
   return axios.get(`${PRODUCTS_API}/catalog?query=${query}`, axiosConfig)
     .then((response) => {
       resolve(response.data.products)
@@ -26,7 +26,7 @@ export const fetchSearchProducts = (query) => new Promise((resolve, reject) => {
     .catch(reject)
 })
 
-export const fetchDepartmentProducts = (departmentId) => new Promise((resolve, reject) => {
+export const fetchDepartmentProducts = (departmentId: string) => new Promise((resolve, reject) => {
   return axios.get(`${PRODUCTS_API}/department/${departmentId}`, axiosConfig)
     .then((response) => {
       resolve(response.data.products)
@@ -34,7 +34,7 @@ export const fetchDepartmentProducts = (departmentId) => new Promise((resolve, r
     .catch(reject)
 })
 
-export const fetchDepartmentSaleProducts = (departmentId) => new Promise((resolve, reject) => {
+export const fetchDepartmentSaleProducts = (departmentId: string) => new Promise((resolve, reject) => {
   return axios.get(`${PRODUCTS_API}/department/sale/${departmentId}`, axiosConfig)
     .then((response) => {
       resolve(response.data.products)
@@ -42,7 +42,7 @@ export const fetchDepartmentSaleProducts = (departmentId) => new Promise((resolv
     .catch(reject)
 })
 
-export const fetchProductDataById = (productId) => new Promise((resolve, reject) => {
+export const fetchProductDataById = (productId: string) => new Promise((resolve, reject) => {
   return axios.get(`${PRODUCTS_API}/product/${productId}`, axiosConfig)
     .then((response) => {
       resolve(response.data)
@@ -50,7 +50,7 @@ export const fetchProductDataById = (productId) => new Promise((resolve, reject)
     .catch(reject)
 })
 
-export const fetchRelatedProducts = (productId) => new Promise((resolve, reject) => {
+export const fetchRelatedProducts = (productId: string) => new Promise((resolve, reject) => {
   return axios.get(`${PRODUCTS_API}/product/related/${productId}`, axiosConfig)
     .then((response) => {
       resolve(response.data.products)

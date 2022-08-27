@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import CenteredElement from '../@layout/CenteredElement';
+import { useState } from 'react';
+import CenteredElement from 'layout/CenteredElement';
 import { useNavigate } from "react-router-dom";
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -12,8 +12,8 @@ import Box from '@mui/material/Box';
 import Alert from '@mui/material/Alert';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
-import useAuth from '../../context/AuthContext';
-import withAuthRedirect from '../../hooks/useAuthRedirect';
+import useAuth from 'context/AuthContext';
+import withAuthRedirect from 'hooks/useAuthRedirect';
 
 const SignIn = () => {
   const { loginUser } = useAuth();

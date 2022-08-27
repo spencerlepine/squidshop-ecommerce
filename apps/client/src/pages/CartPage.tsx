@@ -1,8 +1,8 @@
-import CenteredElement from '../@layout/CenteredElement';
-import useDataLoadHandler from '../../hooks/useDataLoadHandler';
-import CartView from '../../components/Cart/CartView';
-import withAuthRedirect from '../../hooks/useAuthRedirect';
-import useHandleCartState from '../../hooks/useHandleCartState';
+import CenteredElement from 'layout/CenteredElement';
+import useDataLoadHandler from 'hooks/useDataLoadHandler';
+import CartView from 'components/Cart/CartView';
+import withAuthRedirect from 'hooks/useAuthRedirect';
+import useHandleCartState from 'hooks/useHandleCartState';
 
 const CartPage = () => {
   const CartState = useHandleCartState(CartView);

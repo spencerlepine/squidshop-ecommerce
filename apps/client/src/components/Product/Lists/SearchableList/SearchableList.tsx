@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import Grid from '@mui/material/Grid';
 import ProductCard from '../../ProductCard';
 import FilterOptions from './FilterOptions';

@@ -1,10 +1,10 @@
-// import Products from '@components/Products';
-import React from "react";
-import PageElement from '../@layout/PageElement';
+// import Products from 'components/Products';
+import * as React from 'react';
+import PageElement from 'layout/PageElement';
 import MissingPage from '../MissingPage';
-import DepartmentView from '../../components/Department/DepartmentView';
-import DepartmentLinkOptions from '../../components/Department/DepartmentLinkOptions';
-import departments from '../../components/Department/departments.json';
+import DepartmentView from 'components/Department/DepartmentView';
+import DepartmentLinkOptions from 'components/Department/DepartmentLinkOptions';
+import departments from 'components/Department/departments.json';
 import { useParams } from "react-router-dom";
 
 // should take departmentId from URL parameters
