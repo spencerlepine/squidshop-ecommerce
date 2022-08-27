@@ -1,8 +1,19 @@
 
+import * as React from 'react';
 import { Alert, Typography, Button, CircularProgress } from '@mui/material';
 import CachedIcon from '@mui/icons-material/Cached';
 
-const LoadingStatusWrapper = (props) => {
+type Props = {
+  loading: boolean;
+  isError: any;
+  apiRunning: boolean;
+  handleRefresh: () => any;
+  dataForChild: any;
+  usingDemoData: boolean;
+  children: any;
+}
+
+const LoadingStatusWrapper: React.FC<Props> = (props) => {
   const {
     loading,
     isError,

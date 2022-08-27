@@ -1,3 +1,4 @@
+import * as React from 'react';
 import {
   AppBar,
   Toolbar,
@@ -13,8 +14,8 @@ import { useState, useEffect } from "react";
 import { Link as RouterLink } from "react-router-dom";
 import useAuth from 'context/AuthContext';
 import useDemoSettings from 'context/DemoSettingsContext';
-import SearchBar from "components/SearchBar";
-import squidShopLogo from '../../assets/squidshop-logo.png';
+import SearchBar from "components/Catalog/SearchBar";
+import squidShopLogo from 'assets/squidshop-logo.png';
 import { makeStyles } from "@material-ui/core";
 
 const useStyles = makeStyles(() => ({
@@ -74,7 +75,7 @@ const authenticatedRoutes = [
     href: "/account",
   }
 ];
-const headerDataTemplate = (isLoggedIn) => (isLoggedIn ? authenticatedRoutes : defaultRoutes);
+const headerDataTemplate = (isLoggedIn: any) => (isLoggedIn ? authenticatedRoutes : defaultRoutes);
 
 const Header = () => {
   const { isLoggedIn, currentUser } = useAuth();

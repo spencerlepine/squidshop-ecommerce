@@ -5,12 +5,12 @@ import { Alert, Button, Typography } from '@mui/material';
 import * as status from '../api/status';
 
 interface ContextInt {
-  loading: boolean;
-  useDemoData: boolean;
-  apiRunning: boolean;
+  loading?: boolean;
+  useDemoData?: boolean;
+  apiRunning?: boolean;
 }
 
-export const DemoSettingsContext = React.createContext<ContextInt>(undefined);
+export const DemoSettingsContext = React.createContext<ContextInt>({});
 
 const demoSettingsKey = 'squidshopDemoSettingsKey';
 

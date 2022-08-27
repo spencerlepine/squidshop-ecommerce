@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { Container } from '@material-ui/core';
-import banner from "../../assets/banner.jpeg";
-import banner2 from "../../assets/banner2.jpeg";
-import banner3 from "../../assets/banner3.jpeg";
+import banner from "assets/banner.jpeg";
+import banner2 from "assets/banner2.jpeg";
+import banner3 from "assets/banner3.jpeg";
 
 import ImageCarousel from './ImageCarousel';
 

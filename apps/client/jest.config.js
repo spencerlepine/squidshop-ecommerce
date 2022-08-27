@@ -22,8 +22,8 @@ module.exports = {
       ],
       moduleFileExtensions: ["js", "tsx", "ts"],
       moduleNameMapper: {
-        "\\.(css|less)$": "<rootDir>/src/__tests__/__mocks__/styleMock.js",
-        "\\.(png|gif|ttf|eot|svg|jpeg|jpg)$": "<rootDir>/src/__tests__/__mocks__/fileMock.js",
+        "\\.(css|less)$": "<rootDir>/src/__tests__/__mocks__/styleMock.ts",
+        "\\.(png|gif|ttf|eot|svg|jpeg|jpg)$": "<rootDir>/src/__tests__/__mocks__/fileMock.ts",
       },
       transformIgnorePatterns: ["node_modules/(?!.*?/es/.*\\.js)"],
     },

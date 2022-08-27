@@ -1,6 +1,6 @@
 import * as React from 'react';
-import BannerSlide from "components/BannerSlide";
-import CatalogView from "components/CatalogView";
+import BannerSlide from "components/Catalog/BannerSlide";
+import CatalogView from "components/Catalog/CatalogView";
 import PageElement from 'layout/PageElement';
 
 const HomePage = () => {

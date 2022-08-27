@@ -21,7 +21,7 @@
   "scripts": {
     "start": "webpack serve",
     "build": "webpack build",
-    "test": "jest",
+    "test": "jest --maxWorkers=50%",
     "eject": "react-scripts eject",
     "lint": "eslint --fix --ext .js ."
   },

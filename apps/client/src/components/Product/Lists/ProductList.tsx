@@ -1,11 +1,16 @@
-
+import * as React from 'react';
 import Typography from '@mui/material/Typography';
 import Alert from '@mui/material/Alert';
-import SearchableList from './SearchableList';
+import SearchableList from './SearchableList/SearchableList';
 
-const ProductList = ({ data: products, inSearchMode }) => {
+type Props = {
+  data?: any;
+  inSearchMode?: any;
+}
+
+const ProductList: React.FC<Props> = ({ data: products, inSearchMode }) => {
   return (
-    <div className="productList" component="main" sx={{ mt: 8, mb: 2 }}>
+    <div className="productList">
       {products && products.length === 0 && (
         <Alert severity="warning">
           <Typography>No products found</Typography>

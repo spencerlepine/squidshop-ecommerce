@@ -3,16 +3,16 @@ import * as PropTypes from 'prop-types';
 import CartService from '../api/cart';
 
 interface ContextInt {
-  loading: boolean;
-  cartItems: Array<any>;
-  loadUserCart: (userId: any) => any;
-  addItemToCart: (product: any, userId: string, options?: any) => any;
-  removeFromCart: (cartItemId: string, userId: string, options?: any) => any;
-  handleCheckout: (userId: string, eraseForDemo: any) => any;
-  useDemoCart: () => Array<any>;
+  loading?: boolean;
+  cartItems?: Array<any>;
+  loadUserCart?: (userId: any) => any;
+  addItemToCart?: (product: any, userId: string, options?: any) => any;
+  removeFromCart?: (cartItemId: string, userId: string, options?: any) => any;
+  handleCheckout?: (userId: string, eraseForDemo: any) => any;
+  useDemoCart?: () => Array<any>;
 }
 
-export const CartContext = React.createContext<ContextInt>(undefined);
+export const CartContext = React.createContext<ContextInt>({});
 
 // const demoCart = [
 //   {
@@ -44,7 +44,7 @@ interface Props {
 }
 
 export const CartProvider: React.FC<Props> = ({ children }) => {
-  const [cartItems, setCartItems] = React.useState([]);
+  const [cartItems, setCartItems] = React.useState<any[]>([]);
   const [loading, setLoading] = React.useState(false);
 
   const useDemoCart = (): Array<any> => {

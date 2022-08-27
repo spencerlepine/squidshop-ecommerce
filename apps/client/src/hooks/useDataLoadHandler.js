@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import LoadingStatusWrapper from 'layout/LoadingStatusWrapper/LoadStatusWrapper';
+import LoadingStatusWrapper from 'layout/LoadStatusWrapper';
 import useDemoSettings from 'context/DemoSettingsContext';
 
 const dataLoadingHandler = (Component, fetchFunction, customProps = {}) =>

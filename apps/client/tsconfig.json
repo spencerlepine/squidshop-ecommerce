@@ -9,7 +9,13 @@
     "allowJs": true,
     "baseUrl": "./src",
     "rootDir": "./src",
-    "moduleResolution": "node"
+    "moduleResolution": "node",
+    "lib": [
+      "es6",
+      "dom"
+    ],
+    "noImplicitThis": true,
+    "strictNullChecks": true
   },
   "include": [
     "./src/**/*"

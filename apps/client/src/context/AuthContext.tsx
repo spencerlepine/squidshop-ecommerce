@@ -3,16 +3,16 @@ import * as PropTypes from 'prop-types';
 import AuthService from '../api/authentication';
 
 interface ContextInt {
-  loading: boolean;
-    currentUser: any;
-    loginUser: (email: string, password: string) => any;
-    getAccountDetails: () => any;
-    logoutUser: () => any;
-    isLoggedIn: boolean;
-    signupUser: (firstName: string, lastName: string, email: string, password: string) => any;
+  loading?: boolean;
+  currentUser?: any;
+  loginUser?: (email: string, password: string) => any;
+  getAccountDetails?: () => any;
+  logoutUser?: () => any;
+  isLoggedIn?: boolean;
+  signupUser?: (firstName: string, lastName: string, email: string, password: string) => any;
 }
 
-export const AuthContext = React.createContext<ContextInt>(undefined);
+export const AuthContext = React.createContext<ContextInt>({});
 
 interface Props {
   children: any;
@@ -20,7 +20,7 @@ interface Props {
 
 export const AuthProvider: React.FC<Props> = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = React.useState(false);
-  const [currentUser, setCurrentUser] = React.useState(null);
+  const [currentUser, setCurrentUser] = React.useState<any|null>(null);
   const [loading, setLoading] = React.useState(true);
 
   const handleStateLogout = () => {
@@ -39,16 +39,16 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
   }, []);
 
   function getAccountDetails() {
-    const id = (currentUser || {}).id
-
-    setLoading(true);
-    AuthService.fetchAccountDetails(id)
-      .then((userDetails: any) => {
-        setCurrentUser(userDetails)
-        setIsLoggedIn(true)
-      })
-      .catch(() => { })
-      .then(() => setLoading(false))
+    if (currentUser) {
+      setLoading(true);
+      AuthService.fetchAccountDetails(currentUser.id)
+        .then((userDetails: any) => {
+          setCurrentUser(userDetails)
+          setIsLoggedIn(true)
+        })
+        .catch(() => { })
+        .then(() => setLoading(false))
+    }
   }
 
   function loginUser(email: string, password: string) {

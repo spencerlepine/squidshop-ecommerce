@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import * as React from "react"
 import * as PropTypes from "prop-types"
 import { Box, Button } from "@mui/material";
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
@@ -6,10 +6,14 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 
-const ImageCarousel = ({ images: imagesProp }) => {
-  const [isMobileView, setIsMobileView] = useState(false);
+type Props = {
+  images?: Array<any>;
+}
 
-  useEffect(() => {
+const ImageCarousel: React.FC<Props> = ({ images: imagesProp }) => {
+  const [isMobileView, setIsMobileView] = React.useState(false);
+
+  React.useEffect(() => {
     const setResponsiveness = () => {
       return window.innerWidth < 900
         ? setIsMobileView(true)
@@ -30,10 +34,10 @@ const ImageCarousel = ({ images: imagesProp }) => {
     }
   })
 
-  const [imageIndex, setImageIndex] = useState(0)
+  const [imageIndex, setImageIndex] = React.useState(0)
   const [min, max] = [0, images.length - 1]
 
-  const scrollImages = (indexChange) => {
+  const scrollImages = (indexChange: number) => {
     setImageIndex((prevIndex) => {
       if (indexChange < 0) {
         if (prevIndex === min) {

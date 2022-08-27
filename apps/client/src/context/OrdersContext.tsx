@@ -3,14 +3,14 @@ import * as PropTypes from 'prop-types';
 import OrdersService from '../api/orders';
 
 interface ContextInt {
-  loading: boolean;
-    orderItems: Array<any>,
-    loadUserOrders: (userId: string) => any,
-    useDemoOrders: () => any,
-    addDemoOrder: (newOrder: any) => any
+  loading?: boolean;
+  orderItems?: Array<any>,
+  loadUserOrders?: (userId: string) => any,
+  useDemoOrders?: () => any,
+  addDemoOrder?: (newOrder: any) => any
 }
 
-export const OrdersContext = React.createContext<ContextInt>(undefined);
+export const OrdersContext = React.createContext<ContextInt>({});
 
 const demoOrders = [
   {
@@ -50,7 +50,7 @@ interface Props {
 }
 
 export const OrdersProvider: React.FC<Props> = ({ children }) => {
-  const [orderItems, setOrderItems] = React.useState([]);
+  const [orderItems, setOrderItems] = React.useState<Array<any>>([]);
   const [loading, setLoading] = React.useState(false);
 
   const useDemoOrders = () => {

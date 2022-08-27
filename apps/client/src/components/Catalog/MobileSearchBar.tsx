@@ -1,14 +1,18 @@
-import { useState, useEffect } from "react";
+import * as React from "react";
 import SearchBar from './SearchBar';
 
-const MobileEnabledSearchBar = ({ customStyles }) => {
-  const [state, setState] = useState({
+type Props = {
+  customStyles?: any;
+}
+
+const MobileEnabledSearchBar: React.FC<Props> = ({ customStyles }) => {
+  const [state, setState] = React.useState({
     mobileView: false
   });
 
   const { mobileView } = state;
 
-  useEffect(() => {
+  React.useEffect(() => {
     const setResponsiveness = () => {
       return window.innerWidth < 950
         ? setState((prevState) => ({ ...prevState, mobileView: true }))

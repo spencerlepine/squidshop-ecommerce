@@ -16,7 +16,7 @@ const AddButton:  React.FC<Props> = ({ useTinyButton= false, entireProduct = {} 
   const navigate = useNavigate();
 
   const handleAdd = () => {
-    if (useDemoData) {
+    if (useDemoData && addItemToCart) {
       addItemToCart(entireProduct, 'userId', { isDemoCart: true, product: entireProduct })
       navigate('/cart')
       return
@@ -26,7 +26,7 @@ const AddButton:  React.FC<Props> = ({ useTinyButton= false, entireProduct = {} 
       navigate('/login')
     }
 
-    if (isLoggedIn && currentUser && currentUser.id) {
+    if (isLoggedIn && currentUser && currentUser.id && addItemToCart) {
       addItemToCart(entireProduct, currentUser.id)
       navigate('/cart')
     }

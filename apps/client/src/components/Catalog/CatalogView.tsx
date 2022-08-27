@@ -3,11 +3,11 @@ import {
   Typography,
 } from "@material-ui/core";
 import Box from '@mui/material/Box';
-import * as products from 'api/productsts';
+import * as products from 'api/products';
 import useDataLoadHandler from 'hooks/useDataLoadHandler';
 import useHandleProductState from 'hooks/useHandleProductState';
-import MobileEnabledSearchBar from '../MobileSearchBar';
-import ProductList from 'components/Product/List/ProductList';
+import MobileEnabledSearchBar from './MobileSearchBar';
+import ProductList from 'components/Product/Lists/ProductList';
 import getStarterDemoData from 'hooks/getStarterDemoData';
 
 // should display catalog title
@@ -17,14 +17,21 @@ import getStarterDemoData from 'hooks/getStarterDemoData';
 // should handle search mode and render sorting options
 // should take search from query parameter and load products
 // should render search bar if mobile
-const CatalogView = ({ currentQuery, hideTitle }) => {
+
+type Props = {
+  currentQuery?: string | undefined;
+  hideTitle?: boolean | undefined;
+}
+
+const CatalogView: React.FC<Props> = ({ currentQuery, hideTitle }) => {
   // Return a return a promise
-  const queryFetch = ({ useDemoData }) => {
+  const queryFetch = (options: any) => {
+    const { useDemoData } = options
     if (useDemoData) {
       const demoDataOptions = {
         isListData: true,
-        optionalDepartmentId: null,
-        demoProductId: null,
+        // optionalDepartmentId: null,
+        // demoProductId: null,
         isSaleData: false,
       }
       const demoProduct = getStarterDemoData(demoDataOptions)

@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import * as React from 'react';
 import useAuth from 'context/AuthContext';
 import useDemoSettings from 'context/DemoSettingsContext';
 import { Box, Typography, Button } from '@mui/material';
@@ -8,7 +8,6 @@ import { Link } from '@material-ui/core';
 import { Link as RouterLink } from "react-router-dom";
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
-import AuthService from '../../api/authentication';
 
 const demoUser = ({
   email: `${(Math.random() + 1).toString(36).substring(7)}@gmail.com`,
@@ -16,13 +15,17 @@ const demoUser = ({
   lastName: 'Deer',
 })
 
-const LogoutButton = ({ isDemoMode, logoutUser }) => {
+type Props = {
+  isDemoMode: boolean|undefined;
+  logoutUser: Function|undefined;
+}
+const LogoutButton:  React.FC<Props> = ({ isDemoMode, logoutUser }) => {
   const navigate = useNavigate();
   const handleLogout = () => {
-    if (isDemoMode === false) {
+    if (isDemoMode === false && logoutUser) {
       return logoutUser()
         .then(() => navigate("/"))
-        .catch((err) => console.error(err))
+        .catch((err: any) => console.error(err))
     }
 
     navigate("/")
@@ -48,7 +51,7 @@ const AccountDetails = () => {
   const { useDemoData, apiRunning } = useDemoSettings();
   const userData = useDemoData ? demoUser : { ...demoUser, ...(currentUser || {}) }
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (getAccountDetails && apiRunning) {
       getAccountDetails()
     }

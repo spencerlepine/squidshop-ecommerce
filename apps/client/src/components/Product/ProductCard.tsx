@@ -8,7 +8,7 @@ import Rating from '@mui/material/Rating';
 import { Link } from "@material-ui/core";
 import { Link as RouterLink } from "react-router-dom";
 import AddToCartButton from '../../Cart/AddButton';
-import missingImage from '../../../assets/placeholder.jpeg'
+import missingImage from 'assets/placeholder.jpeg'
 
 const toTitleCase = (str) => {
   return str[0].toUpperCase() + str.substring(1, str.length)
