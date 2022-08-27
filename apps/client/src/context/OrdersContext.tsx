@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import OrdersService from '../api/orders';
+import OrdersService from 'api//orders';
 
 interface ContextInt {
   loading?: boolean;

@@ -10,7 +10,7 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Alert from '@mui/material/Alert';
-import AuthService from '../../api/authentication';
+import AuthService from 'api//authentication';
 import withAuthRedirect from 'hooks/useAuthRedirect';
 
 const SignUp = () => {

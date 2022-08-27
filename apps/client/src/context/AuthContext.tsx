@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import AuthService from '../api/authentication';
+import AuthService from 'api//authentication';
 
 interface ContextInt {
   loading?: boolean;

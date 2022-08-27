@@ -3,7 +3,7 @@ import useDataLoadHandler from 'hook/useDataLoadHandler';
 import useHandleProductState from 'hook/useHandleProductState';
 import { Typography } from "@material-ui/core";
 import Box from '@mui/material/Box';
-import * as products from '../../../../api/products';
+import * as products from 'api///products';
 import ProductHoriList from '../../ProductHoriList'
 import getStarterDemoData from 'hook/getStarterDemoData';
 

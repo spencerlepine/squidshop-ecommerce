@@ -3,7 +3,7 @@ import PageElement from 'layout/PageElement';
 import { useParams } from "react-router-dom";
 import useDataLoadHandler from 'hooks/useDataLoadHandler';
 import useHandleProductState from 'hooks/useHandleProductState';
-import * as products from '../../api/products';
+import * as products from 'api//products';
 import getStarterDemoData from 'hooks/getStarterDemoData';
 import ProductPageView from 'components/Product/PageView';
 

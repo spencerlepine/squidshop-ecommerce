@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { Alert, Button, Typography } from '@mui/material';
 
-import * as status from '../api/status';
+import * as status from 'api//status';
 
 interface ContextInt {
   loading?: boolean;

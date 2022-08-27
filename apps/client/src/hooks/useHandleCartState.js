@@ -3,7 +3,7 @@ import useAuth from 'context/AuthContext';
 import useDemoSettings from 'context/DemoSettingsContext';
 import useCart from 'context/CartContext';
 import useOrders from 'context/OrdersContext';
-import CartService from '../api/cart';
+import CartService from 'api//cart';
 import { useNavigate } from "react-router-dom";
 
 const useHandleCartState = (Component) => {
