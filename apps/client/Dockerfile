@@ -1,5 +1,5 @@
 # stage1 - build react app first
-FROM node:16 as build
+FROM node:16-alpine as build
 WORKDIR /app
 
 ENV NODE_ENV=production
