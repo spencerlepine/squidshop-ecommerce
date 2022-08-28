@@ -21,7 +21,7 @@ const ProductPage = () => {
     if (options.useDemoData) {
       const demoDataOptions = {
         isListData: false,
-        optionalDepartmentId: null,
+        // optionalDepartmentId: null,
         demoProductId: productId,
         isSaleData: false,
       }

@@ -1,23 +1,21 @@
 {
   "compilerOptions": {
     "outDir": "./build/",
-    "moduleResolution": "node",
-    "allowSyntheticDefaultImports": true,
-    "allowJs": true,
     "noImplicitAny": true,
     "sourceMap": true,
     "module": "es6",
     "target": "es5",
-    "jsx": "react-jsx",
     "baseUrl": "./src",
     "rootDir": "./src",
+    "jsx": "react-jsx",
+    "allowJs": true,
+    "moduleResolution": "node",
     "resolveJsonModule": true,
-    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
     "lib": [
       "es6",
       "dom"
     ],
-    "noImplicitThis": true,
   },
   "include": [
     "src"
@@ -25,6 +23,6 @@
   "exclude": [
     "src/**/*.spec.ts",
     "src/**/*.test.js",
-    "dist"
+    "build"
   ]
 }

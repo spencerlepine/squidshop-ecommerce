@@ -65,10 +65,10 @@ const CartItemCard: React.FC<Props> = ({ product, removeFromCart }) => {
       // top: 0,
       right: 0,
       top: '20%'
-    }
+    }  as React.CSSProperties;
 
     return (
-      <Button variant="contained" color="error" size="small" style={deleteButtonStyles} onClick={removeFromCart} className="removeBtn">
+      <Button variant="contained" color="error" size="small" style={deleteButtonStyles} onClick={() => removeFromCart()} className="removeBtn">
         <DeleteIcon />
       </Button>
     )

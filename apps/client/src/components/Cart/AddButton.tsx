@@ -48,7 +48,7 @@ const AddButton:  React.FC<Props> = ({ useTinyButton= false, entireProduct = {} 
     color: 'rgb(15, 17, 17)',
     display: 'block',
     marginTop: '2em',
-  };
+  } as React.CSSProperties;
   return (
     <Button className="addToCartBtn" variant="contained" size="large" style={cartButtonStyles} onClick={handleAdd}>Add to Cart</Button>
   )

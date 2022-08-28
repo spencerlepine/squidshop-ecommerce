@@ -22,16 +22,6 @@ const formatProductTitle = (str: string) => {
   return capitalized
 }
 
-const saleStyles = {
-  position: 'absolute',
-  left: '1em',
-  top: '1em',
-  backgroundColor: 'rgb(177, 39, 4)',
-  color: 'white',
-  padding: '0.25em 0.5em',
-  fontWeight: 'bold'
-}
-
 type PriceProps = {
   price: string;
   salePrice: any;
@@ -62,15 +52,6 @@ const ProductPrice: React.FC<PriceProps> = ({ price, salePrice }) => {
   )
 }
 
-const CardStyles = {
-  maxWidth: 300,
-  maxHeight: '25em',
-  minWidth: 200,
-  margin: 'auto',
-  position: 'relative',
-  border: 'none',
-}
-
 type Props = {
   product: any;
   useMinimumDetails?: boolean;
@@ -79,15 +60,29 @@ type Props = {
 const ProductCard: React.FC<Props> = ({ product, useMinimumDetails }) => {
   return (
     <Link to={`/product/${product.id || 'unkown'}`} component={RouterLink} style={{ color: 'inherit', textDecoration: 'inherit' }}>
-      <Card style={CardStyles}>
-        {!!product.sale_price && <Typography variant="caption" style={saleStyles}>ON SALE</Typography>}
+      <Card style={{
+        maxWidth: 300,
+        maxHeight: '25em',
+        minWidth: 200,
+        margin: 'auto',
+        position: 'relative',
+        border: 'none',
+      }}>
+        {!!product.sale_price && <Typography variant="caption" style={{
+          position: 'absolute',
+          left: '1em',
+          top: '1em',
+          backgroundColor: 'rgb(177, 39, 4)',
+          color: 'white',
+          padding: '0.25em 0.5em',
+          fontWeight: 'bold'
+        }}>ON SALE</Typography>}
 
         <img
           alt={product.title}
-          src={product.image}
+          src={(product.image || missingImage)}
           // height="188"
           style={{ width: '17rem', height: '17rem', margin: 'auto' }}
-          image={product.image || missingImage}
         />
 
         <CardContent style={{ position: 'relative' }}>

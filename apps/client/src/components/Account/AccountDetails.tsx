@@ -38,7 +38,7 @@ const LogoutButton:  React.FC<Props> = ({ isDemoMode, logoutUser }) => {
     margin: 'auto',
     marginTop: '3em',
     width: '10em'
-  };
+  }  as React.CSSProperties;
   return (
     <Button variant="contained" size="large" style={logoutButtonStyles} onClick={handleLogout}>
       Logout

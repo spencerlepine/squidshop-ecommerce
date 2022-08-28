@@ -16,7 +16,7 @@ const CartView: React.FC<Props> = ({ data, handleCheckout, handleRemove }) => {
     margin: '1em',
     padding: '0.5em 1em',
     float: 'right'
-  };
+  } as React.CSSProperties;
 
   const cartItems = data || [];
   const priceStr = `$${(cartItems.reduce((sum: number, p: any) => sum += p.price, 0)).toFixed(2)}`
@@ -32,7 +32,7 @@ const CartView: React.FC<Props> = ({ data, handleCheckout, handleRemove }) => {
           {priceStr}
         </Typography>
 
-        <Button variant="contained" size="large" style={checkoutButtonStyles} onClick={handleCheckout} className="checkoutBtn">
+        <Button variant="contained" size="large" style={checkoutButtonStyles} onClick={() => handleCheckout()} className="checkoutBtn">
           Checkout
         </Button>
         <br />

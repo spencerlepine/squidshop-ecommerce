@@ -17,7 +17,7 @@ const SaleProducts: React.FC<Props> = ({ departmentId }) => {
       const demoDataOptions = {
         isListData: true,
         optionalDepartmentId: departmentId,
-        demoProductId: null,
+        // demoProductId: null,
         isSaleData: true,
       }
       const demoProduct = getStarterDemoData(demoDataOptions)
@@ -48,7 +48,7 @@ const DepartmentCatalog: React.FC<Props> = ({ departmentId }) => {
       const demoDataOptions = {
         isListData: true,
         optionalDepartmentId: departmentId,
-        demoProductId: null,
+        // demoProductId: null,
         isSaleData: false,
       }
       const demoProduct = getStarterDemoData(demoDataOptions)
