@@ -1,5 +1,5 @@
 import * as React from 'react';
-import demoData from './demoProducts.json'
+import * as demoData from './demoProducts.json'
 const demoProducts = demoData.products;
 
 /* Randomize array in-place using Durstenfeld shuffle algorithm */
