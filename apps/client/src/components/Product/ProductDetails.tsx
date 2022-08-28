@@ -4,8 +4,13 @@ import Box from '@mui/material/Box';
 import Rating from '@mui/material/Rating';
 import AddToCartButton from 'components/Cart/AddButton';
 
-const ProductPrice = ({ price, salePrice }) => {
-  const originalPriceStr = Number.parseFloat(price).toFixed(2).toString()
+type PriceProps = {
+  price: string;
+  salePrice: string | undefined;
+}
+
+const ProductPrice: React.FC<PriceProps> = ({ price, salePrice }) => {
+  const originalPriceStr = Number.parseFloat(price || '').toFixed(2).toString()
 
   if (salePrice) {
     const salePriceStr = Number.parseFloat(salePrice).toFixed(2).toString()
@@ -29,9 +34,11 @@ const ProductPrice = ({ price, salePrice }) => {
   )
 }
 
-
+type DetailsProps = {
+  product: any;
+}
 // should handle sale price styling
-const ProductDetails = ({ product }) => {
+const ProductDetails: React.FC<DetailsProps> = ({ product }) => {
   const category = product.category || 'unknown'
   const departmentName = category[0].toUpperCase() + category.substring(1, category.length)
   const description = product.description || 'missing'

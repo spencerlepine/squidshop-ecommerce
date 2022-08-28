@@ -1,7 +1,6 @@
-// import Products from 'components/Products';
 import * as React from 'react';
 import PageElement from 'layout/PageElement';
-import MissingPage from '../MissingPage';
+import MissingPage from './MissingPage';
 import DepartmentView from 'components/Department/DepartmentView';
 import DepartmentLinkOptions from 'components/Department/DepartmentLinkOptions';
 import departments from 'components/Department/departments.json';
@@ -18,7 +17,7 @@ import { useParams } from "react-router-dom";
 const DepartmentPage = () => {
   const { departmentId } = useParams();
 
-  if (departments.indexOf(departmentId) === -1) {
+  if (departments.indexOf(departmentId || '') === -1) {
     return <MissingPage />
   }
 

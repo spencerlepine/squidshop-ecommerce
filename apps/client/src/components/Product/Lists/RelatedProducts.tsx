@@ -1,15 +1,19 @@
 import * as React from 'react';
-import useDataLoadHandler from 'hook/useDataLoadHandler';
-import useHandleProductState from 'hook/useHandleProductState';
+import useDataLoadHandler from 'hooks/useDataLoadHandler';
+import useHandleProductState from 'hooks/useHandleProductState';
 import { Typography } from "@material-ui/core";
 import Box from '@mui/material/Box';
-import * as products from 'api///products';
-import ProductHoriList from '../../ProductHoriList'
-import getStarterDemoData from 'hook/getStarterDemoData';
+import * as products from 'api/products';
+import ProductHoriList from './ProductHoriList'
+import getStarterDemoData from 'hooks/getStarterDemoData';
 
-const RelatedProducts = ({ product }) => {
-  const relatedFetch = ({ useDemoData }) => {
-    if (useDemoData) {
+type Props = {
+  product: any;
+}
+
+const RelatedProducts: React.FC<Props> = ({ product }) => {
+  const relatedFetch = (options: any) => {
+    if (options.useDemoData) {
       const demoDataOptions = {
         isListData: true,
         optionalDepartmentId: product.category,

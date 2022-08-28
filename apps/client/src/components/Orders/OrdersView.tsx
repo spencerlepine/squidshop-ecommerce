@@ -7,7 +7,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import useAuth from 'context/AuthContext';
 import useDemoSettings from 'context/DemoSettingsContext';
 import useOrders from 'context/OrdersContext';
-import OrderItemCard from '../OrderItemCard';
+import OrderItemCard from './OrderItemCard';
 
 const OrdersView = () => {
   const { currentUser } = useAuth();
@@ -15,7 +15,7 @@ const OrdersView = () => {
   const { orderItems, loading, loadUserOrders, useDemoOrders } = useOrders();
 
   const refreshOrders = () => {
-    if (useDemoData || (currentUser && currentUser.id)) {
+    if (useDemoData || (currentUser && currentUser.id && loadUserOrders)) {
       const id = (currentUser || {})['id']
       loadUserOrders(id)
     }
@@ -28,7 +28,7 @@ const OrdersView = () => {
   }, [])
 
   useEffect(() => {
-    if (orderItems && orderItems.length === 0 && useDemoData) {
+    if (orderItems && orderItems.length === 0 && useDemoData && useDemoOrders) {
       // eslint-disable-next-line react-hooks/rules-of-hooks
       useDemoOrders()
     }

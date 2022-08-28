@@ -20,18 +20,22 @@ const SignIn = () => {
   const [errorMessage, setErrorMessage] = useState('');
   const navigate = useNavigate();
 
-  const handleSubmit = (event) => {
+  const handleSubmit = (event: any) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    loginUser(data.get('email'), data.get('password'))
-      .then((user) => {
-        if (user) {
-          navigate("/", { replace: true });
-        }
-      })
-      .catch(() => {
-        setErrorMessage('Incorrect email or password')
-      })
+    const email = `${data.get('email')}`
+    const password = `${data.get('password')}`
+    if (loginUser) {
+      loginUser(email, password)
+        .then((user: any) => {
+          if (user) {
+            navigate("/", { replace: true });
+          }
+        })
+        .catch(() => {
+          setErrorMessage('Incorrect email or password')
+        })
+    }
   };
 
   return (

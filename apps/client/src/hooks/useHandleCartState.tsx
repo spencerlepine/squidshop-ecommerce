@@ -1,4 +1,4 @@
-
+import * as React from 'react';
 import useAuth from 'context/AuthContext';
 import useDemoSettings from 'context/DemoSettingsContext';
 import useCart from 'context/CartContext';
@@ -6,7 +6,7 @@ import useOrders from 'context/OrdersContext';
 import CartService from 'api//cart';
 import { useNavigate } from "react-router-dom";
 
-const useHandleCartState = (Component) => {
+const useHandleCartState = (Component: any) => {
   const navigate = useNavigate();
   const { currentUser } = useAuth();
   const { addDemoOrder } = useOrders(); // for demo purposes
@@ -22,36 +22,40 @@ const useHandleCartState = (Component) => {
         purchaseDate: "2/17/22",
         cartItems: CartService.demoCart
       }
-      handleCheckout('', { isDemoCart: true, addDemoOrder: () => addDemoOrder(demoOrder) })
-      navigate('/orders');
+      if (handleCheckout && addDemoOrder) {
+        handleCheckout('', { isDemoCart: true, addDemoOrder: () => addDemoOrder(demoOrder) })
+        navigate('/orders');
+      }
     }
 
-    if ((currentUser && currentUser.id)) {
+    if ((currentUser && currentUser.id) && handleCheckout) {
       const id = (currentUser || {})['id']
       handleCheckout(id)
     }
   }
 
-  const handleRemove = (cartProduct) => () => {
+  const handleRemove = (cartProduct: any) => () => {
     if (useDemoData) {
       navigate('/cart');
       CartService.removeDemoProductFromCart(cartProduct.id)
     }
-    return removeFromCart(cartProduct.cartItemId || cartProduct.id, (currentUser || {}).id, { isDemoCart: useDemoData })
+    if (removeFromCart) {
+      return removeFromCart(cartProduct.cartItemId || cartProduct.id, (currentUser || {}).id, { isDemoCart: useDemoData })
+    }
   }
 
-  const refreshCart = (userId, useDemoData) => {
+  const refreshCart = (userId: string, useDemoData: any) => {
     if (useDemoData) {
       return () => new Promise((resolve) => {
-        if (cartItems && cartItems.length === 0) {
+        if (cartItems && cartItems.length === 0 && useDemoCart) {
           // eslint-disable-next-line react-hooks/rules-of-hooks
           useDemoCart()
         }
         resolve(CartService.demoCart)
       })
     } else if (userId) {
-      return () => CartService.fetchUserCart(userId).then(({ cart }) => {
-        return cart
+      return () => CartService.fetchUserCart(userId).then((result: any) => {
+        return result.cart
       })
     }
 

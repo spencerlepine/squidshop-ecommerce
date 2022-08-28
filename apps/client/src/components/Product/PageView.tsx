@@ -1,12 +1,16 @@
 import * as React from 'react';
 import { Link } from '@material-ui/core';
 import { Link as RouterLink } from "react-router-dom";
-import { Box, Grid, Typography, Button } from '@mui/material/';
+import { Box, Grid, Button } from '@mui/material/';
 import ProductDetails from './ProductDetails';
 import ProductImage from './ProductImage';
-import RelatedProducts from './RelatedProducts';
+import RelatedProducts from './Lists/RelatedProducts';
 
-const ProductPageView = ({ data: product }) => {
+type Props = {
+  data: any;
+}
+
+const ProductPageView: React.FC<Props> = ({ data: product }) => {
   return (
     <>
       <Box sx={{ mt: 2 }}>
@@ -36,7 +40,7 @@ const ProductPageView = ({ data: product }) => {
 }
 
 ProductPageView.defaultProps = {
-  product: {
+  data: {
     category: 'unknown',
     description: 'missing',
     price: 0,

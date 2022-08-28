@@ -73,7 +73,7 @@ const CardStyles = {
 
 type Props = {
   product: any;
-  useMinimumDetails: any;
+  useMinimumDetails?: boolean;
 }
 
 const ProductCard: React.FC<Props> = ({ product, useMinimumDetails }) => {

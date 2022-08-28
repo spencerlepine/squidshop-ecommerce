@@ -2,7 +2,11 @@ import * as React from 'react';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 
-const ProductImage = ({ product }) => {
+type Props = {
+  product: any;
+}
+
+const ProductImage: React.FC<Props> = ({ product }) => {
   return (
     <ImageList sx={{ width: 300, height: 300 }} cols={1} rowHeight={300}>
       <ImageListItem>

@@ -9,7 +9,7 @@ type Props = {
 }
 
 const SearchableList: React.FC<Props> = ({ products, inSearchMode }) => {
-  const [filteredProducts, setFilteredProducts] = useState(products);
+  const [filteredProducts, setFilteredProducts] = React.useState(products);
   const [sortOption, setSortOption] = React.useState("SORT BY");
   const [orderOption, setOrderOption] = React.useState("ASC");
 
@@ -31,7 +31,7 @@ const SearchableList: React.FC<Props> = ({ products, inSearchMode }) => {
       <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 2, sm: 8, md: 18 }} style={{ margin: '1em auto' }}>
         {(filteredProducts && filteredProducts.length > 0) && (
           <>
-            {filteredProducts.map((product, i) => (
+            {filteredProducts.map((product: any, i: number) => (
               <Grid item xs={2} sm={4} md={6} key={i} style={{ paddingLeft: 0 }}>
                 <ProductCard product={product} />
               </Grid>

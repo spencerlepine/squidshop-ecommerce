@@ -5,7 +5,7 @@ import AuthService from 'api//authentication';
 interface ContextInt {
   loading?: boolean;
   currentUser?: any;
-  loginUser?: (email: string, password: string) => any;
+  loginUser?: (email: string | null, password: string | null) => any;
   getAccountDetails?: () => any;
   logoutUser?: () => any;
   isLoggedIn?: boolean;
@@ -51,7 +51,7 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
     }
   }
 
-  function loginUser(email: string, password: string) {
+  function loginUser(email: string | null, password: string | null) {
     setLoading(true);
     return AuthService.signInWithEmailAndPassword({ email, password })
       .then((user: any) => {

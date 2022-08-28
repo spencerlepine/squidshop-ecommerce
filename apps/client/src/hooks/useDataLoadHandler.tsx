@@ -1,25 +1,25 @@
-import { useState, useEffect } from 'react';
+import * as React from 'react';
 import LoadingStatusWrapper from 'layout/LoadStatusWrapper';
 import useDemoSettings from 'context/DemoSettingsContext';
 
-const dataLoadingHandler = (Component, fetchFunction, customProps = {}) =>
+const dataLoadingHandler = (Component: any, fetchFunction: Function, customProps: any = {}) =>
   () => {
     const { apiRunning, useDemoData } = useDemoSettings()
-    const [dataForChild, setDataForChild] = useState(null);
-    const [loading, setLoading] = useState(false);
-    const [isError, setIsError] = useState(false);
+    const [dataForChild, setDataForChild] = React.useState(null);
+    const [loading, setLoading] = React.useState(false);
+    const [isError, setIsError] = React.useState(false);
 
     const handleRefresh = () => {
       setIsError(false);
       setLoading(true);
 
       return fetchFunction()
-        .then((data) => setDataForChild(data))
-        .catch((err) => err ? setIsError(true) : '')
+        .then((data: any) => setDataForChild(data))
+        .catch((err: any) => err ? setIsError(true) : '')
         .then(() => setLoading(false))
     }
 
-    useEffect(() => {
+    React.useEffect(() => {
       if (process.env.NODE_ENV !== 'test' && !loading) {
         handleRefresh()
       }

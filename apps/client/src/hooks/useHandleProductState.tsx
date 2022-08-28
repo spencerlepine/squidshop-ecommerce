@@ -1,7 +1,7 @@
-import { useEffect } from 'react';
+import * as React from 'react';
 import useDemoSettings from 'context/DemoSettingsContext';
 
-const useHandleProductState = (Component, options) => {
+const useHandleProductState = (Component: any, options?: any) => {
   const { productId, fetchFunction } = options;
   const { useDemoData } = useDemoSettings();
 
@@ -14,7 +14,7 @@ const useHandleProductState = (Component, options) => {
     return fetchFunction({ useDemoData: false })
   }
 
-  useEffect(() => {
+  React.useEffect(() => {
     fetchProductData()
   }, []);
 

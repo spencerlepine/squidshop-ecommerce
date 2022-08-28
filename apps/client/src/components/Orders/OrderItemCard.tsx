@@ -9,7 +9,12 @@ import ImageListItem from '@mui/material/ImageListItem';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 
-const ProductPrice = ({ price }) => {
+
+type PriceProps = {
+  price: string;
+}
+
+const ProductPrice: React.FC<PriceProps> = ({ price }) => {
   const originalPriceStr = Number.parseFloat(price).toFixed(2).toString()
 
   return (
@@ -19,17 +24,18 @@ const ProductPrice = ({ price }) => {
   )
 }
 
-const OrderItemCard = ({ order }) => {
-  const category = order.category || 'unknown'
-
-  const ProductImage = ({ product }) => {
+type Props = {
+  order: any;
+}
+const OrderItemCard: React.FC<Props> = ({ order }) => {
+  const ProductImage = (props: any) => {
     return (
       <ImageList sx={{ width: 100, height: 100 }} cols={1} rowHeight={100} >
         <ImageListItem>
           <img
-            src={product.image}
-            srcSet={product.image}
-            alt={product.title}
+            src={props.product.image}
+            srcSet={props.product.image}
+            alt={props.product.title}
             loading="lazy"
           />
         </ImageListItem>
@@ -72,7 +78,7 @@ const OrderItemCard = ({ order }) => {
 
         <CardContent>
           <Grid container spacing={2}>
-            {(items && items.length > 0) && items.map((cartItem, i) => (
+            {(items && items.length > 0) && items.map((cartItem: any, i: number) => (
               <Grid container spacing={2} key={i}>
                 <Grid item xs={2}>
                   <ProductImage product={cartItem} />

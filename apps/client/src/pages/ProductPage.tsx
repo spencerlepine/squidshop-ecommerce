@@ -17,8 +17,8 @@ const ProductPage = () => {
   const { productId } = useParams();
 
   // Return a return a promise
-  const refreshFetch = ({ useDemoData }) => {
-    if (useDemoData) {
+  const refreshFetch = (options: any) => {
+    if (options.useDemoData) {
       const demoDataOptions = {
         isListData: false,
         optionalDepartmentId: null,
@@ -28,7 +28,7 @@ const ProductPage = () => {
       const demoProduct = getStarterDemoData(demoDataOptions)
       return () => new Promise((resolve) => resolve(demoProduct))
     }
-    return () => products.fetchProductDataById(productId)
+    return () => products.fetchProductDataById(productId || '')
   }
 
   const ProductState = useHandleProductState(ProductPageView, { productId, fetchFunction: refreshFetch });

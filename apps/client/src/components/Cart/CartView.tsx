@@ -1,8 +1,14 @@
 import { Box, Typography, Button } from '@mui/material';
-import CartItemCard from '../CartItemCard/CartItemCard.tsx';
+import CartItemCard from './CartItemCard';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
-const CartView = ({ data, handleCheckout, handleRemove }) => {
+type Props = {
+  data: any;
+  handleCheckout: Function;
+  handleRemove: Function;
+}
+
+const CartView: React.FC<Props> = ({ data, handleCheckout, handleRemove }) => {
   const checkoutButtonStyles = {
     backgroundColor: 'rgb(252, 210, 0)',
     color: 'rgb(15, 17, 17)',
@@ -13,7 +19,7 @@ const CartView = ({ data, handleCheckout, handleRemove }) => {
   };
 
   const cartItems = data || [];
-  const priceStr = `$${(cartItems.reduce((sum, p) => sum += p.price, 0)).toFixed(2)}`
+  const priceStr = `$${(cartItems.reduce((sum: number, p: any) => sum += p.price, 0)).toFixed(2)}`
 
   return (
     <Box sx={{ textAlign: 'center', mt: 6 }}>
@@ -34,7 +40,7 @@ const CartView = ({ data, handleCheckout, handleRemove }) => {
 
       <Box sx={{ textAlign: 'left', mt: 6 }}>
         {(cartItems && cartItems.length > 0) && (
-          cartItems.map((cartProduct, i) => (
+          cartItems.map((cartProduct: any, i: number) => (
             <CartItemCard product={cartProduct} removeFromCart={handleRemove(cartProduct)} key={i} />
           ))
         )}

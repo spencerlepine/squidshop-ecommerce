@@ -2,15 +2,18 @@ import * as React from 'react';
 import { Typography } from "@material-ui/core";
 import Box from '@mui/material/Box';
 import * as products from 'api//products';
-import useDataLoadHandler from 'hook/useDataLoadHandler';
-import useHandleProductState from 'hook/useHandleProductState';
-import ProductHoriList from '../../Product/ProductHoriList';
-import getStarterDemoData from 'hook/getStarterDemoData';
+import useDataLoadHandler from 'hooks/useDataLoadHandler';
+import useHandleProductState from 'hooks/useHandleProductState';
+import ProductHoriList from '../Product/Lists/ProductHoriList';
+import getStarterDemoData from 'hooks/getStarterDemoData';
 
-const SaleProducts = ({ departmentId }) => {
+type Props = {
+  departmentId?: string;
+}
+const SaleProducts: React.FC<Props> = ({ departmentId }) => {
   // Return a return a promise
-  const fetchSaleProducts = ({ useDemoData }) => {
-    if (useDemoData) {
+  const fetchSaleProducts = (options: any) => {
+    if (options.useDemoData) {
       const demoDataOptions = {
         isListData: true,
         optionalDepartmentId: departmentId,
@@ -20,7 +23,7 @@ const SaleProducts = ({ departmentId }) => {
       const demoProduct = getStarterDemoData(demoDataOptions)
       return () => new Promise((resolve) => resolve(demoProduct))
     }
-    return () => products.fetchDepartmentSaleProducts(departmentId)
+    return () => products.fetchDepartmentSaleProducts(departmentId || '')
   }
 
   const ProductState = useHandleProductState(ProductHoriList, { fetchFunction: fetchSaleProducts });
@@ -37,11 +40,11 @@ const SaleProducts = ({ departmentId }) => {
   )
 }
 
-const DepartmentCatalog = ({ departmentId }) => {
+const DepartmentCatalog: React.FC<Props> = ({ departmentId }) => {
 
   // Return a return a promise
-  const fetchDepartmentProducts = ({ useDemoData }) => {
-    if (useDemoData) {
+  const fetchDepartmentProducts = (options: any) => {
+    if (options.useDemoData) {
       const demoDataOptions = {
         isListData: true,
         optionalDepartmentId: departmentId,
@@ -51,7 +54,7 @@ const DepartmentCatalog = ({ departmentId }) => {
       const demoProduct = getStarterDemoData(demoDataOptions)
       return () => new Promise((resolve) => resolve(demoProduct))
     }
-    return () => products.fetchDepartmentProducts(departmentId)
+    return () => products.fetchDepartmentProducts(departmentId || '')
   }
 
   const ProductState = useHandleProductState(ProductHoriList, { fetchFunction: fetchDepartmentProducts });
@@ -68,7 +71,7 @@ const DepartmentCatalog = ({ departmentId }) => {
   )
 }
 
-const DepartmentView = ({ departmentId }) => {
+const DepartmentView: React.FC<Props> = ({ departmentId }) => {
   const id = departmentId || ''
   const departmentName = id[0].toUpperCase() + id.substring(1, id.length)
 
@@ -78,7 +81,7 @@ const DepartmentView = ({ departmentId }) => {
         {departmentName}
       </Typography>
 
-      <SaleProducts departmentId={departmentId} TODO />
+      <SaleProducts departmentId={departmentId} />
 
       <DepartmentCatalog departmentId={departmentId} />
     </div>

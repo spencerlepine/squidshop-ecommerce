@@ -5,7 +5,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Typography from '@mui/material/Typography';
 import Select from '@mui/material/Select';
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
-import useStyles from '../styles.js';
+import useStyles from './styles.js';
 
 const sortOptions = [
   "SORT BY",
@@ -58,9 +58,11 @@ const FilterOptions: React.FC<Props> = ({ sortOption, orderOption, setOrderOptio
   const handleSortProducts = () => {
     setFilteredProducts((prevProducts: any) => {
       const newList = prevProducts.slice()
-      return newList.sort((productA: any, productB: any) => (
-        sortFunctions[sortOption](orderAdjustments[orderOption], productA, productB)
-      ))
+      return newList.sort((productA: any, productB: any) => {
+        const sortOpt = (sortFunctions as any)[sortOption] || "SORT BY";
+        const orderOpt = (orderAdjustments as any)[orderOption] || "ORDER BY";
+        return sortOpt(orderOpt, productA, productB)
+    })
     })
   }
 
@@ -68,21 +70,19 @@ const FilterOptions: React.FC<Props> = ({ sortOption, orderOption, setOrderOptio
     setState(newValue.target.value)
     handleSortProducts()
   };
-  const queryTextStyle = {
-    margin: 0,
-    display: 'flex',
-    position: 'absolute',
-    top: '50%',
-    '-ms-transform': 'translateY(-50%)',
-    transform: 'translateY(-50%)',
-    marginRight: 'auto',
-    left: '5em',
-  }
 
   if (inSearchMode) {
     return (
       <Box sx={{ minWidth: 100 }} style={{ position: "relative" }}>
-        <div style={queryTextStyle}>
+        <div style={{
+          margin: 0,
+          display: 'flex',
+          position: 'absolute',
+          top: '50%',
+          transform: 'translateY(-50%)',
+          marginRight: 'auto',
+          left: '5em',
+        }}>
           <FilterAltIcon />
           <Typography variant="body1" color="p">{inSearchMode}</Typography>
         </div>

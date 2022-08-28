@@ -1,6 +1,6 @@
-
+import * as React from 'react';
 import PageElement from 'layout/PageElement';
-import CatalogView from 'components/CatalogView';
+import CatalogView from 'components/Catalog/CatalogView';
 import { useLocation } from "react-router-dom";
 import DepartmentLinkOptions from 'components/Department/DepartmentLinkOptions';
 
@@ -18,7 +18,7 @@ const CatalogPage = () => {
     <PageElement maxWidth="md">
       <DepartmentLinkOptions />
 
-      <CatalogView currentQuery={query.get('query')} />
+      <CatalogView currentQuery={query.get('query') || ''} />
     </PageElement >
   );
 }

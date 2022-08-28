@@ -10,8 +10,14 @@ import ImageListItem from '@mui/material/ImageListItem';
 import Button from '@mui/material/Button';
 import DeleteIcon from '@mui/icons-material/Delete';
 
-const ProductPrice = ({ price, salePrice }) => {
-  const originalPriceStr = Number.parseFloat(price).toFixed(2).toString()
+type PriceProps = {
+  price: string;
+  salePrice?: string;
+}
+
+const ProductPrice: React.FC<PriceProps> = ({ price, salePrice }) => {
+  const finalPrice = salePrice || price
+  const originalPriceStr = Number.parseFloat(finalPrice).toFixed(2).toString()
 
   return (
     <Typography gutterBottom variant="h6" component="div">
@@ -20,7 +26,11 @@ const ProductPrice = ({ price, salePrice }) => {
   )
 }
 
-const CartItemCard = ({ product, removeFromCart }) => {
+type Props = {
+  product: any;
+  removeFromCart: Function;
+}
+const CartItemCard: React.FC<Props> = ({ product, removeFromCart }) => {
   const category = product.category || 'unknown'
   const departmentName = category[0].toUpperCase() + category.substring(1, category.length)
 

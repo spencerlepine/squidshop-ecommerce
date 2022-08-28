@@ -5,7 +5,8 @@ import useCart from 'context/CartContext';
 import useDemoSettings from 'context/DemoSettingsContext';
 
 type Props = {
-  useTinyButton: boolean | undefined;
+  productId?: string | undefined;
+  useTinyButton?: boolean | undefined;
   entireProduct: any;
 }
 

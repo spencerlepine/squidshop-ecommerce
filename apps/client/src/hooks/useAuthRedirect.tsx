@@ -1,9 +1,14 @@
-
+import * as React from 'react';
 import useAuth from 'context/AuthContext';
 import useDemoSettings from 'context/DemoSettingsContext';
 import { Navigate, useLocation } from 'react-router-dom';
 
-const withAuthRedirect = (Component, redirectOptions) =>
+type RedirectOpts = {
+  shouldBeLoggedIn?: boolean;
+  inaccessibleWhenLoggedIn?: boolean;
+}
+
+const withAuthRedirect = (Component: any, redirectOptions: RedirectOpts) =>
   () => {
     const location = useLocation();
     const { inaccessibleWhenLoggedIn, shouldBeLoggedIn } = redirectOptions

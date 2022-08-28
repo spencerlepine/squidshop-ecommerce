@@ -1,8 +1,9 @@
+import * as React from 'react';
 import demoData from './demoProducts.json'
 const demoProducts = demoData.products;
 
 /* Randomize array in-place using Durstenfeld shuffle algorithm */
-function shuffleArray(array) {
+function shuffleArray(array: Array<any>) {
   for (var i = array.length - 1; i > 0; i--) {
     var j = Math.floor(Math.random() * (i + 1));
     var temp = array[i];
@@ -12,7 +13,7 @@ function shuffleArray(array) {
   return array
 }
 
-const extractDemoProductList = (list, optionalDepartmentId, isSaleData) => {
+const extractDemoProductList = (list: Array<any>, optionalDepartmentId?: string, isSaleData?: any) => {
   // If given a specific depertmentId, filter the output list
   if (optionalDepartmentId) {
     list = list.filter(({ category }) => category === optionalDepartmentId)
@@ -30,7 +31,7 @@ const extractDemoProductList = (list, optionalDepartmentId, isSaleData) => {
   return shuffleArray(list.slice(0, 20))
 }
 
-const extractDemoProduct = (list, isSaleData) => {
+const extractDemoProduct = (list: Array<any>, isSaleData: any) => {
   const random = demoProducts[Math.floor(Math.random() * list.length)]
   const product = JSON.parse(JSON.stringify(random));
 
@@ -42,7 +43,7 @@ const extractDemoProduct = (list, isSaleData) => {
   return product
 }
 
-const getStarterData = (options) => {
+const getStarterData = (options: any) => {
   const {
     isListData,
     optionalDepartmentId,

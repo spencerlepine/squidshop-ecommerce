@@ -8,7 +8,7 @@ interface ContextInt {
   loadUserCart?: (userId: any) => any;
   addItemToCart?: (product: any, userId: string, options?: any) => any;
   removeFromCart?: (cartItemId: string, userId: string, options?: any) => any;
-  handleCheckout?: (userId: string, eraseForDemo: any) => any;
+  handleCheckout?: Function;
   useDemoCart?: () => Array<any>;
 }
 
@@ -109,7 +109,7 @@ export const CartProvider: React.FC<Props> = ({ children }) => {
     return new Promise((resolve) => resolve([]))
   }
 
-  const handleCheckout = (userId: string, eraseForDemo: any) => {
+  const handleCheckout = (userId: string, eraseForDemo: any = {}) => {
     if (eraseForDemo && eraseForDemo.addDemoOrder) {
       CartService.demoCart = []
       const cart = cartItems.slice()
