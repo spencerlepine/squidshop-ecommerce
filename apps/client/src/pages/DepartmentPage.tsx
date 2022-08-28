@@ -3,7 +3,15 @@ import PageElement from 'layout/PageElement';
 import MissingPage from './MissingPage';
 import DepartmentView from 'components/Department/DepartmentView';
 import DepartmentLinkOptions from 'components/Department/DepartmentLinkOptions';
-import departments from 'components/Department/departments.json';
+const departments = [
+  "tees",
+  "hoodies",
+  "hats",
+  "decor",
+  "gear",
+  "surf boards"
+]
+
 import { useParams } from "react-router-dom";
 
 // should take departmentId from URL parameters

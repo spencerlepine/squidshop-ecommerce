@@ -2,7 +2,15 @@ import Box from '@mui/material/Box';
 import { Link } from '@material-ui/core';
 import { Button } from '@mui/material';
 import { Link as RouterLink } from "react-router-dom";
-import * as departments from './departments.json';
+
+const departments = [
+  "tees",
+  "hoodies",
+  "hats",
+  "decor",
+  "gear",
+  "surf boards"
+]
 
 const highlightCurrentLink = (currentDepartment: string, thisDepartment: string) => {
   if (currentDepartment === thisDepartment) {
