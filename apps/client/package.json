@@ -12,6 +12,7 @@
     "@types/react": "^18.0.17",
     "@types/react-dom": "^18.0.6",
     "axios": "^0.27.2",
+    "eslint-config-react-app": "^7.0.1",
     "file-loader": "^6.2.0",
     "material-ui-search-bar": "^1.0.0",
     "react": "^18.2.0",

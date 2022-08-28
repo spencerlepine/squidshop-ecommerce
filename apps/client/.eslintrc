@@ -6,7 +6,15 @@
     "no-undef": "off",
     "no-unused-vars": "off",
     "global-require": "warn",
-    "testing-library/no-node-access": "off"
+    "testing-library/no-node-access": "off",
+    "react/jsx-filename-extension": [
+      "warn",
+      {
+        "extensions": [
+          ".tsx"
+        ]
+      }
+    ]
   },
   "extends": [
     "@spencerlepine/eslint-config-react",
@@ -17,5 +25,8 @@
   "parserOptions": {
     "sourceType": "module",
     "allowImportExportEverywhere": true
-  }
+  },
+  "ignorePatterns": [
+    "**/build/*"
+  ],
 }
