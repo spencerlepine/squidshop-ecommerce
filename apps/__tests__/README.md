@@ -10,7 +10,9 @@ Run the crypress tests:
 ```sh
 cd apps/__tests__
 npm install
-node_modules/.bin/cypress open # open the dashboard
+npm run test
+
 # OR
+node_modules/.bin/cypress open # open the dashboard
 node_modules/.bin/cypress run # simply run the tests
 ```
