@@ -1,4 +1,4 @@
-[
+const demoProducts = [
 	{
 		"id": "c31f955e-4b45-4d81-85b2-cdca60263317",
 		"title": "WOMENS HAPPY WAVES LONG SLEEVE TEE",
@@ -1028,3 +1028,5 @@
 		"rating_count": 166
 	}
 ]
+
+export default demoProducts;
