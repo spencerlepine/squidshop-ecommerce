@@ -1,14 +1,15 @@
 {
   "name": "squidshop-client",
   "version": "0.1.0",
+  "homepage": "http://localhost:3000",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.10.0",
     "@emotion/styled": "^11.10.0",
     "@material-ui/core": "^4.12.4",
     "@material-ui/icons": "^4.11.3",
-    "@mui/icons-material": "^5.8.4",
-    "@mui/material": "5.10.1",
+    "@mui/icons-material": "5.10.3",
+    "@mui/material": "5.10.3",
     "@types/react": "^18.0.17",
     "@types/react-dom": "^18.0.6",
     "axios": "^0.27.2",
@@ -29,10 +30,10 @@
     "ts-jest": "^28.0.8",
     "ts-loader": "^9.3.1",
     "typescript": "^4.8.2",
-    "web-vitals": "^2.1.0",
+    "web-vitals": "3.0.0",
     "webpack": "^5.74.0",
     "webpack-cli": "^4.10.0",
-    "webpack-dev-server": "^4.10.0"
+    "webpack-dev-server": "4.10.1"
   },
   "scripts": {
     "start": "webpack serve",
@@ -64,9 +65,9 @@
     "@testing-library/jest-dom": "5.16.5",
     "@testing-library/react": "^13.0.0",
     "@testing-library/user-event": "14.4.3",
-    "eslint": "8.22.0",
+    "eslint": "8.23.0",
     "eslint-plugin-jsx": "^0.1.0",
-    "jest": "^29.0.1",
+    "jest": "29.0.1",
     "jest-environment-jsdom": "^29.0.1",
     "jest-watch-typeahead": "^2.1.1",
     "prettier": "^2.7.1"

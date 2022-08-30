@@ -5,6 +5,7 @@ import * as products from 'api//products';
 import useDataLoadHandler from 'hooks/useDataLoadHandler';
 import useHandleProductState from 'hooks/useHandleProductState';
 import ProductHoriList from '../Product/Lists/ProductHoriList';
+import ProductList from '../Product/Lists/ProductList';
 import getStarterDemoData from 'hooks/getStarterDemoData';
 
 type Props = {
@@ -51,13 +52,13 @@ const DepartmentCatalog: React.FC<Props> = ({ departmentId }) => {
         // demoProductId: null,
         isSaleData: false,
       }
-      const demoProduct = getStarterDemoData(demoDataOptions)
-      return () => new Promise((resolve) => resolve(demoProduct))
+      const demoProducts = getStarterDemoData(demoDataOptions)
+      return () => new Promise((resolve) => resolve(demoProducts))
     }
     return () => products.fetchDepartmentProducts(departmentId || '')
   }
 
-  const ProductState = useHandleProductState(ProductHoriList, { fetchFunction: fetchDepartmentProducts });
+  const ProductState = useHandleProductState(ProductList, { fetchFunction: fetchDepartmentProducts });
   const ProductDeptLoader = useDataLoadHandler(ProductState.Component, ProductState.fetchFunction, ProductState.options)
 
   return (

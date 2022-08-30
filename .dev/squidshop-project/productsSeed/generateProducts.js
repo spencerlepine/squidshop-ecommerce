@@ -6,7 +6,6 @@ const PROUDCTS_PER_DEPT_COUNT = 20;
 const DEPARTMENTS = [
   "tees",
   "hoodies",
-  "hats",
   "decor",
   "gear",
   "surf boards"

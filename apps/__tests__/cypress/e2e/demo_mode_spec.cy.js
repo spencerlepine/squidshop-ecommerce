@@ -101,8 +101,8 @@ describe('[DEMO MODE] The Home Page', () => {
         .should('be.visible')
         .click({ force: true })
 
-      cy.get('h2')
-        .should('contain.text', 'Cart')
+      cy.location('pathname', { timeout: 40000 })
+        .should('include', '/cart');
 
       cy.get('.productTitle').should('be.visible');
 

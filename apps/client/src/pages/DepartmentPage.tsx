@@ -6,7 +6,6 @@ import DepartmentLinkOptions from 'components/Department/DepartmentLinkOptions';
 const departments = [
   "tees",
   "hoodies",
-  "hats",
   "decor",
   "gear",
   "surf boards"

@@ -4,6 +4,7 @@ services:
   mysql_db:
     networks:
       - mysql-network
+    platform: linux/x86_64 # MacOS M1 Chip Fix
     image: mysql:5.7
     restart: always
     ports:
@@ -99,6 +100,7 @@ services:
   mysql_orders_db:
     networks:
       - order-db-network
+    platform: linux/x86_64
     image: mysql:5.7
     restart: always
     ports:

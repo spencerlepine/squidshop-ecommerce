@@ -6,7 +6,6 @@ import { Link as RouterLink } from "react-router-dom";
 const departments = [
   "tees",
   "hoodies",
-  "hats",
   "decor",
   "gear",
   "surf boards"
