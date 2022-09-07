@@ -1,12 +1,4 @@
-const clickHeaderLink = (index) => {
-  return cy.get('header')
-    .within(() => {
-      cy.get('a')
-        .and(($img) => {
-          $img[index].click()
-        })
-    })
-}
+const clickHeaderLink = require('./testHelpers/clickHeaderLink')
 
 describe('[DEMO MODE] The Home Page', () => {
   it('loads successfully', () => {
@@ -101,13 +93,12 @@ describe('[DEMO MODE] The Home Page', () => {
         .should('be.visible')
         .click({ force: true })
 
-      cy.location('pathname', { timeout: 40000 })
-        .should('include', '/cart');
+      cy.contains('SquidShop').click()
+      cy.contains('Cart').click()
 
       cy.get('.productTitle').should('be.visible');
 
       cy.get('.removeBtn').closest('button').click()
-
       cy.get('.productTitle').should('not.exist');
     })
   })
