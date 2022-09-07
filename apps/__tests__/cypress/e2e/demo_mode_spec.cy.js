@@ -93,12 +93,12 @@ describe('[DEMO MODE] The Home Page', () => {
         .should('be.visible')
         .click({ force: true })
 
-      clickHeaderLink(cy, 2) // cart
+      cy.contains('SquidShop').click()
+      cy.contains('Cart').click()
 
       cy.get('.productTitle').should('be.visible');
 
       cy.get('.removeBtn').closest('button').click()
-
       cy.get('.productTitle').should('not.exist');
     })
   })
