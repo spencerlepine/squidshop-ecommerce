@@ -14,7 +14,7 @@
     "dontusepostinstall": "npm run db:migrate"
   },
   "dependencies": {
-    "body-parser": "^1.20.0",
+    "body-parser": "^1.20.1",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "eslint-plugin-import": "^2.26.0",
