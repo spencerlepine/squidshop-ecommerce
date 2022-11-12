@@ -5,10 +5,10 @@ import FilterOptions from './FilterOptions';
 
 type Props = {
   products: any;
-  inSearchMode: any;
+  isSearchMode: boolean;
 }
 
-const SearchableList: React.FC<Props> = ({ products, inSearchMode }) => {
+const SearchableList: React.FC<Props> = ({ products, isSearchMode }) => {
   const [filteredProducts, setFilteredProducts] = React.useState(products);
   const [sortOption, setSortOption] = React.useState("SORT BY");
   const [orderOption, setOrderOption] = React.useState("ASC");
@@ -24,7 +24,7 @@ const SearchableList: React.FC<Props> = ({ products, inSearchMode }) => {
         orderOption={orderOption}
         setOrderOption={setOrderOption}
         setSortOption={setSortOption}
-        inSearchMode={inSearchMode}
+        isSearchMode={isSearchMode}
         setFilteredProducts={setFilteredProducts}
       />
 

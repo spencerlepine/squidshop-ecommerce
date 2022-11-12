@@ -2,7 +2,7 @@ import * as React from 'react';
 import useDemoSettings from 'context/DemoSettingsContext';
 
 const useHandleProductState = (Component: any, options?: any) => {
-  const { productId, fetchFunction } = options;
+  const { fetchFunction } = options;
   const { useDemoData } = useDemoSettings();
 
   const fetchProductData = () => {
@@ -21,7 +21,7 @@ const useHandleProductState = (Component: any, options?: any) => {
   return {
     Component: Component,
     fetchFunction: fetchProductData(),
-    options: { productId }
+    options,
   }
 }
 
