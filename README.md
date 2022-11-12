@@ -29,3 +29,14 @@ $ cd squidshop-ecommerce
 $ docker-compose up
 # visit localhost:3000 in the browser
 ```
+
+## 📦 Technologies:
+- [React](https://reactjs.org/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Cypress](https://www.cypress.io/)
+- [Jest](https://jestjs.io/)
+- [Node.js](https://nodejs.org/en/) / [Express](https://expressjs.com/)
+- [Docker](https://www.docker.com/)
+- [GitHub Actions](https://github.com/features/actions)
+- [MySQL](https://www.mysql.com/)
+- [Cassandra](https://cassandra.apache.org/_/index.html)
