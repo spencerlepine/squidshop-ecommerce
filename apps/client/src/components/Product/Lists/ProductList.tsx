@@ -5,10 +5,10 @@ import SearchableList from './SearchableList/SearchableList';
 
 type Props = {
   data?: any;
-  inSearchMode?: any;
+  isSearchMode: boolean;
 }
 
-const ProductList: React.FC<Props> = ({ data: products, inSearchMode }) => {
+const ProductList: React.FC<Props> = ({ data: products, isSearchMode }) => {
   return (
     <div className="productList">
       {products && products.length === 0 && (
@@ -17,7 +17,7 @@ const ProductList: React.FC<Props> = ({ data: products, inSearchMode }) => {
         </Alert>
       )}
 
-      <SearchableList products={products || []} inSearchMode={inSearchMode} />
+      <SearchableList products={products || []} isSearchMode={isSearchMode} />
     </div>
   );
 }

@@ -19,7 +19,8 @@ const CartView: React.FC<Props> = ({ data, handleCheckout, handleRemove }) => {
   } as React.CSSProperties;
 
   const cartItems = data || [];
-  const priceStr = `$${(cartItems.reduce((sum: number, p: any) => sum += p.price, 0)).toFixed(2)}`
+  const cartTotal = (cartItems.reduce((sum: number, p: any) => sum += p.price, 0))
+  const priceStr = `$${cartTotal.toFixed(2)}`
 
   return (
     <Box sx={{ textAlign: 'center', mt: 6 }}>
@@ -32,7 +33,7 @@ const CartView: React.FC<Props> = ({ data, handleCheckout, handleRemove }) => {
           {priceStr}
         </Typography>
 
-        <Button variant="contained" size="large" style={checkoutButtonStyles} onClick={() => handleCheckout()} className="checkoutBtn">
+        <Button disabled={cartTotal === 0} variant="contained" size="large" style={checkoutButtonStyles} onClick={() => handleCheckout()} className="checkoutBtn">
           Checkout
         </Button>
         <br />

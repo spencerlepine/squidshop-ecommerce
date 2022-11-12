@@ -41,7 +41,7 @@ const CatalogView: React.FC<Props> = ({ currentQuery, hideTitle }) => {
     return currentQuery ? () => products.fetchSearchProducts(currentQuery) : () => products.fetchCatalogProducts()
   }
 
-  const ProductState = useHandleProductState(ProductList, { fetchFunction: queryFetch });
+  const ProductState = useHandleProductState(ProductList, { fetchFunction: queryFetch, isSearchMode: !!currentQuery  });
   const ProductDataLoader = useDataLoadHandler(ProductState.Component, ProductState.fetchFunction, ProductState.options)
 
   return (

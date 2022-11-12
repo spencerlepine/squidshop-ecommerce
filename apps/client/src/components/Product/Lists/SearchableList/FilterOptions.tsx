@@ -48,11 +48,11 @@ type Props = {
   orderOption: string;
   setOrderOption: Function;
   setSortOption: Function;
-  inSearchMode: any;
+  isSearchMode: any;
   setFilteredProducts: Function;
 }
 
-const FilterOptions: React.FC<Props> = ({ sortOption, orderOption, setOrderOption, setSortOption, inSearchMode, setFilteredProducts }) => {
+const FilterOptions: React.FC<Props> = ({ sortOption, orderOption, setOrderOption, setSortOption, isSearchMode, setFilteredProducts }) => {
   const classes = useStyles();
 
   const handleSortProducts = () => {
@@ -71,7 +71,7 @@ const FilterOptions: React.FC<Props> = ({ sortOption, orderOption, setOrderOptio
     handleSortProducts()
   };
 
-  if (inSearchMode) {
+  if (isSearchMode) {
     return (
       <Box sx={{ minWidth: 100 }} style={{ position: "relative" }}>
         <div style={{
@@ -84,7 +84,7 @@ const FilterOptions: React.FC<Props> = ({ sortOption, orderOption, setOrderOptio
           left: '5em',
         }}>
           <FilterAltIcon />
-          <Typography variant="body1" color="p">{inSearchMode}</Typography>
+          <Typography variant="body1" color="p">{isSearchMode}</Typography>
         </div>
         <div style={{ display: 'flex', marginLeft: 'auto', width: 'fit-content' }}>
           <InputLabel id="demo-simple-select-label" style={{ margin: 'auto 0.5em' }}>Sort</InputLabel>

@@ -6,9 +6,10 @@ module.exports = {
     {
       displayName: "DOM",
       testEnvironment: "jsdom",
+      preset: 'ts-jest',
       transform: {
+        '^.+\\.(ts|tsx)?$': 'ts-jest',
         "^.+\\.(js|jsx)$": "babel-jest",
-        "^.+\\.(ts|js)x?$": "ts-jest"
       },
       setupFilesAfterEnv: ["<rootDir>/src/__tests__/setupTests.js"],
       // "extensionsToTreatAsEsm": [".jsx"],
@@ -20,12 +21,12 @@ module.exports = {
         "jest-watch-typeahead/filename",
         "jest-watch-typeahead/testname",
       ],
-      moduleFileExtensions: ["js", "tsx", "ts"],
+      moduleFileExtensions: ["js", "jsx", "ts", "tsx"],
       moduleNameMapper: {
         "\\.(css|less)$": "<rootDir>/src/__tests__/__mocks__/styleMock.ts",
         "\\.(png|gif|ttf|eot|svg|jpeg|jpg)$": "<rootDir>/src/__tests__/__mocks__/fileMock.ts",
       },
-      transformIgnorePatterns: ["node_modules/(?!.*?/es/.*\\.js)"],
+      transformIgnorePatterns: ['/node_modules/(?!(axios)/)'],
     },
   ],
 };
