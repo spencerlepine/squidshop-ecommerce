@@ -33,7 +33,7 @@ Ocean-themed ecommerce web app connected to microservice architecture backend.
 
 ## 🏗️ Architecture
 
-![Microservice Architecture Diagram](./.dev/squidshop-project/assets/architecture_diagram.png)
+![Microservice Architecture Diagram](./.dev/squidshop-project/assets/architecture_diagram-smaller.png)
 
 
 ## ⚙️ Setup
