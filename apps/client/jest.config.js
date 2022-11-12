@@ -26,7 +26,7 @@ module.exports = {
         "\\.(css|less)$": "<rootDir>/src/__tests__/__mocks__/styleMock.ts",
         "\\.(png|gif|ttf|eot|svg|jpeg|jpg)$": "<rootDir>/src/__tests__/__mocks__/fileMock.ts",
       },
-      transformIgnorePatterns: ['/node_modules/(?!axios)'],
+      transformIgnorePatterns: ['/node_modules/(?!(axios)/)'],
     },
   ],
 };
