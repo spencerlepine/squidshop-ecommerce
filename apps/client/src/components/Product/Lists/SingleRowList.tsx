@@ -3,7 +3,6 @@ import Grid from '@mui/material/Grid';
 import ProductCard from '../ProductCard';
 
 const scrollGridStyles = {
-  maxHeight: 350,
   overflowX: "scroll",
   overflowY: "hidden"
 }
