@@ -30,7 +30,7 @@
     "nodemon": "^2.0.20",
     "sequelize": "6.27.0",
     "sequelize-cli": "6.5.2",
-    "sqlite3": "5.1.2",
+    "sqlite3": "5.1.4",
     "supertest": "6.3.3"
   },
   "devDependencies": {
