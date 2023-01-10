@@ -72,6 +72,6 @@
     "jest": "29.3.1",
     "jest-environment-jsdom": "29.3.1",
     "jest-watch-typeahead": "^2.2.1",
-    "prettier": "^2.8.1"
+    "prettier": "^2.8.2"
   }
 }
